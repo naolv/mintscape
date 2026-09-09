@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,11 +114,20 @@
             background: #fef2f2;
             border: 2px solid #fca5a5;
             border-left: 5px solid var(--danger);
-            padding: 12px 15px;
+            padding: 14px 16px;
             border-radius: 8px;
             margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .editor-setup-box ol {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .editor-setup-box li {
+            margin-bottom: 4px;
         }
 
         .task-card {
@@ -162,7 +171,7 @@
         .hw-finder {
             background: #0f172a;
             color: white;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             margin-bottom: 15px;
         }
@@ -171,23 +180,26 @@
             background: #334155;
             color: #f8fafc;
             border: 1px solid #475569;
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 4px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
             margin-right: 4px;
             margin-bottom: 6px;
+            font-weight: 500;
         }
 
         .hw-btn:hover { background: #0284c7; }
 
         .hw-desc {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: #cbd5e1;
             background: #1e293b;
-            padding: 8px 12px;
-            border-radius: 4px;
-            min-height: 30px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            min-height: 40px;
+            line-height: 1.4;
+            border: 1px solid #334155;
         }
 
         .editor-iframe {
@@ -245,17 +257,18 @@
                         <h3>1. Was ist der micro:bit?</h3>
                         
                         <div class="intro-box">
-                            Der <b>BBC micro:bit</b> ist ein winziger Einplatinen-Computer. Trotz seiner kleinen Größe steckt er voller Technik: Er besitzt ein Display aus 25 roten Lichterketten (LEDs), Tasten, Sensoren für Bewegung und Temperatur sowie ein Mikrofon. Mit Python schreibst du Befehle, die der micro:bit direkt ausführt.
+                            Der <b>BBC micro:bit</b> ist ein winziger Computer auf einer Platine. Mit Python schreibst du Befehle, die der micro:bit direkt ausführt.
                         </div>
 
                         <div class="hw-finder">
-                            <h4>🔍 Entdecke die Hardware (Klicke zum Erkunden):</h4>
+                            <h4 style="margin-top:0;">🔍 Hardware-Detektiv: Suchst du die Teile auf deinem micro:bit?</h4>
+                            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand! Klicke unten auf ein Bauteil und schau, ob du es auf deiner Platine entdeckst:</p>
                             <div>
-                                <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
-                                <button class="hw-btn" onclick="showHw('btn')">Tasten A &amp; B</button>
-                                <button class="hw-btn" onclick="showHw('sens')">Sensoren</button>
+                                <button class="hw-btn" onclick="showHw('led')">🔴 5x5 LEDs</button>
+                                <button class="hw-btn" onclick="showHw('btn')">🔘 Tasten A &amp; B</button>
+                                <button class="hw-btn" onclick="showHw('sens')">🧭 Sensoren</button>
                             </div>
-                            <div id="hw-info" class="hw-desc">Klicke oben auf ein Bauteil, um zu sehen, was es kann!</div>
+                            <div id="hw-info" class="hw-desc" style="margin-top:10px;">Klicke oben auf einen Knopf, um zu erfahren, wo du das Bauteil auf deinem echten micro:bit findest!</div>
                         </div>
 
                         <div class="task-card">
@@ -336,7 +349,7 @@ while True:
                         
                         <div class="intro-box">
                             <b>Bedingungen verstehen (Wenn ... Dann ... Sonst):</b><br>
-                            Der integrierte Kompass-Sensor misst Stärke von Magnetfeldern. Ein Magnet an der Tür hält den Wert hoch. Wird die Tür geöffnet, fällt die Stärke ab und der micro:bit schlägt Alarm!
+                            Der integrierte Kompass-Sensor misst die Stärke von Magnetfeldern. Ein Magnet an der Tür hält den Wert hoch. Wird die Tür geöffnet, fällt die Stärke ab und der micro:bit schlägt Alarm!
                         </div>
 
                         <div class="task-card">
@@ -372,15 +385,21 @@ while True:
 
                 <!-- RECHTER BEREICH: EDITOR & ANLEITUNG -->
                 <div>
-                    <!-- WICHTIGER HINWEIS ZUR MODUS-EINSTELLUNG -->
+                    <!-- GENAUE SCHRITT-FÜR-SCHRITT-ANLEITUNG ZUR EINSTELLUNG -->
                     <div class="editor-setup-box">
-                        ⚙️ <b>Wichtig vor dem Starten im Editor:</b><br>
-                        Stelle oben rechts im WebTigerPython-Editor den Modus unbedingt auf <b>micro:bit</b> (bzw. <i>TigerJython micro:bit</i>) um! Standardmäßig steht dort "Python 3" – dann erscheint sonst die Fehlermeldung <i>"No module named microbit"</i>.
+                        <strong>⚠️ WICHTIG: Stelle zuerst den Editor richtig ein!</strong>
+                        <p style="margin: 4px 0 0 0;">Damit WebTigerPython den micro:bit versteht, mache Folgendes im Editor rechts unten/oben:</p>
+                        <ol>
+                            <li>Klicke ganz oben rechts auf die <b>drei Punkte ⋮</b> (Menü).</li>
+                            <li>Klicke auf den Menüpunkt <b>«Gerät»</b>.</li>
+                            <li>Wähle in der Liste <b>«micro:bit»</b> aus.</li>
+                        </ol>
+                        <small style="display:block; margin-top:6px; color:#b91c1c;">(Wenn du das nicht machst, zeigt der Editor den Fehler <i>«No module named microbit»</i> an!)</small>
                     </div>
 
                     <h3>Arbeitsbereich: WebTigerPython</h3>
                     <iframe class="editor-iframe" src="https://webtigerpython.ethz.ch/?mode=microbit" title="WebTigerPython Editor"></iframe>
-                    <p><small>✍️ Tippe den Code hier ein. Achte genau auf Einrückungen und Groß-/Kleinschreibung!</small></p>
+                    <p><small>✍️ Tippe den Code hier ein. Achte genau auf Einrückungen und Gross-/Kleinschreibung!</small></p>
                 </div>
             </div>
 
@@ -425,11 +444,11 @@ while True:
         function showHw(part) {
             const info = document.getElementById('hw-info');
             if(part === 'led') {
-                info.innerHTML = "🔴 <b>5x5 LED-Display:</b> Zeigt Symbole, Zahlen und Texte an. Befehl im Code: <code>display.show()</code>";
+                info.innerHTML = "🔴 <b>5x5 LED-Raster:</b> Schau auf die Vorderseite deines micro:bit! Dort siehst du 25 kleine rote Quadrate. Das sind die Lampen. Befehl im Code: <code>display.show()</code>";
             } else if(part === 'btn') {
-                info.innerHTML = "🔘 <b>Knöpfe A & B:</b> Tasten auf der Vorderseite, um Aktionen auszulösen. Befehl: <code>button_a.is_pressed()</code>";
+                info.innerHTML = "🔘 <b>Tasten A & B:</b> Auf der Vorderseite siehst du links den Knopf <b>A</b> und rechts den Knopf <b>B</b>. Drücke sie mit dem Daumen! Befehl im Code: <code>button_a.is_pressed()</code>";
             } else if(part === 'sens') {
-                info.innerHTML = "🧭 <b>Sensoren:</b> Messen Schütteln/Bewegung (<code>accelerometer</code>) oder Magnete (<code>compass</code>).";
+                info.innerHTML = "🧭 <b>Sensoren:</b> Drehe den micro:bit auf die <b>Rückseite</b>! Dort findest du die kleinen schwarzen Chips für Bewegung (<code>accelerometer</code>) und Kompass/Magnet (<code>compass</code>).";
             }
         }
     </script>
