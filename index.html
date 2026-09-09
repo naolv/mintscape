@@ -145,6 +145,26 @@
             min-height: 20px;
         }
 
+        /* Video Container */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Format */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         /* Integrierter Editor */
         .editor-iframe {
             width: 100%;
@@ -165,7 +185,6 @@
             white-space: pre;
         }
 
-        /* Schritte-Anleitung */
         .step-list {
             padding-left: 20px;
             font-size: 0.9rem;
@@ -187,45 +206,13 @@
             border-radius: 6px;
             margin-top: 8px;
         }
-
-        textarea {
-            width: 100%;
-            height: 90px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 13px;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e1;
-            box-sizing: border-box;
-        }
-
-        button.btn-run {
-            background: var(--success);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 6px;
-            font-weight: bold;
-        }
-
-        .feedback-box {
-            margin-top: 8px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-        }
-        .feedback-box.error { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-        .feedback-box.success { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>🚀 MINTscape – Das Erfinder-Portal</h1>
-        <p class="subtitle">Wähle dein Projekt, klicke die Bauteile an &amp; erfahre, wie der Code funktioniert!</p>
+        <p class="subtitle">Wähle dein Projekt, klicke die Bauteile an &amp; lege direkt los!</p>
     </header>
 
     <!-- DASHBOARD KACHELN -->
@@ -287,12 +274,24 @@
             <h2>🤖 Modul: micro:bit &amp; WebTigerPython</h2>
             
             <div class="intro-box">
-                <b>💡 Was machen wir hier?</b> Der micro:bit ist ein echter Minicomputer mit Display, Tasten und Sensoren. Statt den Code nur fertig zu kopieren, lernen wir hier Schritt für Schritt, wie man dem micro:bit in der Sprache <i>Python</i> Befehle gibt!
+                <b>💡 Was machen wir hier?</b> Der micro:bit ist ein echter Minicomputer mit Display, Tasten und Sensoren. Wir lernen hier Schritt für Schritt, wie man dem micro:bit in der Sprache <i>Python</i> eigene Befehle gibt!
             </div>
 
             <div class="grid-2col">
                 <div>
-                    <!-- SCHNELLER HARDWARE-FINDER -->
+                    <!-- NACHWEISBAR FUNKTIONIERENDES EINGEBETTETES VIDEO -->
+                    <h4>📺 Erklär-Video zum micro:bit</h4>
+                    <div class="video-container">
+                        <!--youtube-nocookie.com verhindert Blockaden in lokalen HTML-Dateien -->
+                        <iframe 
+                            src="https://www.youtube-nocookie.com/embed/u2u7VJSRudo?rel=0" 
+                            title="micro:bit Erklärung" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <!-- HARDWARE-FINDER -->
                     <div class="hw-finder">
                         <h4>🔍 Blitz-Finder: Wo ist was am micro:bit?</h4>
                         <div class="hw-buttons">
@@ -304,11 +303,11 @@
                         <div id="hw-info" class="hw-desc">Klicke oben auf ein Bauteil, um zu sehen, wo es liegt!</div>
                     </div>
 
-                    <!-- AUFGABE & SCHRITT-FÜR-SCHRITT ANLEITUNG -->
+                    <!-- AUFGABE -->
                     <div class="task-box">
                         <h3 style="margin-top:0;">Aufgabe: Das blinkende Herz 💓</h3>
                         
-                        <p style="font-size:0.85rem; margin-bottom: 5px;"><b>So entsteht dein Programm Schritt für Schritt:</b></p>
+                        <p style="font-size:0.85rem; margin-bottom: 5px;"><b>So funktioniert dein Code Schritt für Schritt:</b></p>
                         
                         <ol class="step-list">
                             <li>
@@ -317,11 +316,11 @@
                             </li>
                             <li>
                                 <code>while True:</code><br>
-                                <small style="color: #047857;">Die Unendliche Schleife. Wiederholt alles darunter ewig.</small>
+                                <small style="color: #047857;">Unendliche Schleife: Wiederholt alles darin ewig.</small>
                             </li>
                             <li>
                                 <code>&nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.HEART)</code><br>
-                                <small style="color: #047857;">Zeigt das Herz-Symbol auf den 25 LEDs an.</small>
+                                <small style="color: #047857;">Zeigt das Herz auf den 25 LEDs an.</small>
                             </li>
                             <li>
                                 <code>&nbsp;&nbsp;&nbsp;&nbsp;sleep(500)</code><br>
@@ -329,7 +328,7 @@
                             </li>
                             <li>
                                 <code>&nbsp;&nbsp;&nbsp;&nbsp;display.clear()</code><br>
-                                <small style="color: #047857;">Schaltet alle LEDs aus &amp; wartet noch einmal 500ms.</small>
+                                <small style="color: #047857;">Schaltet die LEDs aus &amp; wartet noch einmal 500ms.</small>
                             </li>
                         </ol>
 
@@ -342,16 +341,9 @@ while True:
     sleep(500)</div>
 
                         <p style="font-size: 0.8rem; color: #b91c1c; margin-top: 6px;">
-                            ⚠️ <b>Wichtig in Python:</b> Befehle unter <code>while True:</code> MÜSSEN eingerückt sein (4 Leerzeichen oder Tab-Taste)!
+                            ⚠️ <b>Wichtig in Python:</b> Die Zeilen unter <code>while True:</code> MÜSSEN eingerückt sein (Tab-Taste drücken)!
                         </p>
                     </div>
-
-                    <!-- CODE-DOKTOR -->
-                    <h3>🩺 Code-Doktor (Prüfer)</h3>
-                    <p style="margin-top:0;"><small>Hast du deinen Code getippt? Teste hier, ob die Einrückung stimmt:</small></p>
-                    <textarea id="code-input" spellcheck="false" placeholder="Füge deinen geschriebenen Code hier ein..."></textarea>
-                    <button class="btn-run" onclick="checkPythonCode()">Code prüfen</button>
-                    <div id="feedback" class="feedback-box hidden"></div>
                 </div>
 
                 <!-- RECHTE SPALTE: EDITOR -->
@@ -374,7 +366,7 @@ while True:
             <div style="max-width: 700px;">
                 <div class="task-box" style="border-left-color: #0284c7; background: #e0f2fe;">
                     <h3 style="margin-top:0;">Schritt 1: Tinkercad im neuen Tab öffnen</h3>
-                    <p>Tinkercad lässt sich aus Sicherheitsgründen nicht direkt einbetten. Klicke auf den Button, um die Zeichenfläche in einem neuen Fenster zu öffnen:</p>
+                    <p>Klicke auf den Button, um die Zeichenfläche in einem neuen Fenster zu öffnen:</p>
                     <a href="https://www.tinkercad.com/login" target="_blank" class="action-btn" style="background: #0284c7;">
                         🚀 Tinkercad im neuen Tab öffnen ↗
                     </a>
@@ -441,7 +433,7 @@ while True:
 
                 <h3>Schritt 2: Den Stromkreis aufbauen</h3>
                 <ol class="step-list">
-                    <li><b>Erdung (EARTH) halten:</b> Klemme ein Kabel an unten an <code>EARTH</code> und halte das metallische Ende in deiner Hand.</li>
+                    <li><b>Erdung (EARTH) halten:</b> Klemme ein Kabel unten an <code>EARTH</code> und halte das metallische Ende in deiner Hand.</li>
                     <li><b>Taste verbinden:</b> Klemme ein zweites Kabel an <code>SPACE</code> oder die <code>Pfeiltaste</code> und stecke es z. B. in eine Banane.</li>
                     <li><b>Auslösen:</b> Berühre die Banane! Der Strom fließt durch deinen Körper zum Makey Makey zurück – dein Scratch-Spiel reagiert sofort!</li>
                 </ol>
@@ -464,65 +456,14 @@ while True:
         function showHw(part) {
             const info = document.getElementById('hw-info');
             if(part === 'led') {
-                info.innerHTML = "🔴 <b>5x5 LED-Raster:</b> Befindet sich genau in der Mitte der Vorderseite. Es kann Bilder, Zahlen und Texte anzeigen.";
+                info.innerHTML = "🔴 <b>5x5 LED-Raster:</b> Befindet sich in der Mitte der Vorderseite. Es zeigt Bilder, Zahlen und Texte an.";
             } else if(part === 'btn') {
-                info.innerHTML = "🔘 <b>Knöpfe A & B:</b> Auslöser-Tasten links und rechts neben dem Display auf der Vorderseite.";
+                info.innerHTML = "🔘 <b>Knöpfe A & B:</b> Tasten links und rechts neben dem Display auf der Vorderseite.";
             } else if(part === 'sens') {
-                info.innerHTML = "☀️ <b>Sensoren:</b> Das Display misst auch Licht! Die Temperatursensoren liegen auf der Rückseite des Boards.";
+                info.innerHTML = "☀️ <b>Sensoren:</b> Das LED-Display misst Helligkeit! Der Temperatursensor liegt auf der Rückseite.";
             } else if(part === 'pins') {
-                info.innerHTML = "⚡ <b>Goldene Pins:</b> Die Streifen ganz unten. Hier kannst du Krokodilklemmen, Motoren oder Lautsprecher anschließen.";
+                info.innerHTML = "⚡ <b>Goldene Pins:</b> Streifen ganz unten zum Anschließen von Krokodilklemmen, Kabeln oder Motoren.";
             }
-        }
-
-        // Code-Doktor mit Einrückungsprüfung
-        function checkPythonCode() {
-            const code = document.getElementById('code-input').value;
-            const feedback = document.getElementById('feedback');
-            feedback.className = 'feedback-box';
-
-            if (!code.trim()) {
-                feedback.className = 'feedback-box error';
-                feedback.innerHTML = `🔴 Füge zuerst deinen geschriebenen Code oben ein!`;
-                return;
-            }
-
-            const lines = code.split('\n');
-            let hasLoop = false;
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                const trimmed = line.trim();
-
-                // 1. Doppelpunkt-Prüfung
-                if ((trimmed.startsWith('while') || trimmed.startsWith('if')) && !trimmed.endsWith(':')) {
-                    feedback.className = 'feedback-box error';
-                    feedback.innerHTML = `🔴 <strong>Zeile ${i + 1}:</strong> Am Ende von <code>${trimmed}</code> fehlt der Doppelpunkt <code>:</code>`;
-                    return;
-                }
-
-                if (trimmed.startsWith('while')) {
-                    hasLoop = true;
-                }
-
-                // 2. Einrückungs-Prüfung (Indentation Error)
-                if (hasLoop && i > 0 && lines[i-1].trim().startsWith('while')) {
-                    if (!line.startsWith('    ') && !line.startsWith('\t')) {
-                        feedback.className = 'feedback-box error';
-                        feedback.innerHTML = `🔴 <strong>Einrückungsfehler in Zeile ${i + 1}:</strong> Befehle unter <code>while True:</code> müssen eingerückt sein! (Tab-Taste oder 4 Leerzeichen)`;
-                        return;
-                    }
-                }
-            }
-
-            // 3. Großschreibung prüfen
-            if (code.includes('Display.')) {
-                feedback.className = 'feedback-box error';
-                feedback.innerHTML = `🔴 Schreibe <code>display</code> klein! Python unterscheidet zwischen Groß- und Kleinschreibung.`;
-                return;
-            }
-
-            feedback.className = 'feedback-box success';
-            feedback.innerHTML = `🟢 <strong>Perfekt!</strong> Dein Code ist richtig aufgebaut und korrekt eingerückt!`;
         }
     </script>
 </body>
