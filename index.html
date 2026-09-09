@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINTscape – Dein Tüftel-Portal</title>
+    <title>MINTscape – Erfinder-Portal</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -42,7 +42,7 @@
 
         .card {
             background: var(--card-bg);
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             cursor: pointer;
@@ -76,7 +76,6 @@
 
         .hidden { display: none; }
 
-        /* Split-Layout für Medien & Anleitungen */
         .grid-2col {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -87,24 +86,14 @@
             .grid-2col { grid-template-columns: 1fr; }
         }
 
-        .hardware-preview {
-            width: 100%;
-            max-height: 250px;
-            object-fit: contain;
-            background: #f1f5f9;
-            border-radius: 8px;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 8px;
             background: #000;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .video-container iframe {
@@ -125,22 +114,23 @@
             font-size: 1rem;
             font-weight: bold;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 10px 0;
             transition: background 0.2s;
         }
 
-        .action-btn:hover { background: #1d4ed8; }
+        .action-btn:hover { opacity: 0.9; }
 
         .task-box {
             background: #f1f5f9;
             padding: 15px;
             border-radius: 8px;
             border-left: 4px solid var(--primary);
+            margin-bottom: 15px;
         }
 
         textarea {
             width: 100%;
-            height: 150px;
+            height: 140px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 14px;
             padding: 10px;
@@ -177,69 +167,69 @@
 
     <header>
         <h1>🚀 MINTscape – Das Erfinder-Portal</h1>
-        <p class="subtitle">Wähle dein Werkzeug, schaue das Video und starte dein Projekt!</p>
+        <p class="subtitle">Wähle ein Werkzeug, schaue das Video und starte dein Projekt!</p>
     </header>
 
-    <!-- DASHBOARD: Werkzeug-Auswahl -->
+    <!-- KACHEL-DASHBOARD -->
     <div class="dashboard">
         <div class="card active" onclick="switchModule('tinkercad')">
-            <img src="https://asset.conrad.com/media10/isa/160267/c1/-/de/002308376PI02/image.jpg" class="card-img" alt="3D Drucker Tinkercad">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Tinkercad_logo_2017.png" class="card-img" alt="Tinkercad Logo" style="object-fit: contain; padding: 10px; background: #f8fafc;">
             <h3>🧊 3D-Druck (Tinkercad)</h3>
             <small>Projekt Büroklammer</small>
         </div>
         <div class="card" onclick="switchModule('python')">
-            <img src="https://asset.conrad.com/media10/isa/160267/c1/-/de/002308376PI02/image.jpg" class="card-img" alt="BBC micro:bit">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Micro_bit_V2_Logo_and_Board.jpg" class="card-img" alt="BBC microbit">
             <h3>🤖 micro:bit Python</h3>
             <small>Code & Smart-Check</small>
         </div>
         <div class="card" onclick="switchModule('laser')">
-            <img src="https://asset.conrad.com/media10/isa/160267/c1/-/de/002308376PI02/image.jpg" class="card-img" alt="Lasercutter">
+            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=400&q=80" class="card-img" alt="Lasercutter">
             <h3>✂️ Lasercutter</h3>
-            <small>Gehäuse & Holzboxen</small>
+            <small>Holzboxen & Stecksysteme</small>
         </div>
         <div class="card" onclick="switchModule('makey')">
-            <img src="https://asset.conrad.com/media10/isa/160267/c1/-/de/002308376PI02/image.jpg" class="card-img" alt="Makey Makey">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Makey_Makey_board.jpg" class="card-img" alt="Makey Makey">
             <h3>🎹 Makey Makey</h3>
-            <small>Stromkreise & Musik</small>
+            <small>Stromkreise & Erfindungen</small>
         </div>
     </div>
 
     <div class="module-container">
         
-        <!-- MODUL 1: TINKERCAD / 3D-DRUCK -->
+        <!-- MODUL 1: TINKERCAD -->
         <div id="module-tinkercad">
             <h2>🧊 Modul: 3D-Druck mit Tinkercad</h2>
             
             <div class="grid-2col">
-                <!-- Links: Schritt-für-Schritt & Login -->
                 <div>
                     <div class="task-box" style="border-left-color: #0284c7; background: #e0f2fe;">
                         <h3>Schritt 1: Bei Tinkercad anmelden</h3>
-                        <p>Klicke auf den Button unten, um dich mit deinen Kurs-Zugangsdaten bei Tinkercad einzuloggen:</p>
-                        <a href="https://www.tinkercad.com/login" target="_blank" class="action-btn">🔗 Tinkercad im neuen Tab öffnen</a>
+                        <p>Öffne Tinkercad und melde dich mit deiner Kurs-ID an:</p>
+                        <a href="https://www.tinkercad.com/login" target="_blank" class="action-btn">🔗 Tinkercad in neuem Tab öffnen</a>
                     </div>
 
-                    <h3>Schritt 2: Das Dateinamen-Gebot ⚠️</h3>
-                    <p>Ändere den Zufallsnamen oben links sofort in folgendes Muster:</p>
-                    <p><code>DeinName_Bueroklammer</code> (z.B. <code>Lina_Bueroklammer</code>)</p>
+                    <div class="task-box" style="border-left-color: #dc2626; background: #fef2f2;">
+                        <h3>⚠️ Schritt 2: Das Dateinamen-Gebot</h3>
+                        <p>Lösche den Zufallsnamen oben links sofort und schreibe:</p>
+                        <p style="font-size: 1.1rem; font-weight: bold;"><code>DeinName_Bueroklammer</code></p>
+                    </div>
 
-                    <h3>Schritt 3: So baust du die Büroklammer</h3>
+                    <h3>Schritt 3: So konstruierst du die Büroklammer</h3>
                     <ol>
-                        <li>Ziehe einen roten Quader auf die Arbeitsfläche.</li>
-                        <li>Stelle die Maße ein: <b>Länge: 40 mm, Breite: 15 mm, Höhe: 2 mm</b>.</li>
-                        <li>Ziehe eine transparente "Bohrung" in die Mitte, um den Federschlitz auszustanzen.</li>
-                        <li>Markiere beide Formen und klicke auf <b>Gruppieren</b>.</li>
+                        <li>Ziehe einen roten Quader auf das Arbeitsfeld.</li>
+                        <li>Ändere die Maße: <b>Länge: 40 mm, Breite: 15 mm, Höhe: 2 mm</b>.</li>
+                        <li>Ziehe eine transparente "Bohrung" hinein, um den Federschlitz auszustanzen.</li>
+                        <li>Markiere beides und klicke auf <b>Gruppieren</b>.</li>
                     </ol>
                 </div>
 
-                <!-- Rechts: Video-Tutorial -->
                 <div>
-                    <h3>Erklär-Video: Grundfunktionen in Tinkercad</h3>
+                    <h3>📹 Erklärvideo: Tinkercad Grundlagen für Kinder</h3>
                     <div class="video-container">
-                        <!-- Beispiel-Einbindung eines kindgerechten YouTube-Tutorials -->
+                        <!-- Echtes Tinkercad Einsteiger-Tutorial -->
                         <iframe src="https://www.youtube-nocookie.com/embed/9BqI-G2O4s4" title="Tinkercad Tutorial" allowfullscreen></iframe>
                     </div>
-                    <p><small>📹 Schau dir das Video an, wenn du nicht mehr weißt, wie man Formen dreht oder gruppiert.</small></p>
+                    <p><small>Tipp: Schaue im Video ab Minute 1:30, wie man Formen zuschneidet und gruppiert.</small></p>
                 </div>
             </div>
         </div>
@@ -250,27 +240,29 @@
             
             <div class="grid-2col">
                 <div>
-                    <h3>So sieht dein micro:bit aus:</h3>
-                    <p>Ein kleiner Computer mit 25 roten LEDs und zwei Knöpfen (A und B).</p>
-                    
-                    <a href="https://webtigerpython.ethz.ch/" target="_blank" class="action-btn" style="background: #059669;">🔗 WebTigerPython der ETH öffnen</a>
-
-                    <div class="task-box" style="margin-top: 15px;">
-                        <h3>Code-Doktor Testen</h3>
-                        <p>Schreibe deinen Code hier im Testfenster, um Fehler vor der Übertragung zu finden:</p>
-                        <textarea id="code-input" spellcheck="false">from microbit import *
-
-while True:
-    display.show(Image.HEART)</textarea>
-                        <button class="btn-run" onclick="checkPythonCode()">▶ Code prüfen</button>
-                        <div id="feedback" class="feedback-box hidden"></div>
+                    <div class="task-box" style="border-left-color: #059669; background: #ecfdf5;">
+                        <h3>Schritt 1: WebTigerPython öffnen</h3>
+                        <p>Hier schreibst du deinen echten Python-Code für den micro:bit:</p>
+                        <a href="https://webtigerpython.ethz.ch/" target="_blank" class="action-btn" style="background: #059669;">🔗 WebTigerPython (ETH) öffnen</a>
                     </div>
+
+                    <h3>Schritt 2: Teste deinen Code auf Fehler</h3>
+                    <p>Nutze den Code-Doktor unten, bevor du das Programm herunterlädst:</p>
+                    
+                    <textarea id="code-input" spellcheck="false">from microbit import *
+
+while True
+    display.show(Image.HEART)</textarea>
+                    
+                    <button class="btn-run" onclick="checkPythonCode()">🩺 Code vom Doktor prüfen lassen</button>
+                    <div id="feedback" class="feedback-box hidden"></div>
                 </div>
 
                 <div>
-                    <h3>Erklär-Video: Erstes Programm auf den micro:bit laden</h3>
+                    <h3>📹 Erklärvideo: micro:bit in 3 Minuten erklärt</h3>
                     <div class="video-container">
-                        <iframe src="https://www.youtube-nocookie.com/embed/kaN3kB4B9ag" title="microbit Tutorial" allowfullscreen></iframe>
+                        <!-- Echtes micro:bit Tutorial -->
+                        <iframe src="https://www.youtube-nocookie.com/embed/kaN3kB4B9ag" title="microbit Erklärvideo" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -281,13 +273,17 @@ while True:
             <h2>✂️ Modul: Lasercutter & Steckboxen</h2>
             <div class="grid-2col">
                 <div>
-                    <a href="https://www.makercase.com/" target="_blank" class="action-btn" style="background: #7c3aed;">🔗 Makercase (Boxen-Generator) öffnen</a>
-                    <p>Mit Makercase kannst du Vorlagen für Holzkisten erstellen, die der Lasercutter auf den Millimeter genau ausschneidet.</p>
+                    <div class="task-box" style="border-left-color: #7c3aed; background: #f5f3ff;">
+                        <h3>Schritt 1: Generator öffnen</h3>
+                        <p>Erstelle milimetergenaue Holzboxen mit einem Klick:</p>
+                        <a href="https://www.makercase.com/" target="_blank" class="action-btn" style="background: #7c3aed;">🔗 Makercase Box-Generator öffnen</a>
+                    </div>
+                    <p><b>Anleitung:</b> Gib Höhe, Breite und Tiefe deiner Wunschbox ein. Lade die `.SVG`-Datei herunter und sende sie an den Lasercutter!</p>
                 </div>
                 <div>
-                    <h3>Video: Wie funktioniert ein Lasercutter?</h3>
+                    <h3>📹 Erklärvideo: Wie schneidet ein Lasercutter?</h3>
                     <div class="video-container">
-                        <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="Lasercutter Tutorial" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube-nocookie.com/embed/L938vXm_-b4" title="Lasercutter Video" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -295,16 +291,20 @@ while True:
 
         <!-- MODUL 4: MAKEY MAKEY -->
         <div id="module-makey" class="hidden">
-            <h2>🎹 Modul: Makey Makey</h2>
+            <h2>🎹 Modul: Makey Makey & Interaktion</h2>
             <div class="grid-2col">
                 <div>
-                    <a href="https://scratch.mit.edu/" target="_blank" class="action-btn" style="background: #ea580c;">🔗 Scratch Studio für Makey Makey öffnen</a>
-                    <p>Schließe die Krokodilklemmen an Alufolie, Knetmasse oder Obst an und steuere Töne in Scratch!</p>
+                    <div class="task-box" style="border-left-color: #ea580c; background: #fff7ed;">
+                        <h3>Schritt 1: Scratch öffnen</h3>
+                        <p>Verbinde Obst, Knetmasse oder Alufolie mit dem Makey Makey:</p>
+                        <a href="https://scratch.mit.edu/" target="_blank" class="action-btn" style="background: #ea580c;">🔗 Scratch Studio öffnen</a>
+                    </div>
+                    <p><b>Die Regel:</b> Ein Kabel kommt an Erdung (EARTH), das andere Kabel an eine Pfeiltaste. Sobald du die Banane oder Folie berührst, schließt sich der Stromkreis!</p>
                 </div>
                 <div>
-                    <h3>Video: Das Makey-Makey-Bananen-Klavier</h3>
+                    <h3>📹 Erklärvideo: Was ist Makey Makey?</h3>
                     <div class="video-container">
-                        <iframe src="https://www.youtube-nocookie.com/embed/rfQqh7iCcOU" title="Makey Makey Tutorial" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube-nocookie.com/embed/rfQqh7iCcOU" title="Makey Makey Erklärvideo" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
@@ -321,6 +321,7 @@ while True:
             document.getElementById('module-' + moduleName).classList.remove('hidden');
         }
 
+        // VERBESSERTER CODE-DOCTOR
         function checkPythonCode() {
             const code = document.getElementById('code-input').value;
             const feedback = document.getElementById('feedback');
@@ -328,6 +329,17 @@ while True:
 
             const lines = code.split('\n');
 
+            // 1. Prüfung: Doppelpunkt nach 'while' oder 'if' vergessen?
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if ((line.startsWith('while') || line.startsWith('if')) && !line.endsWith(':')) {
+                    feedback.className = 'feedback-box error';
+                    feedback.innerHTML = `🔴 <strong>Zeile ${i + 1}:</strong> Hast du am Ende von <code>${line}</code> den Doppelpunkt <code>:</code> vergessen?`;
+                    return;
+                }
+            }
+
+            // 2. Prüfung: Klammer vergessen?
             for (let i = 0; i < lines.length; i++) {
                 const openParen = (lines[i].match(/\(/g) || []).length;
                 const closeParen = (lines[i].match(/\)/g) || []).length;
@@ -338,14 +350,15 @@ while True:
                 }
             }
 
+            // 3. Prüfung: Großschreibung bei 'display'
             if (code.includes('Display.')) {
                 feedback.className = 'feedback-box error';
-                feedback.innerHTML = `🔴 Schreibe <code>display</code> klein!`;
+                feedback.innerHTML = `🔴 Schreibe <code>display</code> immer klein! Python achtet auf Groß- und Kleinschreibung.`;
                 return;
             }
 
             feedback.className = 'feedback-box success';
-            feedback.innerHTML = `🟢 Code sieht super aus!`;
+            feedback.innerHTML = `🟢 <strong>Perfekt!</strong> Kein Syntax-Fehler gefunden. Du kannst den Code kopieren!`;
         }
     </script>
 </body>
