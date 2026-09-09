@@ -55,8 +55,8 @@
         .card.active { border-color: var(--primary); background-color: #eff6ff; }
         
         .card-icon {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             margin: 0 auto 10px auto;
             display: flex;
             align-items: center;
@@ -79,12 +79,23 @@
 
         .grid-2col {
             display: grid;
-            grid-template-columns: 380px 1fr;
+            grid-template-columns: 420px 1fr;
             gap: 20px;
         }
 
-        @media (max-width: 850px) {
+        @media (max-width: 900px) {
             .grid-2col { grid-template-columns: 1fr; }
+        }
+
+        /* Einleitungstexte & Aufgaben-Boxen */
+        .intro-box {
+            background: #f1f5f9;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 4px solid var(--primary);
         }
 
         .task-box {
@@ -95,22 +106,49 @@
             margin-bottom: 15px;
         }
 
-        /* micro:bit Infobox */
-        .microbit-board {
+        /* Blitz-Erkunder Hardware */
+        .hw-finder {
             background: #0f172a;
             color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
 
-        .microbit-board h4 { margin-top: 0; color: #38bdf8; }
-        .feature-list { font-size: 0.85rem; line-height: 1.6; padding-left: 18px; margin: 5px 0; }
+        .hw-finder h4 { margin: 0 0 8px 0; color: #38bdf8; font-size: 0.95rem; }
+        
+        .hw-buttons {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
 
-        /* Integrierter WebTigerPython Editor */
+        .hw-btn {
+            background: #334155;
+            color: #f8fafc;
+            border: 1px solid #475569;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .hw-btn:hover { background: #0284c7; }
+
+        .hw-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            background: #1e293b;
+            padding: 6px 10px;
+            border-radius: 4px;
+            min-height: 20px;
+        }
+
+        /* Integrierter Editor */
         .editor-iframe {
             width: 100%;
-            height: 520px;
+            height: 560px;
             border: 2px solid #cbd5e1;
             border-radius: 8px;
             background: #fff;
@@ -122,9 +160,20 @@
             padding: 10px;
             border-radius: 6px;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin: 6px 0;
             white-space: pre;
+        }
+
+        /* Schritte-Anleitung */
+        .step-list {
+            padding-left: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .step-list li {
+            margin-bottom: 10px;
         }
 
         .action-btn {
@@ -132,16 +181,16 @@
             background: var(--primary);
             color: white;
             text-decoration: none;
-            padding: 12px 20px;
-            font-size: 1rem;
+            padding: 10px 18px;
+            font-size: 0.95rem;
             font-weight: bold;
             border-radius: 6px;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         textarea {
             width: 100%;
-            height: 110px;
+            height: 90px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 13px;
             padding: 8px;
@@ -158,15 +207,15 @@
             font-size: 0.9rem;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 8px;
+            margin-top: 6px;
             font-weight: bold;
         }
 
         .feedback-box {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 8px;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
         }
         .feedback-box.error { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
         .feedback-box.success { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
@@ -176,20 +225,19 @@
 
     <header>
         <h1>🚀 MINTscape – Das Erfinder-Portal</h1>
-        <p class="subtitle">Begabungsförderung: Werkzeug wählen, Anleitung lesen &amp; direkt loslegen!</p>
+        <p class="subtitle">Wähle dein Projekt, klicke die Bauteile an &amp; erfahre, wie der Code funktioniert!</p>
     </header>
 
     <!-- DASHBOARD KACHELN -->
     <div class="dashboard">
         <div class="card active" onclick="switchModule('python')">
             <div class="card-icon">
-                <svg width="50" height="50" viewBox="0 0 100 100">
+                <svg width="45" height="45" viewBox="0 0 100 100">
                     <rect x="10" y="20" width="80" height="60" rx="10" fill="#1e293b"/>
                     <circle cx="25" cy="35" r="6" fill="#e11d48"/>
                     <circle cx="75" cy="35" r="6" fill="#2563eb"/>
                     <rect x="35" y="40" width="30" height="30" fill="#000"/>
                     <circle cx="42" cy="47" r="2" fill="#ef4444"/><circle cx="50" cy="47" r="2" fill="#ef4444"/><circle cx="58" cy="47" r="2" fill="#ef4444"/>
-                    <circle cx="42" cy="55" r="2" fill="#ef4444"/><circle cx="50" cy="55" r="2" fill="#ef4444"/><circle cx="58" cy="55" r="2" fill="#ef4444"/>
                 </svg>
             </div>
             <h3>🤖 micro:bit Python</h3>
@@ -198,7 +246,7 @@
 
         <div class="card" onclick="switchModule('tinkercad')">
             <div class="card-icon">
-                <svg width="50" height="50" viewBox="0 0 100 100">
+                <svg width="45" height="45" viewBox="0 0 100 100">
                     <path d="M50 15 L85 32 L85 68 L50 85 L15 68 L15 32 Z" fill="#0284c7"/>
                     <path d="M50 15 L85 32 L50 50 L15 32 Z" fill="#38bdf8"/>
                     <path d="M50 50 L85 32 L85 68 L50 85 Z" fill="#0369a1"/>
@@ -210,28 +258,25 @@
 
         <div class="card" onclick="switchModule('laser')">
             <div class="card-icon">
-                <svg width="50" height="50" viewBox="0 0 100 100">
+                <svg width="45" height="45" viewBox="0 0 100 100">
                     <rect x="15" y="60" width="70" height="25" rx="3" fill="#a16207"/>
                     <line x1="50" y1="10" x2="50" y2="60" stroke="#dc2626" stroke-width="4" stroke-dasharray="4"/>
-                    <polygon points="45,10 55,10 50,20" fill="#dc2626"/>
                 </svg>
             </div>
             <h3>✂️ Lasercutter</h3>
-            <small>Holzboxen &amp; Stecksysteme</small>
+            <small>Steckboxen gestalten</small>
         </div>
 
         <div class="card" onclick="switchModule('makey')">
             <div class="card-icon">
-                <svg width="50" height="50" viewBox="0 0 100 100">
+                <svg width="45" height="45" viewBox="0 0 100 100">
                     <rect x="10" y="25" width="80" height="50" rx="6" fill="#ea580c"/>
-                    <circle cx="30" cy="50" r="12" fill="#fff"/>
-                    <path d="M24 50 L36 50 M30 44 L30 56" stroke="#ea580c" stroke-width="4"/>
-                    <circle cx="65" cy="42" r="5" fill="#fff"/>
-                    <circle cx="78" cy="58" r="5" fill="#fff"/>
+                    <circle cx="30" cy="50" r="10" fill="#fff"/>
+                    <path d="M25 50 L35 50 M30 45 L30 55" stroke="#ea580c" stroke-width="3"/>
                 </svg>
             </div>
             <h3>🎹 Makey Makey</h3>
-            <small>Stromkreise &amp; Musik</small>
+            <small>Stromkreise &amp; Töne</small>
         </div>
     </div>
 
@@ -241,44 +286,79 @@
         <div id="module-python">
             <h2>🤖 Modul: micro:bit &amp; WebTigerPython</h2>
             
+            <div class="intro-box">
+                <b>💡 Was machen wir hier?</b> Der micro:bit ist ein echter Minicomputer mit Display, Tasten und Sensoren. Statt den Code nur fertig zu kopieren, lernen wir hier Schritt für Schritt, wie man dem micro:bit in der Sprache <i>Python</i> Befehle gibt!
+            </div>
+
             <div class="grid-2col">
                 <div>
-                    <div class="microbit-board">
-                        <h4>🔍 Was ist der micro:bit?</h4>
-                        <p style="font-size: 0.85rem; margin-bottom: 8px;">Ein Minicomputer mit Sensoren und Display:</p>
-                        <ul class="feature-list">
-                            <li><b>5x5 LED-Raster:</b> Zeigt Bilder, Zahlen &amp; Texte.</li>
-                            <li><b>Tasten A &amp; B:</b> Eingabeknöpfe für Interaktionen.</li>
-                            <li><b>Sensoren:</b> Misst Temperatur, Licht &amp; Bewegung.</li>
-                            <li><b>Goldene Pins unten:</b> Anschlüsse für Motoren &amp; Klemmen.</li>
-                        </ul>
+                    <!-- SCHNELLER HARDWARE-FINDER -->
+                    <div class="hw-finder">
+                        <h4>🔍 Blitz-Finder: Wo ist was am micro:bit?</h4>
+                        <div class="hw-buttons">
+                            <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
+                            <button class="hw-btn" onclick="showHw('btn')">Knöpfe A &amp; B</button>
+                            <button class="hw-btn" onclick="showHw('sens')">Licht &amp; Temp</button>
+                            <button class="hw-btn" onclick="showHw('pins')">Pins unten</button>
+                        </div>
+                        <div id="hw-info" class="hw-desc">Klicke oben auf ein Bauteil, um zu sehen, wo es liegt!</div>
                     </div>
 
+                    <!-- AUFGABE & SCHRITT-FÜR-SCHRITT ANLEITUNG -->
                     <div class="task-box">
-                        <h3 style="margin-top: 0;">Aufgabe 1: Das leuchtende Herz 💓</h3>
-                        <p style="font-size: 0.9rem; margin-bottom: 5px;">Schreibe diesen Code in den Editor rechts:</p>
+                        <h3 style="margin-top:0;">Aufgabe: Das blinkende Herz 💓</h3>
                         
+                        <p style="font-size:0.85rem; margin-bottom: 5px;"><b>So entsteht dein Programm Schritt für Schritt:</b></p>
+                        
+                        <ol class="step-list">
+                            <li>
+                                <code>from microbit import *</code><br>
+                                <small style="color: #047857;">Lädt die micro:bit Befehle für Display und Sensoren.</small>
+                            </li>
+                            <li>
+                                <code>while True:</code><br>
+                                <small style="color: #047857;">Die Unendliche Schleife. Wiederholt alles darunter ewig.</small>
+                            </li>
+                            <li>
+                                <code>&nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.HEART)</code><br>
+                                <small style="color: #047857;">Zeigt das Herz-Symbol auf den 25 LEDs an.</small>
+                            </li>
+                            <li>
+                                <code>&nbsp;&nbsp;&nbsp;&nbsp;sleep(500)</code><br>
+                                <small style="color: #047857;">Wartet 500 Millisekunden (eine halbe Sekunde).</small>
+                            </li>
+                            <li>
+                                <code>&nbsp;&nbsp;&nbsp;&nbsp;display.clear()</code><br>
+                                <small style="color: #047857;">Schaltet alle LEDs aus &amp; wartet noch einmal 500ms.</small>
+                            </li>
+                        </ol>
+
                         <div class="code-block">from microbit import *
 
 while True:
-    display.show(Image.HEART)</div>
+    display.show(Image.HEART)
+    sleep(500)
+    display.clear()
+    sleep(500)</div>
 
-                        <p style="font-size: 0.8rem; color: #047857; margin-top: 8px;">
-                            ⚠️ <b>Wichtig:</b> Die Zeile unter <code>while True:</code> MUSS eingerückt sein! (Tab-Taste drücken)
+                        <p style="font-size: 0.8rem; color: #b91c1c; margin-top: 6px;">
+                            ⚠️ <b>Wichtig in Python:</b> Befehle unter <code>while True:</code> MÜSSEN eingerückt sein (4 Leerzeichen oder Tab-Taste)!
                         </p>
                     </div>
 
+                    <!-- CODE-DOKTOR -->
                     <h3>🩺 Code-Doktor (Prüfer)</h3>
-                    <p><small>Kopiere deinen Code hier hinein, um zu prüfen, ob die Einrückung oder Syntax Fehler hat:</small></p>
-                    <textarea id="code-input" spellcheck="false" placeholder="Füge deinen Code hier ein..."></textarea>
+                    <p style="margin-top:0;"><small>Hast du deinen Code getippt? Teste hier, ob die Einrückung stimmt:</small></p>
+                    <textarea id="code-input" spellcheck="false" placeholder="Füge deinen geschriebenen Code hier ein..."></textarea>
                     <button class="btn-run" onclick="checkPythonCode()">Code prüfen</button>
                     <div id="feedback" class="feedback-box hidden"></div>
                 </div>
 
+                <!-- RECHTE SPALTE: EDITOR -->
                 <div>
-                    <h3>Integrierter Editor (ETH Zurich):</h3>
+                    <h3>100% Integrierter Python-Editor:</h3>
                     <iframe class="editor-iframe" src="https://webtigerpython.ethz.ch/" title="WebTigerPython Editor"></iframe>
-                    <p><small>💡 Tipp: Schreibe deinen Code rechts im Fenster und drücke dort auf <b>Ausführen</b>!</small></p>
+                    <p><small>💡 Tipp: Schreibe den Code im Editor rechts und klicke oben auf <b>Ausführen (Grüner Pfeil)</b>!</small></p>
                 </div>
             </div>
         </div>
@@ -287,27 +367,32 @@ while True:
         <div id="module-tinkercad" class="hidden">
             <h2>🧊 Modul: 3D-Druck mit Tinkercad</h2>
             
+            <div class="intro-box" style="border-left-color: #0284c7;">
+                <b>💡 Was ist Tinkercad?</b> Mit Tinkercad wirst du zum 3D-Designer! Du kannst einfache Formen wie Würfel, Zylinder und Kugeln zusammenfügen oder Höhlen ausstanzen, um eigene Objekte für den 3D-Drucker zu bauen.
+            </div>
+
             <div style="max-width: 700px;">
                 <div class="task-box" style="border-left-color: #0284c7; background: #e0f2fe;">
                     <h3 style="margin-top:0;">Schritt 1: Tinkercad im neuen Tab öffnen</h3>
-                    <p>Klicke auf den Button, um die Zeichenfläche zu öffnen. Dein Portal bleibt in diesem Tab erhalten!</p>
+                    <p>Tinkercad lässt sich aus Sicherheitsgründen nicht direkt einbetten. Klicke auf den Button, um die Zeichenfläche in einem neuen Fenster zu öffnen:</p>
                     <a href="https://www.tinkercad.com/login" target="_blank" class="action-btn" style="background: #0284c7;">
                         🚀 Tinkercad im neuen Tab öffnen ↗
                     </a>
                 </div>
 
                 <div class="task-box" style="border-left-color: #dc2626; background: #fef2f2;">
-                    <h3 style="margin-top:0;">⚠️ Schritt 2: Das Dateinamen-Gebot</h3>
-                    <p>Lösche den Zufallsnamen oben links sofort und schreibe:</p>
-                    <p style="font-size: 1.2rem; font-weight: bold; color: #b91c1c;"><code>DeinName_Bueroklammer</code></p>
+                    <h3 style="margin-top:0;">⚠️ Das wichtigste Gebot: Dateiname ändern!</h3>
+                    <p>Lösche den komischen Zufallsnamen oben links sofort und schreibe:</p>
+                    <p style="font-size: 1.1rem; font-weight: bold; color: #b91c1c;"><code>DeinName_Bueroklammer</code></p>
                 </div>
 
-                <h3>Schritt 3: So konstruierst du die Büroklammer</h3>
-                <ol style="line-height: 1.8; font-size: 1rem;">
-                    <li>Ziehe einen roten Quader auf deine Arbeitsfläche.</li>
-                    <li>Klicke auf die Ecken und stelle die Maße ein: <br><b>Länge: 40 mm | Breite: 15 mm | Höhe: 2 mm</b></li>
-                    <li>Ziehe eine transparente "Bohrung" in die Mitte, um den Federschlitz auszustanzen.</li>
-                    <li>Markiere beide Formen mit der Maus und klicke oben rechts auf <b>Gruppieren</b>.</li>
+                <h3>Schritt 2: So konstruierst du deine Büroklammer</h3>
+                <ol class="step-list">
+                    <li><b>Grundform holen:</b> Ziehe einen roten Quader aus dem rechten Menü auf deine Arbeitsfläche.</li>
+                    <li><b>Maße exakt einstellen:</b> Klicke auf die kleinen weißen Eckpunkte und ändere die Maße:<br>
+                    <b>Länge: 40 mm | Breite: 15 mm | Höhe: 2 mm</b></li>
+                    <li><b>Loch ausstanzen:</b> Ziehe eine transparente "Bohrung" in die Mitte, damit eine Büroklammern-Form entsteht.</li>
+                    <li><b>Verschmelzen:</b> Markiere beide Formen mit der Maus und klicke oben auf <b>Gruppieren (Strg + G)</b>.</li>
                 </ol>
             </div>
         </div>
@@ -315,25 +400,37 @@ while True:
         <!-- MODUL 3: LASERCUTTER -->
         <div id="module-laser" class="hidden">
             <h2>✂️ Modul: Lasercutter &amp; Steckboxen</h2>
+            
+            <div class="intro-box" style="border-left-color: #7c3aed;">
+                <b>💡 Was ist ein Lasercutter?</b> Ein Lasercutter schneidet mit einem extrem heißen Lichtstrahl millimetergenau Holz oder Acryl. Damit die Teile nachher ohne Klebstoff zusammenpassen, nutzen wir geschickte Zinken-Steckverbindungen!
+            </div>
+
             <div style="max-width: 700px;">
                 <div class="task-box" style="border-left-color: #7c3aed; background: #f5f3ff;">
-                    <h3 style="margin-top:0;">Schritt 1: Boxen-Generator öffnen</h3>
+                    <h3 style="margin-top:0;">Schritt 1: Makercase Generator starten</h3>
                     <a href="https://www.makercase.com/" target="_blank" class="action-btn" style="background: #7c3aed;">
-                        🚀 Makercase Generator öffnen ↗
+                        🚀 Makercase Generator im neuen Tab öffnen ↗
                     </a>
                 </div>
-                <h3>Anleitung:</h3>
-                <ol style="line-height: 1.8; font-size: 1rem;">
-                    <li>Gib die Maße für deine Holzbox ein (z. B. 80mm x 80mm x 80mm).</li>
-                    <li>Wähle "Finger Joints" (Zinkenverbindung), damit man das Holz zusammenstecken kann.</li>
-                    <li>Lade die `.SVG`-Datei herunter und schicke sie an den Lasercutter.</li>
+
+                <h3>Schritt 2: Deine Box erstellen</h3>
+                <ol class="step-list">
+                    <li><b>Maße festlegen:</b> Gib die gewünschte Breite, Höhe und Tiefe deiner Holzbox ein (z. B. 80 x 80 x 80 mm).</li>
+                    <li><b>Materialstärke:</b> Wähle genau die Dicke deines Holzes (meistens 3 mm).</li>
+                    <li><b>Finger Joints aktivieren:</b> Schalte die Zinkenverbindung ein, damit die Teile kleine "Zähne" zum Zusammenstecken bekommen.</li>
+                    <li><b>Datei herunterladen:</b> Lade die Vektordatei (`.SVG`) herunter und schicke sie an den Lasercutter!</li>
                 </ol>
             </div>
         </div>
 
         <!-- MODUL 4: MAKEY MAKEY -->
         <div id="module-makey" class="hidden">
-            <h2>🎹 Modul: Makey Makey &amp; Interaktion</h2>
+            <h2>🎹 Modul: Makey Makey &amp; Stromkreise</h2>
+            
+            <div class="intro-box" style="border-left-color: #ea580c;">
+                <b>💡 Was ist Makey Makey?</b> Mit dem Makey Makey kannst du alltägliche Gegenstände (wie Äpfel, Knete oder Alufolie) in Tastatur-Tasten verwandeln. Sobald du etwas Berührst, schließt du einen winzigen Stromkreis!
+            </div>
+
             <div style="max-width: 700px;">
                 <div class="task-box" style="border-left-color: #ea580c; background: #fff7ed;">
                     <h3 style="margin-top:0;">Schritt 1: Scratch Studio öffnen</h3>
@@ -341,16 +438,20 @@ while True:
                         🚀 Scratch Studio öffnen ↗
                     </a>
                 </div>
-                <h3>So funktioniert der Stromkreis:</h3>
-                <p>1. Klemme ein Kabel an <b>EARTH</b> (Erdung) und halte es in der Hand.</p>
-                <p>2. Klemme das zweite Kabel an <b>SPACE</b> oder die <b>Pfeiltaste</b> und verbinde es mit Alufolie oder Obst.</p>
-                <p>3. Sobald du den Gegenstand berührst, schließt sich der Stromkreis und Scratch spielt einen Ton ab!</p>
+
+                <h3>Schritt 2: Den Stromkreis aufbauen</h3>
+                <ol class="step-list">
+                    <li><b>Erdung (EARTH) halten:</b> Klemme ein Kabel an unten an <code>EARTH</code> und halte das metallische Ende in deiner Hand.</li>
+                    <li><b>Taste verbinden:</b> Klemme ein zweites Kabel an <code>SPACE</code> oder die <code>Pfeiltaste</code> und stecke es z. B. in eine Banane.</li>
+                    <li><b>Auslösen:</b> Berühre die Banane! Der Strom fließt durch deinen Körper zum Makey Makey zurück – dein Scratch-Spiel reagiert sofort!</li>
+                </ol>
             </div>
         </div>
 
     </div>
 
     <script>
+        // Modul-Umschaltung
         function switchModule(moduleName) {
             document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
@@ -359,6 +460,21 @@ while True:
             document.getElementById('module-' + moduleName).classList.remove('hidden');
         }
 
+        // Blitz-Hardware-Finder für micro:bit
+        function showHw(part) {
+            const info = document.getElementById('hw-info');
+            if(part === 'led') {
+                info.innerHTML = "🔴 <b>5x5 LED-Raster:</b> Befindet sich genau in der Mitte der Vorderseite. Es kann Bilder, Zahlen und Texte anzeigen.";
+            } else if(part === 'btn') {
+                info.innerHTML = "🔘 <b>Knöpfe A & B:</b> Auslöser-Tasten links und rechts neben dem Display auf der Vorderseite.";
+            } else if(part === 'sens') {
+                info.innerHTML = "☀️ <b>Sensoren:</b> Das Display misst auch Licht! Die Temperatursensoren liegen auf der Rückseite des Boards.";
+            } else if(part === 'pins') {
+                info.innerHTML = "⚡ <b>Goldene Pins:</b> Die Streifen ganz unten. Hier kannst du Krokodilklemmen, Motoren oder Lautsprecher anschließen.";
+            }
+        }
+
+        // Code-Doktor mit Einrückungsprüfung
         function checkPythonCode() {
             const code = document.getElementById('code-input').value;
             const feedback = document.getElementById('feedback');
@@ -392,7 +508,7 @@ while True:
                 if (hasLoop && i > 0 && lines[i-1].trim().startsWith('while')) {
                     if (!line.startsWith('    ') && !line.startsWith('\t')) {
                         feedback.className = 'feedback-box error';
-                        feedback.innerHTML = `🔴 <strong>Einrückungsfehler in Zeile ${i + 1}:</strong> Befehle unter <code>while True:</code> müssen eingerückt werden! (Drücke die Tab-Taste)`;
+                        feedback.innerHTML = `🔴 <strong>Einrückungsfehler in Zeile ${i + 1}:</strong> Befehle unter <code>while True:</code> müssen eingerückt sein! (Tab-Taste oder 4 Leerzeichen)`;
                         return;
                     }
                 }
@@ -401,12 +517,12 @@ while True:
             // 3. Großschreibung prüfen
             if (code.includes('Display.')) {
                 feedback.className = 'feedback-box error';
-                feedback.innerHTML = `🔴 Schreibe <code>display</code> klein! Python achtet auf Groß-/Kleinschreibung.`;
+                feedback.innerHTML = `🔴 Schreibe <code>display</code> klein! Python unterscheidet zwischen Groß- und Kleinschreibung.`;
                 return;
             }
 
             feedback.className = 'feedback-box success';
-            feedback.innerHTML = `🟢 <strong>Perfekt!</strong> Syntax und Einrückung stimmen. Du kannst den Code in WebTigerPython ausführen!`;
+            feedback.innerHTML = `🟢 <strong>Perfekt!</strong> Dein Code ist richtig aufgebaut und korrekt eingerückt!`;
         }
     </script>
 </body>
