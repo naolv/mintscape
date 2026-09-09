@@ -31,7 +31,7 @@
         h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
         p.subtitle { color: #64748b; margin-top: 5px; }
 
-        /* Dashboard Kacheln */
+        /* Dashboard Main Navigation */
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -53,19 +53,32 @@
 
         .card:hover { transform: translateY(-3px); border-color: var(--primary); }
         .card.active { border-color: var(--primary); background-color: #eff6ff; }
-        
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 10px auto;
+
+        /* Sub-Navigation innerhalb eines Moduls */
+        .sub-nav {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
         }
 
-        .card h3 { margin: 5px 0; font-size: 1.1rem; }
+        .sub-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #475569;
+        }
 
-        /* Modul Container */
+        .sub-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Layout Container */
         .module-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -79,7 +92,7 @@
 
         .grid-2col {
             display: grid;
-            grid-template-columns: 420px 1fr;
+            grid-template-columns: 440px 1fr;
             gap: 20px;
         }
 
@@ -87,10 +100,10 @@
             .grid-2col { grid-template-columns: 1fr; }
         }
 
-        /* Einleitungstexte & Aufgaben-Boxen */
+        /* Infoboxen */
         .intro-box {
             background: #f1f5f9;
-            padding: 12px 16px;
+            padding: 14px 18px;
             border-radius: 8px;
             margin-bottom: 15px;
             font-size: 0.95rem;
@@ -98,15 +111,14 @@
             border-left: 4px solid var(--primary);
         }
 
-        .task-box {
-            background: #ecfdf5;
+        .project-box {
+            background: #f0fdf4;
             padding: 15px;
             border-radius: 8px;
-            border-left: 4px solid #059669;
+            border-left: 4px solid var(--success);
             margin-bottom: 15px;
         }
 
-        /* Blitz-Erkunder Hardware */
         .hw-finder {
             background: #0f172a;
             color: white;
@@ -115,23 +127,16 @@
             margin-bottom: 15px;
         }
 
-        .hw-finder h4 { margin: 0 0 8px 0; color: #38bdf8; font-size: 0.95rem; }
-        
-        .hw-buttons {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-bottom: 8px;
-        }
-
         .hw-btn {
             background: #334155;
             color: #f8fafc;
             border: 1px solid #475569;
-            padding: 4px 8px;
+            padding: 5px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
             cursor: pointer;
+            margin-right: 4px;
+            margin-bottom: 6px;
         }
 
         .hw-btn:hover { background: #0284c7; }
@@ -140,128 +145,74 @@
             font-size: 0.85rem;
             color: #cbd5e1;
             background: #1e293b;
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: 4px;
-            min-height: 20px;
+            min-height: 30px;
         }
 
-        /* Video Container */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Format */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            background: #000;
+        /* Code-Boxen */
+        .code-block {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            line-height: 1.4;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Integrierter Editor */
         .editor-iframe {
             width: 100%;
-            height: 560px;
+            height: 620px;
             border: 2px solid #cbd5e1;
             border-radius: 8px;
             background: #fff;
         }
 
-        .code-block {
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 10px;
+        .video-link-btn {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: bold;
             border-radius: 6px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            margin: 6px 0;
-            white-space: pre;
+            margin-bottom: 15px;
         }
 
         .step-list {
-            padding-left: 20px;
+            padding-left: 18px;
             font-size: 0.9rem;
-            line-height: 1.5;
+            line-height: 1.4;
         }
-
-        .step-list li {
-            margin-bottom: 10px;
-        }
-
-        .action-btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 10px 18px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 6px;
-            margin-top: 8px;
-        }
+        .step-list li { margin-bottom: 8px; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>🚀 MINTscape – Das Erfinder-Portal</h1>
-        <p class="subtitle">Wähle dein Projekt, klicke die Bauteile an &amp; lege direkt los!</p>
+        <p class="subtitle">Wähle ein Modul und starte dein eigenes Projekt!</p>
     </header>
 
-    <!-- DASHBOARD KACHELN -->
+    <!-- HAUPT-DASHBOARD -->
     <div class="dashboard">
-        <div class="card active" onclick="switchModule('python')">
-            <div class="card-icon">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <rect x="10" y="20" width="80" height="60" rx="10" fill="#1e293b"/>
-                    <circle cx="25" cy="35" r="6" fill="#e11d48"/>
-                    <circle cx="75" cy="35" r="6" fill="#2563eb"/>
-                    <rect x="35" y="40" width="30" height="30" fill="#000"/>
-                    <circle cx="42" cy="47" r="2" fill="#ef4444"/><circle cx="50" cy="47" r="2" fill="#ef4444"/><circle cx="58" cy="47" r="2" fill="#ef4444"/>
-                </svg>
-            </div>
+        <div class="card active" onclick="switchMainModule('python')">
             <h3>🤖 micro:bit Python</h3>
-            <small>Integrierter Editor</small>
+            <small>3 Lerneinheiten &amp; Projekte</small>
         </div>
-
-        <div class="card" onclick="switchModule('tinkercad')">
-            <div class="card-icon">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <path d="M50 15 L85 32 L85 68 L50 85 L15 68 L15 32 Z" fill="#0284c7"/>
-                    <path d="M50 15 L85 32 L50 50 L15 32 Z" fill="#38bdf8"/>
-                    <path d="M50 50 L85 32 L85 68 L50 85 Z" fill="#0369a1"/>
-                </svg>
-            </div>
+        <div class="card" onclick="switchMainModule('tinkercad')">
             <h3>🧊 3D-Druck (Tinkercad)</h3>
             <small>Projekt Büroklammer</small>
         </div>
-
-        <div class="card" onclick="switchModule('laser')">
-            <div class="card-icon">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <rect x="15" y="60" width="70" height="25" rx="3" fill="#a16207"/>
-                    <line x1="50" y1="10" x2="50" y2="60" stroke="#dc2626" stroke-width="4" stroke-dasharray="4"/>
-                </svg>
-            </div>
+        <div class="card" onclick="switchMainModule('laser')">
             <h3>✂️ Lasercutter</h3>
-            <small>Steckboxen gestalten</small>
+            <small>Steckboxen bauen</small>
         </div>
-
-        <div class="card" onclick="switchModule('makey')">
-            <div class="card-icon">
-                <svg width="45" height="45" viewBox="0 0 100 100">
-                    <rect x="10" y="25" width="80" height="50" rx="6" fill="#ea580c"/>
-                    <circle cx="30" cy="50" r="10" fill="#fff"/>
-                    <path d="M25 50 L35 50 M30 45 L30 55" stroke="#ea580c" stroke-width="3"/>
-                </svg>
-            </div>
+        <div class="card" onclick="switchMainModule('makey')">
             <h3>🎹 Makey Makey</h3>
             <small>Stromkreise &amp; Töne</small>
         </div>
@@ -269,200 +220,189 @@
 
     <div class="module-container">
         
-        <!-- MODUL 1: MICRO:BIT / PYTHON -->
+        <!-- MODUL 1: MICRO:BIT (MIT SUB-NAVIGATION) -->
         <div id="module-python">
-            <h2>🤖 Modul: micro:bit &amp; WebTigerPython</h2>
             
-            <div class="intro-box">
-                <b>💡 Was machen wir hier?</b> Der micro:bit ist ein echter Minicomputer mit Display, Tasten und Sensoren. Wir lernen hier Schritt für Schritt, wie man dem micro:bit in der Sprache <i>Python</i> eigene Befehle gibt!
+            <!-- Unter-Aktivitäten für micro:bit -->
+            <div class="sub-nav">
+                <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1')">1. Einstieg &amp; Hardware</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson2')">2. Projekt: Schrittzähler 🏃</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson3')">3. Projekt: Türsensor / Alarm 🚪</button>
             </div>
 
             <div class="grid-2col">
-                <div>
-                    <!-- NACHWEISBAR FUNKTIONIERENDES EINGEBETTETES VIDEO -->
-                    <h4>📺 Erklär-Video zum micro:bit</h4>
-                    <div class="video-container">
-                        <!--youtube-nocookie.com verhindert Blockaden in lokalen HTML-Dateien -->
-                        <iframe 
-                            src="https://www.youtube-nocookie.com/embed/u2u7VJSRudo?rel=0" 
-                            title="micro:bit Erklärung" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-
-                    <!-- HARDWARE-FINDER -->
-                    <div class="hw-finder">
-                        <h4>🔍 Blitz-Finder: Wo ist was am micro:bit?</h4>
-                        <div class="hw-buttons">
-                            <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
-                            <button class="hw-btn" onclick="showHw('btn')">Knöpfe A &amp; B</button>
-                            <button class="hw-btn" onclick="showHw('sens')">Licht &amp; Temp</button>
-                            <button class="hw-btn" onclick="showHw('pins')">Pins unten</button>
+                <!-- LINKER BEREICH: ERKLÄRUNGEN & CODE -->
+                <div id="microbit-content">
+                    
+                    <!-- LERNEINHEIT 1: EINSTIEG -->
+                    <div id="mb-lesson1">
+                        <h3>1. Erste Schritte mit dem micro:bit</h3>
+                        
+                        <div class="intro-box">
+                            Der micro:bit ist ein Computer im Taschentuch-Format. Damit er weiß, was er tun soll, schreiben wir ihm ein Programm in der Sprache <b>Python</b>.
                         </div>
-                        <div id="hw-info" class="hw-desc">Klicke oben auf ein Bauteil, um zu sehen, wo es liegt!</div>
-                    </div>
 
-                    <!-- AUFGABE -->
-                    <div class="task-box">
-                        <h3 style="margin-top:0;">Aufgabe: Das blinkende Herz 💓</h3>
-                        
-                        <p style="font-size:0.85rem; margin-bottom: 5px;"><b>So funktioniert dein Code Schritt für Schritt:</b></p>
-                        
-                        <ol class="step-list">
-                            <li>
-                                <code>from microbit import *</code><br>
-                                <small style="color: #047857;">Lädt die micro:bit Befehle für Display und Sensoren.</small>
-                            </li>
-                            <li>
-                                <code>while True:</code><br>
-                                <small style="color: #047857;">Unendliche Schleife: Wiederholt alles darin ewig.</small>
-                            </li>
-                            <li>
-                                <code>&nbsp;&nbsp;&nbsp;&nbsp;display.show(Image.HEART)</code><br>
-                                <small style="color: #047857;">Zeigt das Herz auf den 25 LEDs an.</small>
-                            </li>
-                            <li>
-                                <code>&nbsp;&nbsp;&nbsp;&nbsp;sleep(500)</code><br>
-                                <small style="color: #047857;">Wartet 500 Millisekunden (eine halbe Sekunde).</small>
-                            </li>
-                            <li>
-                                <code>&nbsp;&nbsp;&nbsp;&nbsp;display.clear()</code><br>
-                                <small style="color: #047857;">Schaltet die LEDs aus &amp; wartet noch einmal 500ms.</small>
-                            </li>
-                        </ol>
+                        <!-- Sichere Video-Verlinkung ohne Einbettungsfehler -->
+                        <a href="https://www.youtube.com/watch?v=u2u7VJSRudo" target="_blank" class="video-link-btn">
+                            ▶️ Offizielles Erklärvideo im neuen Tab öffnen ↗
+                        </a>
 
-                        <div class="code-block">from microbit import *
+                        <div class="hw-finder">
+                            <h4>🔍 Bauteile-Erkundung:</h4>
+                            <div>
+                                <button class="hw-btn" onclick="showHw('led')">LED-Display</button>
+                                <button class="hw-btn" onclick="showHw('btn')">Tasten A &amp; B</button>
+                                <button class="hw-btn" onclick="showHw('sens')">Sensoren</button>
+                            </div>
+                            <div id="hw-info" class="hw-desc">Klicke oben auf ein Bauteil!</div>
+                        </div>
+
+                        <div class="project-box">
+                            <h4>Übung: Herzblinken</h4>
+                            <p><small>Kopiere diesen Code in den Editor rechts und klicke auf den grünen Start-Pfeil:</small></p>
+                            <div class="code-block">from microbit import *
 
 while True:
     display.show(Image.HEART)
     sleep(500)
     display.clear()
     sleep(500)</div>
-
-                        <p style="font-size: 0.8rem; color: #b91c1c; margin-top: 6px;">
-                            ⚠️ <b>Wichtig in Python:</b> Die Zeilen unter <code>while True:</code> MÜSSEN eingerückt sein (Tab-Taste drücken)!
-                        </p>
+                        </div>
                     </div>
+
+                    <!-- LERNEINHEIT 2: SCHRITTZÄHLER -->
+                    <div id="mb-lesson2" class="hidden">
+                        <h3>2. Projekt: Der intelligente Schrittzähler 🏃</h3>
+                        
+                        <div class="intro-box">
+                            <b>Wie funktioniert das?</b> Der micro:bit hat einen integrierten <i>Beschleunigungssensor</i> (Accelerometer). Wenn du dich bewegst oder den Board schüttelst, erkennt er das und zählt eine Variable (Schritte) hoch!
+                        </div>
+
+                        <div class="project-box">
+                            <h4>So funktioniert der Code:</h4>
+                            <ol class="step-list">
+                                <li><code>schritte = 0</code>: Wir erstellen ein Gedächtnis (Variable) für die Schritte.</li>
+                                <li><code>accelerometer.was_gesture('shake')</code>: Prüft, ob der micro:bit geschüttelt wurde.</li>
+                                <li><code>schritte += 1</code>: Erhöht den Zähler um 1.</li>
+                                <li><code>button_a.is_pressed()</code>: Bei Druck auf Knopf A wird der Zähler wieder auf 0 zurückgesetzt.</li>
+                            </ol>
+
+                            <h4>Code zum Kopieren:</h4>
+                            <div class="code-block">from microbit import *
+
+schritte = 0
+
+while True:
+    # Zeige die aktuelle Schrittzahl an
+    display.show(schritte)
+    
+    # Wenn geschüttelt wird: Schritt hinzufügen
+    if accelerometer.was_gesture('shake'):
+        schritte = schritte + 1
+        sleep(200)
+        
+    # Reset mit Knopf A
+    if button_a.is_pressed():
+        schritte = 0
+        display.show(Image.NO)
+        sleep(500)</div>
+                        </div>
+                    </div>
+
+                    <!-- LERNEINHEIT 3: TÜRSENSOR / ALARMANLAGE -->
+                    <div id="mb-lesson3" class="hidden">
+                        <h3>3. Projekt: Türsensor &amp; Alarmanlage 🚪</h3>
+                        
+                        <div class="intro-box">
+                            <b>Wie funktioniert das?</b> Auf dem micro:bit ist ein Kompass verbaut, der auch als <b>Magnet-Sensor</b> dient. Wenn du einen kleinen Küchenmagneten an den Türrahmen klebst und den micro:bit an die Tür hängst, erkennt er sofort, wenn die Tür geöffnet wird!
+                        </div>
+
+                        <div class="project-box">
+                            <h4>So funktioniert der Code:</h4>
+                            <ol class="step-list">
+                                <li><code>compass.get_field_strength()</code>: Misst die Stärke des Magnetfelds in der Nähe.</li>
+                                <li>Wenn der Magnet nah ist (Tür zu): Zeige ein Häkchen.</li>
+                                <li>Wenn der Magnet entfernt wird (Tür auf): Zeige ein Totenkopf-Symbol und spiele einen Alarmton!</li>
+                            </ol>
+
+                            <h4>Code zum Kopieren:</h4>
+                            <div class="code-block">from microbit import *
+
+while True:
+    # Stärke des Magnetfelds messen
+    magnet_staerke = compass.get_field_strength()
+    
+    # Ist der Magnet nah? (Wert anpassen falls nötig)
+    if magnet_staerke > 100000:
+        display.show(Image.YES) # Tür ist ZU
+    else:
+        display.show(Image.SKULL) # ALARM: Tür ist OFFEN!
+        sleep(200)
+        display.clear()
+        sleep(200)</div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- RECHTE SPALTE: EDITOR -->
+                <!-- RECHTER BEREICH: EDITOR (BLEIBT IMMER IM BLICK) -->
                 <div>
-                    <h3>100% Integrierter Python-Editor:</h3>
+                    <h3>Integrierter WebTigerPython-Editor:</h3>
                     <iframe class="editor-iframe" src="https://webtigerpython.ethz.ch/" title="WebTigerPython Editor"></iframe>
-                    <p><small>💡 Tipp: Schreibe den Code im Editor rechts und klicke oben auf <b>Ausführen (Grüner Pfeil)</b>!</small></p>
                 </div>
             </div>
+
         </div>
 
-        <!-- MODUL 2: TINKERCAD -->
+        <!-- ANDERE MODULE (PLATZHALTER FÜR NÄCHSTE SCHRITTE) -->
         <div id="module-tinkercad" class="hidden">
-            <h2>🧊 Modul: 3D-Druck mit Tinkercad</h2>
-            
-            <div class="intro-box" style="border-left-color: #0284c7;">
-                <b>💡 Was ist Tinkercad?</b> Mit Tinkercad wirst du zum 3D-Designer! Du kannst einfache Formen wie Würfel, Zylinder und Kugeln zusammenfügen oder Höhlen ausstanzen, um eigene Objekte für den 3D-Drucker zu bauen.
-            </div>
-
-            <div style="max-width: 700px;">
-                <div class="task-box" style="border-left-color: #0284c7; background: #e0f2fe;">
-                    <h3 style="margin-top:0;">Schritt 1: Tinkercad im neuen Tab öffnen</h3>
-                    <p>Klicke auf den Button, um die Zeichenfläche in einem neuen Fenster zu öffnen:</p>
-                    <a href="https://www.tinkercad.com/login" target="_blank" class="action-btn" style="background: #0284c7;">
-                        🚀 Tinkercad im neuen Tab öffnen ↗
-                    </a>
-                </div>
-
-                <div class="task-box" style="border-left-color: #dc2626; background: #fef2f2;">
-                    <h3 style="margin-top:0;">⚠️ Das wichtigste Gebot: Dateiname ändern!</h3>
-                    <p>Lösche den komischen Zufallsnamen oben links sofort und schreibe:</p>
-                    <p style="font-size: 1.1rem; font-weight: bold; color: #b91c1c;"><code>DeinName_Bueroklammer</code></p>
-                </div>
-
-                <h3>Schritt 2: So konstruierst du deine Büroklammer</h3>
-                <ol class="step-list">
-                    <li><b>Grundform holen:</b> Ziehe einen roten Quader aus dem rechten Menü auf deine Arbeitsfläche.</li>
-                    <li><b>Maße exakt einstellen:</b> Klicke auf die kleinen weißen Eckpunkte und ändere die Maße:<br>
-                    <b>Länge: 40 mm | Breite: 15 mm | Höhe: 2 mm</b></li>
-                    <li><b>Loch ausstanzen:</b> Ziehe eine transparente "Bohrung" in die Mitte, damit eine Büroklammern-Form entsteht.</li>
-                    <li><b>Verschmelzen:</b> Markiere beide Formen mit der Maus und klicke oben auf <b>Gruppieren (Strg + G)</b>.</li>
-                </ol>
-            </div>
+            <h2>🧊 Modul: 3D-Druck (Tinkercad)</h2>
+            <p>Dieses Modul wird im nächsten Schritt mit vertieften Aufgaben ausgebaut.</p>
         </div>
-
-        <!-- MODUL 3: LASERCUTTER -->
         <div id="module-laser" class="hidden">
-            <h2>✂️ Modul: Lasercutter &amp; Steckboxen</h2>
-            
-            <div class="intro-box" style="border-left-color: #7c3aed;">
-                <b>💡 Was ist ein Lasercutter?</b> Ein Lasercutter schneidet mit einem extrem heißen Lichtstrahl millimetergenau Holz oder Acryl. Damit die Teile nachher ohne Klebstoff zusammenpassen, nutzen wir geschickte Zinken-Steckverbindungen!
-            </div>
-
-            <div style="max-width: 700px;">
-                <div class="task-box" style="border-left-color: #7c3aed; background: #f5f3ff;">
-                    <h3 style="margin-top:0;">Schritt 1: Makercase Generator starten</h3>
-                    <a href="https://www.makercase.com/" target="_blank" class="action-btn" style="background: #7c3aed;">
-                        🚀 Makercase Generator im neuen Tab öffnen ↗
-                    </a>
-                </div>
-
-                <h3>Schritt 2: Deine Box erstellen</h3>
-                <ol class="step-list">
-                    <li><b>Maße festlegen:</b> Gib die gewünschte Breite, Höhe und Tiefe deiner Holzbox ein (z. B. 80 x 80 x 80 mm).</li>
-                    <li><b>Materialstärke:</b> Wähle genau die Dicke deines Holzes (meistens 3 mm).</li>
-                    <li><b>Finger Joints aktivieren:</b> Schalte die Zinkenverbindung ein, damit die Teile kleine "Zähne" zum Zusammenstecken bekommen.</li>
-                    <li><b>Datei herunterladen:</b> Lade die Vektordatei (`.SVG`) herunter und schicke sie an den Lasercutter!</li>
-                </ol>
-            </div>
+            <h2>✂️ Modul: Lasercutter</h2>
+            <p>Dieses Modul wird im nächsten Schritt mit vertieften Aufgaben ausgebaut.</p>
         </div>
-
-        <!-- MODUL 4: MAKEY MAKEY -->
         <div id="module-makey" class="hidden">
-            <h2>🎹 Modul: Makey Makey &amp; Stromkreise</h2>
-            
-            <div class="intro-box" style="border-left-color: #ea580c;">
-                <b>💡 Was ist Makey Makey?</b> Mit dem Makey Makey kannst du alltägliche Gegenstände (wie Äpfel, Knete oder Alufolie) in Tastatur-Tasten verwandeln. Sobald du etwas Berührst, schließt du einen winzigen Stromkreis!
-            </div>
-
-            <div style="max-width: 700px;">
-                <div class="task-box" style="border-left-color: #ea580c; background: #fff7ed;">
-                    <h3 style="margin-top:0;">Schritt 1: Scratch Studio öffnen</h3>
-                    <a href="https://scratch.mit.edu/" target="_blank" class="action-btn" style="background: #ea580c;">
-                        🚀 Scratch Studio öffnen ↗
-                    </a>
-                </div>
-
-                <h3>Schritt 2: Den Stromkreis aufbauen</h3>
-                <ol class="step-list">
-                    <li><b>Erdung (EARTH) halten:</b> Klemme ein Kabel unten an <code>EARTH</code> und halte das metallische Ende in deiner Hand.</li>
-                    <li><b>Taste verbinden:</b> Klemme ein zweites Kabel an <code>SPACE</code> oder die <code>Pfeiltaste</code> und stecke es z. B. in eine Banane.</li>
-                    <li><b>Auslösen:</b> Berühre die Banane! Der Strom fließt durch deinen Körper zum Makey Makey zurück – dein Scratch-Spiel reagiert sofort!</li>
-                </ol>
-            </div>
+            <h2>🎹 Modul: Makey Makey</h2>
+            <p>Dieses Modul wird im nächsten Schritt mit vertieften Aufgaben ausgebaut.</p>
         </div>
 
     </div>
 
     <script>
-        // Modul-Umschaltung
-        function switchModule(moduleName) {
-            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+        // Haupt-Modul Umschaltung
+        function switchMainModule(mod) {
+            document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
 
             event.currentTarget.classList.add('active');
-            document.getElementById('module-' + moduleName).classList.remove('hidden');
+            document.getElementById('module-' + mod).classList.remove('hidden');
         }
 
-        // Blitz-Hardware-Finder für micro:bit
+        // Sub-Navigation für micro:bit Lerneinheiten
+        function switchMicrobitLesson(lessonId) {
+            // Button Styling anpassen
+            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Inhalte umschalten
+            document.getElementById('mb-lesson1').classList.add('hidden');
+            document.getElementById('mb-lesson2').classList.add('hidden');
+            document.getElementById('mb-lesson3').classList.add('hidden');
+
+            document.getElementById('mb-' + lessonId).classList.remove('hidden');
+        }
+
+        // Hardware-Finder Text-Ausgabe
         function showHw(part) {
             const info = document.getElementById('hw-info');
             if(part === 'led') {
-                info.innerHTML = "🔴 <b>5x5 LED-Raster:</b> Befindet sich in der Mitte der Vorderseite. Es zeigt Bilder, Zahlen und Texte an.";
+                info.innerHTML = "🔴 <b>5x5 LED-Display:</b> Zeigt Symbole, Zahlen und Texte an.";
             } else if(part === 'btn') {
-                info.innerHTML = "🔘 <b>Knöpfe A & B:</b> Tasten links und rechts neben dem Display auf der Vorderseite.";
+                info.innerHTML = "🔘 <b>Knöpfe A & B:</b> Tasten auf der Vorderseite zum Steuern von Aktionen.";
             } else if(part === 'sens') {
-                info.innerHTML = "☀️ <b>Sensoren:</b> Das LED-Display misst Helligkeit! Der Temperatursensor liegt auf der Rückseite.";
-            } else if(part === 'pins') {
-                info.innerHTML = "⚡ <b>Goldene Pins:</b> Streifen ganz unten zum Anschließen von Krokodilklemmen, Kabeln oder Motoren.";
+                info.innerHTML = "🧭 <b>Sensoren:</b> Misst Bewegung (Schütteln), Magnetfelder (Kompass) & Temperatur.";
             }
         }
     </script>
