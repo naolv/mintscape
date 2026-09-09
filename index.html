@@ -290,6 +290,8 @@
                 <button class="sub-btn" onclick="switchMicrobitLesson('lesson2')">2. Schrittzähler</button>
                 <button class="sub-btn" onclick="switchMicrobitLesson('lesson3')">3. Türsensor</button>
                 <button class="sub-btn" onclick="switchMicrobitLesson('lesson4')">4. Thermometer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson5')">5. Musik-Synthesizer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson6')">6. Erfinder-Challenge</button>
             </div>
 
             <div class="grid-2col">
@@ -471,7 +473,7 @@ while True:
                                 <b>Real-Life Bastelauftrag: Die Pflanzen-Wetterstation!</b>
                                 <ol style="margin: 6px 0 0 0; padding-left: 18px;">
                                     <li>Schneide aus Karton ein kleines Schild (Form einer Blume oder einer Wolke) aus.</li>
-                                    <li>Befestige ein Holzstäbchen (z.B. Eisstiel oder Bleistift) als Ständer am Karton.</li>
+                                    <li>Befestige ein Holzstäbchen (z. B. Eisstiel oder Bleistift) als Ständer am Karton.</li>
                                     <li>Binde den micro:bit mit Gummibändern an den Karton und stecke deine Wetterstation in eine <b>Topfpflanze beim Fenster</b>.</li>
                                     <li>Messe die Temperatur am Fenster und vergleiche sie mit der Temperatur bei deinem Pult!</li>
                                 </ol>
@@ -483,21 +485,104 @@ while True:
                         </div>
                     </div>
 
+                    <!-- LERNEINHEIT 5: MUSIK-SYNTHESIZER -->
+                    <div id="mb-lesson5" class="hidden">
+                        <h3>5. Projekt: Der Musik-Synthesizer (Luft-Gitarre)</h3>
+                        
+                        <div class="intro-box">
+                            <b>Töne &amp; Bewegung verbinden:</b><br>
+                            Der micro:bit kann fertige Melodien abspielen oder eigene Töne erzeugen. Wenn wir den Neigungssensor mit dem Musik-Modul verknüpfen, entsteht ein interaktives Musikinstrument!
+                        </div>
+
+                        <div class="task-card">
+                            <h4>Bauplan: Die digitale Luft-Gitarre</h4>
+
+                            <div class="code-puzzle">from microbit import *
+import music
+
+while True:
+    <span class="code-comment"># WENN Knopf A gedrückt wird: Spiele eine kurze Melodie</span>
+    if button_a.is_pressed():
+        display.show(Image.MUSIC_NOTE)
+        music.play(music.BA_DING)
+        
+    <span class="code-comment"># WENN der micro:bit geschüttelt wird: Erzeuge einen Ton</span>
+    if accelerometer.was_gesture('shake'):
+        display.show(Image.PACMAN)
+        <span class="code-comment"># Spiele einen Ton mit Frequenz 440 Hz für 200 ms</span>
+        music.pitch(440, 200)
+        
+    <span class="code-comment"># WENN Knopf B gedrückt wird: Ton stoppen</span>
+    if button_b.is_pressed():
+        display.clear()
+        music.stop()</div>
+
+                            <div class="craft-box">
+                                <b>Real-Life Bastelauftrag: Baue deine eigene Karton-Gitarre!</b>
+                                <ol style="margin: 6px 0 0 0; padding-left: 18px;">
+                                    <li>Schneide aus Karton eine <b>Gitarre, Keytar oder Trommel-Form</b> aus.</li>
+                                    <li>Befestige den micro:bit mit Klebeband am Hals oder Korpus deines Karton-Instruments.</li>
+                                    <li>Schliesse das Batteriepack an.</li>
+                                    <li>Hänge dir deine Gitarre um und spiele Rhythmen durch Bewegen und Drücken der Tasten!</li>
+                                </ol>
+                            </div>
+
+                            <div class="challenge-box">
+                                <b>Tüftel-Auftrag für Profis:</b> Kannst du den Code so anpassen, dass beim Neigen des micro:bit nach links ein tiefer Ton (<code>music.pitch(200, 100)</code>) und nach rechts ein hoher Ton (<code>music.pitch(800, 100)</code>) ertönt?
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LERNEINHEIT 6: ERFINDER-CHALLENGE -->
+                    <div id="mb-lesson6" class="hidden">
+                        <h3>6. Die Erfinder-Challenge: Sichere den Schatz!</h3>
+                        
+                        <div class="intro-box">
+                            <b>Deine Meisterprüfung:</b><br>
+                            Du hast alle Werkzeuge gelernt! Jetzt kombinierst du Variablen, Sensoren, Bedingungen und Sound zu einem eigenen, kompletten Produkt.
+                        </div>
+
+                        <div class="task-card">
+                            <h4>Auftrag: Baue eine Alarmanlage für deine Schatztruhe</h4>
+                            <p>Entwirf ein Programm und eine Hülle aus Karton, die dein Pult oder deine Schachtel beschützt.</p>
+
+                            <p><b>Deine Alarmanlage muss mindestens 3 Dinge können:</b></p>
+                            <ol style="line-height: 1.6;">
+                                <li><b>Überwachung:</b> Reagiere auf Bewegung (Schütteln) oder das Öffnen einer Tür (Magnet/Licht).</li>
+                                <li><b>Alarm:</b> Spiele eine Sirene oder Töne ab und zeige ein Warnsymbol auf den LEDs.</li>
+                                <li><b>Entschärfen:</b> Erfinde einen Geheimcode (z. B. Knopf A und B gleichzeitig drücken), um den Alarm wieder auf Stumm zu schalten.</li>
+                            </ol>
+
+                            <div class="craft-box">
+                                <b>Tipp für die Planung (Bauplan im Kopf):</b>
+                                <ul style="margin: 6px 0 0 0; padding-left: 18px;">
+                                    <li>Welchen Sensor wählst du zur Überwachung? (Schütteln, Magnet, Temperatur?)</li>
+                                    <li>Welche Melodie oder Frequenz soll als Alarm ertönen?</li>
+                                    <li>Wie sieht das Gehäuse aus Karton aus, um den micro:bit getarnt an der Schachtel zu befestigen?</li>
+                                </ul>
+                            </div>
+
+                            <div class="challenge-box">
+                                <b>Zusatz-Lust:</b> Baue eine Variable <code>versuche</code> ein. Wer 3-mal den falschen Knopf drückt, löst einen Daueralarm aus!
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- AUFKLAPPBARE BEFEHLSSAMMLUNG (SPICKZETTEL) -->
                     <details class="cmd-box">
                         <summary>Befehlssammlung / Spickzettel (Hier Befehle nachschlagen!)</summary>
                         <div class="cmd-list">
                             <div class="cmd-item">
                                 <code>display.show(Image.NAME)</code><br>
-                                Zeigt ein vordefiniertes Bild an. (Auswahl: <code>HEART</code>, <code>HAPPY</code>, <code>SAD</code>, <code>YES</code>, <code>NO</code>, <code>SKULL</code>, <code>PACMAN</code>, <code>STAR</code>).
+                                Zeigt ein vordefiniertes Bild an. (Auswahl: <code>HEART</code>, <code>HAPPY</code>, <code>SAD</code>, <code>YES</code>, <code>NO</code>, <code>SKULL</code>, <code>PACMAN</code>, <code>STAR</code>, <code>MUSIC_NOTE</code>).
                             </div>
                             <div class="cmd-item">
                                 <code>display.show(variable_oder_zahl)</code><br>
-                                Zeigt eine Zahl oder den Inhalt einer Variable (z.B. <code>schritte</code>) an.
+                                Zeigt eine Zahl oder den Inhalt einer Variable (z. B. <code>schritte</code>) an.
                             </div>
                             <div class="cmd-item">
                                 <code>display.scroll(variable_oder_zahl)</code><br>
-                                Lässt längere Zahlen oder Wörte als Laufschrift über den Bildschirm wandern.
+                                Lässt längere Zahlen oder Wörter als Laufschrift über den Bildschirm wandern.
                             </div>
                             <div class="cmd-item">
                                 <code>display.clear()</code><br>
@@ -522,6 +607,14 @@ while True:
                             <div class="cmd-item">
                                 <code>temperature()</code><br>
                                 Misst die Temperatur des Prozessors in Grad Celsius.
+                            </div>
+                            <div class="cmd-item">
+                                <code>music.play(music.MELODIE_NAME)</code><br>
+                                Spielt eine fertige Melodie ab (z. B. <code>music.BA_DING</code>, <code>music.PYTHON</code>, <code>music.ENTERTAINER</code>, <code>music.BADDY</code>).
+                            </div>
+                            <div class="cmd-item">
+                                <code>music.pitch(frequenz, dauer_in_ms)</code><br>
+                                Erzeugt einen eigenen Ton mit Tonhöhe in Hertz (z. B. 440) und Dauer in Millisekunden.
                             </div>
                         </div>
                     </details>
@@ -584,6 +677,8 @@ while True:
             document.getElementById('mb-lesson2').classList.add('hidden');
             document.getElementById('mb-lesson3').classList.add('hidden');
             document.getElementById('mb-lesson4').classList.add('hidden');
+            document.getElementById('mb-lesson5').classList.add('hidden');
+            document.getElementById('mb-lesson6').classList.add('hidden');
 
             document.getElementById('mb-' + lessonId).classList.remove('hidden');
         }
