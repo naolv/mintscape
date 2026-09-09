@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINTscape – Das Tüftel-Portal</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #16a34a;
+            --warning: #ca8a04;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
+        p.subtitle { color: #64748b; margin-top: 5px; }
+
+        /* Navigation / Modul-Kacheln */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 1100px;
+            margin: 0 auto 30px auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .card:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .card.active { border-color: var(--primary); background-color: #eff6ff; }
+        .card h3 { margin: 10px 0 5px 0; font-size: 1.1rem; }
+        .card span.icon { font-size: 2rem; }
+
+        /* Modul-Inhaltsbereich */
+        .module-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .hidden { display: none; }
+
+        /* Split-Screen für Python Editor & Aufgaben */
+        .editor-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .editor-layout { grid-template-columns: 1fr; }
+        }
+
+        .task-box {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        button.btn-run {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        button.btn-run:hover { opacity: 0.9; }
+
+        /* Feedback & Fehlerbereich */
+        .feedback-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .feedback-box.success { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+        .feedback-box.error { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
+        .feedback-box.warning { background-color: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+
+        /* Schritt-Anleitung Tinkercad */
+        .step-list { padding-left: 20px; }
+        .step-list li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🌌 MINTscape – Tüftel-Portal</h1>
+        <p class="subtitle">Begabungsförderung: Programmieren, 3D-Druck, Lasercut & Maker-Projekte</p>
+    </header>
+
+    <!-- 1. DASHBOARD: Werkzeug-Auswahl -->
+    <div class="dashboard">
+        <div class="card active" onclick="switchModule('python')">
+            <span class="icon">🤖</span>
+            <h3>micro:bit Python</h3>
+            <small>Code mit Smart-Check</small>
+        </div>
+        <div class="card" onclick="switchModule('tinkercad')">
+            <span class="icon">🧊</span>
+            <h3>3D-Druck (Tinkercad)</h3>
+            <small>Projekt Büroklammer</small>
+        </div>
+        <div class="card" onclick="switchModule('laser')">
+            <span class="icon">✂️</span>
+            <h3>Lasercutter</h3>
+            <small>Gehäuse & Steckboxen</small>
+        </div>
+        <div class="card" onclick="switchModule('makey')">
+            <span class="icon">🎹</span>
+            <h3>Makey Makey</h3>
+            <small>Stromkreise & Musik</small>
+        </div>
+    </div>
+
+    <div class="module-container">
+        
+        <!-- MODUL 1: MICRO:BIT / PYTHON WITH ERROR CHECKER -->
+        <div id="module-python">
+            <h2>🤖 Modul: micro:bit & WebTigerPython</h2>
+            
+            <div class="editor-layout">
+                <!-- Linke Spalte: Häppchen-Aufgabe -->
+                <div>
+                    <div class="task-box">
+                        <h3>Level 1: Das Herz schlagen lassen</h3>
+                        <p>Schreibe ein Programm für den micro:bit, das fortlaufend ein Herz-Symbol anzeigt.</p>
+                        <p><strong>Befehl-Tipp:</strong><br>
+                        <code>display.show(Image.HEART)</code></p>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <small>💡 <strong>Fehler-Tester:</strong> Lösche mal im Code unten die hintere Klammer <code>)</code> oder schreibe <code>Display</code> groß, um den Kinder-Code-Doktor zu testen!</small>
+                    </div>
+                </div>
+
+                <!-- Rechte Spalte: Code-Editor & Echtzeit-Checker -->
+                <div>
+                    <label for="code-input"><strong>Dein Python-Code:</strong></label>
+                    <textarea id="code-input" spellcheck="false">from microbit import *
+
+while True:
+    display.show(Image.HEART)</textarea>
+                    
+                    <button class="btn-run" onclick="checkPythonCode()">▶ Code prüfen & ausführen</button>
+
+                    <!-- Dynamische Rückmeldung für das Kind -->
+                    <div id="feedback" class="feedback-box hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODUL 2: TINKERCAD / BÜROKLAMMER -->
+        <div id="module-tinkercad" class="hidden">
+            <h2>🧊 Modul: 3D-Druck Führerschein</h2>
+            
+            <div class="task-box" style="border-left-color: #0284c7; background: #e0f2fe;">
+                <h3>📌 Das Goldene Dateinamen-Gebot</h3>
+                <p>Klicke in Tinkercad oben links auf den Namen und ändere ihn SOFORT in: <strong>DeinName_Bueroklammer</strong></p>
+            </div>
+
+            <h3>Geführte Anleitung: Die 10-Minuten-Büroklammer</h3>
+            <ol class="step-list">
+                <li><strong>Grundplatte ziehen:</strong> Hole einen Rote Quader. Stelle die Maße ein auf: <i>Länge: 40mm, Breite: 15mm, Höhe: 2mm</i>.</li>
+                <li><strong>Schlitz stanzen:</strong> Hole eine transparente "Bohrung" (Quader). Setze sie in die Mitte der Platte (Länge: 30mm, Breite: 3mm).</li>
+                <li><strong>Gruppieren:</strong> Markiere beide Formen und klicke oben rechts auf <strong>Gruppieren</strong> (oder Strg+G).</li>
+                <li><strong>Exportieren:</strong> Klicke auf <i>Exportieren ➔ .STL</i> und sende die Datei an den 3D-Drucker!</li>
+            </ol>
+        </div>
+
+        <!-- MODUL 3 & 4 (PLATZHALTER FÜR SPÄTER) -->
+        <div id="module-laser" class="hidden">
+            <h2>✂️ Modul: Lasercutter</h2>
+            <p>Hier folgend die Vorlagen für Boxes.py und Tinkercad-SVG-Exporte...</p>
+        </div>
+
+        <div id="module-makey" class="hidden">
+            <h2>🎹 Modul: Makey Makey</h2>
+            <p>Hier folgen die Anleitungen für das Alufolien-Klavier...</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Tab-Wechsel-Funktion
+        function switchModule(moduleName) {
+            // Alle Kacheln zurücksetzen
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            // Alle Inhaltsbereiche ausblenden
+            document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
+
+            // Gewähltes Modul aktivieren
+            event.currentTarget.classList.add('active');
+            document.getElementById('module-' + moduleName).classList.remove('hidden');
+        }
+
+        // KINDERGERECHTER CODE-DOCTOR (Python-Fehler-Übersetzer)
+        function checkPythonCode() {
+            const code = document.getElementById('code-input').value;
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('hidden', 'success', 'error', 'warning');
+
+            const lines = code.split('\n');
+
+            // 1. Prüfung: Klammer vergessen?
+            for (let i = 0; i < lines.length; i++) {
+                const openParen = (lines[i].match(/\(/g) || []).length;
+                const closeParen = (lines[i].match(/\)/g) || []).length;
+                if (openParen > closeParen) {
+                    feedback.className = 'feedback-box error';
+                    feedback.innerHTML = `🔴 <strong>Zeile ${i + 1}:</strong> Hast du vergessen, die Klammer <code>)</code> am Ende der Zeile zuzumachen?`;
+                    return;
+                }
+            }
+
+            // 2. Prüfung: Gross-/Kleinschreibung bei 'display'
+            if (code.includes('Display.')) {
+                feedback.className = 'feedback-box error';
+                feedback.innerHTML = `🔴 <strong>Achtung:</strong> Python unterscheidet Groß- und Kleinschreibung. Schreibe <code>display</code> klein!`;
+                return;
+            }
+
+            // 3. Prüfung: Fehlendes Einrücken nach 'while'
+            for (let i = 0; i < lines.length - 1; i++) {
+                if (lines[i].trim().startsWith('while') && lines[i].endsWith(':')) {
+                    if (lines[i+1] && !lines[i+1].startsWith(' ') && !lines[i+1].startsWith('\t')) {
+                        feedback.className = 'feedback-box warning';
+                        feedback.innerHTML = `🟡 <strong>Zeile ${i + 2}:</strong> Der Befehl unter der <code>while</code>-Schleife muss eingerückt sein! Drücke einmal die Tab-Taste am Zeilenanfang.`;
+                        return;
+                    }
+                }
+            }
+
+            // Wenn alles passt
+            feedback.className = 'feedback-box success';
+            feedback.innerHTML = `🟢 <strong>Klasse gemacht!</strong> Dein Code ist fehlerfrei und bereit für den micro:bit!`;
+        }
+    </script>
+</body>
+</html>
