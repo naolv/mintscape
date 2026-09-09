@@ -6,13 +6,14 @@
     <title>MINTscape – Erfinder-Portal</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --success: #16a34a;
-            --warning: #ca8a04;
-            --danger: #dc2626;
+            /* Neutrale, warme & sanfte Farbpalette (Salbeigrün, Teal, warmes Grau) */
+            --primary: #0d9488;       /* Sanftes Teal/Erfinder-Grün */
+            --primary-light: #ccfbf1; /* Zartes Mint */
+            --accent: #d97706;        /* Warmes Bernstein für Hinweise */
+            --danger: #e11d48;        /* Sanftes Rot für Setup-Warnung */
             --bg: #f8fafc;
             --card-bg: #ffffff;
-            --text: #0f172a;
+            --text: #1e293b;
         }
 
         body {
@@ -28,9 +29,10 @@
             margin-bottom: 25px;
         }
 
-        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; }
+        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; font-weight: 700; }
         p.subtitle { color: #64748b; margin-top: 5px; }
 
+        /* Navigation Dashboard */
         .dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -43,15 +45,15 @@
             background: var(--card-bg);
             padding: 15px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             cursor: pointer;
             border: 2px solid transparent;
             transition: all 0.2s;
             text-align: center;
         }
 
-        .card:hover { transform: translateY(-3px); border-color: var(--primary); }
-        .card.active { border-color: var(--primary); background-color: #eff6ff; }
+        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .card.active { border-color: var(--primary); background-color: var(--primary-light); }
 
         .sub-nav {
             display: flex;
@@ -67,7 +69,7 @@
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             color: #475569;
         }
 
@@ -82,7 +84,7 @@
             background: var(--card-bg);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .hidden { display: none; }
@@ -107,10 +109,10 @@
             border-left: 4px solid var(--primary);
         }
 
-        /* DÜNNER, EINKLAPPBARER BALKEN FÜR SETUP */
+        /* DÜNNER, EINKLAPPBARER SETUP-BALKEN */
         details.editor-setup-bar {
-            background: #fef2f2;
-            border: 1px solid #fca5a5;
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
             border-left: 5px solid var(--danger);
             border-radius: 6px;
             margin-bottom: 15px;
@@ -120,25 +122,20 @@
         details.editor-setup-bar summary {
             padding: 10px 14px;
             font-weight: bold;
-            color: #991b1b;
+            color: #9f1239;
             cursor: pointer;
             user-select: none;
         }
 
-        details.editor-setup-bar summary:hover {
-            background: #fee2e2;
-        }
+        details.editor-setup-bar summary:hover { background: #ffe4e6; }
 
         .setup-content {
             padding: 10px 14px 14px 14px;
-            border-top: 1px solid #fca5a5;
-            background: #fff5f5;
+            border-top: 1px solid #fecdd3;
+            background: #fff;
         }
 
-        .setup-content ol {
-            margin: 6px 0 0 0;
-            padding-left: 20px;
-        }
+        .setup-content ol { margin: 6px 0 0 0; padding-left: 20px; }
 
         .task-card {
             background: #ffffff;
@@ -148,24 +145,29 @@
             margin-bottom: 15px;
         }
 
-        .task-card h4 { margin-top: 0; color: #1e293b; }
+        .task-card h4 { margin-top: 0; color: #0f172a; }
 
+        /* CODE PFLICHTFELDER ZUM SELBST AUSFÜLLEN */
         .code-puzzle {
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 12px;
+            background: #27272a;
+            color: #f4f4f5;
+            padding: 14px;
             border-radius: 6px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.88rem;
             margin: 10px 0;
             white-space: pre-wrap;
             line-height: 1.5;
-            border: 1px dashed #38bdf8;
+            border: 1px solid #3f3f46;
         }
+
+        /* Farbhervorhebung für Python-Kommentare */
+        .code-comment { color: #86efac; font-style: italic; }
+        .code-todo { color: #fde047; font-weight: bold; }
 
         .challenge-box {
             background: #fef3c7;
-            border-left: 4px solid var(--warning);
+            border-left: 4px solid var(--accent);
             padding: 10px 14px;
             border-radius: 6px;
             font-size: 0.88rem;
@@ -175,7 +177,7 @@
         .craft-box {
             background: #f0fdf4;
             border: 1px solid #bbf7d0;
-            border-left: 4px solid var(--success);
+            border-left: 4px solid #16a34a;
             padding: 12px 14px;
             border-radius: 6px;
             font-size: 0.88rem;
@@ -183,7 +185,7 @@
         }
 
         .hw-finder {
-            background: #0f172a;
+            background: #334155;
             color: white;
             padding: 14px;
             border-radius: 8px;
@@ -191,32 +193,30 @@
         }
 
         .hw-btn {
-            background: #334155;
+            background: #475569;
             color: #f8fafc;
-            border: 1px solid #475569;
+            border: 1px solid #64748b;
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 0.85rem;
             cursor: pointer;
             margin-right: 4px;
             margin-bottom: 6px;
-            font-weight: 500;
         }
 
-        .hw-btn:hover { background: #0284c7; }
+        .hw-btn:hover { background: var(--primary); }
 
         .hw-desc {
             font-size: 0.88rem;
-            color: #cbd5e1;
+            color: #f1f5f9;
             background: #1e293b;
             padding: 10px 12px;
             border-radius: 6px;
             min-height: 40px;
             line-height: 1.4;
-            border: 1px solid #334155;
         }
 
-        /* AUFKLAPPBARE BEFEHLSSAMMLUNG (CHEAT SHEET) */
+        /* SPICKZETTEL */
         details.cmd-box {
             background: #f8fafc;
             border: 1px solid #cbd5e1;
@@ -228,7 +228,7 @@
         details.cmd-box summary {
             padding: 10px 12px;
             font-weight: bold;
-            color: #1e293b;
+            color: #0f172a;
             cursor: pointer;
             background: #e2e8f0;
             border-radius: 5px;
@@ -248,10 +248,7 @@
             border-radius: 4px;
         }
 
-        .cmd-item code {
-            color: #0284c7;
-            font-weight: bold;
-        }
+        .cmd-item code { color: var(--primary); font-weight: bold; }
 
         .editor-iframe {
             width: 100%;
@@ -265,14 +262,14 @@
 <body>
 
     <header>
-        <h1>🚀 MINTscape – Das Erfinder-Portal</h1>
-        <p class="subtitle">Verstehe die Logik, löse die Rätsel &amp; programmiere selbst!</p>
+        <h1>🌱 MINTscape – Das Erfinder-Portal</h1>
+        <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
     <div class="dashboard">
         <div class="card active" onclick="switchMainModule('python')">
             <h3>🤖 micro:bit Python</h3>
-            <small>Interaktive Aufgaben &amp; Projekte</small>
+            <small>Interaktive Aufgaben &amp; Prototypen</small>
         </div>
         <div class="card" onclick="switchMainModule('tinkercad')">
             <h3>🧊 3D-Druck (Tinkercad)</h3>
@@ -308,12 +305,12 @@
                         <h3>1. Was ist der micro:bit?</h3>
                         
                         <div class="intro-box">
-                            Der <b>BBC micro:bit</b> ist ein winziger Computer auf einer Platine. Mit Python schreibst du Befehle, die der micro:bit direkt ausführt.
+                            Der <b>BBC micro:bit</b> ist ein kleiner, programmierbarer Computer. Mit Python-Befehlen sagst du ihm genau, was er tun soll!
                         </div>
 
                         <div class="hw-finder">
-                            <h4 style="margin-top:0;">🔍 Hardware-Detektiv: Suchst du die Teile auf deinem micro:bit?</h4>
-                            <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand! Klicke unten auf ein Bauteil und schau, ob du es auf deiner Platine entdeckst:</p>
+                            <h4 style="margin-top:0;">🔍 Hardware-Detektiv: Wo sind die Bauteile?</h4>
+                            <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand und suche die Teile auf der Platine:</p>
                             <div>
                                 <button class="hw-btn" onclick="showHw('led')">🔴 5x5 LEDs</button>
                                 <button class="hw-btn" onclick="showHw('btn')">🔘 Tasten A &amp; B</button>
@@ -323,19 +320,28 @@
                         </div>
 
                         <div class="task-card">
-                            <h4>🧩 Aufgabe: Das blinkende Herz</h4>
-                            <p><small>Schreibe deinen ersten eigenen Code in den Editor auf der rechten Seite!</small></p>
+                            <h4>🧩 Aufgabe: Das blinkende Herz programmiere</h4>
+                            <p><small>Schau unten in die <b>Befehlssammlung</b>, suche die richtigen Befehle und tippe den Code im Editor rechts selbst zusammen:</small></p>
 
-                            <div class="code-puzzle">from microbit import *
+                            <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
+from microbit import *
 
+<span class="code-comment"># 2. Endlosschleife: Wiederhole alles ewig</span>
 while True:
-    display.show(Image.HEART)
+    <span class="code-comment"># Zeige ein Herz auf den LEDs an:</span>
+    <span class="code-todo">[HIER BEFEHL FÜR HEART EINSETZEN]</span>
+    
+    <span class="code-comment"># Warte 500 Millisekunden (1/2 Sekunde):</span>
     sleep(500)
-    display.clear()
+    
+    <span class="code-comment"># Lösche den Bildschirm wieder:</span>
+    <span class="code-todo">[HIER BEFEHL ZUM BILDSCHIRM LÖSCHEN EINSETZEN]</span>
+    
+    <span class="code-comment"># Warte nochmals 500 Millisekunden:</span>
     sleep(500)</div>
 
                             <div class="challenge-box">
-                                🌟 <b>Herausforderung:</b> Ändere das Bild! Lass erst ein fröhliches Gesicht (<code>HAPPY</code>) anzeigen und danach ein trauriges (<code>SAD</code>). Verändere auch die Pausenzeiten mit <code>sleep()</code>!
+                                🌟 <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
                             </div>
                         </div>
                     </div>
@@ -346,39 +352,45 @@ while True:
                         
                         <div class="intro-box">
                             <b>Das Prinzip der Variablen:</b><br>
-                            Eine Variable ist wie eine beschriftete Box im Speicher. In <code>schritte</code> speichern wir ab, wie oft der Bewegungssensor Erschütterungen misst.
+                            Eine Variable ist wie eine kleine Merk-Box im Speicher. In <code>schritte</code> zählen wir jedes Mal +1, wenn der Bewegungssensor geschüttelt wird.
                         </div>
 
                         <div class="task-card">
-                            <h4>💻 Code für deinen Schrittzähler</h4>
-                            <p><small>Programmiere deine eigene Schrittzähler-Logik:</small></p>
+                            <h4>💻 Bauplan: Schrittzähler programmieren</h4>
+                            <p><small>Lies die Kommentare mit <code>#</code> aufmerksam durch. Ersetze die gelben Lücken durch die richtigen Befehle!</small></p>
 
                             <div class="code-puzzle">from microbit import *
 
+<span class="code-comment"># Wir starten mit 0 Schritten in der Speicher-Box</span>
 schritte = 0
 
 while True:
-    display.show(schritte)
+    <span class="code-comment"># Zeige die Zahl an, die in der Variable steckt:</span>
+    <span class="code-todo">[BEFEHL: ZEIGE DIE VARIABLE 'schritte']</span>
     
+    <span class="code-comment"># WENN der micro:bit geschüttelt wurde:</span>
     if accelerometer.was_gesture('shake'):
+        <span class="code-comment"># Erhöhe den Zähler um 1</span>
         schritte = schritte + 1
         sleep(200)
         
+    <span class="code-comment"># WENN Knopf A gedrückt wird (Reset):</span>
     if button_a.is_pressed():
-        schritte = 0</div>
+        <span class="code-comment"># Setze den Zähler wieder auf 0 zurück</span>
+        schritte = <span class="code-todo">[WELCHE ZAHL KOMMT HIER HIN?]</span></div>
 
                             <div class="craft-box">
                                 ✂️ <b>Real-Life Bastelauftrag: Baue ein Trageband!</b>
                                 <ol style="margin: 6px 0 0 0; padding-left: 18px;">
-                                    <li>Schliesse das externe <b>Batteriepack</b> an deinen micro:bit an.</li>
+                                    <li>Schliesse das <b>Batteriepack</b> an deinen micro:bit an.</li>
                                     <li>Schneide aus Karton einen Streifen (ca. 4 × 12 cm) aus.</li>
                                     <li>Befestige den micro:bit mit Gummibändern oder einer Büroklammer am Karton.</li>
-                                    <li>Klemme den Schrittzähler an deinen <b>Schuh oder Hosenbund</b> und mache 10 Schritte im Schulzimmer. Funktioniert dein Zähler?</li>
+                                    <li>Klemme den Schrittzähler an deinen <b>Schuh oder Hosenbund</b> und mache 10 Schritte im Schulzimmer. Rechnet dein Zähler richtig?</li>
                                 </ol>
                             </div>
 
                             <div class="challenge-box">
-                                🌟 <b>Zusatz-Code:</b> Lass den micro:bit ein Stern-Symbol (<code>Image.STAR</code>) anzeigen, sobald du mehr als 10 Schritte geschafft hast!
+                                🌟 <b>Tüftel-Auftrag:</b> Bau eine Ziel-Belohnung ein! Wenn <code>schritte > 10</code> sind, soll ein Stern (<code>Image.STAR</code>) auf den LEDs leuchten.
                             </div>
                         </div>
                     </div>
@@ -389,21 +401,26 @@ while True:
                         
                         <div class="intro-box">
                             <b>Bedingungen verstehen (Wenn ... Dann ... Sonst):</b><br>
-                            Der Kompass-Sensor misst Magnetfelder. Ein Magnet an der Tür hält den Wert hoch. Wird die Tür geöffnet, fällt die Stärke ab und der micro:bit schlägt Alarm!
+                            Der Magnet-Sensor misst unsichtbare Magnetfelder. Ist ein Magnet an der Tür nahe bei deinem micro:bit, ist der Wert hoch (> 50000). Geht die Tür auf, fällt der Wert ab!
                         </div>
 
                         <div class="task-card">
-                            <h4>💻 Code für die Alarmanlage</h4>
+                            <h4>💻 Bauplan: Alarmanlage tüfteln</h4>
 
                             <div class="code-puzzle">from microbit import *
 
 while True:
+    <span class="code-comment"># Stärke des Magnetfelds messen</span>
     magnet = compass.get_field_strength()
     
+    <span class="code-comment"># WENN der Magnet nah ist (Tür ZU):</span>
     if magnet > 50000:
         display.show(Image.YES)
+        
+    <span class="code-comment"># SONST (Magnet weg = Tür AUF = ALARM!):</span>
     else:
-        display.show(Image.SKULL)
+        <span class="code-comment"># Zeige einen Totenkopf oder ein Warnzeichen an:</span>
+        <span class="code-todo">[DEIN BILD-BEFEHL]</span>
         sleep(100)
         display.clear()
         sleep(100)</div>
@@ -412,27 +429,27 @@ while True:
 
                     <!-- AUFKLAPPBARE BEFEHLSSAMMLUNG (SPICKZETTEL) -->
                     <details class="cmd-box">
-                        <summary>📚 Befehlssammlung / Spickzettel (Hier nachschlagen!)</summary>
+                        <summary>📚 Befehlssammlung / Spickzettel (Hier Befehle nachschlagen!)</summary>
                         <div class="cmd-list">
                             <div class="cmd-item">
                                 <code>display.show(Image.NAME)</code><br>
-                                Zeigt ein Bild auf den LEDs an. (Mögliche Namen: <code>HEART</code>, <code>HAPPY</code>, <code>SAD</code>, <code>YES</code>, <code>NO</code>, <code>SKULL</code>, <code>PACMAN</code>, <code>STAR</code>).
+                                Zeigt ein vordefiniertes Bild an. (Auswahl: <code>HEART</code>, <code>HAPPY</code>, <code>SAD</code>, <code>YES</code>, <code>NO</code>, <code>SKULL</code>, <code>PACMAN</code>, <code>STAR</code>).
                             </div>
                             <div class="cmd-item">
                                 <code>display.show(variable_oder_zahl)</code><br>
-                                Zeigt eine Zahl oder eine Variable (z.B. den Schrittzähler) auf dem LED-Raster an.
+                                Zeigt eine Zahl oder den Inhalt einer Variable (z.B. <code>schritte</code>) an.
                             </div>
                             <div class="cmd-item">
                                 <code>display.clear()</code><br>
-                                Löscht alle LEDs (Bildschirm wird dunkel).
+                                Löscht alle Lämpchen auf dem Display.
                             </div>
                             <div class="cmd-item">
                                 <code>sleep(zeit_in_ms)</code><br>
-                                Wartet eine bestimmte Zeit in Millisekunden (1000 ms = 1 Sekunde).
+                                Pausiert den micro:bit für eine Zeit in Millisekunden (1000 ms = 1 Sekunde).
                             </div>
                             <div class="cmd-item">
                                 <code>accelerometer.was_gesture('shake')</code><br>
-                                Prüft, ob der micro:bit geschüttelt wurde.
+                                Erkennt, wenn der micro:bit geschüttelt wurde.
                             </div>
                             <div class="cmd-item">
                                 <code>button_a.is_pressed()</code><br>
@@ -440,16 +457,16 @@ while True:
                             </div>
                             <div class="cmd-item">
                                 <code>compass.get_field_strength()</code><br>
-                                Misst die Stärke des Magnetfelds in der Umgebung.
+                                Misst die Magnetfeldstärke der Umgebung.
                             </div>
                         </div>
                     </details>
 
                 </div>
 
-                <!-- RECHTER BEREICH: EDITOR & SETUP-BALKEN -->
+                <!-- RECHTER BEREICH: EDITOR & EINSTELLUNGS-BALKEN -->
                 <div>
-                    <!-- DÜNNER, AUFKLAPPBARER SETUP-BALKEN -->
+                    <!-- DÜNNER, EINKLAPPBARER SETUP-BALKEN -->
                     <details class="editor-setup-bar">
                         <summary>⚙️ Wichtig: WebTigerPython richtig einstellen (hier klicken)</summary>
                         <div class="setup-content">
