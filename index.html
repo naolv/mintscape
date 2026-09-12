@@ -189,7 +189,8 @@
             background: #f8fafc;
             border: 1px solid #cbd5e1;
             border-radius: 6px;
-            margin-top: 15px;
+            margin-top: 12px;
+            margin-bottom: 15px;
             font-size: 0.88rem;
         }
 
@@ -226,44 +227,7 @@
             background: #fff;
         }
 
-        /* LASERCUTTER SPECIFIC STYLES */
-        .step-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .step-card {
-            background: #f8fafc;
-            border: 2px solid #cbd5e1;
-            padding: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .step-card:hover { border-color: var(--primary); }
-        .step-card.active { border-color: var(--primary); background-color: var(--primary-light); }
-
-        .rule-box {
-            background: #fef2f2;
-            border-left: 4px solid var(--danger);
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        .workflow-box {
-            background: #f0f9ff;
-            border: 1px solid #bae6fd;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 0.88rem;
-        }
-
+        /* SPEC BADGES & DIAGRAMS */
         .spec-badge {
             display: inline-block;
             background: #e0f2fe;
@@ -276,7 +240,6 @@
             margin-bottom: 8px;
         }
 
-        /* BILDER UND DIAGRAMME */
         .diagram-container {
             display: flex;
             gap: 15px;
@@ -287,6 +250,7 @@
             padding: 12px;
             border-radius: 8px;
             margin: 12px 0;
+            flex-wrap: wrap;
         }
 
         .diagram-box {
@@ -308,7 +272,7 @@
             color: #64748b;
             font-size: 0.85rem;
             text-align: center;
-            margin: 10px auto;
+            margin: 10px 0;
             overflow: hidden;
         }
 
@@ -646,42 +610,47 @@ while True:
 
         <!-- MODUL 2: LASERCUTTER (XTOOL S1) -->
         <div id="module-laser" class="hidden">
-            <h2>Lasercutter-Werkstatt: xTool S1 &amp; Tinkercad</h2>
             
-            <div class="rule-box">
-                <b>Sicherheits-Regeln am xTool S1 (40W Diodenlaser):</b><br>
-                1. Der Schutzdeckel bleibt während des Laserns IMMER geschlossen.<br>
-                2. Die Absauganlage muss eingeschaltet sein.<br>
-                3. Blicke nie direkt in den Laserstrahl und bleibe am Gerät stehen, bis der Vorgang beendet ist.
+            <!-- SUB-NAV WIE BEIM MICRO:BIT -->
+            <div class="sub-nav">
+                <button class="sub-btn active" onclick="switchLaserLesson('level1')">1. Einstieg (Bleistift &amp; Lesezeichen)</button>
+                <button class="sub-btn" onclick="switchLaserLesson('level2')">2. Buchstaben-Tangram</button>
+                <button class="sub-btn" onclick="switchLaserLesson('level3')">3. 3D-Steckobjekt</button>
             </div>
 
-            <div class="workflow-box">
-                <b>Der Weg von der Idee zum Holzprodukt:</b><br>
-                <b>1. Tinkercad:</b> Objekt in 3D zeichnen &amp; als <b>.SVG</b> herunterladen.<br>
-                <b>2. xTool Creative Space (XCS):</b> SVG-Datei öffnen und Farben zuweisen:<br>
-                - <b>Schwarz = Gravieren</b> (Laser kratzt Namen/Muster auf die Oberfläche)<br>
-                - <b>Rot = Schneiden</b> (Laser schneidet die Form komplett aus)
-            </div>
-
-            <h3>Wähle dein Projekt-Level:</h3>
-
-            <div class="step-cards">
-                <div class="step-card active" onclick="switchLaserLevel('level1')">
-                    <h4>Stufe 1: Einstieg</h4>
-                    <small>Bleistift-Gravur &amp; Design-Lesezeichen</small>
+            <!-- AUFKLAPPBARE INFO-BOXEN (PLATZSPAREND) -->
+            <details class="cmd-box" open>
+                <summary>💡 Was kann ein Lasercutter? (Einführung)</summary>
+                <div class="intro-box" style="margin: 10px; border-left-color: var(--primary);">
+                    Ein <b>Lasercutter</b> ist ein Roboter-Werkzeug, das mit einem extrem dünnen, gebündelten Lichtstrahl (Laser) Materialien millimetergenau schneiden oder gravieren kann.<br>
+                    • <b>Gravieren:</b> Der Laser brennt Schriften, Bilder oder Muster ganz fein in die Oberfläche ein (wie ein Stempel).<br>
+                    • <b>Schneiden:</b> Der Laser fährt eine Linie ab und trennt das Material (Pappe, Holz, Acryl) komplett durch.
                 </div>
-                <div class="step-card" onclick="switchLaserLevel('level2')">
-                    <h4>Stufe 2: Buchstaben-Tangram</h4>
-                    <small>Geometrie-Puzzle &amp; Einlege-Rahmen</small>
-                </div>
-                <div class="step-card" onclick="switchLaserLevel('level3')">
-                    <h4>Stufe 3: 3D-Steckobjekt</h4>
-                    <small>Nut &amp; Feder (Haus, Roboter, Baum)</small>
-                </div>
-            </div>
+            </details>
 
-            <!-- LEVEL 1 -->
+            <details class="cmd-box">
+                <summary>⚠️ Sicherheits-Regeln am xTool S1 (40W Diodenlaser)</summary>
+                <div class="intro-box" style="margin: 10px; border-left-color: var(--danger); background: #fef2f2;">
+                    <b>1. Schutzdeckel zu:</b> Der grüne Deckel schützt deine Augen und bleibt während des Laserns IMMER geschlossen.<br>
+                    <b>2. Absauganlage an:</b> Schalte die Lüftung ein, damit Rauch und Dämpfe direkt abgesaugt werden.<br>
+                    <b>3. Dabeibleiben:</b> Blicke nie direkt in den Strahl und bleibe am Gerät stehen, bis der Vorgang beendet ist!
+                </div>
+            </details>
+
+            <details class="cmd-box">
+                <summary>🔄 Der Weg von Tinkercad zum xTool Creative Space (XCS)</summary>
+                <div class="intro-box" style="margin: 10px; border-left-color: #0284c7; background: #f0f9ff;">
+                    <b>1. In Tinkercad zeichnen:</b> Konstruiere dein Objekt flach auf der Arbeitsfläche und exportiere es als <b>.SVG</b> Datei.<br>
+                    <b>2. In xTool Creative Space (XCS) importieren &amp; Farben zuweisen:</b><br>
+                    • <b>Schwarz / Blau = Gravieren / Ritzen</b> (Der Laser fährt Pfade/Muster ab)<br>
+                    • <b>Rot = Schneiden</b> (Der Laser schneidet die Form komplett aus)
+                </div>
+            </details>
+
+            <!-- LASER LESSON 1 -->
             <div id="laser-level1">
+                <h3>1. Einstiegs-Projekte</h3>
+
                 <div class="task-card">
                     <h4>Projekt 1A: Die Namens-Gravur auf dem Bleistift</h4>
                     <span class="spec-badge">Material: Unlackierter Sechskant-Bleistift oder Farbstift</span>
@@ -696,7 +665,7 @@ while True:
                         <li>Ziehe das Werkzeug <b>Text</b> auf die Arbeitsfläche und tippe deinen Namen ein.</li>
                         <li>Skaliere den Text: Die Höhe darf <b>maximal 4.0 mm</b> betragen, damit der Name exakt auf die flache Seite deines Holzstifts passt.</li>
                         <li>Exportiere den Text als <b>.SVG</b> Datei.</li>
-                        <li>Importiere die Datei in <b>xTool Creative Space (XCS)</b>, wähle Verarbeitungsart <b>Gravieren</b> und platziere deinen Stift exakt unter dem Laser-Kopf.</li>
+                        <li>Importiere die Datei in <b>xTool Creative Space (XCS)</b>, wähle Verarbeitungsart <b>Gravieren (Schwarz)</b> und platziere deinen Stift exakt unter dem Laser-Kopf.</li>
                     </ol>
                 </div>
 
@@ -713,15 +682,17 @@ while True:
                         <li>Ziehe in Tinkercad einen flachen Quader auf die Arbeitsfläche (Länge: <b>140 mm</b>, Breite: <b>40 mm</b>, Höhe: <b>1 mm</b>).</li>
                         <li>Ziehe einen transparenten Zylinder (Bohrung) mit <b>5 mm Durchmesser</b> an die obere Kante, um das Aufhängeloch für ein Band zu stanzen.</li>
                         <li>Verziere das Lesezeichen mit Mustern oder Tieren. Nutze transparente Formen, um Löcher herauszustanzen.</li>
-                        <li>Exportiere die unterste Ebene als <b>.SVG</b>. Im xTool S1 wählst du für den Aussenrand <b>Schneiden (Rot)</b> und für Verzierungen <b>Gravieren (Schwarz)</b>.</li>
+                        <li>Exportiere die SVG-Datei. Im xTool S1 wählst du für den Aussenrand <b>Schneiden (Rot)</b> und für Verzierungen <b>Gravieren (Schwarz)</b>.</li>
                     </ol>
                 </div>
             </div>
 
-            <!-- LEVEL 2 -->
+            <!-- LASER LESSON 2 -->
             <div id="laser-level2" class="hidden">
+                <h3>2. Geometrie-Projekt: Buchstaben-Tangram</h3>
+
                 <div class="task-card">
-                    <h4>Projekt 2: Mein Buchstaben-Tangram mit Einlege-Rahmen</h4>
+                    <h4>Projekt: Mein Buchstaben-Tangram mit Einlege-Rahmen</h4>
                     <span class="spec-badge">Material: 3.0 mm Pappel-Sperrholz oder 2 mm Graupappe</span>
                     <span class="spec-badge">Masse Buchstabe: ca. 80 × 80 mm</span>
                     <span class="spec-badge">Masse Rahmen: 120 × 120 mm</span>
@@ -730,21 +701,21 @@ while True:
                         Ein Buchstaben-Tangram besteht aus deinem Anfangsbuchstaben, der in 4 bis 6 mathematische Teile zerschnitten wird.
                     </div>
 
-                    <!-- VISUELLES SCHEMA CUTTING -->
+                    <!-- KORRIGIERTES VISUELLES SCHEMA -->
                     <div class="diagram-container">
                         <div class="diagram-box">
-                            <svg width="100" height="90" viewBox="0 0 100 90">
-                                <text x="25" y="70" font-family="Arial" font-size="75" font-weight="bold" fill="#0d9488">T</text>
-                                <rect x="5" y="25" width="90" height="10" fill="#f43f5e" opacity="0.6" transform="rotate(-35 50 30)" />
-                                <rect x="15" y="45" width="80" height="10" fill="#f43f5e" opacity="0.6" transform="rotate(40 50 50)" />
+                            <svg width="110" height="90" viewBox="0 0 110 90">
+                                <text x="30" y="72" font-family="Arial" font-size="75" font-weight="bold" fill="#0d9488">T</text>
+                                <line x1="10" y1="20" x2="90" y2="70" stroke="#f43f5e" stroke-width="3" stroke-dasharray="4"/>
+                                <line x1="20" y1="75" x2="85" y2="25" stroke="#f43f5e" stroke-width="3" stroke-dasharray="4"/>
                             </svg>
-                            <div>1. Buchstabe mit 45°-Messern stanzen</div>
+                            <div>1. Buchstabe mit 45°-Messern zerschneiden</div>
                         </div>
                         <div style="font-size: 1.5rem; color: #cbd5e1;">➔</div>
                         <div class="diagram-box">
-                            <svg width="100" height="90" viewBox="0 0 100 90">
-                                <rect x="5" y="5" width="90" height="80" fill="#f1f5f9" stroke="#0d9488" stroke-width="3" rx="4"/>
-                                <text x="25" y="70" font-family="Arial" font-size="75" font-weight="bold" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4">T</text>
+                            <svg width="110" height="90" viewBox="0 0 110 90">
+                                <rect x="10" y="5" width="85" height="80" fill="#f1f5f9" stroke="#0d9488" stroke-width="3" rx="4"/>
+                                <text x="30" y="72" font-family="Arial" font-size="75" font-weight="bold" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4">T</text>
                             </svg>
                             <div>2. Rahmen mit Loch + Bodenplatte</div>
                         </div>
@@ -763,35 +734,46 @@ while True:
                         <li><b>Bodenplatte:</b> Kopiere ein zweites Rechteck (120 × 120 mm) ohne Loch als Bodenplatte. Nach dem Lasern werden Rahmen und Bodenplatte aufeinandergeleimt.</li>
                         <li>Exportiere die Teile als SVG und lasere sie im xTool S1 aus.</li>
                     </ol>
+
                     <div class="challenge-box">
                         <b>Rätsel-Challenge:</b> Lege aus deinen Tangram-Teilen eine Figur (z. B. ein Boot, ein Haus oder einen Vogel). Zeichne den Aussenumriss auf ein Blatt Papier und lass deine Mitschüler das Rätsel lösen!
                     </div>
                 </div>
             </div>
 
-            <!-- LEVEL 3 -->
+            <!-- LASER LESSON 3 -->
             <div id="laser-level3" class="hidden">
+                <h3>3. Konstruktions-Projekt: 3D-Steckobjekt</h3>
+
                 <div class="task-card">
-                    <h4>Projekt 3: Freies 3D-Steckobjekt (Nut &amp; Feder)</h4>
+                    <h4>Projekt: Freies 3D-Steckobjekt (Überblattung)</h4>
                     <span class="spec-badge">Material: 3.0 mm Pappel-Sperrholz</span>
                     <span class="spec-badge">Schlitzbreite: exakt 3.0 mm</span>
-                    <span class="spec-badge">Schlitztiefe: 8.0 bis 10.0 mm</span>
+                    <span class="spec-badge">Schlitztiefe: exakt Hälfte der Stecklänge</span>
                     
                     <div class="intro-box" style="margin-top: 10px;">
-                        Aus flachen Platten werden dreidimensionale Objekte! Ob ein Haus (Wände mit Dachstanzung), ein Stand-Baum oder ein Roboter – alles funktioniert über zusammengesteckte Schlitze.
+                        Aus flachen Platten werden 3D-Objekte! Damit zwei Platten rechtwinklig zusammengesteckt werden können, benötigt <b>JEDES der beiden Teile</b> eine Nut (einen Schlitz), die exakt bis zur Hälfte der Gesamthöhe geht.
                     </div>
 
-                    <!-- VISUELLES SCHEMA NUT & FEDER -->
+                    <!-- KORRIGIERTES VISUELLES SCHEMA MEHRSEITIGE NUT -->
                     <div class="diagram-container">
                         <div class="diagram-box">
-                            <svg width="120" height="80" viewBox="0 0 120 80">
-                                <rect x="10" y="20" width="40" height="50" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
-                                <rect x="26" y="20" width="8" height="20" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
-                                <text x="30" y="14" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">3.0 mm</text>
-                                <rect x="70" y="10" width="40" height="60" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
-                                <path d="M 60 40 L 70 40" stroke="#0d9488" stroke-width="3" marker-end="url(#arrow)"/>
+                            <svg width="220" height="110" viewBox="0 0 220 110">
+                                <!-- Teil A -->
+                                <rect x="10" y="20" width="60" height="70" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
+                                <rect x="37" y="20" width="6" height="35" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
+                                <text x="40" y="14" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">3.0 mm Nut</text>
+                                <text x="40" y="65" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">Teil A</text>
+
+                                <text x="95" y="60" font-size="20" font-weight="bold" fill="#0d9488">+</text>
+
+                                <!-- Teil B -->
+                                <rect x="130" y="20" width="60" height="70" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+                                <rect x="157" y="55" width="6" height="35" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
+                                <text x="160" y="102" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">3.0 mm Nut</text>
+                                <text x="160" y="45" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">Teil B</text>
                             </svg>
-                            <div>Nut (Schlitz 3.0 mm) stanzen</div>
+                            <div><b>Beidseitiges Prinzip:</b> Jedes Teil erhält eine 3.0 mm Nut (bis zur Hälfte)!</div>
                         </div>
                     </div>
 
@@ -800,16 +782,21 @@ while True:
                     </div>
 
                     <b>Die EINE goldene Regel für Holz (3.0 mm Sperrholz):</b>
-                    <p>Jeder Schlitz (Nut), in den später ein anderes Teil hineingesteckt wird, muss in Tinkercad exakt <b>3.0 mm breit</b> sein!</p>
+                    <p>Jeder Schlitz, in den ein anderes Holzstück gesteckt wird, muss in Tinkercad exakt <b>3.0 mm breit</b> sein!</p>
 
                     <b>Schritt-für-Schritt-Anleitung in Tinkercad:</b>
                     <ol style="line-height: 1.6;">
-                        <li>Zeichne das Hauptteil deiner Figur (z. B. eine Hauswand oder den Rumpf eines Stand-Objekts).</li>
-                        <li>Ziehe einen transparenten Quader (Bohrung) mit den Massen: <b>Breite: 3.0 mm</b>, <b>Tiefe: 10.0 mm</b> an die Stelle, wo gesteckt werden soll.</li>
-                        <li>Gruppiere das Hauptteil mit dem Bohrungs-Quader = Der Schlitz ist perfekt gestanzt.</li>
-                        <li>Zeichne das Gegenstück (z. B. das Dach oder den Standfuss) mit genau demselben 3.0 mm Schlitz.</li>
-                        <li>Lasere die Teile aus und stecke sie ohne Leim zusammen. Wenn es zu locker sitzt oder klemmt, passe die Schlitzbreite in Tinkercad um 0.2 mm an.</li>
+                        <li>Zeichne das erste Teil deiner Figur (z. B. den Stamm eines Baumes oder den Rumpf eines Stand-Tiers).</li>
+                        <li>Ziehe einen transparenten Quader (Bohrung) mit den Massen <b>Breite: 3.0 mm</b> und <b>Tiefe: Hälfte der Körperhöhe</b> an die Oberkante von Teil 1.</li>
+                        <li>Gruppiere Teil 1 mit dem Quader = Nut 1 ist von oben nach unten gestanzt.</li>
+                        <li>Zeichne das Gegenstück (Teil 2). Stanze dort genau dieselbe <b>3.0 mm Nut</b>, aber von der <b>Unterkante nach oben</b>!</li>
+                        <li>Lasere beide Teile im xTool S1 aus und stecke sie kreuzweise ineinander.</li>
                     </ol>
+
+                    <div class="craft-box">
+                        <b>Prototyping / Passungs-Test:</b><br>
+                        Sitzt das Objekt zu locker oder klemmt es? Holz unterscheidet sich minimal. Wenn es klemmt, passe die Schlitzbreite in Tinkercad um 0.1–0.2 mm an (z. B. auf 3.1 mm oder 3.2 mm).
+                    </div>
                 </div>
             </div>
 
@@ -837,7 +824,7 @@ while True:
         }
 
         function switchMicrobitLesson(lessonId) {
-            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('#module-python .sub-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
 
             document.getElementById('mb-lesson1').classList.add('hidden');
@@ -850,8 +837,8 @@ while True:
             document.getElementById('mb-' + lessonId).classList.remove('hidden');
         }
 
-        function switchLaserLevel(levelId) {
-            document.querySelectorAll('.step-card').forEach(c => c.classList.remove('active'));
+        function switchLaserLesson(levelId) {
+            document.querySelectorAll('#module-laser .sub-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
 
             document.getElementById('laser-level1').classList.add('hidden');
