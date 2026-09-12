@@ -163,6 +163,29 @@
         <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
+    
+    <!-- DASHBOARD NAVIGATION -->
+    <div class="dashboard">
+        <div class="card" onclick="switchMainModule('python', this)">
+            <h3>micro:bit Python</h3>
+            <small>Interaktive Aufgaben &amp; Prototypen</small>
+        </div>
+        <div class="card" onclick="switchMainModule('tinkercad', this)">
+            <h3>3D-Druck (Tinkercad)</h3>
+            <small>Konstruieren lernen</small>
+        </div>
+        <div class="card active" onclick="switchMainModule('laser', this)">
+            <h3>Lasercutter (xTool S1)</h3>
+            <small>Tinkercad &amp; Gravur / Schnitt</small>
+        </div>
+        <div class="card" onclick="switchMainModule('makey', this)">
+            <h3>Makey Makey</h3>
+            <small>Stromkreise bauen</small>
+        </div>
+    </div>
+
+    <div class="module-container">
+
     <!-- DASHBOARD NAVIGATION -->
     <div class="dashboard">
         <div class="card" onclick="switchMainModule('python', this)">
