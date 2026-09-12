@@ -280,6 +280,21 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .click-reveal-box {
+            background: #e0f2fe;
+            border: 2px dashed #0284c7;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .click-reveal-box:hover {
+            background: #bae6fd;
+        }
     </style>
 </head>
 <body>
@@ -372,7 +387,7 @@ while True:
                     <div id="mb-lesson2" class="hidden">
                         <h3>2. Projekt: Der Schrittzähler</h3>
                         <div class="intro-box">
-                            <b>Das Prinzip der Variablen:</b> Eine Variable ist wie ein Beschriftetes Schachtelchen im Speicher. Hier nennen wir die Schachtel <code>schritte</code>. Wir starten bei 0 und zählen jedes Mal +1 dazu, wenn der micro:bit geschüttelt wird.
+                            <b>Das Prinzip der Variablen:</b> Eine Variable ist wie ein beschriftetes Schachtelchen im Speicher. Hier nennen wir die Schachtel <code>schritte</code>. Wir starten bei 0 und zählen jedes Mal +1 dazu, wenn der micro:bit geschüttelt wird.
                         </div>
 
                         <div class="task-card">
@@ -588,7 +603,7 @@ while True:
                             <div class="cmd-item"><code>display.scroll("Text")</code> – Lässt einen Text von rechts nach links durchlaufen.</div>
                             <div class="cmd-item"><code>sleep(1000)</code> – Pausiert das Programm für 1000 Millisekunden (1 Sekunde).</div>
                             <div class="cmd-item"><code>button_a.is_pressed()</code> – Prüft, ob Taste A im Moment gedrückt wird (True/False).</div>
-                            <div class="cmd-item"><code>accelerometer.was_gesture('shake')</code> – Prüft, ob der Board geschüttelt wurde.</div>
+                            <div class="cmd-item"><code>accelerometer.was_gesture('shake')</code> – Prüft, ob das Board geschüttelt wurde.</div>
                             <div class="cmd-item"><code>temperature()</code> – Gibt die aktuelle Temperatur als Zahl zurück.</div>
                         </div>
                     </details>
@@ -611,14 +626,23 @@ while True:
                 <button class="sub-btn" onclick="switchLaserLesson('level4')">4. Kalender-Puzzle</button>
             </div>
 
-            <!-- AUFKLAPPBARE EINFÜHRUNG INKL. RITZEN -->
+            <!-- EINFÜHRUNG INKL. RITZEN UND MATERIALKUNDE -->
             <details class="cmd-box" open>
-                <summary>💡 Was kann ein Lasercutter? (Einführung)</summary>
+                <summary>💡 Was kann ein Lasercutter &amp; welche Materialien gehen? (Einführung)</summary>
                 <div class="intro-box" style="margin: 10px; border-left-color: var(--primary);">
                     Ein <b>Lasercutter</b> ist ein Roboter-Werkzeug, das mit einem extrem dünnen, gebündelten Lichtstrahl (Laser) Materialien millimetergenau bearbeiten kann. Er beherrscht 3 Hauptfunktionen:<br><br>
                     • <b>Gravieren (Fläche):</b> Der Laser brennt Flächen, Grafiken oder Fotos feinschichtig ab (wie ein Stempel).<br>
                     • <b>Ritzen / Vektorgravur (Linie):</b> Der Laser fährt eine feine Linie ab und brennt sie flach in die Oberfläche ein, ohne das Material durchzuschneiden. Ideal für Beschriftungen, Muster oder Hilfslinien!<br>
-                    • <b>Schneiden (Durchschnitt):</b> Der Laser brennt mit voller Power eine Linie komplett durch Pappe, Holz oder Acryl hindurch.
+                    • <b>Schneiden (Durchschnitt):</b> Der Laser brennt mit voller Power eine Linie komplett durch Pappe, Holz oder Acryl hindurch.<br><br>
+                    
+                    <b>Welche Materialien darfst du verwenden?</b><br>
+                    ✅ <b>Pappel- &amp; Birken-Sperrholz (3–4 mm):</b> Super zum Schneiden und Gravieren.<br>
+                    ✅ <b>Karton &amp; Graupappe:</b> Perfekt zum Prototypen bauen und Testen.<br>
+                    ✅ <b>Echtholz &amp; Stifte:</b> Toll zum Personalisieren.<br>
+                    ✅ <b>Dunkles Acryl:</b> Erzeugt glatte, glänzende Kanten.<br><br>
+                    
+                    <span style="color: var(--danger); font-weight: bold;">⚠️ VERBOTENE MATERIALIEN:</span><br>
+                    ❌ <b>Niemals Kunststoffe wie PVC, Kunstleder oder Vinyl verwenden!</b> Beim Lasern von PVC entsteht giftiges Chlorgas. Das ist gesundheitsgefährdend und macht die Linse des Lasers kaputt!
                 </div>
             </details>
 
@@ -654,6 +678,10 @@ while True:
                         <img src="bilder/bleistift.jpg" alt="Beispiel Bleistift-Gravur" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/bleistift.jpg]';">
                     </div>
 
+                    <div class="intro-box" style="margin-top: 10px; border-left-color: var(--accent);">
+                        <b>Hinweis zum Bleistift:</b> Du musst den Sechskant-Stift <b>NICHT in Tinkercad nachzeichnen</b>! In Tinkercad schreibst du einfach nur deinen Namen als Text. Die Dicke des echten Stifts stellst du nachher in der Laser-Software (xTool Creative Space) ein.
+                    </div>
+
                     <ol style="line-height: 1.6; margin-top: 10px;">
                         <li>Öffne <b>Tinkercad</b> und erstelle ein neues Design.</li>
                         <li>Ziehe das Werkzeug <b>Text</b> auf die Arbeitsfläche und tippe deinen Namen ein.</li>
@@ -681,7 +709,7 @@ while True:
                 </div>
             </div>
 
-            <!-- LASER LESSON 2 (BUCHSTABEN-TANGRAM ANCHOR & SCHRIFTART) -->
+            <!-- LASER LESSON 2 -->
             <div id="laser-level2" class="hidden">
                 <h3>2. Geometrie-Projekt: Buchstaben-Tangram</h3>
 
@@ -692,25 +720,25 @@ while True:
                     <span class="spec-badge">Masse Buchstabe: ca. 80 × 80 mm</span>
                     
                     <div class="intro-box" style="margin-top: 10px;">
-                        <b>Wichtige Regel für die Schriftart:</b> Wähle in Tinkercad unbedingt die Schriftart <b>Sans</b> oder <b>Sans Mono</b>! Schnörkel-Schriften (Serifen) haben zu dünne, geschwungene Kanten und zerbrechen beim Schnitt.
+                        <b>Wichtige Regel für die Schriftart:</b> Wähle in Tinkercad unbedingt die Schriftart <b>Sans</b> oder <b>Sans Mono</b>! Schnörkel-Schriften (Serifen) haben zu dünne Kanten und zerbrechen beim Schnitt.
                     </div>
 
-                    <!-- KORRIGIERTES VISUELLES SCHEMA ZUM 45-GRAD SCHNITT -->
+                    <!-- KORRIGIERTES SCHEMA FÜR DEN 45-GRAD SCHNITT -->
                     <div class="diagram-container">
                         <div class="diagram-box">
                             <svg width="220" height="110" viewBox="0 0 220 110">
                                 <!-- Buchstabe T -->
                                 <text x="110" y="85" font-family="'Segoe UI', Sans-Serif" font-size="90" font-weight="bold" fill="#0d9488" text-anchor="middle">T</text>
                                 
-                                <!-- Transparentes Riegel-Messer in 45 Grad -->
-                                <g transform="rotate(45 110 55)">
-                                    <rect x="20" y="52" width="180" height="6" fill="#f43f5e" fill-opacity="0.6" stroke="#e11d48" stroke-width="1.5" stroke-dasharray="3"/>
-                                </g>
+                                <!-- Exakt begrenzte Schnittlinie -->
+                                <line x1="85" y1="20" x2="135" y2="70" stroke="#e11d48" stroke-width="3" stroke-dasharray="4"/>
+                                <circle cx="85" cy="20" r="3" fill="#e11d48"/>
+                                <circle cx="135" cy="70" r="3" fill="#e11d48"/>
 
                                 <!-- Beschriftung -->
-                                <text x="110" y="15" font-size="11" font-weight="bold" fill="#e11d48" text-anchor="middle">45°-Messer-Quader (Bohrung)</text>
+                                <text x="110" y="12" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">45°-Schnittlinie (Stoppt an der Kante!)</text>
                             </svg>
-                            <div><b>1. Transparenten Quader um 45° drehen & durchschneiden</b></div>
+                            <div><b>1. Trennlinie exakt an der Außenkante stoppen</b></div>
                         </div>
 
                         <div style="font-size: 1.5rem; color: #cbd5e1;">➔</div>
@@ -724,6 +752,11 @@ while True:
                         </div>
                     </div>
 
+                    <div class="challenge-box" style="background: #fef2f2; border-left-color: var(--danger);">
+                        <b>⚠️ WICHTIGER SCHNITT-HINWEIS FÜR KINDER:</b><br>
+                        Achte darauf, dass deine Schnittlinie <b>genau an den Außenkanten des Buchstabens stoppt</b>! Wenn das Messer ganz durch den Buchstaben hindurchragt, schneidet es den Rand mit ab und du erhältst versehentlich 3 oder 4 unbrauchbare Einzelteile statt 2!
+                    </div>
+
                     <div class="photo-frame">
                         <img src="bilder/tangram.jpg" alt="Beispiel Tangram" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/tangram.jpg]';">
                     </div>
@@ -731,9 +764,9 @@ while True:
                     <b>Schritt-für-Schritt-Anleitung in Tinkercad:</b>
                     <ol style="line-height: 1.6;">
                         <li>Ziehe das Text-Werkzeug auf die Arbeitsfläche. Tippe deinen <b>Anfangsbuchstaben</b> ein und wähle im Dropdown zwingend <b>Sans</b> oder <b>Sans Mono</b> aus!</li>
-                        <li>Stelle die Grösse deines Buchstaben auf ca. <b>80 × 80 mm</b> ein.</li>
+                        <li>Stelle die Größe deines Buchstabens auf ca. <b>80 × 80 mm</b> ein.</li>
                         <li><b>Schnitt-Trick:</b> Ziehe einen transparenten Quader (Bohrung) mit 0.5 mm Breite auf die Arbeitsfläche. Drehe ihn im Winkel-Rad genau um <b>45 Grad</b>.</li>
-                        <li>Schiebe den transparenten Messer-Riegel schräg durch deinen Buchstaben und gruppiere beide Formen. Der Buchstabe wird damit exakt an der Diagonale zerschnitten.</li>
+                        <li>Schiebe den transparenten Quader schräg in deinen Buchstaben – aber <b>nur von Außenkante bis Außenkante</b>! Gruppiere beide Formen.</li>
                         <li>Wiederhole diesen Schritt 3- bis 4-mal an verschiedenen Stellen, bis dein Buchstabe in 4 bis 6 mathematische Teile zerfällt.</li>
                         <li><b>Einlege-Rahmen bauen:</b> Ziehe ein Rechteck (<b>120 × 120 mm</b>) auf die Arbeitsfläche. Stanze deinen unzerschnittenen Buchstaben als Loch heraus. So entsteht der Einlege-Rahmen!</li>
                         <li>Exportiere die Teile als SVG und lasere sie im xTool S1 aus.</li>
@@ -759,29 +792,42 @@ while True:
                         Aus flachen Platten werden 3D-Objekte! Damit zwei Platten rechtwinklig zusammengesteckt werden können, benötigt <b>JEDES der beiden Teile</b> eine Nut (einen Schlitz), die exakt bis zur Hälfte der Gesamthöhe geht.
                     </div>
 
-                    <div class="diagram-container">
-                        <div class="diagram-box">
-                            <svg width="220" height="110" viewBox="0 0 220 110">
-                                <!-- Teil A -->
-                                <rect x="10" y="20" width="60" height="70" fill="#e2e8f0" stroke="#475569" stroke-width="2"/>
-                                <rect x="37" y="20" width="6" height="35" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
-                                <text x="40" y="14" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">3.0 mm Nut</text>
-                                <text x="40" y="65" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">Teil A</text>
-
-                                <text x="95" y="60" font-size="20" font-weight="bold" fill="#0d9488">+</text>
-
-                                <!-- Teil B -->
-                                <rect x="130" y="20" width="60" height="70" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
-                                <rect x="157" y="55" width="6" height="35" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
-                                <text x="160" y="102" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">3.0 mm Nut</text>
-                                <text x="160" y="45" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">Teil B</text>
-                            </svg>
-                            <div><b>Beidseitiges Prinzip:</b> Jedes Teil erhält eine 3.0 mm Nut (bis zur Hälfte)!</div>
+                    <!-- INTERAKTIVES VORSTELLUNGSSPIEL -->
+                    <div class="task-card" style="background: #f8fafc; border: 2px dashed #0d9488;">
+                        <h4 style="color: var(--primary);">🧠 Denk-Aufgabe: Wie sieht das zusammengesteckt aus?</h4>
+                        <p style="font-size: 0.88rem;">Stelle dir vor, du hast zwei flache Holzplatten (Teil A mit Schlitz oben, Teil B mit Schlitz unten). Wie sieht das Objekt aus, wenn du beide Nuten ineinander schiebst?</p>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <svg width="120" height="90" viewBox="0 0 120 90">
+                                    <rect x="10" y="10" width="40" height="70" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+                                    <rect x="27" y="10" width="6" height="35" fill="#ffffff" stroke="#e11d48" stroke-width="1.5"/>
+                                    <text x="30" y="60" font-size="10" font-weight="bold" fill="#0d9488" text-anchor="middle">Teil A</text>
+                                </svg>
+                            </div>
+                            <div style="font-size: 1.5rem; color: #0d9488;">+</div>
+                            <div class="diagram-box">
+                                <svg width="120" height="90" viewBox="0 0 120 90">
+                                    <rect x="10" y="10" width="40" height="70" fill="#99f6e4" stroke="#0d9488" stroke-width="2"/>
+                                    <rect x="27" y="45" width="6" height="35" fill="#ffffff" stroke="#e11d48" stroke-width="1.5"/>
+                                    <text x="30" y="35" font-size="10" font-weight="bold" fill="#0d9488" text-anchor="middle">Teil B</text>
+                                </svg>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="photo-frame">
-                        <img src="bilder/steckobjekt.jpg" alt="Beispiel Steckobjekt" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/steckobjekt.jpg]';">
+                        <!-- Klick-Feld zur Auflösung -->
+                        <div class="click-reveal-box" onclick="toggleRevealSolution()">
+                            <span id="reveal-text" style="font-weight: bold; color: #0369a1;">👉 Klicke hier, um das zusammengesteckte 3D-Ergebnis zu sehen!</span>
+                            <div id="solution-image" class="hidden" style="margin-top: 10px;">
+                                <svg width="160" height="120" viewBox="0 0 160 120">
+                                    <!-- 3D Persp. Darstellung -->
+                                    <polygon points="50,30 110,30 110,90 50,90" fill="#ccfbf1" stroke="#0d9488" stroke-width="2"/>
+                                    <polygon points="30,60 130,60 130,70 30,70" fill="#5eead4" stroke="#0d9488" stroke-width="2" opacity="0.85"/>
+                                    <line x1="80" y1="30" x2="80" y2="90" stroke="#e11d48" stroke-width="2" stroke-dasharray="2"/>
+                                </svg>
+                                <p style="font-size: 0.85rem; color: #0f172a; margin-top: 5px;"><b>Gelöst!</b> Die beiden Platten kreuzen sich im 90°-Winkel zu einem stabilen 3D-Kreuzständer!</p>
+                            </div>
+                        </div>
                     </div>
 
                     <b>Die EINE goldene Regel für Holz (3.0 mm Sperrholz):</b>
@@ -790,7 +836,7 @@ while True:
                     <b>Schritt-für-Schritt-Anleitung in Tinkercad:</b>
                     <ol style="line-height: 1.6;">
                         <li>Zeichne das erste Teil deiner Figur (z. B. den Stamm eines Baumes oder den Rumpf eines Stand-Tiers).</li>
-                        <li>Ziehe einen transparenten Quader (Bohrung) mit den Massen <b>Breite: 3.0 mm</b> und <b>Tiefe: Hälfte der Körperhöhe</b> an die Oberkante von Teil 1.</li>
+                        <li>Ziehe einen transparenten Quader (Bohrung) mit den Maßen <b>Breite: 3.0 mm</b> und <b>Tiefe: Hälfte der Körperhöhe</b> an die Oberkante von Teil 1.</li>
                         <li>Gruppiere Teil 1 mit dem Quader = Nut 1 ist von oben nach unten gestanzt.</li>
                         <li>Zeichne das Gegenstück (Teil 2). Stanze dort genau dieselbe <b>3.0 mm Nut</b>, aber von der <b>Unterkante nach oben</b>!</li>
                         <li>Lasere beide Teile im xTool S1 aus und stecke sie kreuzweise ineinander.</li>
@@ -803,7 +849,7 @@ while True:
                 </div>
             </div>
 
-            <!-- LASER LESSON 4: DAS KALENDER-PUZZLE -->
+            <!-- LASER LESSON 4 -->
             <div id="laser-level4" class="hidden">
                 <h3>4. Fortgeschrittenes Projekt: Das Kalender-Puzzle</h3>
 
@@ -817,16 +863,64 @@ while True:
                         <b>Ein Rätsel für jeden Tag des Jahres:</b> Ein Kalender-Puzzle besteht aus einem Grundrahmen mit Feldern für alle Monate (Jan–Dez) und alle Tage (1–31). Durch das Einlegen von 6–8 Baukötzen bleiben am Ende exakt 2 Felder frei: Der heutige Monat und der heutige Tag!
                     </div>
 
+                    <!-- VISUELLES KALENDER-RASTER SCHEMA -->
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <svg width="240" height="150" viewBox="0 0 240 150">
+                                <!-- Außenrahmen -->
+                                <rect x="5" y="5" width="230" height="140" fill="#f8fafc" stroke="#0d9488" stroke-width="3" rx="6"/>
+                                <text x="120" y="20" font-size="10" font-weight="bold" fill="#0d9488" text-anchor="middle">Grundplatte (140 × 120 mm)</text>
+                                
+                                <!-- 7x6 Raster schematisch -->
+                                <g transform="translate(25, 30)">
+                                    <!-- Zeile 1: Monate -->
+                                    <rect x="0" y="0" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="11" y="11" font-size="7" text-anchor="middle">Jan</text>
+                                    <rect x="25" y="0" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="36" y="11" font-size="7" text-anchor="middle">Feb</text>
+                                    <rect x="50" y="0" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="61" y="11" font-size="7" text-anchor="middle">Mär</text>
+                                    <rect x="75" y="0" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="86" y="11" font-size="7" text-anchor="middle">Apr</text>
+                                    <rect x="100" y="0" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="111" y="11" font-size="7" text-anchor="middle">Mai</text>
+                                    <rect x="125" y="0" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="136" y="11" font-size="7" text-anchor="middle">Jun</text>
+                                    
+                                    <!-- Zeile 2 -->
+                                    <rect x="0" y="18" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="11" y="29" font-size="7" text-anchor="middle">Jul</text>
+                                    <rect x="25" y="18" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="36" y="29" font-size="7" text-anchor="middle">Aug</text>
+                                    <rect x="50" y="18" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="61" y="29" font-size="7" text-anchor="middle">Sep</text>
+                                    <rect x="75" y="18" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="86" y="29" font-size="7" text-anchor="middle">Okt</text>
+                                    <rect x="100" y="18" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="111" y="29" font-size="7" text-anchor="middle">Nov</text>
+                                    <rect x="125" y="18" width="22" height="15" fill="#e2e8f0" stroke="#94a3b8"/><text x="136" y="29" font-size="7" text-anchor="middle">Dez</text>
+                                    
+                                    <!-- Tage 1-31 -->
+                                    <rect x="0" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="11" y="47" font-size="7" text-anchor="middle">1</text>
+                                    <rect x="25" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="36" y="47" font-size="7" text-anchor="middle">2</text>
+                                    <rect x="50" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="61" y="47" font-size="7" text-anchor="middle">3</text>
+                                    <rect x="75" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="86" y="47" font-size="7" text-anchor="middle">4</text>
+                                    <rect x="100" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="111" y="47" font-size="7" text-anchor="middle">5</text>
+                                    <rect x="125" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="136" y="47" font-size="7" text-anchor="middle">6</text>
+                                    <rect x="150" y="36" width="22" height="15" fill="#ffffff" stroke="#cbd5e1"/><text x="161" y="47" font-size="7" text-anchor="middle">7</text>
+                                </g>
+                                <text x="120" y="138" font-size="9" fill="#0f172a" text-anchor="middle">Felder: 15×15 mm | Stege (Abstand): 2.0 mm</text>
+                            </svg>
+                            <div><b>Präzises Vektor-Raster mit Maßen</b></div>
+                        </div>
+                    </div>
+
                     <div class="photo-frame">
                         <img src="bilder/kalenderpuzzle.jpg" alt="Beispiel Kalenderpuzzle" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/kalenderpuzzle.jpg]';">
                     </div>
 
-                    <b>Schritt-für-Schritt-Anleitung in Tinkercad:</b>
+                    <b>Schritt-für-Schritt-Anleitung zur exakten Konstruktion:</b>
                     <ol style="line-height: 1.6;">
-                        <li><b>Grundplatte zeichnen:</b> Ziehe ein Rechteck mit <b>140 × 120 mm</b> auf die Arbeitsfläche.</li>
-                        <li><b>Raster ritzen:</b> Zeichne dünne Linien (0.5 mm) als Gitter auf die Platte (7 Spalten × 6 Reihen mit 15×15 mm Feldern). Nutze dafür die Funktion <b>Ritzen / Vektorgravur</b>.</li>
-                        <li><b>Beschriftung platzieren:</b> Setze in die ersten Felder die Monate (Jan, Feb, Mär...) und in die restlichen Felder die Tage (1 bis 31).</li>
-                        <li><b>Rätselsteine konstruieren:</b> Zeichne verschiedene Tetris- / Pentomino-Formen aus 15×15 mm Quadraten, die zusammengesetzt genau die gesamte Fläche ausser 2 Felder abdecken.</li>
+                        <li><b>Grundplatte zeichnen:</b> Erstelle ein Rechteck mit <b>140 × 120 mm</b>. Das bildet deine Unterlage.</li>
+                        <li><b>Exaktes Feld-Raster berechnen:</b>
+                            <ul>
+                                <li>Jedes Zahlen-/Monatsfeld ist genau <b>15 × 15 mm</b> groß.</li>
+                                <li>Der Steg-Abstand zwischen zwei Feldern beträgt exakt <b>2.0 mm</b>.</li>
+                            </ul>
+                        </li>
+                        <li><b>Raster per Vektorgrafik aufbauen:</b> Platziere in einer Reihe 7 Quadrate mit jeweils 2 mm Abstand. Kopiere die Reihe 6-mal nach unten mit jeweils 2 mm Abstand.</li>
+                        <li><b>Funktion Ritzen anwenden:</b> Die Trennlinien des Rasters werden in xTool CS auf <b>Ritzen / Vektorgravur</b> eingestellt (feines Einbrennen ohne Durchschneiden).</li>
+                        <li><b>Beschriftung:</b> Platziere in den Feldern die Monate (Jan–Dez) und die Tage (1 bis 31). Stelle die Schrift auf <b>Gravieren</b>.</li>
+                        <li><b>Tetris-Puzzleteile konstruieren:</b> Zeichne verschiedene Formen aus zusammenhängenden 15×15 mm Quadraten.</li>
                     </ol>
 
                     <div class="challenge-box">
@@ -898,6 +992,15 @@ while True:
                 info.innerHTML = "<b>Tasten A & B:</b> Auf der Vorderseite siehst du links den Knopf <b>A</b> und rechts den Knopf <b>B</b>. Drücke sie mit dem Daumen! Befehl im Code: <code>button_a.is_pressed()</code>";
             } else if(part === 'sens') {
                 info.innerHTML = "<b>Sensoren:</b> Drehe den micro:bit auf die <b>Rückseite</b>! Dort findest du die kleinen schwarzen Chips für Bewegung (<code>accelerometer</code>), Kompass/Magnet (<code>compass</code>) und Temperatur (<code>temperature()</code>).";
+            }
+        }
+
+        function toggleRevealSolution() {
+            const sol = document.getElementById('solution-image');
+            const txt = document.getElementById('reveal-text');
+            if(sol.classList.contains('hidden')) {
+                sol.classList.remove('hidden');
+                txt.style.display = 'none';
             }
         }
     </script>
