@@ -275,6 +275,48 @@
             margin-right: 6px;
             margin-bottom: 8px;
         }
+
+        /* BILDER UND DIAGRAMME */
+        .diagram-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-around;
+            background: #ffffff;
+            border: 1px dashed #cbd5e1;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+        }
+
+        .diagram-box {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+        .photo-frame {
+            width: 100%;
+            max-width: 320px;
+            height: 180px;
+            background-color: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            text-align: center;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -644,6 +686,11 @@ while True:
                     <h4>Projekt 1A: Die Namens-Gravur auf dem Bleistift</h4>
                     <span class="spec-badge">Material: Unlackierter Sechskant-Bleistift oder Farbstift</span>
                     <span class="spec-badge">Schrifthöhe: max. 4.0 mm</span>
+                    
+                    <div class="photo-frame">
+                        <img src="bilder/bleistift.jpg" alt="Beispiel Bleistift-Gravur" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/bleistift.jpg]';">
+                    </div>
+
                     <ol style="line-height: 1.6; margin-top: 10px;">
                         <li>Öffne <b>Tinkercad</b> und erstelle ein neues Design.</li>
                         <li>Ziehe das Werkzeug <b>Text</b> auf die Arbeitsfläche und tippe deinen Namen ein.</li>
@@ -657,6 +704,11 @@ while True:
                     <h4>Projekt 1B: Das Design-Lesezeichen</h4>
                     <span class="spec-badge">Material: Dickes Papier (160–200 g/m²) oder 1 mm Graupappe</span>
                     <span class="spec-badge">Masse: 140 × 40 mm</span>
+                    
+                    <div class="photo-frame">
+                        <img src="bilder/lesezeichen.jpg" alt="Beispiel Lesezeichen" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/lesezeichen.jpg]';">
+                    </div>
+
                     <ol style="line-height: 1.6; margin-top: 10px;">
                         <li>Ziehe in Tinkercad einen flachen Quader auf die Arbeitsfläche (Länge: <b>140 mm</b>, Breite: <b>40 mm</b>, Höhe: <b>1 mm</b>).</li>
                         <li>Ziehe einen transparenten Zylinder (Bohrung) mit <b>5 mm Durchmesser</b> an die obere Kante, um das Aufhängeloch für ein Band zu stanzen.</li>
@@ -677,7 +729,31 @@ while True:
                     <div class="intro-box" style="margin-top: 10px;">
                         Ein Buchstaben-Tangram besteht aus deinem Anfangsbuchstaben, der in 4 bis 6 mathematische Teile zerschnitten wird.
                     </div>
-                    
+
+                    <!-- VISUELLES SCHEMA CUTTING -->
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <svg width="100" height="90" viewBox="0 0 100 90">
+                                <text x="25" y="70" font-family="Arial" font-size="75" font-weight="bold" fill="#0d9488">T</text>
+                                <rect x="5" y="25" width="90" height="10" fill="#f43f5e" opacity="0.6" transform="rotate(-35 50 30)" />
+                                <rect x="15" y="45" width="80" height="10" fill="#f43f5e" opacity="0.6" transform="rotate(40 50 50)" />
+                            </svg>
+                            <div>1. Buchstabe mit 45°-Messern stanzen</div>
+                        </div>
+                        <div style="font-size: 1.5rem; color: #cbd5e1;">➔</div>
+                        <div class="diagram-box">
+                            <svg width="100" height="90" viewBox="0 0 100 90">
+                                <rect x="5" y="5" width="90" height="80" fill="#f1f5f9" stroke="#0d9488" stroke-width="3" rx="4"/>
+                                <text x="25" y="70" font-family="Arial" font-size="75" font-weight="bold" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4">T</text>
+                            </svg>
+                            <div>2. Rahmen mit Loch + Bodenplatte</div>
+                        </div>
+                    </div>
+
+                    <div class="photo-frame">
+                        <img src="bilder/tangram.jpg" alt="Beispiel Tangram" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/tangram.jpg]';">
+                    </div>
+
                     <b>Schritt-für-Schritt-Anleitung in Tinkercad:</b>
                     <ol style="line-height: 1.6;">
                         <li>Ziehe das Text-Werkzeug auf die Arbeitsfläche und wähle deinen <b>Anfangsbuchstaben</b> (Grösse ca. 80 × 80 mm).</li>
@@ -704,7 +780,25 @@ while True:
                     <div class="intro-box" style="margin-top: 10px;">
                         Aus flachen Platten werden dreidimensionale Objekte! Ob ein Haus (Wände mit Dachstanzung), ein Stand-Baum oder ein Roboter – alles funktioniert über zusammengesteckte Schlitze.
                     </div>
-                    
+
+                    <!-- VISUELLES SCHEMA NUT & FEDER -->
+                    <div class="diagram-container">
+                        <div class="diagram-box">
+                            <svg width="120" height="80" viewBox="0 0 120 80">
+                                <rect x="10" y="20" width="40" height="50" fill="#cbd5e1" stroke="#475569" stroke-width="2"/>
+                                <rect x="26" y="20" width="8" height="20" fill="#ffffff" stroke="#e11d48" stroke-width="2"/>
+                                <text x="30" y="14" font-size="10" font-weight="bold" fill="#e11d48" text-anchor="middle">3.0 mm</text>
+                                <rect x="70" y="10" width="40" height="60" fill="#94a3b8" stroke="#475569" stroke-width="2"/>
+                                <path d="M 60 40 L 70 40" stroke="#0d9488" stroke-width="3" marker-end="url(#arrow)"/>
+                            </svg>
+                            <div>Nut (Schlitz 3.0 mm) stanzen</div>
+                        </div>
+                    </div>
+
+                    <div class="photo-frame">
+                        <img src="bilder/steckobjekt.jpg" alt="Beispiel Steckobjekt" onerror="this.onerror=null; this.parentElement.innerHTML='[Foto-Platzhalter: bilder/steckobjekt.jpg]';">
+                    </div>
+
                     <b>Die EINE goldene Regel für Holz (3.0 mm Sperrholz):</b>
                     <p>Jeder Schlitz (Nut), in den später ein anderes Teil hineingesteckt wird, muss in Tinkercad exakt <b>3.0 mm breit</b> sein!</p>
 
