@@ -159,7 +159,7 @@
         }
 
         .code-comment { color: #86efac; font-style: italic; }
-        .code-todo { color: #fde047; font-weight: bold; }
+        .code-todo { color: #fde047; font-weight: bold; } /* GELBE SCHRIFT FÜR DIE LÜCKEN */
 
         .challenge-box {
             background: #fef3c7;
@@ -319,7 +319,7 @@
 
                         <div class="task-card">
                             <h4>Aufgabe: Das blinkende Herz programmieren</h4>
-                            <p><small>Schau unten in die <b>Befehlssammlung</b>, suche die richtigen Befehle und tippe den Code im Editor rechts selbst zusammen:</small></p>
+                            <p><small>Ersetze die <span class="code-todo">gelben Fragezeichen ???</span> durch die richtigen Befehle aus der Befehlssammlung unten und tippe den Code rechts ein:</small></p>
 
                             <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
 from microbit import *
@@ -330,10 +330,10 @@ while True:
     display.show(Image.HEART)
     
     <span class="code-comment"># Warte 500 Millisekunden (1/2 Sekunde):</span>
-    sleep(500)
+    sleep(<span class="code-todo">???</span>)
     
     <span class="code-comment"># Lösche den Bildschirm wieder:</span>
-    display.clear()
+    display.<span class="code-todo">???</span>()
     
     <span class="code-comment"># Warte nochmals 500 Millisekunden:</span>
     sleep(500)</div>
@@ -364,18 +364,18 @@ schritte = 0
 
 while True:
     <span class="code-comment"># Zeige die Zahl an, die in der Variable steckt:</span>
-    display.show(schritte)
+    display.show(<span class="code-todo">???</span>)
     
     <span class="code-comment"># WENN der micro:bit geschüttelt wurde:</span>
-    if accelerometer.was_gesture('shake'):
+    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
         <span class="code-comment"># Erhöhe den Zähler um 1</span>
-        schritte = schritte + 1
+        schritte = schritte + <span class="code-todo">???</span>
         sleep(200)
         
     <span class="code-comment"># WENN Knopf A gedrückt wird (Reset):</span>
     if button_a.is_pressed():
         <span class="code-comment"># Setze den Zähler wieder auf 0 zurück</span>
-        schritte = 0</div>
+        schritte = <span class="code-todo">???</span></div>
 
                             <div class="craft-box">
                                 <b>Real-Life Bastelauftrag: Baue ein Trageband!</b>
@@ -412,13 +412,13 @@ while True:
     magnet = compass.get_field_strength()
     
     <span class="code-comment"># WENN der Magnet nah ist (Tür ZU):</span>
-    if magnet > 50000:
+    if magnet > <span class="code-todo">???</span>:
         display.show(Image.YES)
         
     <span class="code-comment"># SONST (Magnet weg = Tür AUF = ALARM!):</span>
     else:
-        <span class="code-comment"># Zeige einen Totenkopf oder ein Warnzeichen an:</span>
-        display.show(Image.SKULL)
+        <span class="code-comment"># Zeige ein Warnzeichen an:</span>
+        display.show(Image.<span class="code-todo">???</span>)
         sleep(100)
         display.clear()
         sleep(100)</div>
@@ -455,10 +455,10 @@ while True:
 
 while True:
     <span class="code-comment"># Temperatur im Schulzimmer messen</span>
-    grad = temperature()
+    grad = <span class="code-todo">???</span>()
     
     <span class="code-comment"># WENN Taste A gedrückt wird: Zeige genaue Gradzahl</span>
-    if button_a.is_pressed():
+    if button_a.<span class="code-todo">???</span>():
         display.scroll(grad)
         
     <span class="code-comment"># WENN die Temperatur unter 20 Grad ist (zu kalt):</span>
@@ -504,13 +504,13 @@ while True:
     <span class="code-comment"># WENN Knopf A gedrückt wird: Spiele eine kurze Melodie</span>
     if button_a.is_pressed():
         display.show(Image.MUSIC_NOTE)
-        music.play(music.BA_DING)
+        music.play(music.<span class="code-todo">???</span>)
         
     <span class="code-comment"># WENN der micro:bit geschüttelt wird: Erzeuge einen Ton</span>
     if accelerometer.was_gesture('shake'):
         display.show(Image.PACMAN)
         <span class="code-comment"># Spiele einen Ton mit Frequenz 440 Hz für 200 ms</span>
-        music.pitch(440, 200)
+        music.pitch(<span class="code-todo">???</span>, 200)
         
     <span class="code-comment"># WENN Knopf B gedrückt wird: Ton stoppen</span>
     if button_b.is_pressed():
@@ -557,15 +557,15 @@ while True:
 import music
 
 <span class="code-comment"># Variable speichert den Zustand: True = Scharf, False = Entschärft</span>
-alarm_aktiv = False
+alarm_aktiv = <span class="code-todo">False</span>
 
 while True:
     <span class="code-comment"># 1. AUSLÖSER: Sensor erkennt Diebe (Schütteln)</span>
-    if accelerometer.was_gesture('shake'):
-        alarm_aktiv = True
+    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
+        alarm_aktiv = <span class="code-todo">???</span>
         
     <span class="code-comment"># 2. ALARM SCHLAGEN: Wenn Alarm aktiv ist</span>
-    if alarm_aktiv:
+    if alarm_aktiv == True:
         display.show(Image.SKULL)
         music.pitch(800, 150)
         sleep(100)
@@ -577,7 +577,7 @@ while True:
 
     <span class="code-comment"># 3. ENTSCHÄRFEN: Geheimcode (Beide Knöpfe drücken)</span>
     if button_a.is_pressed() and button_b.is_pressed():
-        alarm_aktiv = False
+        alarm_aktiv = <span class="code-todo">???</span>
         display.show(Image.HAPPY)
         sleep(1000)</div>
 
