@@ -1,154 +1,238 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modul 2: Lasercutter</title>
+    <title>xTool S1 Lasercutter – MINTscape</title>
     <style>
-        body { font-family: system-ui, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; padding: 20px; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
-        .back-btn { background: #334155; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; }
-        .back-btn:hover { background: #475569; }
-        .sub-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-        .sub-btn { background: #1e293b; color: #94a3b8; border: 1px solid #334155; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
-        .sub-btn.active { background: #d97706; color: white; border-color: #f59e0b; }
-        .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 900px) { .grid-2col { grid-template-columns: 1fr; } }
-        .intro-box { background: #1e293b; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b; margin-bottom: 15px; }
-        .task-card { background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        .step-list { margin: 0; padding-left: 20px; line-height: 1.6; }
-        .step-list li { margin-bottom: 10px; }
-        .badge-cut { background: #ef4444; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        .badge-engrave { background: #3b82f6; color: white; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        .tip-box { background: #312e81; color: #e0e7ff; padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 0.9rem; }
-        .craft-box { background: #7c2d12; color: #ffedd5; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
-        .editor-iframe { width: 100%; height: 650px; border: 1px solid #334155; border-radius: 8px; background: #fff; }
-        .hidden { display: none; }
+        :root {
+            --primary: #0d9488;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        header { text-align: center; margin-bottom: 25px; }
+        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; font-weight: 700; }
+        p.subtitle { color: #64748b; margin-top: 5px; }
+
+        .back-btn {
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-decoration: none;
+            display: inline-flex;
+        }
+
+        .module-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2col { grid-template-columns: 1fr; }
+        }
+
+        .editor-panel {
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            background: #ffffff;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .tool-btn {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .tool-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        #svg-canvas {
+            width: 100%;
+            height: 400px;
+            border: 1px solid #cbd5e1;
+            background-color: #fafafa;
+            background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+            background-size: 15px 15px;
+            cursor: crosshair;
+        }
+
+        .info-box {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.88rem;
+        }
+
+        .badge-cut { color: #e11d48; font-weight: bold; }
+        .badge-engrave { color: #000000; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">
-        <h2>✂️ Modul 2: Lasercutter & Vector-Design</h2>
-        <a href="index.html" class="back-btn">← Zur Übersicht</a>
-    </div>
+    <header>
+        <h1>xTool S1 Lasercutter</h1>
+        <p class="subtitle">Designen &amp; Vorbereiten von Vektordateien für den Laserschnitt</p>
+    </header>
 
-    <div class="sub-nav">
-        <button class="sub-btn active" onclick="switchLesson('laser1', this)">1. Grundlagen & Regeln</button>
-        <button class="sub-btn" onclick="switchLesson('laser2', this)">2. Schlüsselanhänger (Buchstabe)</button>
-        <button class="sub-btn" onclick="switchLesson('laser3', this)">3. Bleistift-Halter</button>
-        <button class="sub-btn" onclick="switchLesson('laser4', this)">4. Erfinder-Challenge</button>
-    </div>
+    <div class="module-container">
+        <a href="index.html" class="back-btn">← Zurück zur Übersicht</a>
 
-    <div class="grid-2col">
-        <div>
-            <!-- LESSON 1 -->
-            <div id="laser1">
-                <h3>1. Wie funktioniert der Lasercutter?</h3>
-                <div class="intro-box">
-                    Ein Lasercutter nutzt einen extrem gebündelten Lichtstrahl, um Materialien wie Holz oder Acryl zu schneiden oder zu gravieren.
-                </div>
-
-                <div class="task-card">
-                    <h4>Die 2 Farb-Regeln für die Steuerung:</h4>
+        <div class="grid-2col">
+            <!-- ANLEITUNGEN -->
+            <div>
+                <h3>Anleitung: Design-Regeln für Lasercutter</h3>
+                <div class="info-box">
+                    <p><b>Laser-Regeln für xTool S1:</b></p>
                     <ul>
-                        <li><span class="badge-cut">SCHNEIDEN (ROTER STRICH)</span>: Haarlinie / 0.001 mm Stärke. Der Laser brennt komplett durch das Material.</li>
-                        <li><span class="badge-engrave">GRAVIEREN (SCHWARZE FLÄCHE)</span>: Der Laser kratzt nur die Oberfläche an und brennt Muster oder Schrift ein.</li>
+                        <li><span class="badge-engrave">SCHWARZE LINIEN (#000000)</span> = Gravur (Oberfläche wird eingebrannt).</li>
+                        <li><span class="badge-cut">ROTE LINIEN (#FF0000)</span> = Schneiden (Laser schneidet durch das Material).</li>
                     </ul>
                 </div>
 
-                <div class="task-card">
-                    <h4>Sicherheitsregeln am Gerät:</h4>
-                    <ol class="step-list">
-                        <li><b>Niemals weglaufen:</b> Während der Laser brennt, bleibst du am Gerät stehen!</li>
-                        <li><b>Absaugung an:</b> Vor dem Start muss die Lüftung laufen, um Dämpfe abzusaugen.</li>
-                        <li><b>Deckel zu:</b> Der Deckel bleibt während des Vorgangs immer geschlossen.</li>
-                    </ol>
-                </div>
+                <h3>Aufgaben</h3>
+                <ol>
+                    <li>Zeichne ein Rechteck oder einen Kreis als Außenform (Modus: <span class="badge-cut">Schneiden</span>).</li>
+                    <li>Platziere Text oder Formen im Inneren (Modus: <span class="badge-engrave">Gravieren</span>).</li>
+                    <li>Lade die SVG-Datei herunter und importiere sie in xTool Creative Space (XCS).</li>
+                </ol>
             </div>
 
-            <!-- LESSON 2 -->
-            <div id="laser2" class="hidden">
-                <h3>2. Projekt: Der Buchstaben-Schlüsselanhänger</h3>
-                <div class="intro-box">
-                    <b>Konstruktions-Trick:</b> Normale Schriften haben oft unterschiedlich dicke Linien oder überschneidende Pfade. Damit dein Buchstabe stabil wird und überall exakt dieselbe Breite hat, bauen wir ihn selbst aus einzelnen Rechtecken zusammen!
+            <!-- VEKTOREDITOR -->
+            <div class="editor-panel">
+                <h3>Vektoreditor</h3>
+                <div class="toolbar">
+                    <button class="tool-btn active" id="btn-rect" onclick="setShape('rect')">Rechteck</button>
+                    <button class="tool-btn" id="btn-circle" onclick="setShape('circle')">Kreis</button>
+                    <button class="tool-btn" id="btn-text" onclick="setShape('text')">Text</button>
+                    <button class="tool-btn" onclick="setMode('cut')">Modus: <span class="badge-cut">Schnitt (Rot)</span></button>
+                    <button class="tool-btn" onclick="setMode('engrave')">Modus: <span class="badge-engrave">Gravur (Schwarz)</span></button>
+                    <button class="tool-btn" onclick="clearCanvas()" style="margin-left:auto; background:#fecdd3;">Löschen</button>
                 </div>
 
-                <div class="task-card">
-                    <h4>Schritt-für-Schritt Anleitung:</h4>
-                    <ol class="step-list">
-                        <li><b>Grundform bauen:</b> Zeichne im Editor Rechtecke mit der gewünschten Stärke für deinen Buchstaben (z. B. für ein "T" ein waagerechtes und ein senkrechtes Rechteck).</li>
-                        <li><b>Formen verbinden:</b> Markiere alle Rechtecke deines Buchstaben und wähle oben die Funktion <b>Vereinigen / Vereinigung (Unite)</b>, damit daraus ein einziger zusammenhängender Pfad wird.</li>
-                        <li><b>Schlüsselloch hinzufügen:</b> Zeichne oben an einer Kante einen kleinen Kreis (Durchmesser ca. 4–5 mm) für den Schlüsselring.</li>
-                        <li><b>Loch ausstanzen:</b> Setze einen kleineren Kreis in die Mitte des ersten Kreises und ziehe ihn mit der Funktion <i>Differenz / Subtrahieren</i> ab.</li>
-                        <li><b>Schneidlinie einstellen:</b> Setze die Konturfarbe des gesamten Anhängers auf Rot (Haarlinie), damit der Laser ihn ausschneidet.</li>
-                    </ol>
+                <svg id="svg-canvas" xmlns="http://www.w3.org/2000/svg" onclick="drawShape(event)"></svg>
 
-                    <div class="tip-box">
-                        💡 <b>Tipp:</b> Achte darauf, dass keine Wandstelle dünner als 3 mm ist, sonst bricht das Holz an der Stelle leicht ab!
-                    </div>
-                </div>
+                <button class="tool-btn" onclick="downloadSVG()" style="width:100%; margin-top:10px; background:var(--primary); color:white;">SVG Herunterladen</button>
             </div>
-
-            <!-- LESSON 3 -->
-            <div id="laser3" class="hidden">
-                <h3>3. Projekt: Der Bleistift-Schreibtischhalter</h3>
-                <div class="intro-box">
-                    Wir konstruieren eine Halterung für deinen Schreibtisch, in die Bleistifte passgenau eingesteckt werden können.
-                </div>
-
-                <div class="task-card">
-                    <h4>Schritt-für-Schritt Anleitung:</h4>
-                    <ol class="step-list">
-                        <li><b>Grundplatte zeichnen:</b> Zeichne ein Rechteck (z. B. 120 mm x 60 mm) als Boden-/Deckplatte.</li>
-                        <li><b>Stecklöcher anlegen:</b> Zeichne Kreise mit einem Durchmesser von genau <b>8.2 mm</b> (Standard-Bleistiftmaß inkl. Spielraum).</li>
-                        <li><b>Löcher anordnen:</b> Verteile 4 bis 6 dieser Kreise gleichmäßig auf deiner Platte.</li>
-                        <li><b>Gravur hinzufügen:</b> Schreibe deinen Namen oder ein Logo in die Mitte. Stelle dieses Element auf <b>schwarze Füllung</b> (Gravur).</li>
-                        <li><b>Aussenkante auf Schneiden setzen:</b> Färbe die Außenlinie der Platte und die Kreise rot (Haarlinie) zum Schneiden.</li>
-                    </ol>
-                </div>
-
-                <div class="craft-box">
-                    <b>Montage &amp; Test:</b><br>
-                    Nach dem Lasern steckst du deine Stifte in die Aussparungen. Passt die Passform perfekt oder wackelt es?
-                </div>
-            </div>
-
-            <!-- LESSON 4 -->
-            <div id="laser4" class="hidden">
-                <h3>4. Erfinder-Challenge: Stecksystem</h3>
-                <div class="intro-box">
-                    <b>Die Meisterprüfung:</b> Konstruiere zwei Teile, die ohne Klebstoff durch eine Nut-und-Feder-Verbindung (Steckverbindung) zusammengehalten werden!
-                </div>
-
-                <div class="task-card">
-                    <h4>Deine Bau-Kriterien:</h4>
-                    <ul>
-                        <li><b>Materialstärke messen:</b> Miss die Dicke deines Sperrholzes mit der Schieblehre (z. B. 3.0 mm).</li>
-                        <li><b>Nut konstruieren:</b> Die Einsteck-Nut muss genau so breit sein wie das Material dick ist (z. B. 3.0 mm).</li>
-                        <li><b>Passung testen:</b> Zeichne einen Test-Stecker und schneide ihn zur Probe aus!</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h3>Arbeitsbereich: Vector Editor (Vectr)</h3>
-            <iframe class="editor-iframe" src="https://vectr.com/new" title="Vector Editor"></iframe>
         </div>
     </div>
 
     <script>
-        function switchLesson(lessonId, btn) {
-            const lessons = ['laser1', 'laser2', 'laser3', 'laser4'];
-            lessons.forEach(id => {
-                document.getElementById(id).classList.add('hidden');
+        let currentShape = 'rect';
+        let currentMode = 'cut'; // cut = rot, engrave = schwarz
+
+        function setShape(shape) {
+            currentShape = shape;
+            document.querySelectorAll('.toolbar .tool-btn').forEach(btn => {
+                if(btn.id.includes(shape)) btn.classList.add('active');
+                else if (btn.id) btn.classList.remove('active');
             });
-            document.getElementById(lessonId).classList.remove('hidden');
-            
-            const buttons = document.querySelectorAll('.sub-btn');
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            alert('Modus gewechselt zu: ' + (mode === 'cut' ? 'Schneiden (Rot)' : 'Gravieren (Schwarz)'));
+        }
+
+        function drawShape(event) {
+            const svg = document.getElementById('svg-canvas');
+            const rect = svg.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            const color = (currentMode === 'cut') ? '#FF0000' : '#000000';
+            const strokeWidth = (currentMode === 'cut') ? '2' : '1';
+
+            if (currentShape === 'rect') {
+                const shape = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                shape.setAttribute('x', x - 40);
+                shape.setAttribute('y', y - 25);
+                shape.setAttribute('width', '80');
+                shape.setAttribute('height', '50');
+                shape.setAttribute('stroke', color);
+                shape.setAttribute('stroke-width', strokeWidth);
+                shape.setAttribute('fill', 'none');
+                svg.appendChild(shape);
+            } else if (currentShape === 'circle') {
+                const shape = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                shape.setAttribute('cx', x);
+                shape.setAttribute('cy', y);
+                shape.setAttribute('r', '30');
+                shape.setAttribute('stroke', color);
+                shape.setAttribute('stroke-width', strokeWidth);
+                shape.setAttribute('fill', 'none');
+                svg.appendChild(shape);
+            } else if (currentShape === 'text') {
+                const textContent = prompt("Text eingeben:", "MINT");
+                if (textContent) {
+                    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    text.setAttribute('x', x);
+                    text.setAttribute('y', y);
+                    text.setAttribute('fill', color);
+                    text.setAttribute('font-size', '20');
+                    text.setAttribute('font-family', 'sans-serif');
+                    text.textContent = textContent;
+                    svg.appendChild(text);
+                }
+            }
+        }
+
+        function clearCanvas() {
+            document.getElementById('svg-canvas').innerHTML = '';
+        }
+
+        function downloadSVG() {
+            const svgData = document.getElementById('svg-canvas').outerHTML;
+            const svgBlob = new Blob([svgData], {type: "image/svg+xml;charset=utf-8"});
+            const svgUrl = URL.createObjectURL(svgBlob);
+            const downloadLink = document.createElement("a");
+            downloadLink.href = svgUrl;
+            downloadLink.download = "lasercutter_design.svg";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
         }
     </script>
 </body>
