@@ -263,6 +263,18 @@
             margin-bottom: 15px;
             font-size: 0.88rem;
         }
+
+        .spec-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-right: 6px;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
@@ -293,7 +305,7 @@
 
     <div class="module-container">
         
-        <!-- MODUL 1: MICRO:BIT -->
+        <!-- MODUL 1: MICRO:BIT (UNVERÄNDERT) -->
         <div id="module-python">
             <div class="sub-nav">
                 <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1')">1. Grundlagen</button>
@@ -306,6 +318,8 @@
 
             <div class="grid-2col">
                 <div id="microbit-content">
+                    
+                    <!-- LESSON 1 -->
                     <div id="mb-lesson1">
                         <h3>1. Was ist der micro:bit?</h3>
                         <div class="intro-box">
@@ -325,39 +339,120 @@
 
                         <div class="task-card">
                             <h4>Aufgabe: Das blinkende Herz programmieren</h4>
+                            <p style="font-size:0.9rem;">Im Code-Puzzle unten ist die Endlosschleife schon fast fertig. Ergänze die fehlenden Befehle, damit das Herz blinkt!</p>
                             <div class="code-puzzle">from microbit import *
+
+while True:
+    display.show(Image.HEART)
+    sleep(500)
+    <span class="code-comment"># TO DO: Bild löschen mit display.clear()</span>
+    <span class="code-todo">...</span>
+    <span class="code-comment"># TO DO: 500 Millisekunden warten mit sleep(500)</span>
+    <span class="code-todo">...</span></div>
+                        </div>
+
+                        <details class="cmd-box">
+                            <summary>Lösung anzeigen</summary>
+                            <div class="cmd-list">
+                                <div class="code-puzzle">from microbit import *
 
 while True:
     display.show(Image.HEART)
     sleep(500)
     display.clear()
     sleep(500)</div>
-                        </div>
+                            </div>
+                        </details>
                     </div>
 
+                    <!-- LESSON 2 -->
                     <div id="mb-lesson2" class="hidden">
                         <h3>2. Projekt: Der Schrittzähler</h3>
-                        <div class="intro-box"><b>Das Prinzip der Variablen:</b> In <code>schritte</code> zählen wir jedes Mal +1, wenn der Bewegungssensor geschüttelt wird.</div>
+                        <div class="intro-box">
+                            <b>Das Prinzip der Variablen:</b> Eine Variable ist wie ein Beschriftetes Schachtelchen im Speicher. Hier nennen wir die Schachtel <code>schritte</code>. Wir starten bei 0 und zählen jedes Mal +1 dazu, wenn der micro:bit geschüttelt wird.
+                        </div>
+
                         <div class="task-card">
+                            <h4>Code-Aufgabe: Zähler-Schleife vervollständigen</h4>
                             <div class="code-puzzle">from microbit import *
+
 schritte = 0
+
 while True:
     display.show(schritte)
+    
+    if accelerometer.was_gesture('shake'):
+        <span class="code-comment"># TO DO: schritte um 1 erhöhen</span>
+        <span class="code-todo">schritte = ...</span>
+        sleep(200)
+        
+    if button_a.is_pressed():
+        <span class="code-comment"># TO DO: Zähler wieder auf 0 zurücksetzen</span>
+        <span class="code-todo">schritte = ...</span></div>
+                        </div>
+
+                        <details class="cmd-box">
+                            <summary>Lösung anzeigen</summary>
+                            <div class="cmd-list">
+                                <div class="code-puzzle">from microbit import *
+
+schritte = 0
+
+while True:
+    display.show(schritte)
+    
     if accelerometer.was_gesture('shake'):
         schritte = schritte + 1
         sleep(200)
+        
     if button_a.is_pressed():
         schritte = 0</div>
+                            </div>
+                        </details>
+
+                        <div class="challenge-box">
+                            <b>Erfinder-Challenge:</b> Bau eine Ziel-Belohnung ein! Wenn <code>schritte == 10</code> erreicht sind, soll eine kleine Melodie ertönen oder ein Smiley erscheinen!
+                        </div>
+
+                        <div class="craft-box">
+                            <b>Prototyping / Bastelauftrag:</b><br>
+                            Befestige den micro:bit mit einem Klettband oder Gummiband sicher an deinem Fussgelenk oder Schuh. Teste deinen Schrittzähler auf einer kurzen Strecke im Schulzimmer!
                         </div>
                     </div>
 
+                    <!-- LESSON 3 -->
                     <div id="mb-lesson3" class="hidden">
-                        <h3>3. Projekt: Türsensor</h3>
-                        <div class="intro-box"><b>Bedingungen verstehen:</b> Der Magnet-Sensor misst die Feldstärke der Umgebung.</div>
+                        <h3>3. Projekt: Der Alarmanlagen-Türsensor</h3>
+                        <div class="intro-box">
+                            <b>Bedingungen verstehen:</b> Wir nutzen den Kompass-Sensor als Magnet-Sensor. Wenn ein Magnet nahe am micro:bit ist, misst er ein starkes Magnetfeld. Entfernt man den Magneten (Tür geht auf), schlägt er Alarm!
+                        </div>
+
                         <div class="task-card">
+                            <h4>Code-Aufgabe: Türzustand prüfen</h4>
                             <div class="code-puzzle">from microbit import *
+
 while True:
     magnet = compass.get_field_strength()
+    
+    if magnet > 50000:
+        <span class="code-comment"># Magnet ist nah -> Tür ist ZU</span>
+        display.show(Image.YES)
+    else:
+        <span class="code-comment"># Magnet ist weg -> Tür ist OFFEN (ALARM!)</span>
+        display.show(Image.SKULL)
+        sleep(100)
+        display.clear()
+        sleep(100)</div>
+                        </div>
+
+                        <details class="cmd-box">
+                            <summary>Lösung anzeigen</summary>
+                            <div class="cmd-list">
+                                <div class="code-puzzle">from microbit import *
+
+while True:
+    magnet = compass.get_field_strength()
+    
     if magnet > 50000:
         display.show(Image.YES)
     else:
@@ -365,45 +460,139 @@ while True:
         sleep(100)
         display.clear()
         sleep(100)</div>
+                            </div>
+                        </details>
+
+                        <div class="craft-box">
+                            <b>Prototyping / Bastelauftrag:</b><br>
+                            Klebe einen kleinen Schulmagneten mit Klebeband an den Türrahmen und befestige den micro:bit an der Tür. Richte den Sensor so aus, dass er im geschlossenen Zustand das grüne Häkchen zeigt!
                         </div>
                     </div>
 
+                    <!-- LESSON 4 -->
                     <div id="mb-lesson4" class="hidden">
                         <h3>4. Projekt: Das digitale Thermometer</h3>
-                        <div class="intro-box"><b>Messdaten verarbeiten:</b> Der Prozessor misst die Umgebungstemperatur.</div>
+                        <div class="intro-box">
+                            <b>Messdaten verarbeiten:</b> Der Prozessor des micro:bit misst seine eigene Temperatur. Das ist sehr nah an der Raumtemperatur.
+                        </div>
+
                         <div class="task-card">
+                            <h4>Code-Aufgabe: Temperatur-Warnung schreiben</h4>
                             <div class="code-puzzle">from microbit import *
+
 while True:
     grad = temperature()
+    
     if button_a.is_pressed():
         display.scroll(grad)
+        
+    <span class="code-comment"># TO DO: Wenn Temperatur unter 20 Grad -> Trauriges Gesicht</span>
     if grad < 20:
         display.show(Image.SAD)
     else:
         display.show(Image.HAPPY)</div>
                         </div>
-                    </div>
 
-                    <div id="mb-lesson5" class="hidden">
-                        <h3>5. Projekt: Der Musik-Synthesizer</h3>
-                        <div class="intro-box"><b>Töne &amp; Bewegung verbinden:</b> Das Modul <code>music</code> erzeugt Töne und Melodien.</div>
-                        <div class="task-card">
-                            <div class="code-puzzle">from microbit import *
-import music
+                        <details class="cmd-box">
+                            <summary>Lösung anzeigen</summary>
+                            <div class="cmd-list">
+                                <div class="code-puzzle">from microbit import *
+
 while True:
+    grad = temperature()
+    
     if button_a.is_pressed():
-        music.play(music.BA_DING)
-    if accelerometer.was_gesture('shake'):
-        music.pitch(440, 200)
-    if button_b.is_pressed():
-        music.stop()</div>
+        display.scroll(grad)
+        
+    if grad < 20:
+        display.show(Image.SAD)
+    else:
+        display.show(Image.HAPPY)</div>
+                            </div>
+                        </details>
+
+                        <div class="challenge-box">
+                            <b>Erfinder-Challenge:</b> Erstelle eine Temperatur-Ampel! Zeige bei kalten Temperaturen ein W (für Warm anziehen) und bei angenehmen Temperaturen ein O (für OK).
                         </div>
                     </div>
 
+                    <!-- LESSON 5 -->
+                    <div id="mb-lesson5" class="hidden">
+                        <h3>5. Projekt: Der Musik-Synthesizer</h3>
+                        <div class="intro-box">
+                            <b>Töne &amp; Bewegung verbinden:</b> Mit dem Befehl <code>music.pitch()</code> können wir Töne in genau festgelegten Frequenzen abspielen.
+                        </div>
+
+                        <div class="task-card">
+                            <h4>Code-Aufgabe: Gestensteuerung für Musik</h4>
+                            <div class="code-puzzle">from microbit import *
+import music
+
+while True:
+    if button_a.is_pressed():
+        music.play(music.BA_DING)
+        
+    if accelerometer.was_gesture('shake'):
+        <span class="code-comment"># Spielt einen Ton mit 440 Hz für 200 ms</span>
+        music.pitch(440, 200)
+        
+    if button_b.is_pressed():
+        music.stop()</div>
+                        </div>
+
+                        <details class="cmd-box">
+                            <summary>Lösung anzeigen</summary>
+                            <div class="cmd-list">
+                                <div class="code-puzzle">from microbit import *
+import music
+
+while True:
+    if button_a.is_pressed():
+        music.play(music.BA_DING)
+        
+    if accelerometer.was_gesture('shake'):
+        music.pitch(440, 200)
+        
+    if button_b.is_pressed():
+        music.stop()</div>
+                            </div>
+                        </details>
+
+                        <div class="craft-box">
+                            <b>Prototyping / Bastelauftrag:</b><br>
+                            Baue dir aus Karton ein Luft-Schlagzeug oder eine Papier-Gitarre. Klebe den micro:bit an den Hals deiner Papier-Gitarre und spiele Töne durch Neigen des Instruments!
+                        </div>
+                    </div>
+
+                    <!-- LESSON 6 -->
                     <div id="mb-lesson6" class="hidden">
                         <h3>6. Die Erfinder-Challenge: Sichere den Schatz!</h3>
-                        <div class="intro-box"><b>Deine Meisterprüfung:</b> Kombiniere Variablen, Sensoren, Bedingungen und Sound zu einer eigenen Alarmanlage!</div>
+                        <div class="intro-box">
+                            <b>Deine Meisterprüfung:</b> Kombiniere Variablen, Sensoren, Bedingungen und Sound zu einer eigenen Alarmanlage für deine Schatztruhe oder deinen Rucksack!
+                        </div>
+
+                        <div class="task-card">
+                            <h4>Deine Bau-Kriterien:</h4>
+                            <ul>
+                                <li>Schärfen der Anlage mit Taste A.</li>
+                                <li>Alarm auslösen beim Bewegen ODER beim Licht-Einfall.</li>
+                                <li>Optischer und akustischer Alarm (Blinken &amp; Sound).</li>
+                                <li>Entschärfen mit einer Geheim-Kombination (Taste B).</li>
+                            </ul>
+                        </div>
                     </div>
+
+                    <details class="cmd-box">
+                        <summary>Wichtige Python-Befehle im Überblick</summary>
+                        <div class="cmd-list">
+                            <div class="cmd-item"><code>display.show(Image.HEART)</code> – Zeigt ein vorgefertigtes Bild an.</div>
+                            <div class="cmd-item"><code>display.scroll("Text")</code> – Lässt einen Text von rechts nach links durchlaufen.</div>
+                            <div class="cmd-item"><code>sleep(1000)</code> – Pausiert das Programm für 1000 Millisekunden (1 Sekunde).</div>
+                            <div class="cmd-item"><code>button_a.is_pressed()</code> – Prüft, ob Taste A im Moment gedrückt wird (True/False).</div>
+                            <div class="cmd-item"><code>accelerometer.was_gesture('shake')</code> – Prüft, ob der Board geschüttelt wurde.</div>
+                            <div class="cmd-item"><code>temperature()</code> – Gibt die aktuelle Temperatur als Zahl zurück.</div>
+                        </div>
+                    </details>
                 </div>
 
                 <div>
@@ -418,7 +607,7 @@ while True:
             <h2>Lasercutter-Werkstatt: xTool S1 &amp; Tinkercad</h2>
             
             <div class="rule-box">
-                <b>Sicherheits-Regeln am xTool S1:</b><br>
+                <b>Sicherheits-Regeln am xTool S1 (40W Diodenlaser):</b><br>
                 1. Der Schutzdeckel bleibt während des Laserns IMMER geschlossen.<br>
                 2. Die Absauganlage muss eingeschaltet sein.<br>
                 3. Blicke nie direkt in den Laserstrahl und bleibe am Gerät stehen, bis der Vorgang beendet ist.
@@ -453,10 +642,12 @@ while True:
             <div id="laser-level1">
                 <div class="task-card">
                     <h4>Projekt 1A: Die Namens-Gravur auf dem Bleistift</h4>
-                    <ol style="line-height: 1.6;">
+                    <span class="spec-badge">Material: Unlackierter Sechskant-Bleistift oder Farbstift</span>
+                    <span class="spec-badge">Schrifthöhe: max. 4.0 mm</span>
+                    <ol style="line-height: 1.6; margin-top: 10px;">
                         <li>Öffne <b>Tinkercad</b> und erstelle ein neues Design.</li>
                         <li>Ziehe das Werkzeug <b>Text</b> auf die Arbeitsfläche und tippe deinen Namen ein.</li>
-                        <li>Skaliere den Text: Die Höhe darf <b>maximal 4.0 mm</b> betragen, damit der Name auf die flache Seite deines Holzstifts passt.</li>
+                        <li>Skaliere den Text: Die Höhe darf <b>maximal 4.0 mm</b> betragen, damit der Name exakt auf die flache Seite deines Holzstifts passt.</li>
                         <li>Exportiere den Text als <b>.SVG</b> Datei.</li>
                         <li>Importiere die Datei in <b>xTool Creative Space (XCS)</b>, wähle Verarbeitungsart <b>Gravieren</b> und platziere deinen Stift exakt unter dem Laser-Kopf.</li>
                     </ol>
@@ -464,7 +655,9 @@ while True:
 
                 <div class="task-card">
                     <h4>Projekt 1B: Das Design-Lesezeichen</h4>
-                    <ol style="line-height: 1.6;">
+                    <span class="spec-badge">Material: Dickes Papier (160–200 g/m²) oder 1 mm Graupappe</span>
+                    <span class="spec-badge">Masse: 140 × 40 mm</span>
+                    <ol style="line-height: 1.6; margin-top: 10px;">
                         <li>Ziehe in Tinkercad einen flachen Quader auf die Arbeitsfläche (Länge: <b>140 mm</b>, Breite: <b>40 mm</b>, Höhe: <b>1 mm</b>).</li>
                         <li>Ziehe einen transparenten Zylinder (Bohrung) mit <b>5 mm Durchmesser</b> an die obere Kante, um das Aufhängeloch für ein Band zu stanzen.</li>
                         <li>Verziere das Lesezeichen mit Mustern oder Tieren. Nutze transparente Formen, um Löcher herauszustanzen.</li>
@@ -477,16 +670,22 @@ while True:
             <div id="laser-level2" class="hidden">
                 <div class="task-card">
                     <h4>Projekt 2: Mein Buchstaben-Tangram mit Einlege-Rahmen</h4>
-                    <div class="intro-box">
+                    <span class="spec-badge">Material: 3.0 mm Pappel-Sperrholz oder 2 mm Graupappe</span>
+                    <span class="spec-badge">Masse Buchstabe: ca. 80 × 80 mm</span>
+                    <span class="spec-badge">Masse Rahmen: 120 × 120 mm</span>
+                    
+                    <div class="intro-box" style="margin-top: 10px;">
                         Ein Buchstaben-Tangram besteht aus deinem Anfangsbuchstaben, der in 4 bis 6 mathematische Teile zerschnitten wird.
                     </div>
+                    
                     <b>Schritt-für-Schritt-Anleitung in Tinkercad:</b>
                     <ol style="line-height: 1.6;">
                         <li>Ziehe das Text-Werkzeug auf die Arbeitsfläche und wähle deinen <b>Anfangsbuchstaben</b> (Grösse ca. 80 × 80 mm).</li>
                         <li><b>Schnitt-Trick:</b> Ziehe einen transparenten Quader (Bohrung) auf die Arbeitsfläche. Drehe ihn um exakt <b>45 Grad</b>.</li>
                         <li>Schiebe den transparenten Messer-Riegel durch deinen Buchstaben und gruppiere die Teile. Wiederhole das 3- bis 4-mal, bis dein Buchstabe in 4 bis 6 Stücke zerfällt.</li>
-                        <li><b>Einlege-Rahmen bauen:</b> Ziehe ein Rechteck (100 × 100 mm) auf die Arbeitsfläche. Stanze deinen kompletten Buchstaben als transparentes Loch aus dem Rechteck heraus. So entsteht der perfekte Aufbewahrungs-Rahmen!</li>
-                        <li>Exportiere die Teile als SVG und lasere sie aus 3 mm Pappel-Sperrholz oder Karton.</li>
+                        <li><b>Einlege-Rahmen bauen:</b> Ziehe ein Rechteck (<b>120 × 120 mm</b>) auf die Arbeitsfläche. Stanze deinen kompletten unzerschnittenen Buchstaben als transparentes Loch aus dem Rechteck heraus. So entsteht der perfekte Einlege-Rahmen!</li>
+                        <li><b>Bodenplatte:</b> Kopiere ein zweites Rechteck (120 × 120 mm) ohne Loch als Bodenplatte. Nach dem Lasern werden Rahmen und Bodenplatte aufeinandergeleimt.</li>
+                        <li>Exportiere die Teile als SVG und lasere sie im xTool S1 aus.</li>
                     </ol>
                     <div class="challenge-box">
                         <b>Rätsel-Challenge:</b> Lege aus deinen Tangram-Teilen eine Figur (z. B. ein Boot, ein Haus oder einen Vogel). Zeichne den Aussenumriss auf ein Blatt Papier und lass deine Mitschüler das Rätsel lösen!
@@ -498,9 +697,14 @@ while True:
             <div id="laser-level3" class="hidden">
                 <div class="task-card">
                     <h4>Projekt 3: Freies 3D-Steckobjekt (Nut &amp; Feder)</h4>
-                    <div class="intro-box">
+                    <span class="spec-badge">Material: 3.0 mm Pappel-Sperrholz</span>
+                    <span class="spec-badge">Schlitzbreite: exakt 3.0 mm</span>
+                    <span class="spec-badge">Schlitztiefe: 8.0 bis 10.0 mm</span>
+                    
+                    <div class="intro-box" style="margin-top: 10px;">
                         Aus flachen Platten werden dreidimensionale Objekte! Ob ein Haus (Wände mit Dachstanzung), ein Stand-Baum oder ein Roboter – alles funktioniert über zusammengesteckte Schlitze.
                     </div>
+                    
                     <b>Die EINE goldene Regel für Holz (3.0 mm Sperrholz):</b>
                     <p>Jeder Schlitz (Nut), in den später ein anderes Teil hineingesteckt wird, muss in Tinkercad exakt <b>3.0 mm breit</b> sein!</p>
 
