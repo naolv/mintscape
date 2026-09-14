@@ -331,39 +331,13 @@
 </head>
 <body>
 
-    <header id="main-header">
-        <h1>MINTscape</h1>
-        <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
-    </header>
-
-    <!-- DASHBOARD 1: HAUPTMODULE (OBEN AUF DER STARTSEITE) -->
-    <div id="main-dashboard" class="main-dashboard">
-        <div class="main-card active" onclick="switchMainModule('python')">
-            <h3>micro:bit Python</h3>
-            <small>Interaktive Aufgaben &amp; Prototypen</small>
-        </div>
-        <div class="main-card" onclick="switchMainModule('tinkercad')">
-            <h3>3D-Druck (Tinkercad)</h3>
-            <small>Konstruieren lernen</small>
-        </div>
-        <div class="main-card" onclick="switchMainModule('laser')">
-            <h3>Lasercutter (xTool S1)</h3>
-            <small>Tinkercad &amp; Gravur / Schnitt</small>
-        </div>
-        <div class="main-card" onclick="switchMainModule('makey')">
-            <h3>Makey Makey</h3>
-            <small>Stromkreise bauen</small>
-        </div>
-    </div>
-
-    <!-- SPEZIFISCHER HEADER FÜR MICRO:BIT (WIE BEIM LASERCUTTER IM BILD) -->
-    <div id="module-header-python" class="module-header-bar hidden">
-        <button class="top-back-btn" onclick="resetToOverview()">← Zurück zur Übersicht</button>
-        <div class="module-title-area">
-            <h2>MINTscape</h2>
-            <p>Modul: micro:bit Python</p>
-        </div>
-    </div>
+    <div class="module-container">
+        <header>
+            <a href="index.html" class="back-btn">&larr; Zurück zur Übersicht</a>
+            <h1>MINTscape</h1>
+            <p class="subtitle">Modul: micro:bit Python</p>
+        </header>
+    
 
     <!-- LERNEINHEITEN-DASHBOARD (UNTER DEM TITEL FÜR MICRO:BIT) -->
     <div id="sub-dashboard-python" class="sub-dashboard hidden">
