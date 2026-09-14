@@ -1,323 +1,434 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de-CH">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>micro:bit - Erfinder-Werkstatt</title>
+    <title>MINTscape</title>
     <style>
         :root {
-            --primary-color: #00a896;
-            --secondary-color: #028090;
-            --accent-color: #f0f3f4;
-            --text-color: #2b2d42;
+            --primary: #0d9488;
+            --primary-light: #ccfbf1;
+            --accent: #d97706;
+            --danger: #e11d48;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
-            --code-bg: #1e1e1e;
+            --text: #1e293b;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 0;
+            padding: 20px;
         }
 
         header {
-            background-color: var(--card-bg);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        h1 {
-            color: var(--primary-color);
             text-align: center;
-            margin-bottom: 0.5rem;
+            margin-bottom: 25px;
         }
 
-        .subtitle {
+        h1 { margin: 0; color: var(--primary); font-size: 2.2rem; font-weight: 700; }
+        p.subtitle { color: #64748b; margin-top: 5px; }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            max-width: 1100px;
+            margin: 0 auto 25px auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
             text-align: center;
-            color: #6c757d;
-            margin-bottom: 2rem;
         }
 
-        .mb-tabs {
+        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .card.active { border-color: var(--primary); background-color: var(--primary-light); }
+
+        .sub-nav {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
             flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
         }
 
-        .mb-tab-btn {
-            padding: 0.75rem 1.25rem;
+        .sub-btn {
+            background: #e2e8f0;
             border: none;
-            background-color: #e9ecef;
-            color: var(--text-color);
-            border-radius: 8px;
+            padding: 8px 16px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.2s ease;
+            color: #475569;
         }
 
-        .mb-tab-btn.active {
-            background-color: var(--primary-color);
+        .sub-btn.active {
+            background: var(--primary);
             color: white;
         }
 
-        .mb-lesson {
-            display: none;
+        .module-container {
+            max-width: 1100px;
+            margin: 0 auto;
             background: var(--card-bg);
-            padding: 2rem;
+            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .mb-lesson.active {
-            display: block;
+        .hidden { display: none; }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 460px 1fr;
+            gap: 20px;
         }
 
-        .mb-box {
-            padding: 1rem;
+        @media (max-width: 900px) {
+            .grid-2col { grid-template-columns: 1fr; }
+        }
+
+        .intro-box {
+            background: #f1f5f9;
+            padding: 14px 18px;
             border-radius: 8px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 4px solid var(--primary);
         }
 
-        .mb-box-intro {
-            background-color: #eef9f8;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .mb-box-task {
-            background-color: #f1f3f5;
-            border-left: 4px solid #4c6ef5;
-        }
-
-        .mb-box-craft {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            margin-top: 1.5rem;
-        }
-
-        .mb-box-cheatsheet {
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            margin-top: 1.5rem;
-        }
-
-        .mb-editor-container {
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #ccc;
-        }
-
-        iframe {
-            width: 100%;
-            height: 480px;
-            border: none;
-        }
-
-        .mb-solution-toggle {
-            margin-top: 1.5rem;
-            background-color: #f8f9fa;
-            border: 1px dashed #ced4da;
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-        }
-
-        .mb-solution-toggle summary {
-            font-weight: 600;
-            color: #495057;
-            cursor: pointer;
-            padding: 0.5rem 0;
-        }
-
-        .mb-solution-content {
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .mb-solution-content pre {
-            background-color: var(--code-bg);
-            color: #f8f9fa;
-            padding: 1rem;
+        details.editor-setup-bar {
+            background: #fff1f2;
+            border: 1px solid #fecdd3;
+            border-left: 5px solid var(--danger);
             border-radius: 6px;
-            overflow-x: auto;
-            font-family: 'Consolas', 'Courier New', Courier, monospace;
-            margin: 0;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        details.editor-setup-bar summary {
+            padding: 10px 14px;
+            font-weight: bold;
+            color: #9f1239;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        details.editor-setup-bar summary:hover { background: #ffe4e6; }
+
+        .setup-content {
+            padding: 10px 14px 14px 14px;
+            border-top: 1px solid #fecdd3;
+            background: #fff;
+        }
+
+        .setup-content ol { margin: 6px 0 0 0; padding-left: 20px; }
+
+        .task-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .task-card h4 { margin-top: 0; color: #0f172a; }
+
+        .code-puzzle {
+            background: #27272a;
+            color: #f4f4f5;
+            padding: 14px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            margin: 10px 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            border: 1px solid #3f3f46;
+        }
+
+        .code-comment { color: #86efac; font-style: italic; }
+        .code-todo { color: #fde047; font-weight: bold; }
+
+        .challenge-box {
+            background: #fef3c7;
+            border-left: 4px solid var(--accent);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            margin-top: 10px;
+        }
+
+        .craft-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #16a34a;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            margin-top: 10px;
+        }
+
+        .hw-finder {
+            background: #334155;
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .hw-btn {
+            background: #475569;
+            color: #f8fafc;
+            border: 1px solid #64748b;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-right: 4px;
+            margin-bottom: 6px;
+        }
+
+        .hw-btn:hover { background: var(--primary); }
+
+        .hw-desc {
+            font-size: 0.88rem;
+            color: #f1f5f9;
+            background: #1e293b;
+            padding: 10px 12px;
+            border-radius: 6px;
+            min-height: 40px;
+            line-height: 1.4;
+        }
+
+        details.cmd-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.88rem;
+        }
+
+        details.cmd-box summary {
+            padding: 10px 12px;
+            font-weight: bold;
+            color: #0f172a;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 5px;
+        }
+
+        .cmd-list {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cmd-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .cmd-item code { color: var(--primary); font-weight: bold; }
+
+        details.solution-box {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 0.88rem;
+        }
+
+        details.solution-box summary {
+            padding: 10px 12px;
+            font-weight: bold;
+            color: #166534;
+            cursor: pointer;
+            background: #dcfce7;
+            border-radius: 5px;
+        }
+
+        .solution-content {
+            padding: 10px;
+        }
+
+        .editor-iframe {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            background: #fff;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html" class="back-link">← Zurück zur Hauptseite</a>
-        <span style="font-weight: 600; color: #6c757d;">Makerspace Informatik</span>
+        <h1>MINTscape</h1>
+        <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
-    <div class="container">
-        <h1>micro:bit - Erfinder-Werkstatt</h1>
-        <p class="subtitle">Entwickle eigene Programme und baue deine eigenen Prototypen!</p>
-
-        <!-- Navigation Tabs -->
-        <div class="mb-tabs">
-            <button class="mb-tab-btn active" onclick="showLesson(0)">0. Hardware kennenlernen</button>
-            <button class="mb-tab-btn" onclick="showLesson(1)">1. Grundlagen</button>
-            <button class="mb-tab-btn" onclick="showLesson(2)">2. Schrittzähler</button>
-            <button class="mb-tab-btn" onclick="showLesson(3)">3. Türsensor</button>
-            <button class="mb-tab-btn" onclick="showLesson(4)">4. Thermometer</button>
-            <button class="mb-tab-btn" onclick="showLesson(5)">5. Synthesizer</button>
-            <button class="mb-tab-btn" onclick="showLesson(6)">6. Erfinder-Challenge</button>
+    <!-- DASHBOARD NAVIGATION (EINZELNES HAUPTMENÜ) -->
+    <div class="dashboard">
+        <div class="card active" onclick="switchMainModule('python', this)">
+            <h3>micro:bit Python</h3>
+            <small>Interaktive Aufgaben &amp; Prototypen</small>
         </div>
-
-        <!-- LERNEINHEIT 0: HARDWARE KENNENLERNEN -->
-        <div id="mb-lesson0" class="mb-lesson active">
-            <h2>Einführung: Den micro:bit genau unter die Lupe nehmen</h2>
-            
-            <div class="mb-box mb-box-intro">
-                <strong>Einführungsaufgabe:</strong> Bevor wir mit dem Programmieren starten, schauen wir uns den micro:bit genauer an. Nimm deinen micro:bit in die Hand und erkunde die einzelnen Bauteile auf Vorder- und Rückseite!
-            </div>
-
-            <div class="mb-box mb-box-task">
-                <strong>🔎 Bauteile-Erkundung:</strong>
-                <ul>
-                    <li><strong>Vorderseite:</strong>
-                        <ul>
-                            <li><strong>LED-Matrix (5x5):</strong> Die 25 kleinen roten Lichter in der Mitte. Sie können Bilder, Buchstaben oder Zahlen anzeigen.</li>
-                            <li><strong>Knöpfe A und B:</strong> Links und rechts neben dem Display. Damit könnt ihr Eingaben machen und Interaktionen starten.</li>
-                            <li><strong>Touch-Logo:</strong> Das goldene micro:bit-Logo oben in der Mitte. Es reagiert wie ein Touchscreen auf Berührung.</li>
-                        </ul>
-                    </li>
-                    <li style="margin-top: 0.5rem;"><strong>Rückseite:</strong>
-                        <ul>
-                            <li><strong>Prozessor (CPU):</strong> Das „Gehirn“ des micro:bit, das eure Programme ausführt.</li>
-                            <li><strong>Sensoren:</strong> Der Kompass (misst Magnetfelder) und der Beschleunigungssensor (erkennt Neigung und Bewegung).</li>
-                            <li><strong>Bluetooth-Antenne:</strong> Für die kabellose Verbindung mit anderen Geräten.</li>
-                            <li><strong>USB-Anschluss & Batterie-Anschluss:</strong> Hier bekommt der micro:bit Strom oder wird mit dem Computer verbunden.</li>
-                            <li><strong>Lautsprecher & Mikrofon:</strong> Für die Ausgabe von Tönen und das Erkennen von Umgebungsgeräuschen.</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+        <div class="card" onclick="switchMainModule('tinkercad', this)">
+            <h3>3D-Druck (Tinkercad)</h3>
+            <small>Konstruieren lernen</small>
         </div>
+        <div class="card" onclick="switchMainModule('laser', this)">
+            <h3>Lasercutter (xTool S1)</h3>
+            <small>Tinkercad &amp; Gravur / Schnitt</small>
+        </div>
+        <div class="card" onclick="switchMainModule('makey', this)">
+            <h3>Makey Makey</h3>
+            <small>Stromkreise bauen</small>
+        </div>
+    </div>
 
-        <!-- LERNEINHEIT 1 -->
-        <div id="mb-lesson1" class="mb-lesson">
-            <h2>Lerneinheit 1: Grundlagen – Blinkendes Herz</h2>
+    <div class="module-container">
+        
+        <!-- MODUL 1: MICRO:BIT -->
+        <div id="module-python">
             
-            <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Der micro:bit besitzt ein Raster aus 5x5 roten LED-Lämpchen. Wir programmieren ein Herz, das kontinuierlich schlägt.
+            <div class="sub-nav">
+                <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1', this)">1. Grundlagen</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson2', this)">2. Schrittzähler</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson3', this)">3. Türsensor</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson4', this)">4. Thermometer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson5', this)">5. Musik-Synthesizer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson6', this)">6. Erfinder-Challenge</button>
             </div>
 
-            <div class="mb-box mb-box-task">
-                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
-                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
-                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
-                </p>
-                <strong>📝 Programmier-Anleitung:</strong>
-                <ol>
-                    <li>Lies dir die Kommentare im Editor durch. Sie erklären dir jeden Schritt.</li>
-                    <li>Ersetze das erste <code>???</code> durch <code>display.clear()</code>, damit das Herz nach dem Anzeigen wieder ausgeht.</li>
-                    <li>Ersetze das zweite <code>???</code> durch die Zahl <code>500</code>, damit der micro:bit nach dem Ausschalten 500 Millisekunden wartet.</li>
-                </ol>
-            </div>
+            <div class="grid-2col">
+                <!-- LINKER BEREICH: LERNINHALTE -->
+                <div id="microbit-content">
+                    
+                    <!-- LERNEINHEIT 1: GRUNDLAGEN -->
+                    <div id="mb-lesson1">
+                        <h3>1. Was ist der micro:bit?</h3>
+                        
+                        <div class="intro-box">
+                            Der <b>BBC micro:bit</b> ist ein kleiner, programmierbarer Computer. Mit Python-Befehlen sagst du ihm genau, was er tun soll!
+                        </div>
 
-            <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0A%23%20Endlosschleife%3A%20Wiederholt%20den%20Code%20dauerhaft%0Awhile%20True%3A%0A%20%20%20%20%23%20Schritt%201%3A%20Zeige%20das%20Herz-Symbol%0A%20%20%20%20display.show(Image.HEART)%0A%20%20%20%20%23%20Schritt%202%3A%20Warte%20500%20ms%20(0.5%20Sekunden)%0A%20%20%20%20sleep(500)%0A%20%20%20%20%23%20Schritt%203%20(AUFGABE)%3A%20Lösche%20das%20Display%20(Ersetze%20???%20durch%20display.clear())%0A%20%20%20%20%3F%3F%3F%0A%20%20%20%20%23%20Schritt%204%20(AUFGABE)%3A%20Warte%20erneut%20500%20ms%20(Ersetze%20???%20durch%20500)%0A%20%20%20%20sleep(%3F%3F%3F)"></iframe>
-            </div>
+                        <div class="hw-finder">
+                            <h4 style="margin-top:0;">Hardware-Detektiv: Wo sind die Bauteile?</h4>
+                            <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand und suche die Teile auf der Platine:</p>
+                            <div>
+                                <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
+                                <button class="hw-btn" onclick="showHw('btn')">Tasten A &amp; B</button>
+                                <button class="hw-btn" onclick="showHw('sens')">Sensoren</button>
+                            </div>
+                            <div id="hw-info" class="hw-desc" style="margin-top:10px;">Klicke oben auf einen Knopf, um zu erfahren, wo du das Bauteil auf deinem echten micro:bit findest!</div>
+                        </div>
 
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Leucht-Badge</strong>
-                <p>Wenn dein Herz blinkt: Bastle aus Karton einen Rahmen um den micro:bit, sodass nur das LED-Herz als Namensschild hervorsteht.</p>
-            </div>
+                        <div class="task-card">
+                            <h4>Aufgabe: Das blinkende Herz programmieren</h4>
+                            <p><small>Löse die Lücken <span class="code-todo">???</span> selbstständig. Schau bei Bedarf im Spickzettel nach!</small></p>
 
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>from microbit import *</code> – Lädt alle grundlegenden Befehle für den micro:bit</li>
-                    <li><code>display.show(Image.HEART)</code> – Zeigt ein Herz-Symbol an</li>
-                    <li><code>sleep(500)</code> – Wartet 500 Millisekunden (0.5 Sekunden)</li>
-                    <li><code>display.clear()</code> – Schaltet alle LEDs aus</li>
-                </ul>
-            </div>
+                            <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
+from microbit import *
 
-            <details class="mb-solution-toggle">
-                <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
-                <div class="mb-solution-content">
-<pre><code>from microbit import *
+<span class="code-comment"># 2. Endlosschleife: Wiederhole alles ewig</span>
+while True:
+    <span class="code-comment"># Zeige ein Herz auf den LEDs an:</span>
+    display.show(Image.HEART)
+    
+    <span class="code-comment"># Pause für eine halbe Sekunde (500 ms):</span>
+    sleep(<span class="code-todo">???</span>)
+    
+    <span class="code-comment"># Welches Wort löscht die Anzeige? (Tipp: clear)</span>
+    display.<span class="code-todo">???</span>()
+    
+    <span class="code-comment"># Warte nochmals eine halbe Sekunde:</span>
+    sleep(500)</div>
+
+                            <div class="challenge-box">
+                                <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
+                            </div>
+
+                            <details class="solution-box">
+                                <summary>💡 Musterlösung anzeigen</summary>
+                                <div class="solution-content">
+                                    <div class="code-puzzle">from microbit import *
 
 while True:
     display.show(Image.HEART)
     sleep(500)
     display.clear()
-    sleep(500)</code></pre>
-                </div>
-            </details>
-        </div>
+    sleep(500)</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
 
-        <!-- LERNEINHEIT 2 -->
-        <div id="mb-lesson2" class="mb-lesson">
-            <h2>Lerneinheit 2: Schrittzähler – Arbeiten mit Variablen</h2>
-            
-            <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Ein Schrittzähler muss sich merken, wie viele Schritte du gemacht hast. Dafür nutzen wir eine <em>Variable</em> (einen Speicherplatz).
-            </div>
+                    <!-- LERNEINHEIT 2: SCHRITTZÄHLER -->
+                    <div id="mb-lesson2" class="hidden">
+                        <h3>2. Projekt: Der Schrittzähler</h3>
+                        
+                        <div class="intro-box">
+                            <b>Das Prinzip der Variablen:</b><br>
+                            Eine Variable ist wie eine kleine Merk-Box im Speicher. In <code>schritte</code> zählen wir jedes Mal +1, wenn der Bewegungssensor geschüttelt wird.
+                        </div>
 
-            <div class="mb-box mb-box-task">
-                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
-                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
-                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
-                </p>
-                <strong>📝 Programmier-Anleitung:</strong>
-                <ol>
-                    <li>Am Anfang setzen wir die Variable <code>schritte = 0</code>.</li>
-                    <li>Ersetze das erste <code>???</code> bei <code>schritte = ...</code> durch <code>schritte + 1</code>, um den Zähler um 1 zu erhöhen.</li>
-                    <li>Ersetze das zweite <code>???</code> durch <code>sleep(200)</code>, damit der micro:bit nach dem Schütteln kurz wartet und nicht aus Versehentlich doppelt zählt.</li>
-                </ol>
-            </div>
+                        <div class="task-card">
+                            <h4>Bauplan: Schrittzähler programmieren</h4>
+                            <p><small>Setze die passenden Befehle und Werte in die Lücken ein!</small></p>
 
-            <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0A%23%20Erstelle%20eine%20Variable%20und%20setze%20sie%20auf%200%0Aschritte%20%3D%200%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Zeige%20die%20aktuellen%20Schritte%20an%0A%20%20%20%20display.show(schritte)%0A%20%20%20%20%0A%20%20%20%20%23%20Prüfe%2C%20ob%20der%20micro%3Abit%20geschüttelt%20wurde%0A%20%20%20%20if%20accelerometer.was_gesture('shake')%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%201%3A%20Erhöhe%20schritte%20um%201%20(Ersetze%20???%20durch%20schritte%20%2B%201)%0A%20%20%20%20%20%20%20%20schritte%20%3D%20%3F%3F%3F%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Warte%20200%20ms%20(Ersetze%20???%20durch%20sleep(200))%0A%20%20%20%20%20%20%20%20%3F%3F%3F"></iframe>
-            </div>
+                            <div class="code-puzzle">from microbit import *
 
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Trageband für den Schrittzähler</strong>
-                <p>Sobald dein Programm funktioniert, bastle aus Karton, Filz oder einem elastischen Band eine Befestigung, damit du den micro:bit an deinem Bein oder Arm tragen kannst!</p>
-            </div>
+<span class="code-comment"># Wir starten mit 0 Schritten in der Speicher-Box</span>
+schritte = 0
 
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>schritte = 0</code> – Erstellt eine Variable mit dem Startwert 0</li>
-                    <li><code>schritte = schritte + 1</code> – Erhöht den aktuellen Wert um 1</li>
-                    <li><code>accelerometer.was_gesture('shake')</code> – Erkennt eine Schüttel-Bewegung</li>
-                </ul>
-            </div>
+while True:
+    <span class="code-comment"># Zeige den Wert aus unserer Variable auf den LEDs:</span>
+    display.show(<span class="code-todo">???</span>)
+    
+    <span class="code-comment"># WENN geschüttelt wird ('shake'):</span>
+    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
+        <span class="code-comment"># Erhöhe den Zähler um wie viel?</span>
+        schritte = schritte + <span class="code-todo">???</span>
+        sleep(200)
+        
+    <span class="code-comment"># WENN Knopf A gedrückt wird: Setze Zähler zurück auf 0</span>
+    if button_a.is_pressed():
+        schritte = <span class="code-todo">???</span></div>
 
-            <details class="mb-solution-toggle">
-                <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
-                <div class="mb-solution-content">
-<pre><code>from microbit import *
+                            <div class="craft-box">
+                                <b>Real-Life Bastelauftrag: Baue ein Trageband!</b>
+                                <ol style="margin: 6px 0 0 0; padding-left: 18px;">
+                                    <li>Schliesse das <b>Batteriepack</b> an deinen micro:bit an.</li>
+                                    <li>Schneide aus Karton einen Streifen (ca. 4 × 12 cm) aus.</li>
+                                    <li>Befestige den micro:bit mit Gummibändern am Karton.</li>
+                                    <li>Klemme den Schrittzähler an deinen <b>Schuh oder Hosenbund</b> und teste ihn!</li>
+                                </ol>
+                            </div>
+
+                            <div class="challenge-box">
+                                <b>Tüftel-Auftrag:</b> Bau eine Ziel-Belohnung ein! Wenn <code>schritte > 10</code> sind, soll ein Stern (<code>Image.STAR</code>) leuchten.
+                            </div>
+
+                            <details class="solution-box">
+                                <summary>💡 Musterlösung anzeigen</summary>
+                                <div class="solution-content">
+                                    <div class="code-puzzle">from microbit import *
 
 schritte = 0
 
@@ -326,249 +437,339 @@ while True:
     
     if accelerometer.was_gesture('shake'):
         schritte = schritte + 1
-        sleep(200)</code></pre>
-                </div>
-            </details>
-        </div>
+        sleep(200)
+        
+    if button_a.is_pressed():
+        schritte = 0</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
 
-        <!-- LERNEINHEIT 3 -->
-        <div id="mb-lesson3" class="mb-lesson">
-            <h2>Lerneinheit 3: Türsensor – Magnetfeld messen</h2>
-            
-            <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Der micro:bit kann Magnetfelder messen. Wenn ein Magnet nahe am micro:bit ist, ist das Feld stark. Entfernt man den Magneten (z. B. wenn die Tür geöffnet wird), wird das Feld schwach.
-            </div>
+                    <!-- LERNEINHEIT 3: TÜRSENSOR -->
+                    <div id="mb-lesson3" class="hidden">
+                        <h3>3. Projekt: Türsensor</h3>
+                        
+                        <div class="intro-box">
+                            <b>Bedingungen verstehen (Wenn ... Dann ... Sonst):</b><br>
+                            Der Magnet-Sensor misst Magnetfelder. Naher Magnet = Wert hoch (> 50000). Geht die Tür auf, fällt der Wert stark ab!
+                        </div>
 
-            <div class="mb-box mb-box-task">
-                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
-                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
-                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
-                </p>
-                <strong>📝 Programmier-Anleitung:</strong>
-                <ol>
-                    <li>Ersetze das erste <code>???</code> durch das Kleiner-Zeichen <code>&lt;</code>, um zu prüfen, ob die Magnetstärke unter 30000 fällt.</li>
-                    <li>Ersetze das zweite <code>???</code> durch <code>NO</code>, um bei Alarm ein KREUZ (`Image.NO`) zu zeigen.</li>
-                    <li>Ersetze das dritte <code>???</code> durch <code>YES</code>, um bei Sicherheit ein HÄKCHEN (`Image.YES`) zu zeigen.</li>
-                </ol>
-            </div>
+                        <div class="task-card">
+                            <h4>Bauplan: Alarmanlage tüfteln</h4>
 
-            <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Messe%20die%20Magnetfeldstaerke%0A%20%20%20%20staerke%20%3D%20compass.get_field_strength()%0A%20%20%20%20%0A%20%20%20%20%23%20AUFGABE%201%3A%20Wenn%20Staerke%20KLEINER%20als%2030000%20ist%20(Ersetze%20???%20durch%20%3C)%0A%20%20%20%20if%20staerke%20%3F%3F%3F%2030000%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Tür%20offen%20!%20Zeige%20Kreuz%20(Ersetze%20???%20durch%20NO)%0A%20%20%20%20%20%20%20%20display.show(Image.%3F%3F%3F)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%203%3A%20Tür%20zu%20!%20Zeige%20Häkchen%20(Ersetze%20???%20durch%20YES)%0A%20%20%20%20%20%20%20%20display.show(Image.%3F%3F%3F)"></iframe>
-            </div>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Tür-Befestigung</strong>
-                <p>Wenn der Code klappt: Klebe einen kleinen Magneten an den Türrahmen und befestige den micro:bit direkt daneben an der Tür.</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>compass.get_field_strength()</code> – Misst die Stärke des Magnetfelds</li>
-                    <li><code>Image.NO</code> – Zeigt ein großes X an</li>
-                    <li><code>Image.YES</code> – Zeigt ein Häkchen an</li>
-                </ul>
-            </div>
-
-            <details class="mb-solution-toggle">
-                <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
-                <div class="mb-solution-content">
-<pre><code>from microbit import *
+                            <div class="code-puzzle">from microbit import *
 
 while True:
-    staerke = compass.get_field_strength()
+    <span class="code-comment"># Stärke des Magnetfelds messen</span>
+    magnet = compass.get_field_strength()
     
-    if staerke < 30000:
-        display.show(Image.NO)
+    <span class="code-comment"># WENN der Magnet nah ist (> 50000): Tür ZU</span>
+    if magnet > <span class="code-todo">???</span>:
+        display.show(Image.YES)
+        
+    <span class="code-comment"># SONST (Magnet weg = Tür AUF = ALARM!):</span>
     else:
-        display.show(Image.YES)</code></pre>
-                </div>
-            </details>
-        </div>
+        <span class="code-comment"># Welches Bild passt zu einem Alarm? (z.B. SKULL oder NO)</span>
+        display.show(Image.<span class="code-todo">???</span>)
+        sleep(100)
+        display.clear()
+        sleep(100)</div>
 
-        <!-- LERNEINHEIT 4 -->
-        <div id="mb-lesson4" class="mb-lesson">
-            <h2>Lerneinheit 4: Thermometer – Wetterstation</h2>
-            
-            <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Der micro:bit kann die Temperatur messen. Wir programmieren eine Anzeige, die uns zeigt, ob es zu kalt, zu heiss oder perfekt ist.
-            </div>
+                            <div class="craft-box">
+                                <b>Real-Life Bastelauftrag: Sichere das Schulzimmer!</b>
+                                <ol style="margin: 6px 0 0 0; padding-left: 18px;">
+                                    <li>Befestige einen kleinen Magneten am Türrahmen.</li>
+                                    <li>Kleb den micro:bit an das Türblatt (direkt gegenüber).</li>
+                                    <li>Öffne die Tür langsam: Wechselt das Bild sofort zu Alarm?</li>
+                                </ol>
+                            </div>
 
-            <div class="mb-box mb-box-task">
-                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
-                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
-                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
-                </p>
-                <strong>📝 Programmier-Anleitung:</strong>
-                <ol>
-                    <li>Wenn `temp < 18` ist, zeigt der micro:bit ein trauriges Gesicht (`Image.SAD`).</li>
-                    <li>Ersetze das erste <code>???</code> bei `elif` durch <code>temp &gt; 28</code>, um zu prüfen, ob es wärmer als 28 Grad ist.</li>
-                    <li>Ersetze das zweite <code>???</code> durch <code>HAPPY</code>, um bei allen anderen Temperaturen ein lachendes Gesicht (`Image.HAPPY`) anzuzeigen.</li>
-                </ol>
-            </div>
-
-            <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Messe%20die%20Temperatur%0A%20%20%20%20temp%20%3D%20temperature()%0A%20%20%20%20%0A%20%20%20%20if%20temp%20%3C%2018%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SAD)%0A%20%20%20%20%23%20AUFGABE%201%3A%20Prüfe%20ob%20temp%20größer%20als%2028%20ist%20(Ersetze%20???%20durch%20temp%20%3E%2028)%0A%20%20%20%20elif%20%3F%3F%3F%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SURPRISED)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Zeige%20fröhliches%20Gesicht%20(Ersetze%20???%20durch%20HAPPY)%0A%20%20%20%20%20%20%20%20display.show(Image.%3F%3F%3F)"></iframe>
-            </div>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Pflanzen-Stecker</strong>
-                <p>Wenn das Programm klappt: Bastle eine Halterung aus einem Holzspiess und Karton, um den micro:bit in den Blumentopf zu stecken.</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>temperature()</code> – Gibt die gemessene Temperatur in Grad Celsius zurück</li>
-                    <li><code>elif</code> – Ermöglicht das Prüfen einer weiteren Bedingung</li>
-                </ul>
-            </div>
-
-            <details class="mb-solution-toggle">
-                <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
-                <div class="mb-solution-content">
-<pre><code>from microbit import *
+                            <details class="solution-box">
+                                <summary>💡 Musterlösung anzeigen</summary>
+                                <div class="solution-content">
+                                    <div class="code-puzzle">from microbit import *
 
 while True:
-    temp = temperature()
+    magnet = compass.get_field_strength()
     
-    if temp < 18:
+    if magnet > 50000:
+        display.show(Image.YES)
+    else:
+        display.show(Image.SKULL)
+        sleep(100)
+        display.clear()
+        sleep(100)</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- LERNEINHEIT 4: THERMOMETER -->
+                    <div id="mb-lesson4" class="hidden">
+                        <h3>4. Projekt: Das digitale Thermometer</h3>
+                        
+                        <div class="intro-box">
+                            <b>Messdaten verarbeiten:</b><br>
+                            Der Prozessor misst die Temperatur. Mit Bedingungen prüfst du, ob es warm oder kalt ist.
+                        </div>
+
+                        <div class="task-card">
+                            <h4>Bauplan: Wetterstation programmieren</h4>
+
+                            <div class="code-puzzle">from microbit import *
+
+while True:
+    <span class="code-comment"># Welcher Befehl misst die Temperatur? (Schau im Spickzettel!)</span>
+    grad = <span class="code-todo">???</span>
+    
+    <span class="code-comment"># WENN Taste A gedrückt wird: Zeige Temperatur per Laufschrift</span>
+    if button_a.<span class="code-todo">???</span>():
+        display.scroll(grad)
+        
+    <span class="code-comment"># WENN kälter als 20 Grad: Sad, sonst Happy</span>
+    if grad < 20:
         display.show(Image.SAD)
-    elif temp > 28:
-        display.show(Image.SURPRISED)
     else:
-        display.show(Image.HAPPY)</code></pre>
-                </div>
-            </details>
-        </div>
+        display.show(Image.HAPPY)</div>
 
-        <!-- LERNEINHEIT 5 -->
-        <div id="mb-lesson5" class="mb-lesson">
-            <h2>Lerneinheit 5: Musik-Synthesizer</h2>
-            
-            <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Wir nutzen die Knöpfe A und B als Klaviertasten. Damit wir Töne abspielen können, müssen wir zusätzlich das Modul <code>music</code> laden!
-            </div>
+                            <details class="solution-box">
+                                <summary>💡 Musterlösung anzeigen</summary>
+                                <div class="solution-content">
+                                    <div class="code-puzzle">from microbit import *
 
-            <div class="mb-box mb-box-task">
-                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
-                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
-                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
-                </p>
-                <strong>📝 Programmier-Anleitung:</strong>
-                <ol>
-                    <li>Achte darauf, dass in Zeile 2 <code>import music</code> steht.</li>
-                    <li>Ersetze das erste <code>???</code> durch die Zahl <code>440</code> (die Tonhöhe in Hertz für den Ton A).</li>
-                    <li>Ersetze das zweite <code>???</code> durch <code>880</code> (einen höheren Ton für Knopf B).</li>
-                </ol>
-            </div>
+while True:
+    grad = temperature()
+    
+    if button_a.is_pressed():
+        display.scroll(grad)
+        
+    if grad < 20:
+        display.show(Image.SAD)
+    else:
+        display.show(Image.HAPPY)</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
 
-            <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20if%20button_a.is_pressed()%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%201%3A%20Spiele%20Ton%20mit%20440%20Hz%20für%20200ms%20(Ersetze%20???%20durch%20440)%0A%20%20%20%20%20%20%20%20music.pitch(%3F%3F%3F%2C%20200)%0A%20%20%20%20elif%20button_b.is_pressed()%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Spiele%20höheren%20Ton%20mit%20880%20Hz%20(Ersetze%20???%20durch%20880)%0A%20%20%20%20%20%20%20%20music.pitch(%3F%3F%3F%2C%20200)"></iframe>
-            </div>
+                    <!-- LERNEINHEIT 5: MUSIK-SYNTHESIZER -->
+                    <div id="mb-lesson5" class="hidden">
+                        <h3>5. Projekt: Der Musik-Synthesizer</h3>
+                        
+                        <div class="intro-box">
+                            <b>Töne &amp; Bewegung verbinden:</b><br>
+                            Spiele Melodien oder erzeuge eigene Töne mit Bewegungen!
+                        </div>
 
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Die micro:bit Gitarre</strong>
-                <p>Schneide aus Karton eine Gitarrenform aus und befestige den micro:bit am Instrumentenhals!</p>
-            </div>
+                        <div class="task-card">
+                            <h4>Bauplan: Luft-Gitarre</h4>
 
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>import music</code> – Wichtig! Lädt die Musik-Befehle</li>
-                    <li><code>music.pitch(440, 200)</code> – Spielt eine Tonhöhe (440 Hz) für eine Dauer von 200 ms</li>
-                    <li><code>button_a.is_pressed()</code> – Prüft, ob Knopf A gedrückt wird</li>
-                </ul>
-            </div>
+                            <div class="code-puzzle">from microbit import *
+import music
 
-            <details class="mb-solution-toggle">
-                <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
-                <div class="mb-solution-content">
-<pre><code>from microbit import *
+while True:
+    <span class="code-comment"># WENN Knopf A gedrückt: Spiele eine Melodie (z.B. music.PYTHON)</span>
+    if button_a.is_pressed():
+        display.show(Image.MUSIC_NOTE)
+        music.play(music.<span class="code-todo">???</span>)
+        
+    <span class="code-comment"># WENN geschüttelt: Ton erzeugen (Frequenz z.B. 440 Hz, Dauer 200 ms)</span>
+    if accelerometer.was_gesture('shake'):
+        display.show(Image.PACMAN)
+        music.pitch(<span class="code-todo">???</span>, <span class="code-todo">???</span>)
+        
+    <span class="code-comment"># WENN Knopf B gedrückt: Musik stoppen</span>
+    if button_b.is_pressed():
+        display.clear()
+        music.stop()</div>
+
+                            <details class="solution-box">
+                                <summary>💡 Musterlösung anzeigen</summary>
+                                <div class="solution-content">
+                                    <div class="code-puzzle">from microbit import *
 import music
 
 while True:
     if button_a.is_pressed():
+        display.show(Image.MUSIC_NOTE)
+        music.play(music.PYTHON)
+        
+    if accelerometer.was_gesture('shake'):
+        display.show(Image.PACMAN)
         music.pitch(440, 200)
-    elif button_b.is_pressed():
-        music.pitch(880, 200)</code></pre>
-                </div>
-            </details>
-        </div>
+        
+    if button_b.is_pressed():
+        display.clear()
+        music.stop()</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
 
-        <!-- LERNEINHEIT 6 -->
-        <div id="mb-lesson6" class="mb-lesson">
-            <h2>Lerneinheit 6: Erfinder-Challenge – Schatztruhe</h2>
-            
-            <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Wir sichern eine Schatztruhe! Der Alarm soll auslösen, wenn Licht in die Truhe fällt ODER wenn die Truhe geschüttelt wird.
-            </div>
+                    <!-- LERNEINHEIT 6: ERFINDER-CHALLENGE -->
+                    <div id="mb-lesson6" class="hidden">
+                        <h3>6. Die Erfinder-Challenge: Sichere den Schatz!</h3>
+                        
+                        <div class="intro-box">
+                            <b>Kombiniere dein Wissen:</b> Schärfe einen Alarm bei Bewegung und schalte ihn per Geheimcode ab!
+                        </div>
 
-            <div class="mb-box mb-box-task">
-                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
-                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
-                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
-                </p>
-                <strong>📝 Programmier-Anleitung:</strong>
-                <ol>
-                    <li>Lies die Helligkeit aus und speichere sie in der Variable <code>licht</code>.</li>
-                    <li>Ersetze das <code>???</code> im `if`-Befehl durch <code>accelerometer.was_gesture('shake')</code>.</li>
-                    <li>Das Wort <code>or</code> (oder) sorgt dafür, dass der Alarm bei Licht ODER bei Bewegung schlägt!</li>
-                </ol>
-            </div>
+                        <div class="task-card">
+                            <h4>Auftrag: Tresor-Alarmanlage</h4>
 
-            <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20licht%20%3D%20display.read_light_level()%0A%20%20%20%20%0A%20%20%20%20%23%20AUFGABE%3A%20Alarm%20bei%20Licht%20%3E%2050%20ODER%20Schütteln%20(Ersetze%20???%20durch%20accelerometer.was_gesture('shake'))%0A%20%20%20%20if%20licht%20%3E%2050%20or%20%3F%3F%3F%3A%0A%20%20%20%20%20%20%20%20display.show(Image.NO)%0A%20%20%20%20%20%20%20%20music.pitch(1000%2C%20500)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20display.show(Image.YES)%0A%20%20%20%20%20%20%20%20display.clear()"></iframe>
-            </div>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Die magische Schatztruhe</strong>
-                <p>Verstecke den micro:bit in einer Schachtel. Sobald der Deckel geöffnet wird oder die Kiste bewegt wird, schlägt er Alarm.</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>display.read_light_level()</code> – Misst die Helligkeit auf dem Display</li>
-                    <li><code>or</code> – Verknüpft zwei Bedingungen (Bedingung A ODER Bedingung B)</li>
-                </ul>
-            </div>
-
-            <details class="mb-solution-toggle">
-                <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
-                <div class="mb-solution-content">
-<pre><code>from microbit import *
+                            <div class="code-puzzle">from microbit import *
 import music
 
+alarm_aktiv = False
+
 while True:
-    licht = display.read_light_level()
-    
-    if licht > 50 or accelerometer.was_gesture('shake'):
-        display.show(Image.NO)
-        music.pitch(1000, 500)
+    <span class="code-comment"># 1. AUSLÖSER: Sensor erkennt Diebe (z.B. Gestur 'shake')</span>
+    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
+        alarm_aktiv = True
+        
+    <span class="code-comment"># 2. ALARM SCHLAGEN: Wenn Alarm aktiv ist</span>
+    if alarm_aktiv == True:
+        display.show(Image.SKULL)
+        music.pitch(800, 150)
+        sleep(100)
+        display.clear()
+        music.pitch(400, 150)
+        sleep(100)
     else:
         display.show(Image.YES)
-        display.clear()</code></pre>
+
+    <span class="code-comment"># 3. ENTSCHÄRFEN: Geheimcode (A und B gleichzeitig)</span>
+    if button_a.is_pressed() and button_b.is_pressed():
+        alarm_aktiv = <span class="code-todo">???</span>  <span class="code-comment"># Welcher Wahrheitswert schaltet ab?</span>
+        display.show(Image.HAPPY)
+        sleep(1000)</div>
+
+                            <details class="solution-box">
+                                <summary>💡 Musterlösung anzeigen</summary>
+                                <div class="solution-content">
+                                    <div class="code-puzzle">from microbit import *
+import music
+
+alarm_aktiv = False
+
+while True:
+    if accelerometer.was_gesture('shake'):
+        alarm_aktiv = True
+        
+    if alarm_aktiv == True:
+        display.show(Image.SKULL)
+        music.pitch(800, 150)
+        sleep(100)
+        display.clear()
+        music.pitch(400, 150)
+        sleep(100)
+    else:
+        display.show(Image.YES)
+
+    if button_a.is_pressed() and button_b.is_pressed():
+        alarm_aktiv = False
+        display.show(Image.HAPPY)
+        sleep(1000)</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- SPICKZETTEL -->
+                    <details class="cmd-box">
+                        <summary>Befehlssammlung / Spickzettel (Hier nachschlagen!)</summary>
+                        <div class="cmd-list">
+                            <div class="cmd-item"><code>display.show(Image.NAME)</code> - Zeigt ein Bild an (HEART, HAPPY, SAD, YES, NO, SKULL, PACMAN, STAR, MUSIC_NOTE).</div>
+                            <div class="cmd-item"><code>display.show(variable)</code> - Zeigt den Inhalt einer Variable an.</div>
+                            <div class="cmd-item"><code>display.scroll(text_oder_zahl)</code> - Lässt Text/Zahlen durchrollen.</div>
+                            <div class="cmd-item"><code>display.clear()</code> - Löscht das Display.</div>
+                            <div class="cmd-item"><code>sleep(ms)</code> - Wartet Zeit in Millisekunden (1000 = 1 Sekunde).</div>
+                            <div class="cmd-item"><code>accelerometer.was_gesture('shake')</code> - Erkennt Schütteln.</div>
+                            <div class="cmd-item"><code>button_a.is_pressed()</code> - Prüft Knopf A (gibt True/False zurück).</div>
+                            <div class="cmd-item"><code>compass.get_field_strength()</code> - Misst Stärke des Magnetfelds.</div>
+                            <div class="cmd-item"><code>temperature()</code> - Misst Prozessor-Temperatur in °C.</div>
+                            <div class="cmd-item"><code>music.play(music.MELODIE)</code> - Spielt Melodie (z.B. music.PYTHON, music.BA_DING).</div>
+                            <div class="cmd-item"><code>music.pitch(frequenz, ms)</code> - Erzeugt einen Einzelton in Hz.</div>
+                        </div>
+                    </details>
+
                 </div>
-            </details>
+
+                <!-- RECHTER BEREICH: EDITOR & EINSTELLUNGEN -->
+                <div>
+                    <details class="editor-setup-bar">
+                        <summary>Wichtig: WebTigerPython richtig einstellen (hier klicken)</summary>
+                        <div class="setup-content">
+                            Damit WebTigerPython den micro:bit versteht, mache Folgendes im Editor:
+                            <ol>
+                                <li>Klicke oben rechts auf die <b>drei Punkte ⋮</b>.</li>
+                                <li>Klicke auf <b>«Gerät»</b>.</li>
+                                <li>Wähle in der Liste <b>«micro:bit»</b> aus.</li>
+                            </ol>
+                            <small style="color:#b91c1c; display:block; margin-top:4px;">(Verhindert die Fehlermeldung <i>«No module named microbit»</i>!)</small>
+                        </div>
+                    </details>
+
+                    <h3>Arbeitsbereich: WebTigerPython</h3>
+                    <iframe class="editor-iframe" src="https://webtigerpython.ethz.ch/?mode=microbit" title="WebTigerPython Editor"></iframe>
+                    <p><small>✍️ Tippe den Code hier ein. Achte genau auf Einrückungen und Gross-/Kleinschreibung!</small></p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- WEITERE MODULE -->
+        <div id="module-tinkercad" class="hidden">
+            <h2>Modul: 3D-Druck (Tinkercad)</h2>
+            <p>Inhalte folgen...</p>
+        </div>
+        <div id="module-laser" class="hidden">
+            <h2>Modul: Lasercutter</h2>
+            <p>Inhalte folgen...</p>
+        </div>
+        <div id="module-makey" class="hidden">
+            <h2>Modul: Makey Makey</h2>
+            <p>Inhalte folgen...</p>
         </div>
 
     </div>
 
     <script>
-        function showLesson(lessonNumber) {
-            const lessons = document.querySelectorAll('.mb-lesson');
-            lessons.forEach(lesson => {
-                lesson.classList.remove('active');
-            });
+        function switchMainModule(mod, element) {
+            document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
 
-            const buttons = document.querySelectorAll('.mb-tab-btn');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
+            element.classList.add('active');
+            document.getElementById('module-' + mod).classList.remove('hidden');
+        }
 
-            document.getElementById('mb-lesson' + lessonNumber).classList.add('active');
-            buttons[lessonNumber].classList.add('active');
+        function switchMicrobitLesson(lessonId, element) {
+            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+
+            const lessons = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5', 'lesson6'];
+            lessons.forEach(id => {
+                const el = document.getElementById('mb-' + id);
+                if (el) {
+                    if (id === lessonId) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function showHw(part) {
+            const info = document.getElementById('hw-info');
+            if (part === 'led') {
+                info.innerHTML = "<b>5x5 LED-Raster:</b> Die 25 roten Lämpchen auf der Vorderseite. Sie können Bilder, Zahlen und Animationen anzeigen.";
+            } else if (part === 'btn') {
+                info.innerHTML = "<b>Tasten A & B:</b> Die zwei Knöpfe links und rechts auf der Vorderseite. Du kannst abfragen, ob sie gedrückt werden.";
+            } else if (part === 'sens') {
+                info.innerHTML = "<b>Sensoren:</b> Auf der Rückseite befinden sich Kompass (Magnetfeld), Beschleunigungssensor (Schütteln) und Thermometer!";
+            }
         }
     </script>
 </body>
