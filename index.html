@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINTscape</title>
+    <title>MINTscape - Übersicht</title>
     <style>
         :root {
             --primary: #0d9488;
-            --primary-hover: #0f766e;
+            --primary-light: #ccfbf1;
             --bg: #f8fafc;
             --card-bg: #ffffff;
             --text: #1e293b;
@@ -27,11 +27,11 @@
         }
 
         h1 { margin: 0; color: var(--primary); font-size: 2.5rem; font-weight: 700; }
-        p.subtitle { color: #64748b; margin-top: 10px; font-size: 1.1rem; }
+        p.subtitle { color: #64748b; margin-top: 8px; font-size: 1.1rem; }
 
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             max-width: 900px;
             margin: 0 auto;
@@ -39,53 +39,42 @@
 
         .card {
             background: var(--card-bg);
-            padding: 30px 20px;
+            padding: 25px 20px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+            transition: all 0.2s;
+            text-align: center;
             text-decoration: none;
             color: inherit;
-            border: 2px solid transparent;
-            transition: all 0.2s ease;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: block;
         }
 
         .card:hover { 
             transform: translateY(-4px); 
             border-color: var(--primary); 
-            box-shadow: 0 8px 20px rgba(13, 148, 136, 0.15);
+            box-shadow: 0 6px 16px rgba(13, 148, 136, 0.15);
         }
 
-        .card h3 { margin: 0 0 10px 0; color: var(--primary); font-size: 1.4rem; }
-        .card p { margin: 0; color: #64748b; font-size: 0.95rem; }
+        .card h3 { margin: 0 0 10px 0; font-size: 1.3rem; color: var(--primary); }
+        .card small { color: #64748b; font-size: 0.95rem; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>MINTscape</h1>
-        <p class="subtitle">Wähle ein Modul aus und beginne mit dem Tüfteln!</p>
+        <p class="subtitle">Verstehe die Logik und tüftle selbst!</p>
     </header>
 
     <div class="dashboard">
         <a href="microbit.html" class="card">
             <h3>micro:bit Python</h3>
-            <p>Interaktive Aufgaben &amp; Prototypen</p>
+            <small>Interaktive Aufgaben &amp; Prototypen</small>
         </a>
         <a href="lasercutter.html" class="card">
-            <h3>xTool S1 Lasercutter</h3>
-            <p>Integrierter Vektoreditor &amp; Projekte</p>
-        </a>
-        <a href="3ddruck.html" class="card">
-            <h3>3D-Druck</h3>
-            <p>Konstruieren mit Tinkercad</p>
-        </a>
-        <a href="makeymakey.html" class="card">
-            <h3>Makey Makey</h3>
-            <p>Stromkreise &amp; Erfindungen bauen</p>
+            <h3>Lasercutter (xTool S1)</h3>
+            <small>Tinkercad &amp; xTool Studio</small>
         </a>
     </div>
 
