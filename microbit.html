@@ -37,12 +37,12 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             max-width: 1100px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
         }
 
         .main-card {
             background: var(--card-bg);
-            padding: 15px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             cursor: pointer;
@@ -54,10 +54,48 @@
         .main-card:hover { transform: translateY(-2px); border-color: var(--primary); }
         .main-card.active { border-color: var(--primary); background-color: var(--primary-light); }
 
-        /* LERNEINHEITEN-DASHBOARD (ZWEITES DASHBOARD) */
+        /* MODUL-OBERE LEISTE (WIE BEIM LASERCUTTER IM BILD) */
+        .module-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto 15px auto;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .module-title-area {
+            text-align: right;
+        }
+        .module-title-area h2 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        .module-title-area p {
+            margin: 2px 0 0 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .top-back-btn {
+            background: #e2e8f0;
+            color: #334155;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+        .top-back-btn:hover { background: #cbd5e1; }
+
+        /* LERNEINHEITEN-DASHBOARD (UNTER DEM TITEL) */
         .sub-dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 10px;
             max-width: 1100px;
             margin: 0 auto 25px auto;
@@ -100,6 +138,8 @@
 
         @media (max-width: 900px) {
             .grid-2col { grid-template-columns: 1fr; }
+            .module-header-bar { flex-direction: column-reverse; align-items: flex-start; }
+            .module-title-area { text-align: left; }
         }
 
         .intro-box {
@@ -287,54 +327,46 @@
             border-radius: 8px;
             background: #fff;
         }
-
-        .back-btn {
-            display: inline-block;
-            margin-top: 20px;
-            background: #64748b;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover {
-            background: #334155;
-        }
     </style>
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <h1>MINTscape</h1>
         <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
-    <!-- DASHBOARD 1: HAUPTMODULE -->
-    <div class="main-dashboard">
-        <div class="main-card active" onclick="switchMainModule('python', this)">
+    <!-- DASHBOARD 1: HAUPTMODULE (OBEN AUF DER STARTSEITE) -->
+    <div id="main-dashboard" class="main-dashboard">
+        <div class="main-card active" onclick="switchMainModule('python')">
             <h3>micro:bit Python</h3>
             <small>Interaktive Aufgaben &amp; Prototypen</small>
         </div>
-        <div class="main-card" onclick="switchMainModule('tinkercad', this)">
+        <div class="main-card" onclick="switchMainModule('tinkercad')">
             <h3>3D-Druck (Tinkercad)</h3>
             <small>Konstruieren lernen</small>
         </div>
-        <div class="main-card" onclick="switchMainModule('laser', this)">
+        <div class="main-card" onclick="switchMainModule('laser')">
             <h3>Lasercutter (xTool S1)</h3>
             <small>Tinkercad &amp; Gravur / Schnitt</small>
         </div>
-        <div class="main-card" onclick="switchMainModule('makey', this)">
+        <div class="main-card" onclick="switchMainModule('makey')">
             <h3>Makey Makey</h3>
             <small>Stromkreise bauen</small>
         </div>
     </div>
 
-    <!-- DASHBOARD 2: LERNEINHEITEN (NUR FÜR MICRO:BIT AKTIV) -->
-    <div id="sub-dashboard-python" class="sub-dashboard">
+    <!-- SPEZIFISCHER HEADER FÜR MICRO:BIT (WIE BEIM LASERCUTTER IM BILD) -->
+    <div id="module-header-python" class="module-header-bar hidden">
+        <button class="top-back-btn" onclick="resetToOverview()">← Zurück zur Übersicht</button>
+        <div class="module-title-area">
+            <h2>MINTscape</h2>
+            <p>Modul: micro:bit Python</p>
+        </div>
+    </div>
+
+    <!-- LERNEINHEITEN-DASHBOARD (UNTER DEM TITEL FÜR MICRO:BIT) -->
+    <div id="sub-dashboard-python" class="sub-dashboard hidden">
         <div class="sub-card active" onclick="switchMicrobitLesson('lesson1', this)">1. Grundlagen</div>
         <div class="sub-card" onclick="switchMicrobitLesson('lesson2', this)">2. Schrittzähler</div>
         <div class="sub-card" onclick="switchMicrobitLesson('lesson3', this)">3. Türsensor</div>
@@ -355,7 +387,6 @@
                     <div id="mb-lesson1">
                         <h3>1. Grundlagen: Einstieg in den micro:bit</h3>
                         
-                        <!-- AUFKLAPPTEXT: WAS IST EIN MICRO:BIT? -->
                         <details class="info-collapse" open>
                             <summary>📘 Was ist ein micro:bit? (Hier klappen/lesen)</summary>
                             <div class="info-content">
@@ -399,8 +430,6 @@ while True:
                                 <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
                             </div>
                         </div>
-
-                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 2: SCHRITTZÄHLER -->
@@ -417,20 +446,15 @@ while True:
 
                             <div class="code-puzzle">from microbit import *
 
-<span class="code-comment"># Wir starten mit 0 Schritten</span>
 schritte = 0
 
 while True:
-    <span class="code-comment"># Zeige den Wert der Variable 'schritte' auf den LEDs an</span>
     display.show(<span class="code-todo">???</span>)
     
-    <span class="code-comment"># WENN geschüttelt wird ('shake'):</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
-        <span class="code-comment"># Zähler um 1 erhöhen:</span>
         schritte = <span class="code-todo">???</span>
         sleep(200)
         
-    <span class="code-comment"># WENN Knopf A gedrückt wird: Setze Zähler zurück auf 0</span>
     if button_a.is_pressed():
         schritte = <span class="code-todo">???</span></div>
 
@@ -444,8 +468,6 @@ while True:
                                 </ol>
                             </div>
                         </div>
-
-                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 3: TÜRSENSOR -->
@@ -463,121 +485,76 @@ while True:
                             <div class="code-puzzle">from microbit import *
 
 while True:
-    <span class="code-comment"># Stärke des Magnetfelds in Variable speichern:</span>
     magnet = compass.get_field_strength()
     
-    <span class="code-comment"># Wenn die Tür ZU ist (Magnet nah / Wert > 30000):</span>
     if magnet > 30000:
         display.show(Image.YES)
-        
-    <span class="code-comment"># SONST (Tür auf -> Alarm anzeigen!):</span>
+    
     <span class="code-todo">???</span>:
-        <span class="code-comment"># Zeige das Totenkopf-Bild (SKULL):</span>
         display.show(<span class="code-todo">???</span>)
         sleep(100)
         display.clear()
         sleep(100)</div>
-
-                            <div class="craft-box">
-                                <b>Real-Life Bastelauftrag: Türsicherung</b>
-                                <ol style="margin: 6px 0 0 0; padding-left: 18px;">
-                                    <li>Befestige einen Magneten am Türrahmen.</li>
-                                    <li>Kleb den micro:bit an das Türblatt (direkt gegenüber).</li>
-                                    <li>Öffne die Tür: Schlägt der Alarm an?</li>
-                                </ol>
-                            </div>
                         </div>
-
-                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 4: THERMOMETER -->
                     <div id="mb-lesson4" class="hidden">
                         <h3>4. Projekt: Das digitale Thermometer</h3>
-                        
-                        <div class="intro-box">
-                            <b>Anspruchsvoller:</b> Überlege selbst, welche Befehle für Temperatur und Knopfdruck nötig sind!
-                        </div>
-
                         <div class="task-card">
                             <h4>Bauplan: Wetterstation</h4>
-
                             <div class="code-puzzle">from microbit import *
 
 while True:
-    <span class="code-comment"># Misst die Temperatur und speichert sie in 'grad':</span>
     grad = <span class="code-todo">???</span>
     
-    <span class="code-comment"># WENN Taste A gedrückt wird: Temperatur als Scrolltext anzeigen</span>
     if <span class="code-todo">???</span>:
         display.scroll(grad)
         
-    <span class="code-comment"># WENN kälter als 20 Grad: Sad, sonst Happy</span>
     if grad < 20:
         display.show(Image.SAD)
     else:
         display.show(Image.HAPPY)</div>
                         </div>
-
-                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 5: MUSIK-SYNTHESIZER -->
                     <div id="mb-lesson5" class="hidden">
                         <h3>5. Projekt: Musik-Synthesizer</h3>
-                        
-                        <div class="intro-box">
-                            <b>Töne und Logik frei verbinden:</b> Nutze das Modul <code>music</code>!
-                        </div>
-
                         <div class="task-card">
                             <h4>Bauplan: Luft-Gitarre</h4>
-
                             <div class="code-puzzle">from microbit import *
 import music
 
 while True:
-    <span class="code-comment"># WENN Knopf A gedrückt: Spiele eine Melodie (z.B. music.PYTHON)</span>
     if button_a.is_pressed():
         display.show(Image.MUSIC_NOTE)
         music.play(<span class="code-todo">???</span>)
         
-    <span class="code-comment"># WENN geschüttelt ('shake'): Erzeuge Ton mit pitch(Frequenz, Dauer)</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
         display.show(Image.PACMAN)
         music.pitch(440, 200)
         
-    <span class="code-comment"># Wie stoppst du die Musik bei Knopf B?</span>
     if button_b.is_pressed():
         display.clear()
         <span class="code-todo">???</span></div>
                         </div>
-
-                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 6: ERFINDER-CHALLENGE -->
                     <div id="mb-lesson6" class="hidden">
                         <h3>6. Die Erfinder-Challenge: Tresor-Alarm</h3>
-                        
-                        <div class="intro-box">
-                            <b>Höchste Stufe:</b> Schreibe die Logik fast komplett selbständig!
-                        </div>
-
                         <div class="task-card">
                             <h4>Auftrag: Sichere das Klassenzimmer</h4>
-
                             <div class="code-puzzle">from microbit import *
 import music
 
 alarm_aktiv = False
 
 while True:
-    <span class="code-comment"># 1. WENN geschüttelt: Schalte alarm_aktiv auf True</span>
     if accelerometer.was_gesture('shake'):
         alarm_aktiv = <span class="code-todo">???</span>
         
-    <span class="code-comment"># 2. ALARM-SCHLEIFE: WENN alarm_aktiv True ist -> Töne + Totenkopf</span>
     if alarm_aktiv == True:
         display.show(Image.SKULL)
         music.pitch(800, 150)
@@ -587,15 +564,11 @@ while True:
     else:
         display.show(Image.YES)
 
-    <span class="code-comment"># 3. ENTSCHÄRFEN: Wenn A UND B gleichzeitig gedrückt sind:</span>
-    <span class="code-comment"># Setze alarm_aktiv zurück auf False!</span>
     if <span class="code-todo">???</span>:
         alarm_aktiv = False
         display.show(Image.HAPPY)
         sleep(1000)</div>
                         </div>
-
-                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- SPICKZETTEL -->
@@ -611,7 +584,7 @@ while True:
                             <div class="cmd-item"><code>button_a.is_pressed()</code> - Prüft Knopf A (gibt True/False zurück).</div>
                             <div class="cmd-item"><code>compass.get_field_strength()</code> - Misst Stärke des Magnetfelds.</div>
                             <div class="cmd-item"><code>temperature()</code> - Misst Prozessor-Temperatur in °C.</div>
-                            <div class="cmd-item"><code>music.play(music.MELODIE)</code> - Spielt Melodie (z.B. music.PYTHON, music.BA_DING).</div>
+                            <div class="cmd-item"><code>music.play(music.MELODIE)</code> - Spielt Melodie.</div>
                             <div class="cmd-item"><code>music.pitch(frequenz, ms)</code> - Erzeugt einen Einzelton in Hz.</div>
                             <div class="cmd-item"><code>music.stop()</code> - Stoppt die Musikwiedergabe.</div>
                         </div>
@@ -619,7 +592,7 @@ while True:
 
                 </div>
 
-                <!-- RECHTER BEREICH: EDITOR & MUSTERLÖSUNGEN UNTER DEM EDITOR -->
+                <!-- RECHTER BEREICH: EDITOR & MUSTERLÖSUNGEN -->
                 <div>
                     <details class="editor-setup-bar">
                         <summary>Wichtig: WebTigerPython richtig einstellen (hier klicken)</summary>
@@ -640,7 +613,6 @@ while True:
 
                     <!-- MUSTERLÖSUNGEN UNTER DEM WEBTIGERPYTHON EDITOR -->
                     <div id="solution-container">
-                        
                         <details id="sol-lesson1" class="solution-box">
                             <summary>💡 Musterlösung zu 1. Grundlagen anzeigen</summary>
                             <div class="solution-content">
@@ -757,48 +729,64 @@ while True:
         sleep(1000)</div>
                             </div>
                         </details>
-
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- WEITERE MODULE -->
         <div id="module-tinkercad" class="hidden">
             <h2>Modul: 3D-Druck (Tinkercad)</h2>
             <p>Inhalte folgen...</p>
-            <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
         </div>
         <div id="module-laser" class="hidden">
             <h2>Modul: Lasercutter</h2>
             <p>Inhalte folgen...</p>
-            <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
         </div>
         <div id="module-makey" class="hidden">
             <h2>Modul: Makey Makey</h2>
             <p>Inhalte folgen...</p>
-            <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
         </div>
 
     </div>
 
     <script>
-        function switchMainModule(mod, element) {
-            document.querySelectorAll('.main-card').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
+        function switchMainModule(mod) {
+            // Versteckt die 4 Hauptkarten oben und den Haupt-Header auf der Startseite
+            document.getElementById('main-dashboard').classList.add('hidden');
+            document.getElementById('main-header').classList.add('hidden');
 
-            if (element) {
-                element.classList.add('active');
-            }
+            // Versteckt alle Module
+            document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
+            
+            // Zeigt das ausgewählte Modul
             document.getElementById('module-' + mod).classList.remove('hidden');
 
-            const subDash = document.getElementById('sub-dashboard-python');
+            // Wenn es Python ist, den spezifischen Header und die Unterleiste einblenden
             if (mod === 'python') {
-                subDash.classList.remove('hidden');
+                document.getElementById('module-header-python').classList.remove('hidden');
+                document.getElementById('sub-dashboard-python').classList.remove('hidden');
             } else {
-                subDash.classList.add('hidden');
+                document.getElementById('module-header-python').classList.add('hidden');
+                document.getElementById('sub-dashboard-python').classList.add('hidden');
             }
+        }
+
+        function resetToOverview() {
+            // Zeigt die Startseite / Hauptkarten wieder an
+            document.getElementById('main-dashboard').classList.remove('hidden');
+            document.getElementById('main-header').classList.remove('hidden');
+
+            // Versteckt alle spezifischen Header und Sub-Dashboards
+            document.getElementById('module-header-python').classList.add('hidden');
+            document.getElementById('sub-dashboard-python').classList.add('hidden');
+
+            // Versteckt alle Inhalts-Container wieder
+            document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
+            
+            // Setzt die aktive Hauptkarte zurück auf Python (Standard)
+            document.querySelectorAll('.main-card').forEach(c => c.classList.remove('active'));
+            document.querySelector('.main-card').classList.add('active');
         }
 
         function switchMicrobitLesson(lessonId, element) {
@@ -828,10 +816,6 @@ while True:
                     }
                 }
             });
-        }
-
-        function resetToOverview() {
-            // Falls du eine Funktion für den Zurück-Button brauchst, kannst du sie hier erweitern
         }
 
         function showHw(part) {
