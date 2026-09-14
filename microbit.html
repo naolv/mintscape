@@ -112,13 +112,18 @@
             border-left: 4px solid var(--primary);
         }
 
-        details.editor-setup-bar {
-            background: #fff1f2;
-            border: 1px solid #fecdd3;
-            border-left: 5px solid var(--danger);
-            border-radius: 6px;
+        details.editor-setup-bar, details.info-collapse {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
             margin-bottom: 15px;
             font-size: 0.9rem;
+        }
+
+        details.editor-setup-bar {
+            background: #fff1f2;
+            border-color: #fecdd3;
+            border-left: 5px solid var(--danger);
         }
 
         details.editor-setup-bar summary {
@@ -129,15 +134,22 @@
             user-select: none;
         }
 
-        details.editor-setup-bar summary:hover { background: #ffe4e6; }
-
-        .setup-content {
-            padding: 10px 14px 14px 14px;
-            border-top: 1px solid #fecdd3;
-            background: #fff;
+        details.info-collapse summary {
+            padding: 12px 16px;
+            font-weight: bold;
+            color: #0f172a;
+            cursor: pointer;
+            user-select: none;
+            background: #e2e8f0;
+            border-radius: 6px;
         }
 
-        .setup-content ol { margin: 6px 0 0 0; padding-left: 20px; }
+        .setup-content, .info-content {
+            padding: 14px;
+            background: #fff;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
 
         .task-card {
             background: #ffffff;
@@ -189,7 +201,7 @@
             color: white;
             padding: 14px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-top: 10px;
         }
 
         .hw-btn {
@@ -270,10 +282,27 @@
 
         .editor-iframe {
             width: 100%;
-            height: 600px;
+            height: 520px;
             border: 2px solid #cbd5e1;
             border-radius: 8px;
             background: #fff;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #64748b;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: #334155;
         }
     </style>
 </head>
@@ -324,26 +353,30 @@
                     
                     <!-- LERNEINHEIT 1: GRUNDLAGEN -->
                     <div id="mb-lesson1">
-                        <h3>1. Was ist der micro:bit?</h3>
+                        <h3>1. Grundlagen: Einstieg in den micro:bit</h3>
                         
-                        <div class="intro-box">
-                            Der <b>BBC micro:bit</b> ist ein kleiner, programmierbarer Computer. Mit Python-Befehlen sagst du ihm genau, was er tun soll!
-                        </div>
-
-                        <div class="hw-finder">
-                            <h4 style="margin-top:0;">Hardware-Detektiv: Wo sind die Bauteile?</h4>
-                            <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand und suche die Teile auf der Platine:</p>
-                            <div>
-                                <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
-                                <button class="hw-btn" onclick="showHw('btn')">Tasten A &amp; B</button>
-                                <button class="hw-btn" onclick="showHw('sens')">Sensoren</button>
+                        <!-- AUFKLAPPTEXT: WAS IST EIN MICRO:BIT? -->
+                        <details class="info-collapse" open>
+                            <summary>📘 Was ist ein micro:bit? (Hier klappen/lesen)</summary>
+                            <div class="info-content">
+                                <p style="margin-top:0;">Der <b>BBC micro:bit</b> ist ein winziger, voll funktionsfähiger Computer. Mit Befehlen sagst du ihm genau, was er tun soll!</p>
+                                
+                                <div class="hw-finder">
+                                    <h4 style="margin-top:0;">Hardware-Detektiv: Wo sind die Bauteile?</h4>
+                                    <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand und klicke zum Erkunden:</p>
+                                    <div>
+                                        <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
+                                        <button class="hw-btn" onclick="showHw('btn')">Tasten A &amp; B</button>
+                                        <button class="hw-btn" onclick="showHw('sens')">Sensoren</button>
+                                    </div>
+                                    <div id="hw-info" class="hw-desc" style="margin-top:10px;">Klicke oben auf einen Knopf, um Details zu sehen!</div>
+                                </div>
                             </div>
-                            <div id="hw-info" class="hw-desc" style="margin-top:10px;">Klicke oben auf einen Knopf, um zu erfahren, wo du das Bauteil auf deinem echten micro:bit findest!</div>
-                        </div>
+                        </details>
 
                         <div class="task-card">
                             <h4>Aufgabe: Das blinkende Herz programmieren</h4>
-                            <p><small>Löse die Lücken <span class="code-todo">???</span> selbstständig. Schau bei Bedarf im Spickzettel nach!</small></p>
+                            <p><small>Ergänze die gelben Lücken <span class="code-todo">???</span> im Code.</small></p>
 
                             <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
 from microbit import *
@@ -365,20 +398,9 @@ while True:
                             <div class="challenge-box">
                                 <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
                             </div>
-
-                            <details class="solution-box">
-                                <summary>💡 Musterlösung anzeigen</summary>
-                                <div class="solution-content">
-                                    <div class="code-puzzle">from microbit import *
-
-while True:
-    display.show(Image.HEART)
-    sleep(500)
-    display.clear()
-    sleep(500)</div>
-                                </div>
-                            </details>
                         </div>
+
+                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 2: SCHRITTZÄHLER -->
@@ -386,27 +408,26 @@ while True:
                         <h3>2. Projekt: Der Schrittzähler</h3>
                         
                         <div class="intro-box">
-                            <b>Das Prinzip der Variablen:</b><br>
-                            Eine Variable ist wie eine kleine Merk-Box im Speicher. In <code>schritte</code> zählen wir jedes Mal +1, wenn der Bewegungssensor geschüttelt wird.
+                            <b>Das Prinzip der Variablen:</b> Eine Variable ist wie eine kleine Merk-Box im Speicher. In <code>schritte</code> zählen wir bei jeder Bewegung +1 dazu.
                         </div>
 
                         <div class="task-card">
                             <h4>Bauplan: Schrittzähler programmieren</h4>
-                            <p><small>Setze die passenden Befehle und Werte in die Lücken ein!</small></p>
+                            <p><small>Schaffst du es, die Variable richtig einzusetzen und zu erhöhen?</small></p>
 
                             <div class="code-puzzle">from microbit import *
 
-<span class="code-comment"># Wir starten mit 0 Schritten in der Speicher-Box</span>
+<span class="code-comment"># Wir starten mit 0 Schritten</span>
 schritte = 0
 
 while True:
-    <span class="code-comment"># Zeige den Wert aus unserer Variable auf den LEDs:</span>
+    <span class="code-comment"># Zeige den Wert der Variable 'schritte' auf den LEDs an</span>
     display.show(<span class="code-todo">???</span>)
     
     <span class="code-comment"># WENN geschüttelt wird ('shake'):</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
-        <span class="code-comment"># Erhöhe den Zähler um wie viel?</span>
-        schritte = schritte + <span class="code-todo">???</span>
+        <span class="code-comment"># Zähler um 1 erhöhen:</span>
+        schritte = <span class="code-todo">???</span>
         sleep(200)
         
     <span class="code-comment"># WENN Knopf A gedrückt wird: Setze Zähler zurück auf 0</span>
@@ -416,36 +437,15 @@ while True:
                             <div class="craft-box">
                                 <b>Real-Life Bastelauftrag: Baue ein Trageband!</b>
                                 <ol style="margin: 6px 0 0 0; padding-left: 18px;">
-                                    <li>Schliesse das <b>Batteriepack</b> an deinen micro:bit an.</li>
+                                    <li>Schliesse das Batteriepack an deinen micro:bit an.</li>
                                     <li>Schneide aus Karton einen Streifen (ca. 4 × 12 cm) aus.</li>
                                     <li>Befestige den micro:bit mit Gummibändern am Karton.</li>
-                                    <li>Klemme den Schrittzähler an deinen <b>Schuh oder Hosenbund</b> und teste ihn!</li>
+                                    <li>Klemme den Schrittzähler an deinen Schuh oder Hosenbund und teste ihn!</li>
                                 </ol>
                             </div>
-
-                            <div class="challenge-box">
-                                <b>Tüftel-Auftrag:</b> Bau eine Ziel-Belohnung ein! Wenn <code>schritte > 10</code> sind, soll ein Stern (<code>Image.STAR</code>) leuchten.
-                            </div>
-
-                            <details class="solution-box">
-                                <summary>💡 Musterlösung anzeigen</summary>
-                                <div class="solution-content">
-                                    <div class="code-puzzle">from microbit import *
-
-schritte = 0
-
-while True:
-    display.show(schritte)
-    
-    if accelerometer.was_gesture('shake'):
-        schritte = schritte + 1
-        sleep(200)
-        
-    if button_a.is_pressed():
-        schritte = 0</div>
-                                </div>
-                            </details>
                         </div>
+
+                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 3: TÜRSENSOR -->
@@ -453,58 +453,42 @@ while True:
                         <h3>3. Projekt: Türsensor</h3>
                         
                         <div class="intro-box">
-                            <b>Bedingungen verstehen (Wenn ... Dann ... Sonst):</b><br>
-                            Der Magnet-Sensor misst Magnetfelder. Naher Magnet = Wert hoch (> 50000). Geht die Tür auf, fällt der Wert stark ab!
+                            <b>Bedingungen verstehen (Wenn ... Sonst):</b> Der Magnet-Sensor misst Stärken. Ist der Wert klein, hat sich der Magnet entfernt – die Tür ist offen!
                         </div>
 
                         <div class="task-card">
-                            <h4>Bauplan: Alarmanlage tüfteln</h4>
+                            <h4>Bauplan: Tür-Alarmauslöser</h4>
+                            <p><small>Ergänze den Code. Beachte: Ein Wert unter 30000 bedeutet, die Tür ist offen!</small></p>
 
                             <div class="code-puzzle">from microbit import *
 
 while True:
-    <span class="code-comment"># Stärke des Magnetfelds messen</span>
+    <span class="code-comment"># Stärke des Magnetfelds in Variable speichern:</span>
     magnet = compass.get_field_strength()
     
-    <span class="code-comment"># WENN der Magnet nah ist (> 50000): Tür ZU</span>
-    if magnet > <span class="code-todo">???</span>:
+    <span class="code-comment"># Wenn die Tür ZU ist (Magnet nah / Wert > 30000):</span>
+    if magnet > 30000:
         display.show(Image.YES)
         
-    <span class="code-comment"># SONST (Magnet weg = Tür AUF = ALARM!):</span>
-    else:
-        <span class="code-comment"># Welches Bild passt zu einem Alarm? (z.B. SKULL oder NO)</span>
-        display.show(Image.<span class="code-todo">???</span>)
+    <span class="code-comment"># SONST (Tür auf -> Alarm anzeigen!):</span>
+    <span class="code-todo">???</span>:
+        <span class="code-comment"># Zeige das Totenkopf-Bild (SKULL):</span>
+        display.show(<span class="code-todo">???</span>)
         sleep(100)
         display.clear()
         sleep(100)</div>
 
                             <div class="craft-box">
-                                <b>Real-Life Bastelauftrag: Sichere das Schulzimmer!</b>
+                                <b>Real-Life Bastelauftrag: Türsicherung</b>
                                 <ol style="margin: 6px 0 0 0; padding-left: 18px;">
-                                    <li>Befestige einen kleinen Magneten am Türrahmen.</li>
+                                    <li>Befestige einen Magneten am Türrahmen.</li>
                                     <li>Kleb den micro:bit an das Türblatt (direkt gegenüber).</li>
-                                    <li>Öffne die Tür langsam: Wechselt das Bild sofort zu Alarm?</li>
+                                    <li>Öffne die Tür: Schlägt der Alarm an?</li>
                                 </ol>
                             </div>
-
-                            <details class="solution-box">
-                                <summary>💡 Musterlösung anzeigen</summary>
-                                <div class="solution-content">
-                                    <div class="code-puzzle">from microbit import *
-
-while True:
-    magnet = compass.get_field_strength()
-    
-    if magnet > 50000:
-        display.show(Image.YES)
-    else:
-        display.show(Image.SKULL)
-        sleep(100)
-        display.clear()
-        sleep(100)</div>
-                                </div>
-                            </details>
                         </div>
+
+                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 4: THERMOMETER -->
@@ -512,21 +496,20 @@ while True:
                         <h3>4. Projekt: Das digitale Thermometer</h3>
                         
                         <div class="intro-box">
-                            <b>Messdaten verarbeiten:</b><br>
-                            Der Prozessor misst die Temperatur. Mit Bedingungen prüfst du, ob es warm oder kalt ist.
+                            <b>Anspruchsvoller:</b> Überlege selbst, welche Befehle für Temperatur und Knopfdruck nötig sind!
                         </div>
 
                         <div class="task-card">
-                            <h4>Bauplan: Wetterstation programmieren</h4>
+                            <h4>Bauplan: Wetterstation</h4>
 
                             <div class="code-puzzle">from microbit import *
 
 while True:
-    <span class="code-comment"># Welcher Befehl misst die Temperatur? (Schau im Spickzettel!)</span>
+    <span class="code-comment"># Misst die Temperatur und speichert sie in 'grad':</span>
     grad = <span class="code-todo">???</span>
     
-    <span class="code-comment"># WENN Taste A gedrückt wird: Zeige Temperatur per Laufschrift</span>
-    if button_a.<span class="code-todo">???</span>():
+    <span class="code-comment"># WENN Taste A gedrückt wird: Temperatur als Scrolltext anzeigen</span>
+    if <span class="code-todo">???</span>:
         display.scroll(grad)
         
     <span class="code-comment"># WENN kälter als 20 Grad: Sad, sonst Happy</span>
@@ -534,34 +517,17 @@ while True:
         display.show(Image.SAD)
     else:
         display.show(Image.HAPPY)</div>
-
-                            <details class="solution-box">
-                                <summary>💡 Musterlösung anzeigen</summary>
-                                <div class="solution-content">
-                                    <div class="code-puzzle">from microbit import *
-
-while True:
-    grad = temperature()
-    
-    if button_a.is_pressed():
-        display.scroll(grad)
-        
-    if grad < 20:
-        display.show(Image.SAD)
-    else:
-        display.show(Image.HAPPY)</div>
-                                </div>
-                            </details>
                         </div>
+
+                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 5: MUSIK-SYNTHESIZER -->
                     <div id="mb-lesson5" class="hidden">
-                        <h3>5. Projekt: Der Musik-Synthesizer</h3>
+                        <h3>5. Projekt: Musik-Synthesizer</h3>
                         
                         <div class="intro-box">
-                            <b>Töne &amp; Bewegung verbinden:</b><br>
-                            Spiele Melodien oder erzeuge eigene Töne mit Bewegungen!
+                            <b>Töne und Logik frei verbinden:</b> Nutze das Modul <code>music</code>!
                         </div>
 
                         <div class="task-card">
@@ -574,51 +540,32 @@ while True:
     <span class="code-comment"># WENN Knopf A gedrückt: Spiele eine Melodie (z.B. music.PYTHON)</span>
     if button_a.is_pressed():
         display.show(Image.MUSIC_NOTE)
-        music.play(music.<span class="code-todo">???</span>)
+        music.play(<span class="code-todo">???</span>)
         
-    <span class="code-comment"># WENN geschüttelt: Ton erzeugen (Frequenz z.B. 440 Hz, Dauer 200 ms)</span>
-    if accelerometer.was_gesture('shake'):
-        display.show(Image.PACMAN)
-        music.pitch(<span class="code-todo">???</span>, <span class="code-todo">???</span>)
-        
-    <span class="code-comment"># WENN Knopf B gedrückt: Musik stoppen</span>
-    if button_b.is_pressed():
-        display.clear()
-        music.stop()</div>
-
-                            <details class="solution-box">
-                                <summary>💡 Musterlösung anzeigen</summary>
-                                <div class="solution-content">
-                                    <div class="code-puzzle">from microbit import *
-import music
-
-while True:
-    if button_a.is_pressed():
-        display.show(Image.MUSIC_NOTE)
-        music.play(music.PYTHON)
-        
-    if accelerometer.was_gesture('shake'):
+    <span class="code-comment"># WENN geschüttelt ('shake'): Erzeuge Ton mit pitch(Frequenz, Dauer)</span>
+    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
         display.show(Image.PACMAN)
         music.pitch(440, 200)
         
+    <span class="code-comment"># Wie stoppst du die Musik bei Knopf B?</span>
     if button_b.is_pressed():
         display.clear()
-        music.stop()</div>
-                                </div>
-                            </details>
+        <span class="code-todo">???</span></div>
                         </div>
+
+                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- LERNEINHEIT 6: ERFINDER-CHALLENGE -->
                     <div id="mb-lesson6" class="hidden">
-                        <h3>6. Die Erfinder-Challenge: Sichere den Schatz!</h3>
+                        <h3>6. Die Erfinder-Challenge: Tresor-Alarm</h3>
                         
                         <div class="intro-box">
-                            <b>Kombiniere dein Wissen:</b> Schärfe einen Alarm bei Bewegung und schalte ihn per Geheimcode ab!
+                            <b>Höchste Stufe:</b> Schreibe die Logik fast komplett selbständig!
                         </div>
 
                         <div class="task-card">
-                            <h4>Auftrag: Tresor-Alarmanlage</h4>
+                            <h4>Auftrag: Sichere das Klassenzimmer</h4>
 
                             <div class="code-puzzle">from microbit import *
 import music
@@ -626,56 +573,29 @@ import music
 alarm_aktiv = False
 
 while True:
-    <span class="code-comment"># 1. AUSLÖSER: Sensor erkennt Diebe (z.B. Gestur 'shake')</span>
-    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
-        alarm_aktiv = True
-        
-    <span class="code-comment"># 2. ALARM SCHLAGEN: Wenn Alarm aktiv ist</span>
-    if alarm_aktiv == True:
-        display.show(Image.SKULL)
-        music.pitch(800, 150)
-        sleep(100)
-        display.clear()
-        music.pitch(400, 150)
-        sleep(100)
-    else:
-        display.show(Image.YES)
-
-    <span class="code-comment"># 3. ENTSCHÄRFEN: Geheimcode (A und B gleichzeitig)</span>
-    if button_a.is_pressed() and button_b.is_pressed():
-        alarm_aktiv = <span class="code-todo">???</span>  <span class="code-comment"># Welcher Wahrheitswert schaltet ab?</span>
-        display.show(Image.HAPPY)
-        sleep(1000)</div>
-
-                            <details class="solution-box">
-                                <summary>💡 Musterlösung anzeigen</summary>
-                                <div class="solution-content">
-                                    <div class="code-puzzle">from microbit import *
-import music
-
-alarm_aktiv = False
-
-while True:
+    <span class="code-comment"># 1. WENN geschüttelt: Schalte alarm_aktiv auf True</span>
     if accelerometer.was_gesture('shake'):
-        alarm_aktiv = True
+        alarm_aktiv = <span class="code-todo">???</span>
         
+    <span class="code-comment"># 2. ALARM-SCHLEIFE: WENN alarm_aktiv True ist -> Töne + Totenkopf</span>
     if alarm_aktiv == True:
         display.show(Image.SKULL)
         music.pitch(800, 150)
         sleep(100)
         display.clear()
-        music.pitch(400, 150)
         sleep(100)
     else:
         display.show(Image.YES)
 
-    if button_a.is_pressed() and button_b.is_pressed():
+    <span class="code-comment"># 3. ENTSCHÄRFEN: Wenn A UND B gleichzeitig gedrückt sind:</span>
+    <span class="code-comment"># Setze alarm_aktiv zurück auf False!</span>
+    if <span class="code-todo">???</span>:
         alarm_aktiv = False
         display.show(Image.HAPPY)
         sleep(1000)</div>
-                                </div>
-                            </details>
                         </div>
+
+                        <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
                     </div>
 
                     <!-- SPICKZETTEL -->
@@ -693,12 +613,13 @@ while True:
                             <div class="cmd-item"><code>temperature()</code> - Misst Prozessor-Temperatur in °C.</div>
                             <div class="cmd-item"><code>music.play(music.MELODIE)</code> - Spielt Melodie (z.B. music.PYTHON, music.BA_DING).</div>
                             <div class="cmd-item"><code>music.pitch(frequenz, ms)</code> - Erzeugt einen Einzelton in Hz.</div>
+                            <div class="cmd-item"><code>music.stop()</code> - Stoppt die Musikwiedergabe.</div>
                         </div>
                     </details>
 
                 </div>
 
-                <!-- RECHTER BEREICH: EDITOR & EINSTELLUNGEN -->
+                <!-- RECHTER BEREICH: EDITOR & MUSTERLÖSUNGEN UNTER DEM EDITOR -->
                 <div>
                     <details class="editor-setup-bar">
                         <summary>Wichtig: WebTigerPython richtig einstellen (hier klicken)</summary>
@@ -716,6 +637,128 @@ while True:
                     <h3>Arbeitsbereich: WebTigerPython</h3>
                     <iframe class="editor-iframe" src="https://webtigerpython.ethz.ch/?mode=microbit" title="WebTigerPython Editor"></iframe>
                     <p><small>✍️ Tippe den Code hier ein. Achte genau auf Einrückungen und Gross-/Kleinschreibung!</small></p>
+
+                    <!-- MUSTERLÖSUNGEN UNTER DEM WEBTIGERPYTHON EDITOR -->
+                    <div id="solution-container">
+                        
+                        <details id="sol-lesson1" class="solution-box">
+                            <summary>💡 Musterlösung zu 1. Grundlagen anzeigen</summary>
+                            <div class="solution-content">
+                                <div class="code-puzzle">from microbit import *
+
+while True:
+    display.show(Image.HEART)
+    sleep(500)
+    display.clear()
+    sleep(500)</div>
+                            </div>
+                        </details>
+
+                        <details id="sol-lesson2" class="solution-box hidden">
+                            <summary>💡 Musterlösung zu 2. Schrittzähler anzeigen</summary>
+                            <div class="solution-content">
+                                <div class="code-puzzle">from microbit import *
+
+schritte = 0
+
+while True:
+    display.show(schritte)
+    
+    if accelerometer.was_gesture('shake'):
+        schritte = schritte + 1
+        sleep(200)
+        
+    if button_a.is_pressed():
+        schritte = 0</div>
+                            </div>
+                        </details>
+
+                        <details id="sol-lesson3" class="solution-box hidden">
+                            <summary>💡 Musterlösung zu 3. Türsensor anzeigen</summary>
+                            <div class="solution-content">
+                                <div class="code-puzzle">from microbit import *
+
+while True:
+    magnet = compass.get_field_strength()
+    
+    if magnet > 30000:
+        display.show(Image.YES)
+    else:
+        display.show(Image.SKULL)
+        sleep(100)
+        display.clear()
+        sleep(100)</div>
+                            </div>
+                        </details>
+
+                        <details id="sol-lesson4" class="solution-box hidden">
+                            <summary>💡 Musterlösung zu 4. Thermometer anzeigen</summary>
+                            <div class="solution-content">
+                                <div class="code-puzzle">from microbit import *
+
+while True:
+    grad = temperature()
+    
+    if button_a.is_pressed():
+        display.scroll(grad)
+        
+    if grad < 20:
+        display.show(Image.SAD)
+    else:
+        display.show(Image.HAPPY)</div>
+                            </div>
+                        </details>
+
+                        <details id="sol-lesson5" class="solution-box hidden">
+                            <summary>💡 Musterlösung zu 5. Musik-Synth anzeigen</summary>
+                            <div class="solution-content">
+                                <div class="code-puzzle">from microbit import *
+import music
+
+while True:
+    if button_a.is_pressed():
+        display.show(Image.MUSIC_NOTE)
+        music.play(music.PYTHON)
+        
+    if accelerometer.was_gesture('shake'):
+        display.show(Image.PACMAN)
+        music.pitch(440, 200)
+        
+    if button_b.is_pressed():
+        display.clear()
+        music.stop()</div>
+                            </div>
+                        </details>
+
+                        <details id="sol-lesson6" class="solution-box hidden">
+                            <summary>💡 Musterlösung zu 6. Challenge anzeigen</summary>
+                            <div class="solution-content">
+                                <div class="code-puzzle">from microbit import *
+import music
+
+alarm_aktiv = False
+
+while True:
+    if accelerometer.was_gesture('shake'):
+        alarm_aktiv = True
+        
+    if alarm_aktiv == True:
+        display.show(Image.SKULL)
+        music.pitch(800, 150)
+        sleep(100)
+        display.clear()
+        sleep(100)
+    else:
+        display.show(Image.YES)
+
+    if button_a.is_pressed() and button_b.is_pressed():
+        alarm_aktiv = False
+        display.show(Image.HAPPY)
+        sleep(1000)</div>
+                            </div>
+                        </details>
+
+                    </div>
                 </div>
             </div>
 
@@ -725,14 +768,17 @@ while True:
         <div id="module-tinkercad" class="hidden">
             <h2>Modul: 3D-Druck (Tinkercad)</h2>
             <p>Inhalte folgen...</p>
+            <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
         </div>
         <div id="module-laser" class="hidden">
             <h2>Modul: Lasercutter</h2>
             <p>Inhalte folgen...</p>
+            <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
         </div>
         <div id="module-makey" class="hidden">
             <h2>Modul: Makey Makey</h2>
             <p>Inhalte folgen...</p>
+            <button class="back-btn" onclick="resetToOverview()">« Zurück zur Übersicht</button>
         </div>
 
     </div>
@@ -742,7 +788,9 @@ while True:
             document.querySelectorAll('.main-card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
 
-            element.classList.add('active');
+            if (element) {
+                element.classList.add('active');
+            }
             document.getElementById('module-' + mod).classList.remove('hidden');
 
             const subDash = document.getElementById('sub-dashboard-python');
@@ -755,11 +803,15 @@ while True:
 
         function switchMicrobitLesson(lessonId, element) {
             document.querySelectorAll('.sub-card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
+            if (element) {
+                element.classList.add('active');
+            }
 
             const lessons = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5', 'lesson6'];
             lessons.forEach(id => {
                 const el = document.getElementById('mb-' + id);
+                const solEl = document.getElementById('sol-' + id);
+                
                 if (el) {
                     if (id === lessonId) {
                         el.classList.remove('hidden');
@@ -767,7 +819,19 @@ while True:
                         el.classList.add('hidden');
                     }
                 }
+
+                if (solEl) {
+                    if (id === lessonId) {
+                        solEl.classList.remove('hidden');
+                    } else {
+                        solEl.classList.add('hidden');
+                    }
+                }
             });
+        }
+
+        function resetToOverview() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showHw(part) {
