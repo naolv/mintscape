@@ -382,20 +382,20 @@
                             <h4>Aufgabe: Das blinkende Herz programmieren</h4>
                             <p><small>Ergänze die gelben Lücken <span class="code-todo">???</span> im Code.</small></p>
 
-                            <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
+                            <div class="code-puzzle"><span class="code-comment"># Importiert alle Grundfunktionen für den micro:bit</span>
 from microbit import *
 
 while True:
-    # 1. Zeige das große Herz an
+    <span class="code-comment"># Tipp: Welches eingebaute Bild soll das Display anzeigen?</span>
     display.show(Image.<span class="code-todo">???</span>)
     
-    # 2. Warte 500 Millisekunden
+    <span class="code-comment"># Pausiert das Programm für eine bestimmte Zeit in Millisekunden</span>
     <span class="code-todo">???</span>(500)
     
-    # 3. Lösche das Display
+    <span class="code-comment"># Schaltet alle LEDs aus, damit das Herz kurz verschwindet</span>
     display.clear()
     
-    # 4. Warte wieder eine halbe Sekunde
+    <span class="code-comment"># Tipp: Nutze nochmals die Warte-Funktion mit einem Wert</span>
     <span class="code-todo">???</span>(<span class="code-todo">???</span>)</div>
 
 <details class="mb-solution-toggle">
@@ -428,17 +428,23 @@ while True:
                             <h4>Bauplan: Schrittzähler programmieren</h4>
                             <p><small>Schaffst du es, die Variable richtig einzusetzen und zu erhöhen?</small></p>
 
-                            <div class="code-puzzle">from microbit import *
+                            <div class="code-puzzle"><span class="code-comment"># Importiert alle micro:bit Befehle</span>
+from microbit import *
 
+<span class="code-comment"># Erstellt eine Merk-Box für die Schritte und startet bei 0</span>
 schritte = 0
 
 while True:
+    <span class="code-comment"># Tipp: Zeige den aktuellen Inhalt deiner Schritt-Variable auf dem Display</span>
     display.show(<span class="code-todo">???</span>)
     
+    <span class="code-comment"># Prüft, ob der micro:bit geschüttelt wurde</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
+        <span class="code-comment"># Tipp: Wie muss der Zähler erhöht werden? (schritte = ...)</span>
         schritte = <span class="code-todo">???</span>
         sleep(200)
         
+    <span class="code-comment"># Prüft, ob Knopf A gedrückt wird, um den Zähler zurückzusetzen</span>
     if button_a.is_pressed():
         schritte = <span class="code-todo">???</span></div>
 
@@ -466,14 +472,18 @@ while True:
                             <h4>Bauplan: Tür-Alarmauslöser</h4>
                             <p><small>Ergänze den Code. Beachte: Ein Wert unter 30000 bedeutet, die Tür ist offen!</small></p>
 
-                            <div class="code-puzzle">from microbit import *
+                            <div class="code-puzzle"><span class="code-comment"># Grundbefehle laden</span>
+from microbit import *
 
 while True:
+    <span class="code-comment"># Misst die aktuelle Stärke des Magnetfelds im Raum</span>
     magnet = compass.get_field_strength()
     
+    <span class="code-comment"># Wenn die Tür zu ist (Magnetfeld ist stark)</span>
     if magnet > 30000:
         display.show(Image.YES)
     
+    <span class="code-comment"># Tipp: Was passiert im "Sonst"-Fall, wenn die Tür geöffnet wird?</span>
     <span class="code-todo">???</span>:
         display.show(<span class="code-todo">???</span>)
         sleep(100)
@@ -496,14 +506,18 @@ while True:
                         <h3>4. Projekt: Das digitale Thermometer</h3>
                         <div class="task-card">
                             <h4>Bauplan: Wetterstation</h4>
-                            <div class="code-puzzle">from microbit import *
+                            <div class="code-puzzle"><span class="code-comment"># Grundbefehle laden</span>
+from microbit import *
 
 while True:
+    <span class="code-comment"># Tipp: Welcher Befehl misst die aktuelle Temperatur?</span>
     grad = <span class="code-todo">???</span>
     
+    <span class="code-comment"># Tipp: Wann soll die Temperatur auf dem Display durchrollen? (z.B. bei Knopfdruck)</span>
     if <span class="code-todo">???</span>:
         display.scroll(grad)
         
+    <span class="code-comment"># Wenn es kälter als 20 Grad ist, zeige ein trauriges Gesicht</span>
     if grad < 20:
         display.show(Image.SAD)
     else:
@@ -525,18 +539,22 @@ while True:
                         <h3>5. Projekt: Musik-Synthesizer</h3>
                         <div class="task-card">
                             <h4>Bauplan: Luft-Gitarre</h4>
-                            <div class="code-puzzle">from microbit import *
+                            <div class="code-puzzle"><span class="code-comment"># micro:bit und Musik-Modul laden</span>
+from microbit import *
 import music
 
 while True:
+    <span class="code-comment"># Wenn Knopf A gedrückt wird, spiele eine voreingestellte Melodie ab</span>
     if button_a.is_pressed():
         display.show(Image.MUSIC_NOTE)
         music.play(<span class="code-todo">???</span>)
         
+    <span class="code-comment"># Tipp: Welche Geste erzeugt einen Ton, wenn man die "Gitarre" bewegt?</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
         display.show(Image.PACMAN)
         music.pitch(440, 200)
         
+    <span class="code-comment"># Wenn Knopf B gedrückt wird, lösche das Display und stoppe die Musik</span>
     if button_b.is_pressed():
         display.clear()
         <span class="code-todo">???</span></div>
@@ -557,15 +575,19 @@ while True:
                         <h3>6. Die Erfinder-Challenge: Tresor-Alarm</h3>
                         <div class="task-card">
                             <h4>Auftrag: Sichere das Klassenzimmer</h4>
-                            <div class="code-puzzle">from microbit import *
+                            <div class="code-puzzle"><span class="code-comment"># Grundbefehle und Musik-Modul laden</span>
+from microbit import *
 import music
 
+<span class="code-comment"># Merkt sich, ob der Alarm scharf geschaltet ist (Anfangszustand: Aus)</span>
 alarm_aktiv = False
 
 while True:
+    <span class="code-comment"># Schüttelt man den micro:bit, wird der Alarm scharf geschaltet</span>
     if accelerometer.was_gesture('shake'):
         alarm_aktiv = <span class="code-todo">???</span>
         
+    <span class="code-comment"># Solange der Alarm aktiv ist, blinkt ein Totenkopf und ein Warnton ertönt</span>
     if alarm_aktiv == True:
         display.show(Image.SKULL)
         music.pitch(800, 150)
@@ -575,6 +597,7 @@ while True:
     else:
         display.show(Image.YES)
 
+    <span class="code-comment"># Tipp: Welche Tasten müssen gleichzeitig gedrückt werden, um den Alarm zu stoppen?</span>
     if <span class="code-todo">???</span>:
         alarm_aktiv = False
         display.show(Image.HAPPY)
