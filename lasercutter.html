@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINTscape</title>
+    <title>MINTscape - Lasercutter</title>
     <style>
         :root {
             --primary: #0d9488;
@@ -26,32 +26,29 @@
         header {
             text-align: center;
             margin-bottom: 25px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #e2e8f0;
+            color: #475569;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .back-btn:hover {
+            background: #cbd5e1;
         }
 
         h1 { margin: 0; color: var(--primary); font-size: 2.2rem; font-weight: 700; }
         p.subtitle { color: #64748b; margin-top: 5px; }
-
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            max-width: 1100px;
-            margin: 0 auto 25px auto;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-            text-align: center;
-        }
-
-        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .card.active { border-color: var(--primary); background-color: var(--primary-light); }
 
         .sub-nav {
             display: flex;
@@ -88,12 +85,6 @@
 
         .hidden { display: none !important; }
 
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 460px 1fr;
-            gap: 20px;
-        }
-
         .grid-2col-equal {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -101,7 +92,8 @@
         }
 
         @media (max-width: 900px) {
-            .grid-2col, .grid-2col-equal { grid-template-columns: 1fr; }
+            .grid-2col-equal { grid-template-columns: 1fr; }
+            .back-btn { position: static; transform: none; display: inline-block; margin-bottom: 15px; }
         }
 
         .intro-box {
@@ -114,31 +106,6 @@
             border-left: 4px solid var(--primary);
         }
 
-        details.editor-setup-bar {
-            background: #fff1f2;
-            border: 1px solid #fecdd3;
-            border-left: 5px solid var(--danger);
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-        }
-
-        details.editor-setup-bar summary {
-            padding: 10px 14px;
-            font-weight: bold;
-            color: #9f1239;
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .setup-content {
-            padding: 10px 14px 14px 14px;
-            border-top: 1px solid #fecdd3;
-            background: #fff;
-        }
-
-        .setup-content ol { margin: 6px 0 0 0; padding-left: 20px; }
-
         .task-card {
             background: #ffffff;
             border: 1px solid #cbd5e1;
@@ -148,22 +115,6 @@
         }
 
         .task-card h4 { margin-top: 0; color: #0f172a; font-size: 1.1rem; }
-
-        .code-puzzle {
-            background: #27272a;
-            color: #f4f4f5;
-            padding: 14px;
-            border-radius: 6px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.88rem;
-            margin: 10px 0;
-            white-space: pre-wrap;
-            line-height: 1.5;
-            border: 1px solid #3f3f46;
-        }
-
-        .code-comment { color: #86efac; font-style: italic; }
-        .code-todo { color: #fde047; font-weight: bold; }
 
         .challenge-box {
             background: #fef3c7;
@@ -182,79 +133,6 @@
             border-radius: 6px;
             font-size: 0.88rem;
             margin-top: 10px;
-        }
-
-        .hw-finder {
-            background: #334155;
-            color: white;
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .hw-btn {
-            background: #475569;
-            color: #f8fafc;
-            border: 1px solid #64748b;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            margin-right: 4px;
-            margin-bottom: 6px;
-        }
-
-        .hw-btn:hover { background: var(--primary); }
-
-        .hw-desc {
-            font-size: 0.88rem;
-            color: #f1f5f9;
-            background: #1e293b;
-            padding: 10px 12px;
-            border-radius: 6px;
-            min-height: 40px;
-            line-height: 1.4;
-        }
-
-        details.cmd-box {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            margin-top: 15px;
-            font-size: 0.88rem;
-        }
-
-        details.cmd-box summary {
-            padding: 10px 12px;
-            font-weight: bold;
-            color: #0f172a;
-            cursor: pointer;
-            background: #e2e8f0;
-            border-radius: 5px;
-        }
-
-        .cmd-list {
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .cmd-item {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            padding: 8px;
-            border-radius: 4px;
-        }
-
-        .cmd-item code { color: var(--primary); font-weight: bold; }
-
-        .editor-iframe {
-            width: 100%;
-            height: 600px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            background: #fff;
         }
 
         .step-list {
@@ -279,479 +157,147 @@
 </head>
 <body>
 
-    <header>
-        <h1>MINTscape</h1>
-        <p class="subtitle">Verstehe die Logik und tüftle selbst!</p>
-    </header>
-
-    <!-- DASHBOARD NAVIGATION -->
-    <div class="dashboard">
-        <div class="card active" onclick="switchMainModule('python', this)">
-            <h3>micro:bit Python</h3>
-            <small>Interaktive Aufgaben &amp; Prototypen</small>
-        </div>
-        <div class="card" onclick="switchMainModule('tinkercad', this)">
-            <h3>3D-Druck (Tinkercad)</h3>
-            <small>Konstruieren lernen</small>
-        </div>
-        <div class="card" onclick="switchMainModule('laser', this)">
-            <h3>Lasercutter (xTool S1)</h3>
-            <small>Tinkercad &amp; xTool Studio</small>
-        </div>
-        <div class="card" onclick="switchMainModule('makey', this)">
-            <h3>Makey Makey</h3>
-            <small>Stromkreise bauen</small>
-        </div>
-    </div>
-
     <div class="module-container">
-        
-        <!-- ================= MODUL 1: MICRO:BIT ================= -->
-        <div id="module-python">
-            
-            <div class="sub-nav">
-                <button class="sub-btn active" onclick="switchMicrobitLesson('mb-lesson1', this)">1. Grundlagen</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson2', this)">2. Schrittzähler</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson3', this)">3. Türsensor</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson4', this)">4. Thermometer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson5', this)">5. Musik-Synthesizer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson6', this)">6. Erfinder-Challenge</button>
-            </div>
+        <header>
+            <a href="index.html" class="back-btn">&larr; Zurück zur Übersicht</a>
+            <h1>MINTscape</h1>
+            <p class="subtitle">Modul: Lasercutter (xTool S1)</p>
+        </header>
 
-            <div class="grid-2col">
-                <!-- LINKER BEREICH: LERNINHALTE -->
-                <div id="microbit-content">
-                    
-                    <!-- LERNEINHEIT 1: GRUNDLAGEN -->
-                    <div id="mb-lesson1">
-                        <h3>1. Was ist der micro:bit?</h3>
-                        
-                        <div class="intro-box">
-                            Der <b>BBC micro:bit</b> ist ein kleiner, programmierbarer Computer. Mit Python-Befehlen sagst du ihm genau, was er tun soll!
-                        </div>
-
-                        <div class="hw-finder">
-                            <h4 style="margin-top:0;">Hardware-Detektiv: Wo sind die Bauteile?</h4>
-                            <p style="font-size:0.85rem; color:#cbd5e1; margin-bottom:10px;">Nimm deinen echten micro:bit in die Hand und suche die Teile auf der Platine:</p>
-                            <div>
-                                <button class="hw-btn" onclick="showHw('led')">5x5 LEDs</button>
-                                <button class="hw-btn" onclick="showHw('btn')">Tasten A &amp; B</button>
-                                <button class="hw-btn" onclick="showHw('sens')">Sensoren</button>
-                            </div>
-                            <div id="hw-info" class="hw-desc" style="margin-top:10px;">Klicke oben auf einen Knopf, um zu erfahren, wo du das Bauteil auf deinem echten micro:bit findest!</div>
-                        </div>
-
-                        <div class="task-card">
-                            <h4>Aufgabe: Das blinkende Herz programmieren</h4>
-                            <p><small>Ersetze die <span class="code-todo">???</span> durch die richtigen Befehle aus der Befehlssammlung unten und tippe den Code rechts ein:</small></p>
-
-                            <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
-from microbit import *
-
-<span class="code-comment"># 2. Endlosschleife: Wiederhole alles ewig</span>
-while True:
-    <span class="code-comment"># Zeige ein Herz auf den LEDs an:</span>
-    display.show(Image.HEART)
-    
-    <span class="code-comment"># Warte 500 Millisekunden (1/2 Sekunde):</span>
-    sleep(<span class="code-todo">???</span>)
-    
-    <span class="code-comment"># Lösche den Bildschirm wieder:</span>
-    display.<span class="code-todo">???</span>()
-    
-    <span class="code-comment"># Warte nochmals 500 Millisekunden:</span>
-    sleep(500)</div>
-
-                            <div class="challenge-box">
-                                <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- LERNEINHEIT 2: SCHRITTZÄHLER -->
-                    <div id="mb-lesson2" class="hidden">
-                        <h3>2. Projekt: Der Schrittzähler</h3>
-                        
-                        <div class="intro-box">
-                            <b>Das Prinzip der Variablen:</b><br>
-                            Eine Variable ist wie eine kleine Merkbox im Speicher. In <code>schritte</code> zählen wir jedes Mal +1, wenn der Bewegungssensor geschüttelt wird.
-                        </div>
-
-                        <div class="task-card">
-                            <h4>Bauplan: Schrittzähler programmieren</h4>
-
-                            <div class="code-puzzle">from microbit import *
-
-<span class="code-comment"># Wir starten mit 0 Schritten in der Speicher-Box</span>
-schritte = 0
-
-while True:
-    <span class="code-comment"># Zeige die Zahl an, die in der Variable steckt:</span>
-    display.show(<span class="code-todo">???</span>)
-    
-    <span class="code-comment"># WENN der micro:bit geschüttelt wurde:</span>
-    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
-        <span class="code-comment"># Erhöhe den Zähler um 1</span>
-        schritte = schritte + <span class="code-todo">???</span>
-        ___(200)
-        
-    <span class="code-comment"># WENN Knopf A gedrückt wird (Reset):</span>
-    if button_a.is_pressed():
-        <span class="code-comment"># Setze den Zähler wieder auf 0 zurück</span>
-        schritte = <span class="code-todo">???</span></div>
-
-                            <div class="craft-box">
-                                <b>Real-Life Bastelauftrag: Baue ein Trageband!</b>
-                                <ol style="margin: 6px 0 0 0; padding-left: 18px;">
-                                    <li>Schliesse das <b>Batteriepack</b> an deinen micro:bit an.</li>
-                                    <li>Klemme den Schrittzähler an deinen <b>Schuh oder Hosenbund</b> und mache 10 Schritte. Rechnet dein Zähler richtig?</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- LERNEINHEIT 3: TÜRSENSOR -->
-                    <div id="mb-lesson3" class="hidden">
-                        <h3>3. Projekt: Türsensor</h3>
-                        
-                        <div class="intro-box">
-                            <b>Bedingungen verstehen (Wenn ... Dann ... Sonst):</b><br>
-                            Der Magnet-Sensor misst unsichtbare Magnetfelder. Ist ein Magnet an der Tür nahe bei deinem micro:bit, ist der Wert hoch (> 50000). Geht die Tür auf, fällt der Wert ab!
-                        </div>
-
-                        <div class="task-card">
-                            <h4>Bauplan: Alarmanlage tüfteln</h4>
-
-                            <div class="code-puzzle">from microbit import *
-
-while True:
-    <span class="code-comment"># Stärke des Magnetfelds messen</span>
-    magnet = compass.get_field_strength()
-    
-    <span class="code-comment"># WENN der Magnet nah ist (Tür ZU):</span>
-    if magnet > <span class="code-todo">???</span>:
-        display.show(Image.YES)
-        
-    <span class="code-comment"># SONST (Magnet weg = Tür AUF = ALARM!):</span>
-    else:
-        display.show(Image.<span class="code-todo">???</span>)
-        sleep(100)
-        display.clear()
-        ___(100)</div>
-                        </div>
-                    </div>
-
-                    <!-- LERNEINHEIT 4: THERMOMETER -->
-                    <div id="mb-lesson4" class="hidden">
-                        <h3>4. Projekt: Das digitale Thermometer</h3>
-                        <div class="task-card">
-                            <h4>Bauplan: Wetterstation</h4>
-                            <div class="code-puzzle">from microbit import *
-
-while True:
-    grad = <span class="code-todo">???</span>()
-    if button_a.<span class="code-todo">???</span>():
-        display.scroll(grad)
-        
-    if grad < 20:
-        display.show(Image.SAD)
-    else:
-        display.show(Image.HAPPY)</div>
-                        </div>
-                    </div>
-
-                    <!-- LERNEINHEIT 5: MUSIK-SYNTHESIZER -->
-                    <div id="mb-lesson5" class="hidden">
-                        <h3>5. Projekt: Musik-Synthesizer</h3>
-                        <div class="task-card">
-                            <h4>Bauplan: Musik-Synthesizer</h4>
-                            <div class="code-puzzle">from microbit import *
-import music
-
-while True:
-    if button_a.is_pressed():
-        music.play(music.<span class="code-todo">???</span>)
-        
-    if accelerometer.was_gesture('shake'):
-        music.pitch(<span class="code-todo">???</span>, 200)</div>
-                        </div>
-                    </div>
-
-                    <!-- LERNEINHEIT 6: ERFINDER-CHALLENGE -->
-                    <div id="mb-lesson6" class="hidden">
-                        <h3>6. Die Erfinder-Challenge: Sichere den Schatz!</h3>
-                        <div class="task-card">
-                            <p>Kombiniere Variablen, Sensoren, Bedingungen und Sound zu einem eigenen Diebstahlschutz.</p>
-                            <div class="code-puzzle">from microbit import *
-import music
-
-alarm_aktiv = False
-
-while True:
-    if accelerometer.was_gesture('<span class="code-todo">???</span>'):
-        alarm_aktiv = <span class="code-todo">???</span>
-        
-    if alarm_aktiv == True:
-        display.show(Image.SKULL)
-        music.pitch(800, 150)
-    else:
-        display.show(Image.YES)</div>
-                        </div>
-                    </div>
-
-                    <!-- SPICKZETTEL -->
-                    <details class="cmd-box">
-                        <summary>Befehlssammlung / Spickzettel (Hier nachschlagen!)</summary>
-                        <div class="cmd-list">
-                            <div class="cmd-item"><code>display.show(Image.NAME)</code> – Bild anzeigen (HEART, HAPPY, SAD, YES, NO, SKULL, STAR).</div>
-                            <div class="cmd-item"><code>display.scroll(text_oder_zahl)</code> – Laufschrift anzeigen.</div>
-                            <div class="cmd-item"><code>display.clear()</code> – Display ausschalten.</div>
-                            <div class="cmd-item"><code>sleep(ms)</code> – Warten in Millisekunden (1000 ms = 1 sek).</div>
-                            <div class="cmd-item"><code>accelerometer.was_gesture('shake')</code> – Erkennt Schütteln.</div>
-                            <div class="cmd-item"><code>temperature()</code> – Misst Temperatur in Grad Celsius.</div>
-                            <div class="cmd-item"><code>music.pitch(frequenz, ms)</code> – Ton abspielen.</div>
-                        </div>
-                    </details>
-
-                </div>
-
-                <!-- RECHTER BEREICH: EDITOR -->
-                <div>
-                    <details class="editor-setup-bar">
-                        <summary>Wichtig: WebTigerPython richtig einstellen (hier klicken)</summary>
-                        <div class="setup-content">
-                            Damit WebTigerPython den micro:bit versteht:
-                            <ol>
-                                <li>Klicke ganz oben rechts auf die <b>drei Punkte ⋮</b> (Menü).</li>
-                                <li>Klicke auf den Menüpunkt <b>«Gerät»</b>.</li>
-                                <li>Wähle in der Liste <b>«micro:bit»</b> aus.</li>
-                            </ol>
-                        </div>
-                    </details>
-
-                    <h3>Arbeitsbereich: WebTigerPython</h3>
-                    <iframe class="editor-iframe" src="https://webtigerpython.ethz.ch/?mode=microbit" title="WebTigerPython Editor"></iframe>
-                </div>
-            </div>
-
+        <div class="sub-nav">
+            <button class="sub-btn active" onclick="switchLaserLesson('laser-lesson1', this)">1. xTool S1 Basics</button>
+            <button class="sub-btn" onclick="switchLaserLesson('laser-lesson2', this)">2. Stift-Gravur</button>
+            <button class="sub-btn" onclick="switchLaserLesson('laser-lesson3', this)">3. Lesezeichen</button>
+            <button class="sub-btn" onclick="switchLaserLesson('laser-lesson4', this)">4. Buchstaben-Tangram</button>
         </div>
 
-        <!-- ================= MODUL 2: LASERCUTTER (XTOOL S1) ================= -->
-        <div id="module-laser" class="hidden">
+        <!-- LESSON 1: BASICS -->
+        <div id="laser-lesson1">
+            <h3>1. Der xTool S1 (40W) Diodenlaser &amp; Tinkercad Workflow</h3>
             
-            <div class="sub-nav">
-                <button class="sub-btn active" onclick="switchLaserLesson('laser-lesson1', this)">1. xTool S1 Basics</button>
-                <button class="sub-btn" onclick="switchLaserLesson('laser-lesson2', this)">2. Stift-Gravur</button>
-                <button class="sub-btn" onclick="switchLaserLesson('laser-lesson3', this)">3. Lesezeichen</button>
-                <button class="sub-btn" onclick="switchLaserLesson('laser-lesson4', this)">4. Buchstaben-Tangram</button>
+            <div class="intro-box">
+                Der <b>xTool S1 40W</b> ist ein geschlossener, hochpräziser Diodenlaser. Wir nutzen <b>Tinkercad</b> zur 2D-Konstruktion und exportieren unsere Entwürfe als <b>.SVG</b> für die Lasersoftware <b>xTool Studio</b>.
             </div>
 
-            <!-- LESSON 1: BASICS -->
-            <div id="laser-lesson1">
-                <h3>1. Der xTool S1 (40W) Diodenlaser &amp; Tinkercad Workflow</h3>
-                
-                <div class="intro-box">
-                    Der <b>xTool S1 40W</b> ist ein geschlossener, hochpräziser Diodenlaser. Wir nutzen <b>Tinkercad</b> zur 2D-Konstruktion und exportieren unsere Entwürfe als <b>.SVG</b> für die Lasersoftware <b>xTool Studio</b>.
-                </div>
-
-                <div class="grid-2col-equal">
-                    <div class="task-card">
-                        <h4>Die 3 Bearbeitungsarten in xTool Studio</h4>
-                        <p><span class="badge badge-cut">1. Schneiden (Cut)</span> Der Laserstrahl schneidet mit hoher Leistung voll durch das Material (z.B. Sperrholz, Acryl).</p>
-                        <p><span class="badge badge-engrave">2. Gravieren (Raster Engrave)</span> Der Laser rastert über eine Fläche hin und her und brennt Flächen, Grafiken oder dicke Buchstaben flächig ein.</p>
-                        <p><span class="badge badge-score">3. Ritzen (Score / Vektorgravur)</span> Der Laser fährt eine Vektorlinie schnell und mit schwacher Leistung ab. Die Linie wird feinsäuberlich eingeritzt, ohne durchzuschneiden (ideal für Umrisse, Falzlinien oder feine Muster!).</p>
-
-                        <div class="craft-box">
-                            <b>Workflow von Tinkercad zu xTool Studio:</b>
-                            <ol class="step-list" style="margin-top:5px;">
-                                <li>Konstruiere deine 2D-Form flach auf der Arbeitsfläche in Tinkercad.</li>
-                                <li>Klicke oben rechts auf <b>Exportieren</b> &rarr; Wähle <b>.SVG</b> (unter "Für Laserschneiden").</li>
-                                <li>Öffne <b>xTool Studio</b>, importiere die SVG-Datei und weise jedem Pfad/Farbe die passende Betriebsart zu (Schneiden, Gravieren oder Ritzen).</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="task-card">
-                        <h4>Sicherheits- &amp; Geräte-Checkliste (xTool S1)</h4>
-                        <ul class="step-list">
-                            <li><b>Schutzdeckel zu:</b> Der grüne Gehäusedeckel schützt die Augen (Laserklasse 1). Niemals bei geöffnetem Deckel oder beschädigtem Gehäuse arbeiten!</li>
-                            <li><b>Absaugung einschalten:</b> Vor dem Start sicherstellen, dass das Abluftsystem läuft und das Rohr aus dem Fenster geführt ist.</li>
-                            <li><b>Fokus einstellen:</b> Im xTool Studio die Materialstärke messen oder den automatischen Fokus/Sonden-Fokus des xTool S1 ausführen.</li>
-                            <li><b>Materialien-Check:</b> Nie PVC, Kunstleder oder chlorhaltige Folien lasern! Verwende Holz, Stifte, Leder oder lasergeeigneten Karton.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LESSON 2: STIFT-GRAVUR -->
-            <div id="laser-lesson2" class="hidden">
-                <h3>2. Projekt 1: Personalisierte Bleistift- / Farbstift-Gravur</h3>
-                
-                <div class="intro-box">
-                    In deinem ersten Projekt veredelst du einen Holzbleistift oder Buntstift. Du gravierst deinen Namen, dein Logo oder ein Symbol präzise auf die flache Seite des Stifts.
-                </div>
-
+            <div class="grid-2col-equal">
                 <div class="task-card">
-                    <h4>Schritt-für-Schritt Konstruktion &amp; Gravur</h4>
-                    <ol class="step-list">
-                        <li><b>Abmessen:</b> Miss mit dem Lineal die Flachseite deines Stifts aus. (Beispiel: Breite max. 4.5 mm, Länge max. 70 mm).</li>
-                        <li><b>Tinkercad:</b> Erstelle ein Text-Objekt auf der Arbeitsfläche oder importiere ein kleines Logo. Skaliere die Breite auf genau <b>4 mm</b>, damit nichts über die Stiftkante hinausragt.</li>
-                        <li><b>Export:</b> Klicke auf <b>Exportieren &rarr; .SVG</b>.</li>
-                        <li><b>Vorbereitung in xTool Studio:</b>
-                            <ul>
-                                <li>Importiere die SVG-Datei. Stell die Arbeitsweise auf <b>Gravieren (Engrave)</b>.</li>
-                                <li>Platziere den Stift waagerecht im Arbeitsbereich des xTool S1.</li>
-                                <li><b>Tipp zur Positionierung:</b> Nutze die Laser-Kreuz-Positionierung im xTool Studio, um den Text exakt mittig auf dem Stift auszurichten.</li>
-                            </ul>
-                        </li>
-                    </ol>
-
-                    <div class="challenge-box">
-                        <b>Challenge: Das Muster!</b><br>
-                        Ein runder oder sechskantiger Stift verfügt über wenig Platz. 
-                        <br><i>Auftrag:</i> Konstruiere in Tinkercad ein Muster, das du auf allen Seiten des Stiftes eingravieren kannst!
-                    </div>
-                </div>
-            </div>
-
-            <!-- LESSON 3: LESEZEICHEN -->
-            <div id="laser-lesson3" class="hidden">
-                <h3>3. Projekt 2: Das individuelle Lesezeichen</h3>
-                
-                <div class="intro-box">
-                    Hier kombinierst du zum ersten Mal alle 3 Bearbeitungsarten: <b>Schneiden</b> (Aussenform), <b>Ritzen</b> (feine Zierlinien) und <b>Gravieren</b> (dein Name/Text).
-                </div>
-
-                <div class="task-card">
-                    <h4>Schritt-für-Schritt Konstruktion</h4>
-                    <ol class="step-list">
-                        <li><b>Aussenform (Schneiden):</b> Erstelle ein Rechteck in Tinkercad (z.B. 40 mm breit, 140 mm lang). Runde eventuell die Ecken ab.</li>
-                        <li><b>Aufhängung (Schneiden):</b> Platziere am oberen Ende einen kleinen Kreis (Durchmesser 5 mm) für das spätere Aufhängeband.</li>
-                        <li><b>Zier-Muster (Ritzen):</b> Zeichne feine Rahmenlinien, geometrische Sternmuster oder erstelle eine Zeichnung. Stelle diese Linien später im xTool Studio auf <b>Ritzen (Score)</b> – so werden sie blitzschnell und gestochen scharf eingezeichnet.</li>
-                        <li><b>Text &amp; Grafiken (Gravieren):</b> Füge ein Zitat oder deinen Namen ein. Wähle im xTool Studio dafür <b>Gravieren (Engrave)</b>.</li>
-                        <li><b>Fertigung:</b> Starte den Laserauftrag auf 1.5 mm oder 3 mm Sperrholz/Karton.</li>
-                    </ol>
+                    <h4>Die 3 Bearbeitungsarten in xTool Studio</h4>
+                    <p><span class="badge badge-cut">1. Schneiden (Cut)</span> Der Laserstrahl schneidet mit hoher Leistung voll durch das Material (z.B. Sperrholz, Acryl).</p>
+                    <p><span class="badge badge-engrave">2. Gravieren (Raster Engrave)</span> Der Laser rastert über eine Fläche hin und her und brennt Flächen, Grafiken oder dicke Buchstaben flächig ein.</p>
+                    <p><span class="badge badge-score">3. Ritzen (Score / Vektorgravur)</span> Der Laser fährt eine Vektorlinie schnell und mit schwacher Leistung ab. Die Linie wird feinsäuberlich eingeritzt, ohne durchzuschneiden.</p>
 
                     <div class="craft-box">
-                        <b>Bastel-Tipp:</b> Nach dem Lasern kannst du die geritzten Rillen mit Buntstiften farbig ausmalen und ein buntes Band durch das Loch knüpfen! Mit denselben Schritten kannst du auch einen Schlüsselanhänger in einer kleineren Grösse erstellen.
-                    </div>
-                </div>
-            </div>
-
-            <!-- LESSON 4: BUCHSTABEN-TANGRAM -->
-            <div id="laser-lesson4" class="hidden">
-                <h3>4. Projekt 3: Das Buchstaben-Tangram (Legespiel)</h3>
-                
-                <div class="intro-box">
-                    <b>Die Mission:</b> Du konstruierst deinen eigenen Anfangsbuchstaben (z. B. 'T', 'E', 'H', 'F' oder 'L') als Legespiel. Bevor du es auf Tinkercad umsetzt, erstelle es zuerst auf Papier und teste aus, ob die Grösse der Puzzleteile sowie die Teile zum Zusammensetzen viele Möglichkeiten bietet.
-                    <br><br>
-                    <!-- BILD 1: Tangram auf Papier -->
-                    <img src="Ltangram.jpg" alt="Tangram aus Papier skizzieren" style="max-width: 100%; width: 500px; height: auto; display: block; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <br><b>Goldene Regel:</b> Alle Balken und Linien des Buchstabens müssen <u>exakt gleich dick</u> konstruiert werden (z. B. durchgehend 15 mm breit), damit alle Teile später perfekt zusammenpassen und völlig neue Formen gelegt werden können!
-                </div>
-
-                <div class="task-card">
-                    <h4>Konstruktions-Anleitung in Tinkercad</h4>
-                    <ol class="step-list">
-                        <li><b>Balken-Breite bestimmen:</b> Verwende nur Quader mit einer Breite von exakt <b>15 mm</b>.</li>
-                        <li><b>Buchstaben bauen:</b>
-                            <ul>
-                                <li>Setze deinen Anfangsbuchstaben aus diesen gleich dicken Balken zusammen (Beispiel 'T': Ein Quader oben quer 15 x 60 mm, ein Quader senkrecht 15 x 45 mm).</li>
-                                <li>Gruppiere alle Quader deines Buchstabens zu einer Form.</li>
-                            </ul>
-                            <br>
-                            <!-- BILD 2: Tangram in Tinkercad -->
-                            <img src="LTinkercad.jpg" alt="Buchstaben Tangram in Tinkercad konstruieren" style="max-width: 100%; width: 500px; height: auto; display: block; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        </li>
-                        <li><b>In Tangram-Teile zerschneiden:</b>
-                            <ul>
-                                <li>Setze dünne Bohrungen (0.5 mm dünne Quader) als "Schnittlinien" ein, um deinen Buchstaben diagonal (stets 45°) oder gerade in <b>4 bis 6 Teilstücke</b> zu zersägen.</li>
-                                <li>Achte darauf, dass unterschiedliche Formen wie Dreiecke, Parallelogramme und Rechtecke entstehen.</li>
-                            </ul>
-                        </li>
-                        <li><b>xTool Studio:</b> Exportiere die Formen als SVG und wähle für alle Linien <b>Schneiden (Cut)</b> auf 3 mm Holz.</li>
-                    </ol>
-
-                    <div class="challenge-box">
-                        <b>Das Legespiel:</b>
-                        <ol style="margin-top:5px; padding-left:18px;">
-                            <li>Mische deine Tangram-Teile durch. Kannst du deinen eigenen Buchstaben wieder zusammensetzen?</li>
-                            <li><b>Die Giga-Challenge:</b> Wie viele andere Objekte (Häuser, Tiere, Raumschiffe) kannst du nur mit den Teilen deines Buchstaben-Tangrams legen? Finde mindestens 5 verschiedene Figuren!</li>
+                        <b>Workflow von Tinkercad zu xTool Studio:</b>
+                        <ol class="step-list" style="margin-top:5px;">
+                            <li>Konstruiere deine 2D-Form flach auf der Arbeitsfläche in Tinkercad.</li>
+                            <li>Klicke oben rechts auf <b>Exportieren</b> &rarr; Wähle <b>.SVG</b> (unter "Für Laserschneiden").</li>
+                            <li>Öffne <b>xTool Studio</b>, importiere die SVG-Datei und weise jedem Pfad/Farbe die passende Betriebsart zu.</li>
                         </ol>
                     </div>
                 </div>
+
+                <div class="task-card">
+                    <h4>Sicherheits- &amp; Geräte-Checkliste (xTool S1)</h4>
+                    <ul class="step-list">
+                        <li><b>Schutzdeckel zu:</b> Der grüne Gehäusedeckel schützt die Augen (Laserklasse 1). Niemals bei geöffnetem Deckel arbeiten!</li>
+                        <li><b>Absaugung einschalten:</b> Vor dem Start sicherstellen, dass das Abluftsystem läuft.</li>
+                        <li><b>Fokus einstellen:</b> Im xTool Studio den automatischen Fokus/Sonden-Fokus ausführen.</li>
+                        <li><b>Materialien-Check:</b> Nie PVC oder Kunstleder lasern! Verwende Holz, Stifte, Leder oder Laser-Karton.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- LESSON 2: STIFT-GRAVUR -->
+        <div id="laser-lesson2" class="hidden">
+            <h3>2. Projekt 1: Personalisierte Bleistift- / Farbstift-Gravur</h3>
+            
+            <div class="intro-box">
+                In deinem ersten Projekt veredelst du einen Holzbleistift oder Buntstift. Du gravierst deinen Namen, dein Logo oder ein Symbol präzise auf die flache Seite des Stifts.
             </div>
 
+            <div class="task-card">
+                <h4>Schritt-für-Schritt Konstruktion &amp; Gravur</h4>
+                <ol class="step-list">
+                    <li><b>Abmessen:</b> Miss mit dem Lineal die Flachseite deines Stifts aus (z.B. Breite max. 4.5 mm).</li>
+                    <li><b>Tinkercad:</b> Erstelle ein Text-Objekt. Skaliere die Breite auf genau <b>4 mm</b>.</li>
+                    <li><b>Export:</b> Klicke auf <b>Exportieren &rarr; .SVG</b>.</li>
+                    <li><b>xTool Studio:</b> Importiere die SVG-Datei und stelle die Arbeitsweise auf <b>Gravieren (Engrave)</b>.</li>
+                </ol>
+
+                <div class="challenge-box">
+                    <b>Challenge: Das Muster!</b><br>
+                    Konstruiere in Tinkercad ein Muster, das du auf allen Seiten des Stiftes eingravieren kannst!
+                </div>
+            </div>
         </div>
 
-        <!-- ================= WEITERE MODULE ================= -->
-        <div id="module-tinkercad" class="hidden">
-            <h2>Modul: 3D-Druck (Tinkercad)</h2>
-            <div class="intro-box">Grundlagen des dreidimensionalen Konstruierens: Grundkörper verbinden, Bohrungen setzen, STL-Export für den 3D-Drucker.</div>
-            <p>Inhalte folgen...</p>
+        <!-- LESSON 3: LESEZEICHEN -->
+        <div id="laser-lesson3" class="hidden">
+            <h3>3. Projekt 2: Das individuelle Lesezeichen</h3>
+            
+            <div class="intro-box">
+                Hier kombinierst du alle 3 Bearbeitungsarten: <b>Schneiden</b> (Aussenform), <b>Ritzen</b> (Zierlinien) und <b>Gravieren</b> (Name/Text).
+            </div>
+
+            <div class="task-card">
+                <h4>Schritt-für-Schritt Konstruktion</h4>
+                <ol class="step-list">
+                    <li><b>Aussenform (Schneiden):</b> Rechteck in Tinkercad (z.B. 40 x 140 mm).</li>
+                    <li><b>Aufhängung (Schneiden):</b> Dazugehöriges Loch (Durchmesser 5 mm) platzieren.</li>
+                    <li><b>Zier-Muster (Ritzen):</b> Rahmenlinien oder Zeichnung einfügen (im Studio auf <b>Score</b> stellen).</li>
+                    <li><b>Text (Gravieren):</b> Namen/Zitat einfügen (im Studio auf <b>Engrave</b> stellen).</li>
+                </ol>
+
+                <div class="craft-box">
+                    <b>Bastel-Tipp:</b> Nach dem Lasern kannst du die geritzten Rillen mit Buntstiften farbig ausmalen!
+                </div>
+            </div>
         </div>
 
-        <div id="module-makey" class="hidden">
-            <h2>Modul: Makey Makey</h2>
-            <div class="intro-box">Erforschung von Stromkreisen und Leitfähigkeit: Verwandle Obst, Wasser oder Graphitzeichnungen in interaktive Computer-Tasten!</div>
-            <p>Inhalte folgen...</p>
+        <!-- LESSON 4: BUCHSTABEN-TANGRAM -->
+        <div id="laser-lesson4" class="hidden">
+            <h3>4. Projekt 3: Das Buchstaben-Tangram (Legespiel)</h3>
+            
+            <div class="intro-box">
+                <b>Die Mission:</b> Du konstruierst deinen eigenen Anfangsbuchstaben als Legespiel. Erstelle es zuerst auf Papier und teste aus, ob die Puzzleteile viele Möglichkeiten bieten.
+                <br><br>
+                <img src="Ltangram.jpg" alt="Tangram aus Papier skizzieren" style="max-width: 100%; width: 500px; height: auto; display: block; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <br><b>Goldene Regel:</b> Alle Balken müssen <u>exakt gleich dick</u> sein (z. B. 15 mm breit).
+            </div>
+
+            <div class="task-card">
+                <h4>Konstruktions-Anleitung in Tinkercad</h4>
+                <ol class="step-list">
+                    <li><b>Balken-Breite bestimmen:</b> Verwende Quader mit einer Breite von exakt <b>15 mm</b>.</li>
+                    <li><b>Buchstaben bauen:</b> Setze deinen Buchstaben zusammen und gruppiere ihn.
+                        <br><br>
+                        <img src="LTinkercad.jpg" alt="Buchstaben Tangram in Tinkercad konstruieren" style="max-width: 100%; width: 500px; height: auto; display: block; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </li>
+                    <li><b>Zerschneiden:</b> Setze 0.5 mm dünne Bohrungen als Schnittlinien ein (in 4 bis 6 Teile).</li>
+                    <li><b>xTool Studio:</b> SVG exportieren und alle Linien auf <b>Schneiden (Cut)</b> stellen.</li>
+                </ol>
+
+                <div class="challenge-box">
+                    <b>Das Legespiel:</b>
+                    Wie viele andere Objekte (Häuser, Tiere, Raumschiffe) kannst du nur mit deinen Teilen legen? Finde mindestens 5 verschiedene Figuren!
+                </div>
+            </div>
         </div>
 
     </div>
 
-    <!-- JAVASCRIPT FÜR DIE NAVIGATION -->
     <script>
-        // Umschalten der Hauptmodule
-        function switchMainModule(modId, element) {
-            document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
-            element.classList.add('active');
-
-            document.getElementById('module-python').classList.add('hidden');
-            document.getElementById('module-tinkercad').classList.add('hidden');
-            document.getElementById('module-laser').classList.add('hidden');
-            document.getElementById('module-makey').classList.add('hidden');
-
-            document.getElementById('module-' + modId).classList.remove('hidden');
-        }
-
-        // Umschalten der Sub-Lektionen im Microbit-Modul
-        function switchMicrobitLesson(lessonId, btn) {
-            const lessons = ['mb-lesson1', 'mb-lesson2', 'mb-lesson3', 'mb-lesson4', 'mb-lesson5', 'mb-lesson6'];
-            lessons.forEach(l => {
-                const el = document.getElementById(l);
-                if(el) el.classList.add('hidden');
-            });
-            document.getElementById(lessonId).classList.remove('hidden');
-
-            const btns = btn.parentElement.querySelectorAll('.sub-btn');
-            btns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-
-        // Umschalten der Sub-Lektionen im Laser-Modul
         function switchLaserLesson(lessonId, btn) {
             const lessons = ['laser-lesson1', 'laser-lesson2', 'laser-lesson3', 'laser-lesson4'];
             lessons.forEach(l => {
-                const el = document.getElementById(l);
-                if(el) el.classList.add('hidden');
+                document.getElementById(l).classList.add('hidden');
             });
             document.getElementById(lessonId).classList.remove('hidden');
 
             const btns = btn.parentElement.querySelectorAll('.sub-btn');
             btns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-        }
-
-        // Interaktiver Hardware-Detektiv für den Micro:bit
-        function showHw(type) {
-            const info = document.getElementById('hw-info');
-            if(type === 'led') {
-                info.innerHTML = "<b>5x5 LED-Raster:</b> Das Display in der Mitte besteht aus 25 roten Lämpchen. Sie können einzelne Pixel zeichnen oder Bilder & Text anzeigen.";
-            } else if(type === 'btn') {
-                info.innerHTML = "<b>Tasten A & B:</b> Links und rechts neben den LEDs findest du zwei kleine Knöpfe. Damit kannst du Eingaben vom Benutzer verarbeiten!";
-            } else if(type === 'sens') {
-                info.innerHTML = "<b>Sensoren:</b> Der micro:bit hat einen Beschleunigungssensor (erkennt Schütteln & Neigung), ein Kompass-Modul und misst die Temperatur direkt am Prozessor!";
-            }
         }
     </script>
 </body>
