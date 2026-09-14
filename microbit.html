@@ -31,15 +31,16 @@
         h1 { margin: 0; color: var(--primary); font-size: 2.2rem; font-weight: 700; }
         p.subtitle { color: #64748b; margin-top: 5px; }
 
-        .dashboard {
+        /* HAUPT-DASHBOARD (OBERES DASHBOARD) */
+        .main-dashboard {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             max-width: 1100px;
-            margin: 0 auto 25px auto;
+            margin: 0 auto 20px auto;
         }
 
-        .card {
+        .main-card {
             background: var(--card-bg);
             padding: 15px;
             border-radius: 12px;
@@ -50,32 +51,35 @@
             text-align: center;
         }
 
-        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .card.active { border-color: var(--primary); background-color: var(--primary-light); }
+        .main-card:hover { transform: translateY(-2px); border-color: var(--primary); }
+        .main-card.active { border-color: var(--primary); background-color: var(--primary-light); }
 
-        .sub-nav {
-            display: flex;
-            flex-wrap: wrap;
+        /* LERNEINHEITEN-DASHBOARD (ZWEITES DASHBOARD) */
+        .sub-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
+            max-width: 1100px;
+            margin: 0 auto 25px auto;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 15px;
         }
 
-        .sub-btn {
-            background: #e2e8f0;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
+        .sub-card {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            border-radius: 8px;
             cursor: pointer;
+            text-align: center;
             font-weight: 600;
+            font-size: 0.9rem;
             color: #475569;
+            transition: all 0.2s;
         }
 
-        .sub-btn.active {
-            background: var(--primary);
-            color: white;
-        }
+        .sub-card:hover { border-color: var(--primary); color: var(--primary); }
+        .sub-card.active { background-color: var(--primary); color: white; border-color: var(--primary); }
 
         .module-container {
             max-width: 1100px;
@@ -262,9 +266,7 @@
             border-radius: 5px;
         }
 
-        .solution-content {
-            padding: 10px;
-        }
+        .solution-content { padding: 10px; }
 
         .editor-iframe {
             width: 100%;
@@ -282,40 +284,40 @@
         <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
-    <!-- DASHBOARD NAVIGATION (EINZELNES HAUPTMENÜ) -->
-    <div class="dashboard">
-        <div class="card active" onclick="switchMainModule('python', this)">
+    <!-- DASHBOARD 1: HAUPTMODULE -->
+    <div class="main-dashboard">
+        <div class="main-card active" onclick="switchMainModule('python', this)">
             <h3>micro:bit Python</h3>
             <small>Interaktive Aufgaben &amp; Prototypen</small>
         </div>
-        <div class="card" onclick="switchMainModule('tinkercad', this)">
+        <div class="main-card" onclick="switchMainModule('tinkercad', this)">
             <h3>3D-Druck (Tinkercad)</h3>
             <small>Konstruieren lernen</small>
         </div>
-        <div class="card" onclick="switchMainModule('laser', this)">
+        <div class="main-card" onclick="switchMainModule('laser', this)">
             <h3>Lasercutter (xTool S1)</h3>
             <small>Tinkercad &amp; Gravur / Schnitt</small>
         </div>
-        <div class="card" onclick="switchMainModule('makey', this)">
+        <div class="main-card" onclick="switchMainModule('makey', this)">
             <h3>Makey Makey</h3>
             <small>Stromkreise bauen</small>
         </div>
+    </div>
+
+    <!-- DASHBOARD 2: LERNEINHEITEN (NUR FÜR MICRO:BIT AKTIV) -->
+    <div id="sub-dashboard-python" class="sub-dashboard">
+        <div class="sub-card active" onclick="switchMicrobitLesson('lesson1', this)">1. Grundlagen</div>
+        <div class="sub-card" onclick="switchMicrobitLesson('lesson2', this)">2. Schrittzähler</div>
+        <div class="sub-card" onclick="switchMicrobitLesson('lesson3', this)">3. Türsensor</div>
+        <div class="sub-card" onclick="switchMicrobitLesson('lesson4', this)">4. Thermometer</div>
+        <div class="sub-card" onclick="switchMicrobitLesson('lesson5', this)">5. Musik-Synth</div>
+        <div class="sub-card" onclick="switchMicrobitLesson('lesson6', this)">6. Challenge</div>
     </div>
 
     <div class="module-container">
         
         <!-- MODUL 1: MICRO:BIT -->
         <div id="module-python">
-            
-            <div class="sub-nav">
-                <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1', this)">1. Grundlagen</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson2', this)">2. Schrittzähler</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson3', this)">3. Türsensor</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson4', this)">4. Thermometer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson5', this)">5. Musik-Synthesizer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson6', this)">6. Erfinder-Challenge</button>
-            </div>
-
             <div class="grid-2col">
                 <!-- LINKER BEREICH: LERNINHALTE -->
                 <div id="microbit-content">
@@ -737,15 +739,22 @@ while True:
 
     <script>
         function switchMainModule(mod, element) {
-            document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.main-card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
 
             element.classList.add('active');
             document.getElementById('module-' + mod).classList.remove('hidden');
+
+            const subDash = document.getElementById('sub-dashboard-python');
+            if (mod === 'python') {
+                subDash.classList.remove('hidden');
+            } else {
+                subDash.classList.add('hidden');
+            }
         }
 
         function switchMicrobitLesson(lessonId, element) {
-            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.sub-card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
 
             const lessons = ['lesson1', 'lesson2', 'lesson3', 'lesson4', 'lesson5', 'lesson6'];
