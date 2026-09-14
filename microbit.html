@@ -386,16 +386,16 @@
 from microbit import *
 
 while True:
-    <span class="code-comment"># Tipp: Welches eingebaute Bild soll das Display anzeigen?</span>
+    <span class="code-comment"># Zeigt das gewählte Bild auf den 5x5 LEDs an</span>
     display.show(Image.<span class="code-todo">???</span>)
     
-    <span class="code-comment"># Pausiert das Programm für eine bestimmte Zeit in Millisekunden</span>
+    <span class="code-comment"># Hält das Programm für angegebene Millisekunden an (Tipp: 1000ms = 1 Sekunde)</span>
     <span class="code-todo">???</span>(500)
     
-    <span class="code-comment"># Schaltet alle LEDs aus, damit das Herz kurz verschwindet</span>
+    <span class="code-comment"># Löscht alle aktiven LEDs, damit der Bildschirm dunkel wird</span>
     display.clear()
     
-    <span class="code-comment"># Tipp: Nutze nochmals die Warte-Funktion mit einem Wert</span>
+    <span class="code-comment"># Tipp: Nutze nochmals die Warte-Funktion mit einem Wert für die Pausenlänge</span>
     <span class="code-todo">???</span>(<span class="code-todo">???</span>)</div>
 
 <details class="mb-solution-toggle">
@@ -413,6 +413,10 @@ while True:
                             <div class="challenge-box">
                                 <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
                             </div>
+
+                            <div class="challenge-box" style="background:#e0f2fe; border-left-color:#0284c7; margin-top:8px;">
+                                <b>⚡ Test-Challenge im Bauplan:</b> Ändere den Wert bei <code>sleep()</code> testweise auf <code>50</code> und danach auf <code>2000</code>. Beobachte, wie sich das Blinken des Herzen drastisch verändert!
+                            </div>
                         </div>
                     </div>
 
@@ -428,25 +432,29 @@ while True:
                             <h4>Bauplan: Schrittzähler programmieren</h4>
                             <p><small>Schaffst du es, die Variable richtig einzusetzen und zu erhöhen?</small></p>
 
-                            <div class="code-puzzle"><span class="code-comment"># Importiert alle micro:bit Befehle</span>
+                            <div class="code-puzzle"><span class="code-comment"># Importiert alle micro:bit Befehle aus der Bibliothek</span>
 from microbit import *
 
-<span class="code-comment"># Erstellt eine Merk-Box für die Schritte und startet bei 0</span>
+<span class="code-comment"># Erstellt eine Merk-Box für die Schritte und startet den Zähler bei 0</span>
 schritte = 0
 
 while True:
-    <span class="code-comment"># Tipp: Zeige den aktuellen Inhalt deiner Schritt-Variable auf dem Display</span>
+    <span class="code-comment"># Gibt den aktuellen Zahlenwert deiner Schritt-Variable auf dem Display aus</span>
     display.show(<span class="code-todo">???</span>)
     
-    <span class="code-comment"># Prüft, ob der micro:bit geschüttelt wurde</span>
+    <span class="code-comment"># Prüft mit einer Abfrage, ob der micro:bit geschüttelt wurde</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
-        <span class="code-comment"># Tipp: Wie muss der Zähler erhöht werden? (schritte = ...)</span>
+        <span class="code-comment"># Tipp: Wie muss der Zähler um eins erhöht werden? (schritte = ...)</span>
         schritte = <span class="code-todo">???</span>
         sleep(200)
         
-    <span class="code-comment"># Prüft, ob Knopf A gedrückt wird, um den Zähler zurückzusetzen</span>
+    <span class="code-comment"># Prüft, ob Knopf A gedrückt wird, um den Zähler auf Null zurückzusetzen</span>
     if button_a.is_pressed():
         schritte = <span class="code-todo">???</span></div>
+
+                            <div class="challenge-box" style="background:#e0f2fe; border-left-color:#0284c7; margin-top:8px;">
+                                <b>⚡ Test-Challenge im Bauplan:</b> Ersetze das Schütteln (<code>'shake'</code>) testweise durch das Wort <code>'face up'</code> (nach oben gelegt). Was passiert, wenn du den micro:bit umdrehst?
+                            </div>
 
                             <div class="craft-box">
                                 <b>Real-Life Bastelauftrag: Baue ein Trageband!</b>
@@ -472,23 +480,27 @@ while True:
                             <h4>Bauplan: Tür-Alarmauslöser</h4>
                             <p><small>Ergänze den Code. Beachte: Ein Wert unter 30000 bedeutet, die Tür ist offen!</small></p>
 
-                            <div class="code-puzzle"><span class="code-comment"># Grundbefehle laden</span>
+                            <div class="code-puzzle"><span class="code-comment"># Lädt alle Grundbefehle für den Mikrocontroller</span>
 from microbit import *
 
 while True:
-    <span class="code-comment"># Misst die aktuelle Stärke des Magnetfelds im Raum</span>
+    <span class="code-comment"># Misst fortlaufend die aktuelle Stärke des Magnetfelds im Raum</span>
     magnet = compass.get_field_strength()
     
-    <span class="code-comment"># Wenn die Tür zu ist (Magnetfeld ist stark)</span>
+    <span class="code-comment"># Wenn die Tür geschlossen ist (Magnetfeldstärke ist hoch)</span>
     if magnet > 30000:
         display.show(Image.YES)
     
-    <span class="code-comment"># Tipp: Was passiert im "Sonst"-Fall, wenn die Tür geöffnet wird?</span>
+    <span class="code-comment"># Tipp: Welcher Befehl leitet den "Sonst"-Fall ein, wenn die Tür geöffnet wird?</span>
     <span class="code-todo">???</span>:
         display.show(<span class="code-todo">???</span>)
         sleep(100)
         display.clear()
         sleep(100)</div>
+
+                            <div class="challenge-box" style="background:#e0f2fe; border-left-color:#0284c7; margin-top:8px;">
+                                <b>⚡ Test-Challenge im Bauplan:</b> Ersetze <code>Image.YES</code> durch <code>Image.SKULL</code> und umgekehrt. Wie verändert sich das optische Verhalten bei geöffneter beziehungsweise geschlossener Tür?
+                            </div>
                         </div>
 
                         <div class="craft-box">
@@ -506,22 +518,26 @@ while True:
                         <h3>4. Projekt: Das digitale Thermometer</h3>
                         <div class="task-card">
                             <h4>Bauplan: Wetterstation</h4>
-                            <div class="code-puzzle"><span class="code-comment"># Grundbefehle laden</span>
+                            <div class="code-puzzle"><span class="code-comment"># Lädt alle Grundbefehle für den micro:bit</span>
 from microbit import *
 
 while True:
-    <span class="code-comment"># Tipp: Welcher Befehl misst die aktuelle Temperatur?</span>
+    <span class="code-comment"># Tipp: Welcher integrierte Befehl misst die aktuelle Temperatur des Chips?</span>
     grad = <span class="code-todo">???</span>
     
-    <span class="code-comment"># Tipp: Wann soll die Temperatur auf dem Display durchrollen? (z.B. bei Knopfdruck)</span>
+    <span class="code-comment"># Tipp: Wann soll die Temperatur als Laufschrift auf dem Display erscheinen?</span>
     if <span class="code-todo">???</span>:
         display.scroll(grad)
         
-    <span class="code-comment"># Wenn es kälter als 20 Grad ist, zeige ein trauriges Gesicht</span>
+    <span class="code-comment"># Wenn es kälter als 20 Grad ist, zeigt der micro:bit ein trauriges Gesicht</span>
     if grad < 20:
         display.show(Image.SAD)
     else:
         display.show(Image.HAPPY)</div>
+
+                            <div class="challenge-box" style="background:#e0f2fe; border-left-color:#0284c7; margin-top:8px;">
+                                <b>⚡ Test-Challenge im Bauplan:</b> Ändere den Schwellenwert von <code>20</code> testweise auf <code>35</code>. Was passiert, wenn du den micro:bit mit deinen Händen anwärmst?
+                            </div>
                         </div>
 
                         <div class="craft-box">
@@ -539,25 +555,29 @@ while True:
                         <h3>5. Projekt: Musik-Synthesizer</h3>
                         <div class="task-card">
                             <h4>Bauplan: Luft-Gitarre</h4>
-                            <div class="code-puzzle"><span class="code-comment"># micro:bit und Musik-Modul laden</span>
+                            <div class="code-puzzle"><span class="code-comment"># Lädt die Grundbefehle und das erweiterte Musik-Modul</span>
 from microbit import *
 import music
 
 while True:
-    <span class="code-comment"># Wenn Knopf A gedrückt wird, spiele eine voreingestellte Melodie ab</span>
+    <span class="code-comment"># Wenn Knopf A gedrückt wird, wird eine voreingestellte Melodie abgespielt</span>
     if button_a.is_pressed():
         display.show(Image.MUSIC_NOTE)
         music.play(<span class="code-todo">???</span>)
         
-    <span class="code-comment"># Tipp: Welche Geste erzeugt einen Ton, wenn man die "Gitarre" bewegt?</span>
+    <span class="code-comment"># Tipp: Welche Bewegungs-Geste erzeugt einen Ton, wenn man das Board neigt?</span>
     if accelerometer.was_gesture('<span class="code-todo">???</span>'):
         display.show(Image.PACMAN)
         music.pitch(440, 200)
         
-    <span class="code-comment"># Wenn Knopf B gedrückt wird, lösche das Display und stoppe die Musik</span>
+    <span class="code-comment"># Wenn Knopf B gedrückt wird, löscht es den Bildschirm und stoppt die Töne</span>
     if button_b.is_pressed():
         display.clear()
         <span class="code-todo">???</span></div>
+
+                            <div class="challenge-box" style="background:#e0f2fe; border-left-color:#0284c7; margin-top:8px;">
+                                <b>⚡ Test-Challenge im Bauplan:</b> Ändere die Frequenz <code>440</code> im Befehl <code>music.pitch(440, 200)</code> testweise in einen tiefen Wert wie <code>100</code> oder einen hohen wie <code>2000</code>. Wie klingt deine Luft-Gitarre nun?
+                            </div>
                         </div>
                         
                         <div class="craft-box">
@@ -575,15 +595,15 @@ while True:
                         <h3>6. Die Erfinder-Challenge: Tresor-Alarm</h3>
                         <div class="task-card">
                             <h4>Auftrag: Sichere das Klassenzimmer</h4>
-                            <div class="code-puzzle"><span class="code-comment"># Grundbefehle und Musik-Modul laden</span>
+                            <div class="code-puzzle"><span class="code-comment"># Lädt die Grundbefehle sowie das Musik-Modul für den Alarmton</span>
 from microbit import *
 import music
 
-<span class="code-comment"># Merkt sich, ob der Alarm scharf geschaltet ist (Anfangszustand: Aus)</span>
+<span class="code-comment"># Speichert in einer Variable, ob der Alarmanfang aktiv ist (Start: Aus)</span>
 alarm_aktiv = False
 
 while True:
-    <span class="code-comment"># Schüttelt man den micro:bit, wird der Alarm scharf geschaltet</span>
+    <span class="code-comment"># Schüttelt man den micro:bit, schaltet sich der Sicherheitsalarm scharf</span>
     if accelerometer.was_gesture('shake'):
         alarm_aktiv = <span class="code-todo">???</span>
         
@@ -602,6 +622,10 @@ while True:
         alarm_aktiv = False
         display.show(Image.HAPPY)
         sleep(1000)</div>
+
+                            <div class="challenge-box" style="background:#e0f2fe; border-left-color:#0284c7; margin-top:8px;">
+                                <b>⚡ Test-Challenge im Bauplan:</b> Erhöhe die Tonhöhe im Warnton von <code>800</code> auf <code>2500</code>. Wie nervtötend klingt dein Alarm jetzt?
+                            </div>
                         </div>
                     </div>
 
