@@ -86,7 +86,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
         .grid-2col {
             display: grid;
@@ -261,7 +261,7 @@
         <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
-    <!-- DASHBOARD NAVIGATION -->
+    <!-- DASHBOARD NAVIGATION (HAUPTMODULE) -->
     <div class="dashboard">
         <div class="card active" onclick="switchMainModule('python', this)">
             <h3>micro:bit Python</h3>
@@ -286,13 +286,14 @@
         <!-- MODUL 1: MICRO:BIT -->
         <div id="module-python">
             
+            <!-- SUB-NAVIGATION FÜR MICRO:BIT LERNEINHEITEN -->
             <div class="sub-nav">
-                <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1', this)">1. Grundlagen</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson2', this)">2. Schrittzähler</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson3', this)">3. Türsensor</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson4', this)">4. Thermometer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson5', this)">5. Musik-Synthesizer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson6', this)">6. Erfinder-Challenge</button>
+                <button class="sub-btn active" onclick="switchMicrobitLesson('mb-lesson1', this)">1. Grundlagen</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson2', this)">2. Schrittzähler</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson3', this)">3. Türsensor</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson4', this)">4. Thermometer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson5', this)">5. Musik-Synthesizer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('mb-lesson6', this)">6. Erfinder-Challenge</button>
             </div>
 
             <div class="grid-2col">
@@ -300,7 +301,7 @@
                 <div id="microbit-content">
                     
                     <!-- LERNEINHEIT 1: GRUNDLAGEN -->
-                    <div id="mb-lesson1">
+                    <div id="mb-lesson1" class="mb-lesson">
                         <h3>1. Was ist der micro:bit?</h3>
                         
                         <div class="intro-box">
@@ -346,7 +347,7 @@ while True:
                     </div>
 
                     <!-- LERNEINHEIT 2: SCHRITTZÄHLER -->
-                    <div id="mb-lesson2" class="hidden">
+                    <div id="mb-lesson2" class="mb-lesson hidden">
                         <h3>2. Projekt: Der Schrittzähler</h3>
                         
                         <div class="intro-box">
@@ -395,7 +396,7 @@ while True:
                     </div>
 
                     <!-- LERNEINHEIT 3: TÜRSENSOR -->
-                    <div id="mb-lesson3" class="hidden">
+                    <div id="mb-lesson3" class="mb-lesson hidden">
                         <h3>3. Projekt: Türsensor</h3>
                         
                         <div class="intro-box">
@@ -441,7 +442,7 @@ while True:
                     </div>
 
                     <!-- LERNEINHEIT 4: THERMOMETER -->
-                    <div id="mb-lesson4" class="hidden">
+                    <div id="mb-lesson4" class="mb-lesson hidden">
                         <h3>4. Projekt: Das digitale Thermometer</h3>
                         
                         <div class="intro-box">
@@ -487,7 +488,7 @@ while True:
                     </div>
 
                     <!-- LERNEINHEIT 5: MUSIK-SYNTHESIZER -->
-                    <div id="mb-lesson5" class="hidden">
+                    <div id="mb-lesson5" class="mb-lesson hidden">
                         <h3>5. Projekt: Der Musik-Synthesizer (Luft-Gitarre)</h3>
                         
                         <div class="intro-box">
@@ -535,7 +536,7 @@ while True:
                     </div>
 
                     <!-- LERNEINHEIT 6: ERFINDER-CHALLENGE -->
-                    <div id="mb-lesson6" class="hidden">
+                    <div id="mb-lesson6" class="mb-lesson hidden">
                         <h3>6. Die Erfinder-Challenge: Sichere den Schatz!</h3>
                         
                         <div class="intro-box">
@@ -674,40 +675,52 @@ while True:
         </div>
 
         <!-- WEITERE MODULE -->
-        <div id="module-tinkercad" class="hidden">
+        <div id="module-tinkercad" class="main-module hidden">
             <h2>Modul: 3D-Druck (Tinkercad)</h2>
-            <p>Inhalte folgen nach demselben Prinzip...</p>
+            <div class="intro-box">Willkommen im Bereich 3D-Druck! Hier lernst du das Konstruieren räumlicher Objekte.</div>
         </div>
-        <div id="module-laser" class="hidden">
-            <h2>Modul: Lasercutter</h2>
-            <p>Inhalte folgen nach demselben Prinzip...</p>
+        <div id="module-laser" class="main-module hidden">
+            <h2>Modul: Lasercutter (xTool S1)</h2>
+            <div class="intro-box">Willkommen beim Lasercutter! Hier erstellst du Gravuren und Vektorschnitte.</div>
         </div>
-        <div id="module-makey" class="hidden">
+        <div id="module-makey" class="main-module hidden">
             <h2>Modul: Makey Makey</h2>
-            <p>Inhalte folgen nach demselben Prinzip...</p>
+            <div class="intro-box">Willkommen beim Makey Makey! Verwandle Alltagsgegenstände in Touchpads.</div>
         </div>
 
     </div>
 
     <script>
+        // Hauptmodule umschalten
         function switchMainModule(mod, element) {
+            // Aktiven Dashboard-Button hervorheben
             document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
-
             element.classList.add('active');
+
+            // Alle Hauptmodule ausblenden
+            document.getElementById('module-python').classList.add('hidden');
+            document.getElementById('module-tinkercad').classList.add('hidden');
+            document.getElementById('module-laser').classList.add('hidden');
+            document.getElementById('module-makey').classList.add('hidden');
+
+            // Gewähltes Modul anzeigen
             document.getElementById('module-' + mod).classList.remove('hidden');
         }
 
+        // Micro:bit Lerneinheiten umschalten
         function switchMicrobitLesson(lessonId, element) {
-            document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
+            // Aktiven Sub-Button hervorheben
+            document.querySelectorAll('.sub-nav .sub-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
 
-            for (let i = 1; i <= 6; i++) {
-                document.getElementById('mb-lesson' + i).classList.add('hidden');
-            }
-            document.getElementById('mb-' + lessonId).classList.remove('hidden');
+            // Alle micro:bit Lerneinheiten ausblenden
+            document.querySelectorAll('.mb-lesson').forEach(lesson => lesson.classList.add('hidden'));
+
+            // Gewählte Lerneinheit einblenden
+            document.getElementById(lessonId).classList.remove('hidden');
         }
 
+        // Hardware-Anzeige
         function showHw(part) {
             const infoBox = document.getElementById('hw-info');
             if (part === 'led') {
