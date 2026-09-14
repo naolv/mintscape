@@ -831,17 +831,17 @@ while True:
         }
 
         function resetToOverview() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Falls du eine Funktion für den Zurück-Button brauchst, kannst du sie hier erweitern
         }
 
         function showHw(part) {
             const info = document.getElementById('hw-info');
             if (part === 'led') {
-                info.innerHTML = "<b>5x5 LED-Raster:</b> Die 25 roten Lämpchen auf der Vorderseite. Sie können Bilder, Zahlen und Animationen anzeigen.";
+                info.innerHTML = "<b>5x5 LEDs:</b> Zeigt Bilder, Animationen und Zahlen an und dient gleichzeitig als Lichtsensor!";
             } else if (part === 'btn') {
-                info.innerHTML = "<b>Tasten A & B:</b> Die zwei Knöpfe links und rechts auf der Vorderseite. Du kannst abfragen, ob sie gedrückt werden.";
+                info.innerHTML = "<b>Tasten A & B:</b> Zwei Knöpfe, die erkennen, ob sie gedrückt werden, um Aktionen auszulösen.";
             } else if (part === 'sens') {
-                info.innerHTML = "<b>Sensoren:</b> Auf der Rückseite befinden sich Kompass (Magnetfeld), Beschleunigungssensor (Schütteln) und Thermometer!";
+                info.innerHTML = "<b>Sensoren:</b> Beinhaltet den Beschleunigungssensor (für Schütteln/Neigen), einen Kompass/Magnetfeldsensor und einen Temperatursensor.";
             }
         }
     </script>
