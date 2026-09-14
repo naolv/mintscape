@@ -464,6 +464,7 @@ while True:
                     <div id="mb-lesson5" class="hidden">
                         <h3>5. Projekt: Musik-Synthesizer</h3>
                         <div class="task-card">
+                            <h4>Bauplan: Musik-Synthesizer</h4>
                             <div class="code-puzzle">from microbit import *
 import music
 
@@ -643,6 +644,9 @@ while True:
                 
                 <div class="intro-box">
                     <b>Die Mission:</b> Du konstruierst deinen eigenen Anfangsbuchstaben (z. B. 'T', 'E', 'H', 'F' oder 'L') als Legespiel. Bevor du es auf Tinkercad umsetzt, erstelle es zuerst auf Papier und teste aus, ob die Grösse der Puzzleteile sowie die Teile zum Zusammensetzen viele Möglichkeiten bietet.
+                    <br><br>
+                    <!-- BILD 1: Tangram auf Papier -->
+                    <img src="Bilder/Ltangram.jpg" alt="Tangram aus Papier skizzieren" style="max-width: 100%; width: 500px; height: auto; display: block; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <br><b>Goldene Regel:</b> Alle Balken und Linien des Buchstabens müssen <u>exakt gleich dick</u> konstruiert werden (z. B. durchgehend 15 mm breit), damit alle Teile später perfekt zusammenpassen und völlig neue Formen gelegt werden können!
                 </div>
 
@@ -655,6 +659,9 @@ while True:
                                 <li>Setze deinen Anfangsbuchstaben aus diesen gleich dicken Balken zusammen (Beispiel 'T': Ein Quader oben quer 15 x 60 mm, ein Quader senkrecht 15 x 45 mm).</li>
                                 <li>Gruppiere alle Quader deines Buchstabens zu einer Form.</li>
                             </ul>
+                            <br>
+                            <!-- BILD 2: Tangram in Tinkercad -->
+                            <img src="Bilder/LTinkercad.jpg" alt="Buchstaben Tangram in Tinkercad konstruieren" style="max-width: 100%; width: 500px; height: auto; display: block; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                         </li>
                         <li><b>In Tangram-Teile zerschneiden:</b>
                             <ul>
@@ -696,57 +703,54 @@ while True:
     <script>
         // Umschalten der Hauptmodule
         function switchMainModule(modId, element) {
-            // Dashboard-Karten Highlight umschalten
             document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
             element.classList.add('active');
 
-            // Alle Haupt-Module ausblenden
             document.getElementById('module-python').classList.add('hidden');
             document.getElementById('module-tinkercad').classList.add('hidden');
             document.getElementById('module-laser').classList.add('hidden');
             document.getElementById('module-makey').classList.add('hidden');
 
-            // Gewähltes Modul anzeigen
             document.getElementById('module-' + modId).classList.remove('hidden');
         }
 
-        // Umschalten der Sub-Lektionen bei micro:bit
-        function switchMicrobitLesson(lessonId, element) {
-            document.querySelectorAll('#module-python .sub-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-
-            document.getElementById('mb-lesson1').classList.add('hidden');
-            document.getElementById('mb-lesson2').classList.add('hidden');
-            document.getElementById('mb-lesson3').classList.add('hidden');
-            document.getElementById('mb-lesson4').classList.add('hidden');
-            document.getElementById('mb-lesson5').classList.add('hidden');
-            document.getElementById('mb-lesson6').classList.add('hidden');
-
+        // Umschalten der Sub-Lektionen im Microbit-Modul
+        function switchMicrobitLesson(lessonId, btn) {
+            const lessons = ['mb-lesson1', 'mb-lesson2', 'mb-lesson3', 'mb-lesson4', 'mb-lesson5', 'mb-lesson6'];
+            lessons.forEach(l => {
+                const el = document.getElementById(l);
+                if(el) el.classList.add('hidden');
+            });
             document.getElementById(lessonId).classList.remove('hidden');
+
+            const btns = btn.parentElement.querySelectorAll('.sub-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
 
-        // Umschalten der Sub-Lektionen beim Lasercutter
-        function switchLaserLesson(lessonId, element) {
-            document.querySelectorAll('#module-laser .sub-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-
-            document.getElementById('laser-lesson1').classList.add('hidden');
-            document.getElementById('laser-lesson2').classList.add('hidden');
-            document.getElementById('laser-lesson3').classList.add('hidden');
-            document.getElementById('laser-lesson4').classList.add('hidden');
-
+        // Umschalten der Sub-Lektionen im Laser-Modul
+        function switchLaserLesson(lessonId, btn) {
+            const lessons = ['laser-lesson1', 'laser-lesson2', 'laser-lesson3', 'laser-lesson4'];
+            lessons.forEach(l => {
+                const el = document.getElementById(l);
+                if(el) el.classList.add('hidden');
+            });
             document.getElementById(lessonId).classList.remove('hidden');
+
+            const btns = btn.parentElement.querySelectorAll('.sub-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         }
 
-        // Hardware-Detektiv für micro:bit
-        function showHw(part) {
+        // Interaktiver Hardware-Detektiv für den Micro:bit
+        function showHw(type) {
             const info = document.getElementById('hw-info');
-            if (part === 'led') {
-                info.innerHTML = "<b>5x5 LEDs:</b> Die 25 roten Lämpchen in der Mitte der Vorderseite. Sie können Bilder, Symbole oder Zahlen anzeigen.";
-            } else if (part === 'btn') {
-                info.innerHTML = "<b>Tasten A & B:</b> Links und rechts neben dem LED-Raster findest du zwei schwarze Knöpfe. Sie dienen als Eingabe für dein Programm.";
-            } else if (part === 'sens') {
-                info.innerHTML = "<b>Sensoren:</b> Der Bewegungssensor (Beschleunigungsmesser), Kompass-, Temperatur- und Lichtsensor befinden sich direkt auf der Platine.";
+            if(type === 'led') {
+                info.innerHTML = "<b>5x5 LED-Raster:</b> Das Display in der Mitte besteht aus 25 roten Lämpchen. Sie können einzelne Pixel zeichnen oder Bilder & Text anzeigen.";
+            } else if(type === 'btn') {
+                info.innerHTML = "<b>Tasten A & B:</b> Links und rechts neben den LEDs findest du zwei kleine Knöpfe. Damit kannst du Eingaben vom Benutzer verarbeiten!";
+            } else if(type === 'sens') {
+                info.innerHTML = "<b>Sensoren:</b> Der micro:bit hat einen Beschleunigungssensor (erkennt Schütteln & Neigung), ein Kompass-Modul und misst die Temperatur direkt am Prozessor!";
             }
         }
     </script>
