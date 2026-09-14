@@ -111,6 +111,11 @@
             border-left: 4px solid var(--primary-color);
         }
 
+        .mb-box-task {
+            background-color: #f1f3f5;
+            border-left: 4px solid #4c6ef5;
+        }
+
         .mb-box-craft {
             background-color: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -120,6 +125,7 @@
         .mb-box-cheatsheet {
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
+            margin-top: 1.5rem;
         }
 
         .mb-editor-container {
@@ -136,7 +142,7 @@
         }
 
         .mb-solution-toggle {
-            margin: 1rem 0 1.5rem 0;
+            margin-top: 1.5rem;
             background-color: #f8f9fa;
             border: 1px dashed #ced4da;
             border-radius: 8px;
@@ -201,11 +207,36 @@
                 <strong>Einleitung:</strong> Der micro:bit besitzt ein Raster aus 5x5 roten LED-Lämpchen. Wir möchten ein Bild anzeigen lassen und ein Herz zum Schlagen bringen.
             </div>
 
-            <h3>Programmier-Aufgabe</h3>
-            <p>Lies die Kommentare im Editor genau durch. Ersetze die Fragezeichen <code>???</code> durch die richtigen Befehle, damit das Herz blinkt!</p>
+            <div class="mb-box mb-box-task">
+                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
+                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
+                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
+                </p>
+                <strong>📝 Programmier-Aufgabe & Kommentare:</strong>
+                <ul>
+                    <li><strong>Schritt 1:</strong> Zeige das große Herz an mit <code>display.show(Image.HEART)</code></li>
+                    <li><strong>Schritt 2:</strong> Warte eine halbe Sekunde mit <code>sleep(500)</code></li>
+                    <li><strong>Schritt 3 (Aufgabe):</strong> Ersetze <code>???</code> durch den Befehl <code>display.clear()</code> um die LEDs auszusschalten.</li>
+                    <li><strong>Schritt 4 (Aufgabe):</strong> Ersetze <code>???</code> durch die Wartezeit <code>500</code> in den Klammern bei <code>sleep(???)</code>.</li>
+                </ul>
+            </div>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Schritt%201%3A%20Zeige%20das%20gro%C3%9Fe%20Herz%20an%0A%20%20%20%20display.show(Image.HEART)%0A%20%20%20%20%0A%20%20%20%20%23%20Schritt%202%3A%20Warte%20500%20Millisekunden%20(eine%20halbe%20Sekunde)%0A%20%20%20%20sleep(500)%0A%20%20%20%20%0A%20%20%20%20%23%20Schritt%203%3A%20L%C3%B6sche%20das%20Display%20(schalte%20alle%20LEDs%20aus)%0A%20%20%20%20%23%20AUFGABE%3A%20Ersetze%20???%20durch%20den%20Befehl%20display.clear()%0A%20%20%20%20???%0A%20%20%20%20%0A%20%20%20%20%23%20Schritt%204%3A%20Warte%20nochmal%20500%20Millisekunden%0A%20%20%20%20%23%20AUFGABE%3A%20Ersetze%20???%20durch%20die%20richtige%20Wartezeit%20in%20Klammern%0A%20%20%20%20sleep(???)"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Schritt%201%3A%20Zeige%20Herz%0A%20%20%20%20display.show(Image.HEART)%0A%20%20%20%20%23%20Schritt%202%3A%20Warte%20500ms%0A%20%20%20%20sleep(500)%0A%20%20%20%20%23%20Schritt%203%3A%20Display%20loeschen%0A%20%20%20%20%3F%3F%3F%0A%20%20%20%20%23%20Schritt%204%3A%20Warte%20nochmal%20500ms%0A%20%20%20%20sleep(%3F%3F%3F)"></iframe>
+            </div>
+
+            <div class="mb-box mb-box-craft">
+                <strong>✂️ Bastelauftrag: Leucht-Badge</strong>
+                <p>Wenn dein Herz blinkt: Bastle aus Karton einen Rahmen um den micro:bit, sodass nur das LED-Herz als Namensschild hervorsteht.</p>
+            </div>
+
+            <div class="mb-box mb-box-cheatsheet">
+                <strong>Befehlssammlung (Spickzettel):</strong>
+                <ul>
+                    <li><code>display.show(Image.HEART)</code> – Zeigt ein Herz-Symbol an</li>
+                    <li><code>sleep(500)</code> – Wartet 500 Millisekunden (0.5 Sekunden)</li>
+                    <li><code>display.clear()</code> – Schaltet alle LEDs aus</li>
+                </ul>
             </div>
 
             <details class="mb-solution-toggle">
@@ -220,15 +251,6 @@ while True:
     sleep(500)</code></pre>
                 </div>
             </details>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>display.show(Image.HEART)</code> – Zeigt ein Herz-Symbol an</li>
-                    <li><code>sleep(500)</code> – Wartet 500 Millisekunden (0.5 Sekunden)</li>
-                    <li><code>display.clear()</code> – Schaltet alle LEDs aus</li>
-                </ul>
-            </div>
         </div>
 
         <!-- LERNEINHEIT 2 -->
@@ -239,11 +261,35 @@ while True:
                 <strong>Einleitung:</strong> Der micro:bit kann Bewegung und Erschütterungen erkennen. Wir nutzen eine Variable, um deine Schritte zu zählen.
             </div>
 
-            <h3>Programmier-Aufgabe</h3>
-            <p>Lies die Anleitungen in den Kommentaren im Code. Ergänze die fehlenden Teile bei der Variablenberechnung und der Pause.</p>
+            <div class="mb-box mb-box-task">
+                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
+                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
+                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
+                </p>
+                <strong>📝 Programmier-Aufgabe & Kommentare:</strong>
+                <ul>
+                    <li><strong>Startwert:</strong> Wir starten bei 0 Schritten (<code>schritte = 0</code>).</li>
+                    <li><strong>Anzeige:</strong> Im Loop wird der Zählerstand mit <code>display.show(schritte)</code> angezeigt.</li>
+                    <li><strong>Aufgabe 1:</strong> Wenn geschüttelt wird, erhöhe den Wert um 1. Ersetze <code>???</code> durch <code>schritte + 1</code>.</li>
+                    <li><strong>Aufgabe 2:</strong> Warte kurz, damit nicht doppelt gezählt wird. Ersetze <code>???</code> durch <code>sleep(200)</code>.</li>
+                </ul>
+            </div>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0A%23%20Startwert%3A%20Am%20Anfang%20haben%20wir%200%20Schritte%0Aschritte%20%3D%200%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Zeige%20den%20aktuellen%20Stand%20der%20Schritte%20an%0A%20%20%20%20display.show(schritte)%0A%20%20%20%20%0A%20%20%20%20%23%20Pr%C3%BCfe%2C%20ob%20der%20micro%3Abit%20gesch%C3%BCttelt%20wurde%0A%20%20%20%20if%20accelerometer.was_gesture('shake')%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%201%3A%20Erh%C3%B6he%20die%20Variable%20schritte%20um%201%0A%20%20%20%20%20%20%20%20%23%20Ersetze%20???%20durch%3A%20schritte%20%2B%201%0A%20%20%20%20%20%20%20%20schritte%20%3D%20???%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Warte%20200ms%2C%20damit%20nicht%20doppelt%20gez%C3%A4hlt%20wird%0A%20%20%20%20%20%20%20%20%23%20Ersetze%20???%20durch%20den%20Befehl%20sleep(200)%0A%20%20%20%20%20%20%20%20???"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Aschritte%20%3D%200%0A%0Awhile%20True%3A%0A%20%20%20%20display.show(schritte)%0A%20%20%20%20if%20accelerometer.was_gesture('shake')%3A%0A%20%20%20%20%20%20%20%20%23%20Aufgabe%201%3A%20Zaehler%20erhoehen%0A%20%20%20%20%20%20%20%20schritte%20%3D%20%3F%3F%3F%0A%20%20%20%20%20%20%20%20%23%20Aufgabe%202%3A%20200ms%20warten%0A%20%20%20%20%20%20%20%20%3F%3F%3F"></iframe>
+            </div>
+
+            <div class="mb-box mb-box-craft">
+                <strong>✂️ Bastelauftrag: Trageband für den Schrittzähler</strong>
+                <p>Sobald dein Programm funktioniert, bastle aus Karton, Filz oder einem elastischen Band eine Befestigung, damit du den micro:bit an deinem Bein oder Arm tragen kannst!</p>
+            </div>
+
+            <div class="mb-box mb-box-cheatsheet">
+                <strong>Befehlssammlung (Spickzettel):</strong>
+                <ul>
+                    <li><code>schritte = schritte + 1</code> – Erhöht den Wert der Variable um 1</li>
+                    <li><code>accelerometer.was_gesture('shake')</code> – Prüft, ob geschüttelt wurde</li>
+                </ul>
             </div>
 
             <details class="mb-solution-toggle">
@@ -261,19 +307,6 @@ while True:
         sleep(200)</code></pre>
                 </div>
             </details>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Trageband für den Schrittzähler</strong>
-                <p>Sobald dein Programm funktioniert, bastle aus Karton, Filz oder einem elastischen Band eine Befestigung, damit du den micro:bit an deinem Bein oder Arm tragen kannst!</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>schritte = schritte + 1</code> – Erhöht den Wert der Variable um 1</li>
-                    <li><code>accelerometer.was_gesture('shake')</code> – Prüft, ob geschüttelt wurde</li>
-                </ul>
-            </div>
         </div>
 
         <!-- LERNEINHEIT 3 -->
@@ -284,11 +317,35 @@ while True:
                 <strong>Einleitung:</strong> Der eingebaute Kompass kann Magnetfelder messen. Ein Magnet an der Tür schützt das Zimmer vor Eindringlingen!
             </div>
 
-            <h3>Programmier-Aufgabe</h3>
-            <p>Lies die Kommentare. Trage das richtige Vergleichszeichen (kleiner als <code>&lt;</code>) und die Anzeige-Symbole ein.</p>
+            <div class="mb-box mb-box-task">
+                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
+                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
+                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
+                </p>
+                <strong>📝 Programmier-Aufgabe & Kommentare:</strong>
+                <ul>
+                    <li><strong>Aufgabe 1:</strong> Wenn die Magnetstärke KLEINER als 30000 ist, wurde die Tür geöffnet. Ersetze <code>???</code> durch das Zeichen <code>&lt;</code>.</li>
+                    <li><strong>Aufgabe 2:</strong> Bei Alarm zeige ein Kreuz. Ersetze <code>???</code> durch <code>NO</code>.</li>
+                    <li><strong>Aufgabe 3:</strong> Wenn alles sicher ist, zeige ein Häkchen. Ersetze <code>???</code> durch <code>YES</code>.</li>
+                </ul>
+            </div>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Misst%20die%20St%C3%A4rke%20des%20Magnetfelds%0A%20%20%20%20staerke%20%3D%20compass.get_field_strength()%0A%20%20%20%20%0A%20%20%20%20%23%20AUFGABE%201%3A%20Wenn%20die%20St%C3%A4rke%20KLEINER%20als%2030000%20ist%20(Magnet%20ist%20weg)%0A%20%20%20%20%23%20Ersetze%20???%20durch%20das%20Zeichen%20%3C%0A%20%20%20%20if%20staerke%20???%2030000%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Alarm%21%20Zeige%20das%20Kreuz%20(Image.NO)%0A%20%20%20%20%20%20%20%20display.show(Image.???)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%203%3A%20Alles%20sicher%21%20Zeige%20das%20H%C3%A4kchen%20(Image.YES)%0A%20%20%20%20%20%20%20%20display.show(Image.???)"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20staerke%20%3D%20compass.get_field_strength()%0A%20%20%20%20if%20staerke%20%3F%3F%3F%2030000%3A%0A%20%20%20%20%20%20%20%20display.show(Image.%3F%3F%3F)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20display.show(Image.%3F%3F%3F)"></iframe>
+            </div>
+
+            <div class="mb-box mb-box-craft">
+                <strong>✂️ Bastelauftrag: Tür-Befestigung</strong>
+                <p>Wenn der Code klappt: Klebe einen kleinen Magneten an den Türrahmen und befestige den micro:bit direkt daneben an der Tür.</p>
+            </div>
+
+            <div class="mb-box mb-box-cheatsheet">
+                <strong>Befehlssammlung (Spickzettel):</strong>
+                <ul>
+                    <li><code>compass.get_field_strength()</code> – Misst die Stärke des Magnetfelds</li>
+                    <li><code>Image.NO</code> – Zeigt ein großes X</li>
+                    <li><code>Image.YES</code> – Zeigt ein Häkchen</li>
+                </ul>
             </div>
 
             <details class="mb-solution-toggle">
@@ -305,20 +362,6 @@ while True:
         display.show(Image.YES)</code></pre>
                 </div>
             </details>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Tür-Befestigung</strong>
-                <p>Wenn der Code klappt: Klebe einen kleinen Magneten an den Türrahmen und befestige den micro:bit direkt daneben an der Tür.</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>compass.get_field_strength()</code> – Misst die Stärke des Magnetfelds</li>
-                    <li><code>Image.NO</code> – Zeigt ein großes X</li>
-                    <li><code>Image.YES</code> – Zeigt ein Häkchen</li>
-                </ul>
-            </div>
         </div>
 
         <!-- LERNEINHEIT 4 -->
@@ -329,11 +372,34 @@ while True:
                 <strong>Einleitung:</strong> Der micro:bit misst die Umgebungstemperatur. Damit überwachen wir das Klima für Klassenzimmer-Pflanzen.
             </div>
 
-            <h3>Programmier-Aufgabe</h3>
-            <p>Schau dir die Bedingungen in den Kommentaren an und fülle die Lücken aus.</p>
+            <div class="mb-box mb-box-task">
+                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
+                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
+                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
+                </p>
+                <strong>📝 Programmier-Aufgabe & Kommentare:</strong>
+                <ul>
+                    <li><strong>Fall 1 (Zu kalt):</strong> Unter 18 Grad wird ein trauriges Gesicht gezeigt (`Image.SAD`).</li>
+                    <li><strong>Aufgabe 1 (Zu heiss):</strong> Wenn die Temperatur größer als 28 Grad ist, soll ein erstauntes Gesicht gezeigt werden. Ersetze <code>???</code> bei `elif` durch <code>temp &gt; 28</code>.</li>
+                    <li><strong>Aufgabe 2 (Perfekt):</strong> In allen anderen Fällen zeige ein fröhliches Gesicht. Ersetze <code>???</code> durch <code>HAPPY</code>.</li>
+                </ul>
+            </div>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20temp%20%3D%20temperature()%0A%20%20%20%20%0A%20%20%20%20%23%20Fall%201%3A%20Zu%20kalt%20(unter%2018%20Grad)%0A%20%20%20%20if%20temp%20%3C%2018%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SAD)%0A%20%20%20%20%0A%20%20%20%20%23%20AUFGABE%201%3A%20Fall%202%3A%20Zu%20heiss%20(temp%20gr%C3%B6%C3%9Fer%20als%2028)%0A%20%20%20%20%23%20Ersetze%20???%20durch%3A%20temp%20%3E%2028%0A%20%20%20%20elif%20???%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SURPRISED)%0A%20%20%20%20%0A%20%20%20%20%23%20Fall%203%3A%20Temperatur%20ist%20perfekt%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%202%3A%20Zeige%20ein%20fr%C3%B6hliches%20Gesicht%20(Image.HAPPY)%0A%20%20%20%20%20%20%20%20display.show(Image.???)"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20temp%20%3D%20temperature()%0A%20%20%20%20if%20temp%20%3C%2018%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SAD)%0A%20%20%20%20elif%20%3F%3F%3F%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SURPRISED)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20display.show(Image.%3F%3F%3F)"></iframe>
+            </div>
+
+            <div class="mb-box mb-box-craft">
+                <strong>✂️ Bastelauftrag: Pflanzen-Stecker</strong>
+                <p>Wenn das Programm klappt: Bastle eine Halterung aus einem Holzspiess und Karton, um den micro:bit in den Blumentopf zu stecken.</p>
+            </div>
+
+            <div class="mb-box mb-box-cheatsheet">
+                <strong>Befehlssammlung (Spickzettel):</strong>
+                <ul>
+                    <li><code>temperature()</code> – Gibt die Temperatur in Grad Celsius zurück</li>
+                    <li><code>elif</code> – Ermöglicht das Prüfen einer weiteren Bedingung</li>
+                </ul>
             </div>
 
             <details class="mb-solution-toggle">
@@ -352,19 +418,6 @@ while True:
         display.show(Image.HAPPY)</code></pre>
                 </div>
             </details>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Pflanzen-Stecker</strong>
-                <p>Wenn das Programm klappt: Bastle eine Halterung aus einem Holzspiess und Karton, um den micro:bit in den Blumentopf zu stecken.</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>temperature()</code> – Gibt die Temperatur in Grad Celsius zurück</li>
-                    <li><code>elif</code> – Ermöglicht das Prüfen einer weiteren Bedingung</li>
-                </ul>
-            </div>
         </div>
 
         <!-- LERNEINHEIT 5 -->
@@ -375,11 +428,33 @@ while True:
                 <strong>Einleitung:</strong> Über den Lautsprecher kann der micro:bit Töne abspielen. Wir programmieren eigene Tasten-Töne!
             </div>
 
-            <h3>Programmier-Aufgabe</h3>
-            <p>Ergänze die Tonfrequenz für Taste A und baue die Abfrage für Taste B ein.</p>
+            <div class="mb-box mb-box-task">
+                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
+                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
+                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
+                </p>
+                <strong>📝 Programmier-Aufgabe & Kommentare:</strong>
+                <ul>
+                    <li><strong>Aufgabe 1 (Taste A):</strong> Wenn Taste A gedrückt ist, spiele einen Ton mit 440 Hz für 200 ms. Ersetze <code>???</code> durch <code>440</code>.</li>
+                    <li><strong>Aufgabe 2 (Taste B):</strong> Wenn Taste B gedrückt ist (`button_b.is_pressed()`), spiele einen Ton mit 880 Hz. Ergänze die fehlenden Befehle im Editor.</li>
+                </ul>
+            </div>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Taste%20A%3A%20Spiele%20einen%20ton%20mit%20440%20Hz%20f%C3%BCr%20200%20ms%0A%20%20%20%20if%20button_a.is_pressed()%3A%0A%20%20%20%20%20%20%20%20%23%20AUFGABE%201%3A%20Ersetze%20???%20durch%20440%0A%20%20%20%20%20%20%20%20music.pitch(???%2C%20200)%0A%20%20%20%20%0A%20%20%20%20%23%20AUFGABE%202%3A%20Taste%20B%3A%20Pr%C3%BCfe%20button_b.is_pressed()%20und%20spiele%20Ton%20880%20Hz%0A%20%20%20%20elif%20button_b.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.pitch(880%2C%20200)"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20if%20button_a.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.pitch(%3F%3F%3F%2C%20200)%0A%20%20%20%20elif%20button_b.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.pitch(880%2C%20200)"></iframe>
+            </div>
+
+            <div class="mb-box mb-box-craft">
+                <strong>✂️ Bastelauftrag: Die micro:bit Gitarre</strong>
+                <p>Schneide aus Karton eine Gitarrenform aus und befestige den micro:bit am Instrumentenhals!</p>
+            </div>
+
+            <div class="mb-box mb-box-cheatsheet">
+                <strong>Befehlssammlung (Spickzettel):</strong>
+                <ul>
+                    <li><code>music.pitch(440, 200)</code> – Spielt einen Ton mit 440 Hz für 200ms</li>
+                    <li><code>button_a.is_pressed()</code> – Prüft, ob Taste A gedrückt ist</li>
+                </ul>
             </div>
 
             <details class="mb-solution-toggle">
@@ -395,19 +470,6 @@ while True:
         music.pitch(880, 200)</code></pre>
                 </div>
             </details>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Die micro:bit Gitarre</strong>
-                <p>Schneide aus Karton eine Gitarrenform aus und befestige den micro:bit am Instrumentenhals!</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>music.pitch(440, 200)</code> – Spielt einen Ton mit 440 Hz für 200ms</li>
-                    <li><code>button_a.is_pressed()</code> – Prüft, ob Taste A gedrückt ist</li>
-                </ul>
-            </div>
         </div>
 
         <!-- LERNEINHEIT 6 -->
@@ -418,11 +480,33 @@ while True:
                 <strong>Einleitung:</strong> Kombiniere Lichtsensor und Bewegungssensor zu einem Sicherheitssystem für eine Schatztruhe!
             </div>
 
-            <h3>Programmier-Aufgabe</h3>
-            <p>Vervollständige die Oder-Bedingung (`or`), damit der Alarm bei Licht ODER beim Schütteln losgeht.</p>
+            <div class="mb-box mb-box-task">
+                <strong>⚙️ Wichtiger Hinweis für WebTigerPython:</strong>
+                <p style="margin: 0.3rem 0 0.8rem 0; color: #d90429; font-weight: bold;">
+                    ⚠️ Achte darauf, im Editor oben rechts unter "Gerät" den <u>micro:bit</u> auszuwählen!
+                </p>
+                <strong>📝 Programmier-Aufgabe & Kommentare:</strong>
+                <ul>
+                    <li><strong>Sensor-Abfrage:</strong> Die Helligkeit wird in einer Variable gespeichert (<code>licht = display.read_light_level()</code>).</li>
+                    <li><strong>Aufgabe (Oder-Bedingung):</strong> Der Alarm soll auslösen, wenn Licht &gt; 50 IST ODER der Sensor geschüttelt wird. Ersetze <code>???</code> durch <code>accelerometer.was_gesture('shake')</code>.</li>
+                </ul>
+            </div>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20licht%20%3D%20display.read_light_level()%0A%20%20%20%20%0A%20%20%20%20%23%20Alarm%2C%20wenn%20Licht%20%3E%2050%20ODER%20gesch%C3%BCttelt%20wird%0A%20%20%20%20%23%20AUFGABE%3A%20Ersetze%20???%20durch%20accelerometer.was_gesture('shake')%0A%20%20%20%20if%20licht%20%3E%2050%20or%20???%3A%0A%20%20%20%20%20%20%20%20display.show(Image.NO)%0A%20%20%20%20%20%20%20%20music.pitch(1000%2C%20500)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20display.show(Image.YES)%0A%20%20%20%20%20%20%20%20display.clear()"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20licht%20%3D%20display.read_light_level()%0A%20%20%20%20if%20licht%20%3E%2050%20or%20%3F%3F%3F%3A%0A%20%20%20%20%20%20%20%20display.show(Image.NO)%0A%20%20%20%20%20%20%20%20music.pitch(1000%2C%20500)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20display.show(Image.YES)%0A%20%20%20%20%20%20%20%20display.clear()"></iframe>
+            </div>
+
+            <div class="mb-box mb-box-craft">
+                <strong>✂️ Bastelauftrag: Die magische Schatztruhe</strong>
+                <p>Verstecke den micro:bit in einer Schachtel. Sobald der Deckel geöffnet wird oder die Kiste bewegt wird, schlägt er Alarm.</p>
+            </div>
+
+            <div class="mb-box mb-box-cheatsheet">
+                <strong>Befehlssammlung (Spickzettel):</strong>
+                <ul>
+                    <li><code>display.read_light_level()</code> – Misst die Helligkeit (0 bis 255)</li>
+                    <li><code>or</code> – Verknüpft zwei Bedingungen</li>
+                </ul>
             </div>
 
             <details class="mb-solution-toggle">
@@ -442,19 +526,6 @@ while True:
         display.clear()</code></pre>
                 </div>
             </details>
-
-            <div class="mb-box mb-box-craft">
-                <strong>✂️ Bastelauftrag: Die magische Schatztruhe</strong>
-                <p>Verstecke den micro:bit in einer Schachtel. Sobald der Deckel geöffnet wird oder die Kiste bewegt wird, schlägt er Alarm.</p>
-            </div>
-
-            <div class="mb-box mb-box-cheatsheet">
-                <strong>Befehlssammlung (Spickzettel):</strong>
-                <ul>
-                    <li><code>display.read_light_level()</code> – Misst die Helligkeit (0 bis 255)</li>
-                    <li><code>or</code> – Verknüpft zwei Bedingungen</li>
-                </ul>
-            </div>
         </div>
 
     </div>
