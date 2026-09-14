@@ -385,19 +385,30 @@
                             <div class="code-puzzle"><span class="code-comment"># 1. Wir holen alle micro:bit Befehle</span>
 from microbit import *
 
-<span class="code-comment"># 2. Endlosschleife: Wiederhole alles ewig</span>
 while True:
-    <span class="code-comment"># Zeige ein Herz auf den LEDs an:</span>
+    # 1. Zeige das große Herz an
+    display.show(Image.<span class="code-todo">???</span>)
+    
+    # 2. Warte 500 Millisekunden
+    <span class="code-todo">???</span>(500)
+    
+    # 3. Lösche das Display
+    display.clear()
+    
+    # 4. Warte wieder eine halbe Sekunde
+    <span class="code-todo">???</span>(<span class="code-todo">???</span>)</div>
+
+<details class="mb-solution-toggle">
+  <summary>💡 Lösung anzeigen</summary>
+  <div class="mb-solution-content">
+    <pre><code>from microbit import *
+
+while True:
     display.show(Image.HEART)
-    
-    <span class="code-comment"># Pause für eine halbe Sekunde (500 ms):</span>
-    sleep(<span class="code-todo">???</span>)
-    
-    <span class="code-comment"># Welches Wort löscht die Anzeige? (Tipp: clear)</span>
-    display.<span class="code-todo">???</span>()
-    
-    <span class="code-comment"># Warte nochmals eine halbe Sekunde:</span>
-    sleep(500)</div>
+    sleep(500)
+    display.clear()
+    sleep(500)</code></pre>
+  </div></details>
 
                             <div class="challenge-box">
                                 <b>Tüftel-Auftrag:</b> Ändere dein Programm so, dass abwechselnd ein fröhliches Gesicht (<code>HAPPY</code>) und ein trauriges Gesicht (<code>SAD</code>) aufblitzt!
