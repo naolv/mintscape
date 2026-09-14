@@ -159,7 +159,7 @@
         }
 
         .code-comment { color: #86efac; font-style: italic; }
-        .code-todo { color: #fde047; font-weight: bold; } /* GELBE SCHRIFT FÜR DIE LÜCKEN */
+        .code-todo { color: #fde047; font-weight: bold; }
 
         .challenge-box {
             background: #fef3c7;
@@ -261,12 +261,9 @@
         <p class="subtitle">Verstehe die Logik, erfinde eigene Ideen &amp; tüftle selbst!</p>
     </header>
 
+    <!-- DASHBOARD NAVIGATION -->
     <div class="dashboard">
-        <div class="card active" onclick="switchMainModule('python')">
-
-     <!-- DASHBOARD NAVIGATION -->
-    <div class="dashboard">
-        <div class="card" onclick="switchMainModule('python', this)">
+        <div class="card active" onclick="switchMainModule('python', this)">
             <h3>micro:bit Python</h3>
             <small>Interaktive Aufgaben &amp; Prototypen</small>
         </div>
@@ -274,7 +271,7 @@
             <h3>3D-Druck (Tinkercad)</h3>
             <small>Konstruieren lernen</small>
         </div>
-        <div class="card active" onclick="switchMainModule('laser', this)">
+        <div class="card" onclick="switchMainModule('laser', this)">
             <h3>Lasercutter (xTool S1)</h3>
             <small>Tinkercad &amp; Gravur / Schnitt</small>
         </div>
@@ -290,12 +287,12 @@
         <div id="module-python">
             
             <div class="sub-nav">
-                <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1')">1. Grundlagen</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson2')">2. Schrittzähler</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson3')">3. Türsensor</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson4')">4. Thermometer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson5')">5. Musik-Synthesizer</button>
-                <button class="sub-btn" onclick="switchMicrobitLesson('lesson6')">6. Erfinder-Challenge</button>
+                <button class="sub-btn active" onclick="switchMicrobitLesson('lesson1', this)">1. Grundlagen</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson2', this)">2. Schrittzähler</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson3', this)">3. Türsensor</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson4', this)">4. Thermometer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson5', this)">5. Musik-Synthesizer</button>
+                <button class="sub-btn" onclick="switchMicrobitLesson('lesson6', this)">6. Erfinder-Challenge</button>
             </div>
 
             <div class="grid-2col">
@@ -693,36 +690,32 @@ while True:
     </div>
 
     <script>
-        function switchMainModule(mod) {
+        function switchMainModule(mod, element) {
             document.querySelectorAll('.dashboard .card').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.module-container > div').forEach(d => d.classList.add('hidden'));
 
-            event.currentTarget.classList.add('active');
+            element.classList.add('active');
             document.getElementById('module-' + mod).classList.remove('hidden');
         }
 
-        function switchMicrobitLesson(lessonId) {
+        function switchMicrobitLesson(lessonId, element) {
             document.querySelectorAll('.sub-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            element.classList.add('active');
 
-            document.getElementById('mb-lesson1').classList.add('hidden');
-            document.getElementById('mb-lesson2').classList.add('hidden');
-            document.getElementById('mb-lesson3').classList.add('hidden');
-            document.getElementById('mb-lesson4').classList.add('hidden');
-            document.getElementById('mb-lesson5').classList.add('hidden');
-            document.getElementById('mb-lesson6').classList.add('hidden');
-
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('mb-lesson' + i).classList.add('hidden');
+            }
             document.getElementById('mb-' + lessonId).classList.remove('hidden');
         }
 
         function showHw(part) {
-            const info = document.getElementById('hw-info');
-            if(part === 'led') {
-                info.innerHTML = "<b>5x5 LED-Raster:</b> Schau auf die Vorderseite deines micro:bit! Dort siehst du 25 kleine rote Quadrate. Das sind die Lampen. Befehl im Code: <code>display.show()</code>";
-            } else if(part === 'btn') {
-                info.innerHTML = "<b>Tasten A & B:</b> Auf der Vorderseite siehst du links den Knopf <b>A</b> und rechts den Knopf <b>B</b>. Drücke sie mit dem Daumen! Befehl im Code: <code>button_a.is_pressed()</code>";
-            } else if(part === 'sens') {
-                info.innerHTML = "<b>Sensoren:</b> Drehe den micro:bit auf die <b>Rückseite</b>! Dort findest du die kleinen schwarzen Chips für Bewegung (<code>accelerometer</code>), Kompass/Magnet (<code>compass</code>) und Temperatur (<code>temperature()</code>).";
+            const infoBox = document.getElementById('hw-info');
+            if (part === 'led') {
+                infoBox.innerHTML = "<b>5x5 LEDs:</b> Das rote LED-Raster auf der Vorderseite. Es kann Bilder, Animationen und Text anzeigen.";
+            } else if (part === 'btn') {
+                infoBox.innerHTML = "<b>Tasten A & B:</b> Die beiden schwarzen Knöpfe links und rechts neben den LEDs auf der Vorderseite.";
+            } else if (part === 'sens') {
+                infoBox.innerHTML = "<b>Sensoren:</b> Auf der Rückseite befinden sich Kompass (Magnetfeld), Beschleunigungssensor (Schütteln/Neigung) und der Temperatursensor.";
             }
         }
     </script>
