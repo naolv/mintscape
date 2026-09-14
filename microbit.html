@@ -3,34 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>micro:bit Erfinder-Werkstatt</title>
+    <title>micro:bit - Erfinder-Werkstatt</title>
     <style>
         :root {
-            --primary: #4a90e2;
-            --primary-dark: #357abd;
-            --bg-color: #f4f7f6;
+            --primary-color: #00a896;
+            --secondary-color: #028090;
+            --accent-color: #f0f3f4;
+            --text-color: #2b2d42;
             --card-bg: #ffffff;
-            --text: #333333;
-            --text-muted: #666666;
-            --accent: #ff6b6b;
-            --border-radius: 12px;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --code-bg: #1e1e1e;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text);
             line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
         }
 
-        /* Header Navigation */
         header {
             background-color: var(--card-bg);
             padding: 1rem 2rem;
-            box-shadow: var(--shadow);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -39,78 +35,66 @@
         .back-link {
             display: inline-flex;
             align-items: center;
-            color: var(--primary);
+            color: var(--primary-color);
             text-decoration: none;
             font-weight: 600;
+            font-size: 1rem;
             transition: color 0.2s;
         }
 
         .back-link:hover {
-            color: var(--primary-dark);
+            color: var(--secondary-color);
         }
 
-        /* Hero Banner */
-        .hero {
-            background: linear-gradient(135deg, #4a90e2 0%, #50e3c2 100%);
-            color: white;
-            text-align: center;
-            padding: 3rem 1rem;
-        }
-
-        .hero h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 2.5rem;
-        }
-
-        .hero p {
-            margin: 0;
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Haupt-Container */
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
-        /* Tab Navigation für Lerneinheiten */
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+
+        /* Navigations-Tabs */
         .mb-tabs {
             display: flex;
-            flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 2rem;
-            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .mb-tab-btn {
-            background-color: var(--card-bg);
-            border: 2px solid transparent;
-            padding: 0.8rem 1.2rem;
-            border-radius: var(--border-radius);
-            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background-color: #e9ecef;
+            color: var(--text-color);
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: var(--shadow);
+            font-weight: 600;
             transition: all 0.2s ease;
         }
 
-        .mb-tab-btn:hover {
-            border-color: var(--primary);
-        }
-
         .mb-tab-btn.active {
-            background-color: var(--primary);
+            background-color: var(--primary-color);
             color: white;
         }
 
-        /* Lerneinheiten Container */
+        /* Inhalte der Lerneinheiten */
         .mb-lesson {
             display: none;
             background: var(--card-bg);
             padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             margin-bottom: 2rem;
         }
 
@@ -118,97 +102,90 @@
             display: block;
         }
 
-        /* Infoboxen & Aufträge */
         .mb-box {
-            padding: 1.2rem;
+            padding: 1rem;
             border-radius: 8px;
-            margin: 1.5rem 0;
+            margin-bottom: 1.5rem;
         }
 
         .mb-box-intro {
-            background-color: #eef6ff;
-            border-left: 5px solid var(--primary);
+            background-color: #eef9f8;
+            border-left: 4px solid var(--primary-color);
         }
 
         .mb-box-craft {
-            background-color: #fff8e6;
-            border-left: 5px solid #f5a623;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
         }
 
         .mb-box-cheatsheet {
-            background-color: #f0f4f8;
-            border: 1px solid #d1dbe5;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
         }
 
-        /* Editor Frame */
         .mb-editor-container {
             margin: 1.5rem 0;
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
         }
 
         iframe {
             width: 100%;
-            height: 420px;
+            height: 450px;
             border: none;
         }
 
-        /* Aufklapp-Lösungen (Accordion) */
+        /* Aufklapp-Lösungen */
         .mb-solution-toggle {
-            margin-top: 1rem;
+            margin: 1rem 0 1.5rem 0;
             background-color: #f8f9fa;
-            border: 1px dashed #cccccc;
+            border: 1px dashed #ced4da;
             border-radius: 8px;
             padding: 0.5rem 1rem;
         }
 
         .mb-solution-toggle summary {
             font-weight: 600;
-            color: var(--text-muted);
+            color: #495057;
             cursor: pointer;
             padding: 0.5rem 0;
             user-select: none;
         }
 
         .mb-solution-toggle summary:hover {
-            color: var(--primary);
+            color: var(--primary-color);
         }
 
         .mb-solution-content {
             margin-top: 0.8rem;
             padding-top: 0.8rem;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid #dee2e6;
         }
 
         .mb-solution-content pre {
-            background-color: #272822;
-            color: #f8f8f2;
+            background-color: var(--code-bg);
+            color: #f8f9fa;
             padding: 1rem;
             border-radius: 6px;
             overflow-x: auto;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
             margin: 0;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <header>
         <a href="index.html" class="back-link">← Zurück zur Hauptseite</a>
-        <span style="font-weight: 600; color: var(--text-muted);">Makerspace Informatik</span>
+        <span style="font-weight: 600; color: #6c757d;">Makerspace Informatik</span>
     </header>
 
-    <!-- Hero Bereich -->
-    <div class="hero">
-        <h1>micro:bit Erfinder-Werkstatt</h1>
-        <p>Lerne Programmieren und baue deine eigenen smarten Gadgets!</p>
-    </div>
-
     <div class="container">
+        <h1>micro:bit - Erfinder-Werkstatt</h1>
+        <p class="subtitle">Entwickle eigene Programme und baue deine eigenen Prototypen!</p>
 
-        <!-- Lerneinheiten Tab-Steuerung -->
+        <!-- Navigation Tabs -->
         <div class="mb-tabs">
             <button class="mb-tab-btn active" onclick="showLesson(1)">1. Grundlagen</button>
             <button class="mb-tab-btn" onclick="showLesson(2)">2. Schrittzähler</button>
@@ -221,18 +198,18 @@
         <!-- LERNEINHEIT 1 -->
         <div id="mb-lesson1" class="mb-lesson active">
             <h2>Lerneinheit 1: Grundlagen – Blinkendes Herz</h2>
+            
             <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Der micro:bit besitzt ein 5x5 Raster aus roten LED-Lämpchen. Wir lassen ein Herz im Takt schlagen.
+                <strong>Einleitung:</strong> Der micro:bit besitzt ein Raster aus 5x5 roten LED-Lämpchen. Wir möchten ein Bild anzeigen lassen und ein Herz zum Schlagen bringen.
             </div>
 
             <h3>Herausforderung (Tüftel-Auftrag)</h3>
             <p>Ergänze den Code im WebTigerPython Editor so, dass das Herz kontinuierlich an- und ausgeht (blinkt).</p>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%201.%20Zeige%20das%20gro%C3%9Fe%20Herz%20an%0A%20%20%20%20display.show(Image.________)%0A%20%20%20%20%0A%20%20%20%20%23%202.%20Warte%20500%20Millisekunden%0A%20%20%20%20________(500)%0A%20%20%20%20%0A%20%20%20%20%23%203.%20L%C3%B6sche%20das%20Display%0A%20%20%20%20display.clear()%0A%20%20%20%20%0A%20%20%20%20%23%204.%20Warte%20wieder%20eine%20halbe%20Sekunde%0A%20%20%20%20________(________)"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20%23%201.%20Zeige%20das%20gro%C3%9Fe%20Herz%20an%0A%20%20%20%20display.show(Image.________)%0A%20%20%20%20%0A%20%20%20%20%23%202.%20Warte%20500%20Millisekunden%20(eine%20halbe%20Sekunde)%0A%20%20%20%20________(500)%0A%20%20%20%20%0A%20%20%20%20%23%203.%20L%C3%B6sche%20das%20Display%0A%20%20%20%20display.clear()%0A%20%20%20%20%0A%20%20%20%20%23%204.%20Warte%20wieder%20eine%20halbe%20Sekunde%0A%20%20%20%20________(________)"></iframe>
             </div>
 
-            <!-- Aufklapp-Lösung -->
             <details class="mb-solution-toggle">
                 <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
                 <div class="mb-solution-content">
@@ -259,8 +236,9 @@ while True:
         <!-- LERNEINHEIT 2 -->
         <div id="mb-lesson2" class="mb-lesson">
             <h2>Lerneinheit 2: Schrittzähler – Variablen & Trageband</h2>
+            
             <div class="mb-box mb-box-intro">
-                <strong>Einleitung:</strong> Der micro:bit kann Beschleunigungen erkennen. Wir nutzen eine Variable, um Schritte zu zählen.
+                <strong>Einleitung:</strong> Der micro:bit kann Bewegung und Erschütterungen erkennen. Wir nutzen eine Variable, um Schritte zu zählen.
             </div>
 
             <div class="mb-box mb-box-craft">
@@ -272,10 +250,9 @@ while True:
             <p>Vervollständige die Zeile, in der die Variable <code>schritte</code> bei jedem Schütteln um 1 erhöht wird, und baue eine kurze Pause ein.</p>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Aschritte%20%3D%200%0A%0Awhile%20True%3A%0A%20%20%20%20display.show(schritte)%0A%20%20%20%20%0A%20%20%20%20if%20accelerometer.was_gesture('shake')%3A%0A%20%20%20%20%20%20%20%20%23%20Schreibe%20die%20ganze%20Zeile%3A%20Erh%C3%B6he%20'schritte'%20um%201%0A%20%20%20%20%20%20%20%20________________________________________%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%23%20Baue%20eine%20Pause%20von%20200%20ms%20ein%20(Schreib%20den%20Befehl)%0A%20%20%20%20%20%20%20%20________________________________________"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Aschritte%20%3D%200%0A%0Awhile%20True%3A%0A%20%20%20%20display.show(schritte)%0A%20%20%20%20%0A%20%20%20%20if%20accelerometer.was_gesture('shake')%3A%0A%20%20%20%20%20%20%20%20%23%20Erh%C3%B6he%20die%20Variable%20'schritte'%20um%201%20(Schreibe%20die%20ganze%20Zeile)%0A%20%20%20%20%20%20%20%20________________________________________%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%20%20%20%20%23%20Baue%20eine%20Pause%20von%20200%20ms%20ein%0A%20%20%20%20%20%20%20%20________________________________________"></iframe>
             </div>
 
-            <!-- Aufklapp-Lösung -->
             <details class="mb-solution-toggle">
                 <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
                 <div class="mb-solution-content">
@@ -304,6 +281,7 @@ while True:
         <!-- LERNEINHEIT 3 -->
         <div id="mb-lesson3" class="mb-lesson">
             <h2>Lerneinheit 3: Türsensor – Magnetfeld & Schulzimmer-Sicherung</h2>
+            
             <div class="mb-box mb-box-intro">
                 <strong>Einleitung:</strong> Der eingebaute Kompass kann Magnetfelder messen. Ein Magnet an der Tür schützt das Zimmer vor Eindringlingen!
             </div>
@@ -314,13 +292,12 @@ while True:
             </div>
 
             <h3>Herausforderung (Tüftel-Auftrag)</h3>
-            <p>Setze das richtige Vergleichszeichen (<code>&lt;</code> oder <code>&gt;</code>) ein und wähle die passenden Symbole für Alarm (Cross) und Sicher (Yes).</p>
+            <p>Setze das richtige Vergleichszeichen (<code>&lt;</code> oder <code>&gt;</code>) ein und wähle die passenden Symbole für Alarm (NO) und Sicher (YES).</p>
 
             <div class="mb-editor-container">
                 <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20staerke%20%3D%20compass.get_field_strength()%0A%20%20%20%20%0A%20%20%20%20%23%20Wenn%20der%20Magnet%20weg%20ist%2C%20SINKT%20der%20Wert%20unter%2030000%0A%20%20%20%20if%20staerke%20________%2030000%3A%0A%20%20%20%20%20%20%20%20%23%20Alarm%21%20Zeige%20KREUZ%20(NO)%0A%20%20%20%20%20%20%20%20display.show(________.________)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20Sicher%21%20Zeige%20HAKEN%20(YES)%0A%20%20%20%20%20%20%20%20display.show(________.________)"></iframe>
             </div>
 
-            <!-- Aufklapp-Lösung -->
             <details class="mb-solution-toggle">
                 <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
                 <div class="mb-solution-content">
@@ -349,6 +326,7 @@ while True:
         <!-- LERNEINHEIT 4 -->
         <div id="mb-lesson4" class="mb-lesson">
             <h2>Lerneinheit 4: Thermometer – Pflanzen-Wetterstation</h2>
+            
             <div class="mb-box mb-box-intro">
                 <strong>Einleitung:</strong> Der micro:bit misst die Umgebungstemperatur. Damit überwachen wir das Klima für Klassenzimmer-Pflanzen.
             </div>
@@ -362,10 +340,9 @@ while True:
             <p>Ergänze den <code>elif</code>-Block für Fall 2 (zu heiss: Temperatur über 28 Grad) und vervollständige den <code>else</code>-Fall.</p>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20temp%20%3D%20temperature()%0A%20%20%20%20%0A%20%20%20%20%23%20FALL%201%3A%20Zu%20kalt%20(unter%2018%20Grad)%0A%20%20%20%20if%20temp%20%3C%2018%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SAD)%0A%20%20%20%20%23%20FALL%202%3A%20Zu%20heiss%20(%C3%BCber%2028%20Grad)%20-%20Schreib%20die%20Bedingung%3A%0A%20%20%20%20elif%20________________________%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SURPRISED)%0A%20%20%20%20%23%20FALL%203%3A%20Temperatur%20perfekt%20-%20Zeige%20HAPPY%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20________________________"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0A%0Awhile%20True%3A%0A%20%20%20%20temp%20%3D%20temperature()%0A%20%20%20%20%0A%20%20%20%20%23%20FALL%201%3A%20Zu%20kalt%20(unter%2018%20Grad)%0A%20%20%20%20if%20temp%20%3C%2018%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SAD)%0A%20%20%20%20%23%20FALL%202%3A%20Zu%20heiss%20(%C3%BCber%2028%20Grad)%0A%20%20%20%20elif%20________________________%3A%0A%20%20%20%20%20%20%20%20display.show(Image.SURPRISED)%0A%20%20%20%20%23%20FALL%203%3A%20Temperatur%20perfekt%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20________________________"></iframe>
             </div>
 
-            <!-- Aufklapp-Lösung -->
             <details class="mb-solution-toggle">
                 <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
                 <div class="mb-solution-content">
@@ -395,6 +372,7 @@ while True:
         <!-- LERNEINHEIT 5 -->
         <div id="mb-lesson5" class="mb-lesson">
             <h2>Lerneinheit 5: Musik-Synthesizer – Karton-Gitarre</h2>
+            
             <div class="mb-box mb-box-intro">
                 <strong>Einleitung:</strong> Über den Lautsprecher (oder Piezosummer) kann der micro:bit Töne in verschiedenen Frequenzen abspielen.
             </div>
@@ -408,10 +386,9 @@ while True:
             <p>Trage die Frequenz für den tiefen Ton ein und schreibe den vollständigen Block für Taste B (hoher Ton: 880 Hz).</p>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Taste%20A%3A%20Tiefer%20Ton%20(440%20Hz)%20f%C3%BCr%20200ms%0A%20%20%20%20if%20button_a.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.pitch(________%2C%20200)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%23%20Taste%20B%3A%20Hoher%20Ton%20(880%20Hz)%20f%C3%BCr%20200ms%20(Schreibe%20beide%20Zeilen)%3A%0A%20%20%20%20________________________________________%0A%20%20%20%20________________________________________%0A%20%20%20%20%0A%20%20%20%20%23%20Beide%20Tasten%3A%20Fertige%20Melodie%0A%20%20%20%20elif%20button_a.is_pressed()%20and%20button_b.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.play(music.________)"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20%23%20Taste%20A%3A%20Tiefer%20Ton%20(440%20Hz)%20f%C3%BCr%20200ms%0A%20%20%20%20if%20button_a.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.pitch(________%2C%20200)%0A%20%20%20%20%20%20%20%20%0A%20%20%20%20%23%20Taste%20B%3A%20Hoher%20Ton%20(880%20Hz)%20f%C3%BCr%20200ms%0A%20%20%20%20________________________________________%0A%20%20%20%20________________________________________%0A%20%20%20%20%0A%20%20%20%20%23%20Beide%20Tasten%3A%20Fertige%20Melodie%0A%20%20%20%20elif%20button_a.is_pressed()%20and%20button_b.is_pressed()%3A%0A%20%20%20%20%20%20%20%20music.play(music.________)"></iframe>
             </div>
 
-            <!-- Aufklapp-Lösung -->
             <details class="mb-solution-toggle">
                 <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
                 <div class="mb-solution-content">
@@ -440,6 +417,7 @@ while True:
         <!-- LERNEINHEIT 6 -->
         <div id="mb-lesson6" class="mb-lesson">
             <h2>Lerneinheit 6: Erfinder-Challenge – Schatztruhen-Alarmanlage</h2>
+            
             <div class="mb-box mb-box-intro">
                 <strong>Einleitung:</strong> Kombiniere Lichtsensor und Bewegungssensor zu einem echten Sicherheitssystem!
             </div>
@@ -453,10 +431,9 @@ while True:
             <p>Vervollständige die <code>if</code>-Bedingung für das Schütteln (<code>accelerometer.was_gesture('shake')</code>) und den <code>else</code>-Zustand.</p>
 
             <div class="mb-editor-container">
-                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20licht%20%3D%20display.read_light_level()%0A%20%20%20%20%0A%20%20%20%20%23%20Alarm%2C%20wenn%20Licht%20%3E%2050%20ODER%20gesch%C3%BCttelt%20wird%0A%20%20%20%20if%20licht%20%3E%2050%20or%20________________________________________%3A%0A%20%20%20%20%20%20%20%20display.show(Image.NO)%0A%20%20%20%20%20%20%20%20music.pitch(1000%2C%20500)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20Entsch%C3%A4rft%3A%20Zeige%20H%C3%A4kchen%20und%20l%C3%B6sche%20Display%20(Schreib%20beide%20Befehle)%0A%20%20%20%20%20%20%20%20________________________________________%0A%20%20%20%20%20%20%20%20________________________________________"></iframe>
+                <iframe src="https://webtigerpython.ethz.ch/?code=from%20microbit%20import%20*%0Aimport%20music%0A%0Awhile%20True%3A%0A%20%20%20%20licht%20%3D%20display.read_light_level()%0A%20%20%20%20%0A%20%20%20%20%23%20Alarm%2C%20wenn%20Licht%20%3E%2050%20ODER%20gesch%C3%BCttelt%20wird%0A%20%20%20%20if%20licht%20%3E%2050%20or%20________________________________________%3A%0A%20%20%20%20%20%20%20%20display.show(Image.NO)%0A%20%20%20%20%20%20%20%20music.pitch(1000%2C%20500)%0A%20%20%20%20else%3A%0A%20%20%20%20%20%20%20%20%23%20Entsch%C3%A4rft%3A%20Zeige%20H%C3%A4kchen%20und%20l%C3%B6sche%20Display%0A%20%20%20%20%20%20%20%20________________________________________%0A%20%20%20%20%20%20%20%20________________________________________"></iframe>
             </div>
 
-            <!-- Aufklapp-Lösung -->
             <details class="mb-solution-toggle">
                 <summary>💡 Lösung anzeigen (falls du gar nicht mehr weiterkommst)</summary>
                 <div class="mb-solution-content">
@@ -486,22 +463,18 @@ while True:
 
     </div>
 
-    <!-- JavaScript für Tab-Steuerung -->
     <script>
         function showLesson(lessonNumber) {
-            // Alle Tabs ausblenden
             const lessons = document.querySelectorAll('.mb-lesson');
             lessons.forEach(lesson => {
                 lesson.classList.remove('active');
             });
 
-            // Alle Tab-Buttons deaktivieren
             const buttons = document.querySelectorAll('.mb-tab-btn');
             buttons.forEach(button => {
                 button.classList.remove('active');
             });
 
-            // Gewählte Lerneinheit & Button aktivieren
             document.getElementById('mb-lesson' + lessonNumber).classList.add('active');
             buttons[lessonNumber - 1].classList.add('active');
         }
