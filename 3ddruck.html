@@ -70,7 +70,24 @@
 
     h2 { border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-top: 0; }
 
-    /* PROJEKT-KACHELN NAVIGATION */
+    .nav-label {
+      font-size: 0.85em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    /* HAUPT-SCHRITTE OBEN */
+    .main-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    /* PROJEKT-KACHELN DARUNTER */
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -88,12 +105,18 @@
       text-align: center;
     }
 
-    .project-card h4 { margin: 4px 0 2px 0; font-size: 0.9em; }
-    .badge { padding: 2px 6px; border-radius: 12px; font-size: 0.7em; font-weight: bold; }
+    .project-card h4 { margin: 4px 0 2px 0; font-size: 0.95em; }
+    .badge { padding: 2px 6px; border-radius: 12px; font-size: 0.7em; font-weight: bold; background: #ffffff; }
 
-    /* Kachel Farbstile */
+    /* Farbstile */
     #card-intro.active { border-color: var(--c-intro); background: var(--c-intro-bg); }
     #card-intro h4, #card-intro .badge { color: var(--c-intro); }
+
+    #card-slicing.active { border-color: var(--c-slicing); background: var(--c-slicing-bg); }
+    #card-slicing h4, #card-slicing .badge { color: var(--c-slicing); }
+
+    #card-log.active { border-color: var(--c-log); background: var(--c-log-bg); }
+    #card-log h4, #card-log .badge { color: var(--c-log); }
 
     #card-p1.active { border-color: var(--c-p1); background: var(--c-p1-bg); }
     #card-p1 h4, #card-p1 .badge { color: var(--c-p1); }
@@ -110,23 +133,15 @@
     #card-p5.active { border-color: var(--c-p5); background: var(--c-p5-bg); }
     #card-p5 h4, #card-p5 .badge { color: var(--c-p5); }
 
-    #card-slicing.active { border-color: var(--c-slicing); background: var(--c-slicing-bg); }
-    #card-slicing h4, #card-slicing .badge { color: var(--c-slicing); }
-
-    #card-log.active { border-color: var(--c-log); background: var(--c-log-bg); }
-    #card-log h4, #card-log .badge { color: var(--c-log); }
-
-    .badge { background: #ffffff; }
-
     /* Dynamische Überschriften */
     #intro h2 { color: var(--c-intro); border-color: var(--c-intro-bg); }
+    #slicing h2 { color: var(--c-slicing); border-color: var(--c-slicing-bg); }
+    #log h2 { color: var(--c-log); border-color: var(--c-log-bg); }
     #p1 h2 { color: var(--c-p1); border-color: var(--c-p1-bg); }
     #p2 h2 { color: var(--c-p2); border-color: var(--c-p2-bg); }
     #p3 h2 { color: var(--c-p3); border-color: var(--c-p3-bg); }
     #p4 h2 { color: var(--c-p4); border-color: var(--c-p4-bg); }
     #p5 h2 { color: var(--c-p5); border-color: var(--c-p5-bg); }
-    #slicing h2 { color: var(--c-slicing); border-color: var(--c-slicing-bg); }
-    #log h2 { color: var(--c-log); border-color: var(--c-log-bg); }
 
     /* LAYOUT BILD RECHTS */
     .project-layout {
@@ -138,6 +153,7 @@
 
     @media (max-width: 768px) {
       .project-layout { grid-template-columns: 1fr; }
+      .main-steps-grid { grid-template-columns: 1fr; }
     }
 
     .project-image-box {
@@ -150,7 +166,6 @@
 
     .project-image-box img { max-width: 100%; height: auto; border-radius: 6px; }
 
-    /* WARN- UND INFOBOXEN */
     .material-box {
       background: #fffbebf5;
       border-left: 4px solid var(--c-p3);
@@ -159,7 +174,6 @@
       margin-bottom: 20px;
     }
 
-    /* INTERAKTIVER DRUCKER */
     .printer-wrapper {
       position: relative;
       max-width: 480px;
@@ -204,7 +218,6 @@
       min-height: 50px;
     }
 
-    /* CHECKLISTEN */
     .checklist { list-style: none; padding: 0; margin: 0; }
     .checklist li {
       padding: 12px;
@@ -223,7 +236,6 @@
       cursor: pointer;
     }
 
-    /* QUIZ */
     .quiz-card { background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-top: 20px; }
     .quiz-options button {
       display: block; width: 100%; text-align: left; padding: 10px;
@@ -232,7 +244,6 @@
     }
     .quiz-options button:hover { background: #edf2f7; }
 
-    /* TAGEBUCH */
     .log-form input, .log-form textarea {
       width: 100%; padding: 10px; margin-bottom: 10px;
       border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box;
@@ -251,7 +262,6 @@
     }
     .delete-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-weight: bold; }
     
-    /* TAB LOGIK */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
   </style>
@@ -269,12 +279,26 @@
     <p>Konstruiere eigene 3D-Modelle und drucke sie auf dem Bambu Lab P1S aus!</p>
   </header>
 
-  <!-- KACHEL-NAVIGATION NACH SCHRITTEN UND PROJEKTEN -->
-  <div class="project-grid">
+  <!-- 1. HAUPT-SCHRITTE (OBEN) -->
+  <div class="nav-label">Werkstatt-Ablauf</div>
+  <div class="main-steps-grid">
     <div class="project-card active" onclick="openTab('intro')" id="card-intro">
-      <h4>Einführung</h4>
-      <span class="badge">Grundlagen</span>
+      <h4>1. Einführung</h4>
+      <span class="badge">Grundlagen & Quiz</span>
     </div>
+    <div class="project-card" onclick="openTab('slicing')" id="card-slicing">
+      <h4>2. 3D-Druck</h4>
+      <span class="badge">Slicing & Check</span>
+    </div>
+    <div class="project-card" onclick="openTab('log')" id="card-log">
+      <h4>3. Tagebuch</h4>
+      <span class="badge">Reflexion</span>
+    </div>
+  </div>
+
+  <!-- 2. PROJEKTE (DARUNTER) -->
+  <div class="nav-label">Wähle dein Bauprojekt</div>
+  <div class="project-grid">
     <div class="project-card" onclick="openTab('p1')" id="card-p1">
       <h4>Münze</h4>
       <span class="badge">Einsteiger</span>
@@ -295,17 +319,9 @@
       <h4>Digitaler Ton</h4>
       <span class="badge">SculptGL</span>
     </div>
-    <div class="project-card" onclick="openTab('slicing')" id="card-slicing">
-      <h4>3D-Druck</h4>
-      <span class="badge">Slicing</span>
-    </div>
-    <div class="project-card" onclick="openTab('log')" id="card-log">
-      <h4>Tagebuch</h4>
-      <span class="badge">Reflexion</span>
-    </div>
   </div>
 
-  <!-- TAB 0: EINFÜHRUNG -->
+  <!-- INHALT 1: EINFÜHRUNG -->
   <div id="intro" class="tab-content section-card active">
     <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
     
@@ -349,7 +365,44 @@
     </div>
   </div>
 
-  <!-- TAB 1: EINKAUFSMÜNZE -->
+  <!-- INHALT 2: SLICING -->
+  <div id="slicing" class="tab-content section-card">
+    <h2>2. Vom Modell zum Druck (Slicing)</h2>
+    <p><strong>Schritt A: Überprüfe dein Modell zuerst selbst!</strong></p>
+    <ul class="checklist">
+      <li><input type="checkbox"> <span>Steht das Modell flach auf der Bauplatte (Höhe Z = 0)?</span></li>
+      <li><input type="checkbox"> <span>Sind alle Einzelteile gruppiert (z. B. in Tinkercad)?</span></li>
+      <li><input type="checkbox"> <span>Sind die Wände dick genug (mindestens 2 mm), damit nichts bricht?</span></li>
+      <li><input type="checkbox"> <span>Gibt es freischwebende Teile, die in der Luft hängen würden?</span></li>
+    </ul>
+
+    <p style="margin-top:20px;"><strong>Schritt B: Modell freigeben und exportieren</strong></p>
+    <ol>
+      <li>Zeige dein Modell der Lehrperson, wenn du die Checkliste oben abgehakt hast.</li>
+      <li>Exportiere deine Arbeit als <strong>.STL-Datei</strong>.</li>
+      <li>Im Slicer (Bambu Studio) wird daraus der <strong>G-Code</strong> für den P1S erzeugt.</li>
+    </ol>
+  </div>
+
+  <!-- INHALT 3: TAGEBUCH -->
+  <div id="log" class="tab-content section-card">
+    <h2>3. Digitales Lerntagebuch</h2>
+    <p>Halte deine täglichen Fortschritte fest:</p>
+
+    <div class="log-form">
+      <input type="text" id="log-task" placeholder="Woran hast du heute gearbeitet?">
+      <textarea id="log-reflection" rows="3" placeholder="Was hat gut geklappt? Wo gab es Probleme?"></textarea>
+      
+      <div class="btn-group">
+        <button class="log-btn" onclick="addLogEntry()">Eintrag speichern</button>
+        <button class="log-btn download-btn" onclick="downloadLogs()">Tagebuch herunterladen</button>
+      </div>
+    </div>
+
+    <div id="log-entries"></div>
+  </div>
+
+  <!-- PROJEKT 1: MÜNZE -->
   <div id="p1" class="tab-content section-card">
     <h2>Projekt 1: Einkaufsmünze mit Schlüsselanhänger</h2>
     <div class="project-layout">
@@ -368,7 +421,7 @@
     </div>
   </div>
 
-  <!-- TAB 2: STORYCUBE -->
+  <!-- PROJEKT 2: STORYCUBE -->
   <div id="p2" class="tab-content section-card">
     <h2>Projekt 2: Storycube (Erzählwürfel)</h2>
     <div class="project-layout">
@@ -387,7 +440,7 @@
     </div>
   </div>
 
-  <!-- TAB 3: BÜROKLAMMER -->
+  <!-- PROJEKT 3: BÜROKLAMMER -->
   <div id="p3" class="tab-content section-card">
     <h2>Projekt 3: Büroklammer</h2>
     <div class="project-layout">
@@ -406,16 +459,17 @@
     </div>
   </div>
 
-  <!-- TAB 4: STIFTHALTER (MIT SECHSECK/SECHS KANTEN FÜR BLEISTIFTE) -->
+  <!-- PROJEKT 4: STIFTHALTER (KORRIGIERTE MASSE FÜR BLEISTIFTE) -->
   <div id="p4" class="tab-content section-card">
-    <h2>Projekt 4: Geometrischer Stifthalter</h2>
+    <h2>Projekt 4: Geometrischer Stifthalter (Becher)</h2>
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> <span>Grundkörper (z. B. Sechseck/Polygon oder Zylinder) erstellen: 60 x 60 mm, Höhe 80 mm.</span></li>
-          <li><input type="checkbox"> <span>Ein <strong>Sechseck (Polygon) für klassische Stifte mit 6 Kanten</strong> erstellen, etwas kleiner skalieren (50 x 50 mm, Höhe 80 mm) und auf "Bohrung" stellen.</span></li>
-          <li><input type="checkbox"> <span>Die Sechseck-Bohrung um <strong>4 mm nach oben anheben</strong> (über das schwarze Dreieck), damit ein fester Boden entsteht!</span></li>
-          <li><input type="checkbox"> <span>Beide Formen markieren, mit dem Werkzeug "Ausrichten" mittig zentrieren und danach "Gruppieren".</span></li>
+          <li><input type="checkbox"> <span><strong>Grundkörper:</strong> Erstelle ein Sechseck (Polygon) mit den Massen 60 x 60 mm und einer Höhe von 80 mm.</span></li>
+          <li><input type="checkbox"> <span><strong>Hohlraum für Stifte:</strong> Erstelle ein 2. Sechseck mit 52 x 52 mm (Höhe 80 mm) als "Bohrung". So entsteht eine stabile Wandstärke von 4 mm.</span></li>
+          <li><input type="checkbox"> <span><strong>Boden behalten:</strong> Hebe die Sechseck-Bohrung über das schwarze Dreieck um <strong>4 mm nach oben</strong> an, damit der Becher unten geschlossen bleibt!</span></li>
+          <li><input type="checkbox"> <span><strong>Tipp für Einzelhalter:</strong> Falls du Bohrungen für einzelne Bleistifte machst: Ein Bleistift ist ca. 8 mm breit. Plane Bohrlöcher von mindestens <strong>9.5 bis 10 mm</strong> ein, damit er leicht hineingleitet!</span></li>
+          <li><input type="checkbox"> <span>Beide Formen markieren, mit "Ausrichten" mittig zentrieren und "Gruppieren".</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -425,7 +479,7 @@
     </div>
   </div>
 
-  <!-- TAB 5: SCULPTGL -->
+  <!-- PROJEKT 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
     <h2>Projekt 5: Figuren aus digitalem Ton formen (SculptGL)</h2>
     <p>Öffne die Web-App <a href="https://stephaneginier.com/sculptgl/" target="_blank" style="color: var(--c-p5); font-weight: bold;">stephaneginier.com/sculptgl</a> und verforme deine virtuelle Tonkugel.</p>
@@ -445,43 +499,6 @@
         <small style="display:block; margin-top:5px; color:#64748b;">Digitaler Ton in SculptGL</small>
       </div>
     </div>
-  </div>
-
-  <!-- TAB 6: SLICING (EIGENER TAB) -->
-  <div id="slicing" class="tab-content section-card">
-    <h2>2. Vom Modell zum Druck (Slicing)</h2>
-    <p><strong>Schritt A: Überprüfe dein Modell zuerst selbst!</strong></p>
-    <ul class="checklist">
-      <li><input type="checkbox"> <span>Steht das Modell flach auf der Bauplatte (Höhe Z = 0)?</span></li>
-      <li><input type="checkbox"> <span>Sind alle Einzelteile gruppiert (z. B. in Tinkercad)?</span></li>
-      <li><input type="checkbox"> <span>Sind die Wände dick genug (mindestens 2 mm), damit nichts bricht?</span></li>
-      <li><input type="checkbox"> <span>Gibt es freischwebende Teile, die in der Luft hängen würden?</span></li>
-    </ul>
-
-    <p style="margin-top:20px;"><strong>Schritt B: Modell freigeben und exportieren</strong></p>
-    <ol>
-      <li>Zeige dein Modell der Lehrperson, wenn du die Checkliste oben abgehakt hast.</li>
-      <li>Exportiere deine Arbeit als <strong>.STL-Datei</strong>.</li>
-      <li>Im Slicer (Bambu Studio) wird daraus der <strong>G-Code</strong> für den P1S erzeugt.</li>
-    </ol>
-  </div>
-
-  <!-- TAB 7: TAGEBUCH (EIGENER TAB) -->
-  <div id="log" class="tab-content section-card">
-    <h2>3. Digitales Lerntagebuch</h2>
-    <p>Halte deine täglichen Fortschritte fest:</p>
-
-    <div class="log-form">
-      <input type="text" id="log-task" placeholder="Woran hast du heute gearbeitet?">
-      <textarea id="log-reflection" rows="3" placeholder="Was hat gut geklappt? Wo gab es Probleme?"></textarea>
-      
-      <div class="btn-group">
-        <button class="log-btn" onclick="addLogEntry()">Eintrag speichern</button>
-        <button class="log-btn download-btn" onclick="downloadLogs()">Tagebuch herunterladen</button>
-      </div>
-    </div>
-
-    <div id="log-entries"></div>
   </div>
 
 </div>
@@ -548,7 +565,7 @@
   let currentQ = 0;
   function loadQuiz() {
     if(currentQ >= quizData.length) {
-      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>Toll gemacht! Du hast alle 4 Fragen richtig beantwortet und weisst nun bestens Bescheid!</p>";
+      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--primary); font-weight: bold;'>Toll gemacht! Du hast alle 4 Fragen richtig beantwortet und weisst nun bestens Bescheid!</p>";
       return;
     }
     const q = quizData[currentQ];
@@ -568,7 +585,7 @@
   function checkQuiz(selectedIdx) {
     const q = quizData[currentQ];
     if(selectedIdx === q.correct) {
-      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--success); font-weight:bold;'>Richtig!</span>";
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--primary); font-weight:bold;'>Richtig!</span>";
       setTimeout(() => { currentQ++; loadQuiz(); }, 1200);
     } else {
       document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--danger); font-weight:bold;'>Probiere es nochmals! Lese oben in den Infos nach.</span>";
