@@ -14,6 +14,7 @@
       --border: #e2e8f0;
       --success: #10b981;
       --danger: #ef4444;
+      --warning: #f59e0b;
     }
 
     body {
@@ -54,10 +55,10 @@
     h2 { color: var(--primary); border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; margin-top: 0; }
     h3 { color: var(--primary); }
 
-    /* PROJEKT-KARTEN OBEN (GLEICH WIE LASERCUTTER / MICROBIT) */
+    /* PROJEKT- KACHELN NA VIGATION (EINFÜHRUNG INKLUSIVE) */
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
       margin-bottom: 25px;
     }
@@ -78,10 +79,10 @@
       transform: translateY(-2px);
     }
 
-    .project-card h4 { margin: 10px 0 5px 0; color: var(--primary); }
+    .project-card h4 { margin: 8px 0 4px 0; color: var(--primary); }
     .badge { background: #e2e8f0; color: #4a5568; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; }
 
-    /* LAYOUT MIT BILD RECHTS IN DEN PROJEKTEN */
+    /* LAYOUT BILD RECHTS */
     .project-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -101,16 +102,21 @@
       background: #f8fafc;
     }
 
-    .project-image-box img {
-      max-width: 100%;
-      height: auto;
+    .project-image-box img { max-width: 100%; height: auto; border-radius: 6px; }
+
+    /* WARN- UND INFOBOXEN */
+    .material-box {
+      background: #fffbebf5;
+      border-left: 4px solid var(--warning);
+      padding: 15px;
       border-radius: 6px;
+      margin-bottom: 20px;
     }
 
-    /* INTERAKTIVER DRUCKER (HOTSPOTS EXAKT POSITIONIERT) */
+    /* INTERAKTIVER DRUCKER (HOTSPOTS) */
     .printer-wrapper {
       position: relative;
-      max-width: 500px;
+      max-width: 480px;
       margin: 20px auto;
       border-radius: 10px;
       overflow: hidden;
@@ -138,7 +144,7 @@
 
     .hotspot:hover { transform: scale(1.2); background-color: #0f766e; }
 
-    /* Exakte Prozentkoordinaten für den P1S */
+    /* Koordinaten für das Bambu Lab P1S Bild */
     #spot-ams     { top: 15%; left: 50%; }
     #spot-display { top: 35%; left: 28%; }
     #spot-head    { top: 48%; left: 50%; }
@@ -187,6 +193,8 @@
       display: flex; justify-content: space-between; align-items: flex-start;
     }
     .delete-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.1em; }
+    
+    /* TAB LOGIK VERSTECKEN/ZEIGEN */
     .tab-content { display: none; }
     .tab-content.active { display: block; }
   </style>
@@ -204,9 +212,13 @@
     <p>Konstruiere eigene 3D-Modelle und drucke sie auf dem Bambu Lab P1S aus!</p>
   </header>
 
-  <!-- PROJEKTAUFWAND (KARTEN GLEICH UNTER DEM BALKEN) -->
+  <!-- KACHEL-NAVIGATION NACH OBEN GEHOLT (INKLUSIVE EINFÜHRUNG) -->
   <div class="project-grid">
-    <div class="project-card active" onclick="openTab('p1')" id="card-p1">
+    <div class="project-card active" onclick="openTab('intro')" id="card-intro">
+      <h4>📖 Einführung</h4>
+      <span class="badge">Grundlagen</span>
+    </div>
+    <div class="project-card" onclick="openTab('p1')" id="card-p1">
       <h4>🪙 Einkaufsmünze</h4>
       <span class="badge">Einsteiger</span>
     </div>
@@ -224,32 +236,38 @@
     </div>
   </div>
 
-  <!-- PHASE 1: GRUNDLAGEN & EINFÜHRUNGSTEXT -->
-  <div class="section-card">
-    <h2>1. Einführung: Was ist 3D-Druck?</h2>
+  <!-- TAB 0: EINFÜHRUNG & GRUNDLAGEN -->
+  <div id="intro" class="tab-content section-card active">
+    <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
     
     <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid var(--primary); margin-bottom: 20px;">
       <p style="margin-top:0;"><strong>Wie funktioniert ein 3D-Drucker?</strong><br>
-      Beim sogenannten <strong>FDM-Druckverfahren</strong> (Schmelzschichtung) wird eine Kunststoff-Schnur – das sogenannte <strong>Filament</strong> – auf etwa 200 °C erhitzt und verflüssigt. Der Druckkopf fährt dann eine genaue Form ab und trägt den geschmolzenen Kunststoff Schicht für Schicht auf eine Bauplatte auf. Sobald die Schicht abkühlt, wird sie fest – und Schicht für Schicht entsteht dein dreidimensionales Objekt!</p>
-      
-      <p style="margin-bottom:0;"><strong>Unser Material: PLA</strong><br>
-      Wir drucken mit <strong>PLA</strong>. Das ist ein umweltfreundlicher Kunststoff, der aus pflanzlicher Stärke (z. B. Maisstärke) hergestellt wird. Er richt nicht streng und ist ideal für den Schulunterricht geeignet.</p>
+      Beim <strong>FDM-Druckverfahren</strong> (Schmelzschichtung) wird eine Kunststoff-Schnur – das sogenannte <strong>Filament</strong> – auf etwa 200 °C erhitzt. Der Druckkopf trägt den geschmolzenen Kunststoff Schicht für Schicht von unten nach oben auf eine Bauplatte auf, bis dein Objekt fertig ist.</p>
+    </div>
+
+    <!-- KRITISCHE MATERIALKUNDE ZU PLA -->
+    <div class="material-box">
+      <h3 style="margin-top:0; color: #b45309;">⚠️ Wichtig: Wie umweltfreundlich ist unser Plastik (PLA)?</h3>
+      <p>Wir drucken meistens mit <strong>PLA</strong>. Es wird zwar aus Pflanzenstärke (z. B. Mais) hergestellt, aber im Chemielabor stark verändert. Deshalb gilt:</p>
+      <ul style="margin-bottom:0; padding-left:20px;">
+        <li><strong>Kein Bio-Müll:</strong> PLA baut sich in der Natur oder im Heimkompost <u>nicht</u> ab. Es braucht spezielle Industrie-Anlagen!</li>
+        <li><strong>Schlechte Rezyklierbarkeit:</strong> Fehldrucke landen meist im Restmüll. Drucke deshalb nicht unnötig viel Plastik aus!</li>
+        <li><strong>Hitzeempfindlich:</strong> PLA wird bereits ab ca. <strong>60 °C weich</strong>. Wenn du dein Modell im Sommer im Auto oder in der Sonne liegen lässt, verformt es sich!</li>
+      </ul>
     </div>
 
     <h3>Der Bambu Lab P1S im Überblick</h3>
     <p>Klicke auf die <strong>Nummern im Bild</strong>, um die Bauteile kennenzulernen:</p>
 
-    <!-- INTERAKTIVES BILD-->
+    <!-- INTERAKTIVES BILD -->
     <div class="printer-wrapper">
       <img src="p1s.jpg" alt="Bambu Lab P1S 3D-Drucker">
-      
       <div class="hotspot" id="spot-ams" onclick="showInfo('ams')">1</div>
       <div class="hotspot" id="spot-display" onclick="showInfo('display')">2</div>
       <div class="hotspot" id="spot-head" onclick="showInfo('head')">3</div>
       <div class="hotspot" id="spot-bed" onclick="showInfo('bed')">4</div>
     </div>
 
-    <!-- ERKLAERUNGS-TEXTBOX -->
     <div class="info-box-display" id="info-box">
       <em>Klicke oben auf eine Nummer im Bild, um die Erklärung anzuzeigen.</em>
     </div>
@@ -265,87 +283,80 @@
     </div>
   </div>
 
-  <!-- PHASE 2: PROJEKT-ANLEITUNGEN (MIT BILD RECHTS) -->
-  <div class="section-card">
-    <h2>2. Konstruktion im Detail</h2>
-
-    <!-- PROJEKT 1 -->
-    <div id="p1" class="tab-content active">
-      <h3>Projekt 1: Einkaufsmünze mit Schlüsselanhänger</h3>
-      <div class="project-layout">
-        <div>
-          <ul class="checklist">
-            <li><input type="checkbox"> Zylinder einfügen und Masse eingeben: 27 x 27 mm (Höhe: 2 mm).</li>
-            <li><input type="checkbox"> Verzierung oder Buchstaben hinzufügen (Höhe: max. 0.5 mm höher).</li>
-            <li><input type="checkbox"> Loch (Bohrung) für den Schlüsselring platzieren (Durchmesser: 3 mm).</li>
-            <li><input type="checkbox"> Alle Teile markieren und mit "Gruppieren" verschmelzen.</li>
-          </ul>
-        </div>
-        <div class="project-image-box">
-          <!-- Ersetze 'muenze.png' später durch dein Bild -->
-          <img src="muenze.png" alt="Beispiel Einkaufsmünze" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Einkaufsmünze.png';">
-          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
-        </div>
+  <!-- TAB 1: EINKAUFSMÜNZE -->
+  <div id="p1" class="tab-content section-card">
+    <h2>Projekt 1: Einkaufsmünze mit Schlüsselanhänger</h2>
+    <div class="project-layout">
+      <div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Zylinder einfügen und Masse eingeben: 27 x 27 mm (Höhe: 2 mm).</li>
+          <li><input type="checkbox"> Verzierung oder Buchstaben hinzufügen (Höhe: max. 0.5 mm höher als die Münze).</li>
+          <li><input type="checkbox"> Zylinder mit Status "Bohrung" für den Schlüsselring einbauen (3 x 3 mm).</li>
+          <li><input type="checkbox"> Alle Teile markieren und mit "Gruppieren" verschmelzen.</li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="muenze.png" alt="Beispiel Einkaufsmünze" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+muenze.png';">
+        <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
       </div>
     </div>
+  </div>
 
-    <!-- PROJEKT 2 -->
-    <div id="p2" class="tab-content">
-      <h3>Projekt 2: Storycube (Erzählwürfel)</h3>
-      <div class="project-layout">
-        <div>
-          <ul class="checklist">
-            <li><input type="checkbox"> Würfel erstellen (20 x 20 x 20 mm).</li>
-            <li><input type="checkbox"> Mit der "Arbeitsebene" eine Würfelseite auswählen.</li>
-            <li><input type="checkbox"> Text oder Symbol platzieren und als "Bohrung" 0.5 mm absenken.</li>
-            <li><input type="checkbox"> Für alle 6 Seiten wiederholen und am Ende alles gruppieren.</li>
-          </ul>
-        </div>
-        <div class="project-image-box">
-          <img src="storycube.png" alt="Beispiel Storycube" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Storycube.png';">
-          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
-        </div>
+  <!-- TAB 2: STORYCUBE -->
+  <div id="p2" class="tab-content section-card">
+    <h2>Projekt 2: Storycube (Erzählwürfel)</h2>
+    <div class="project-layout">
+      <div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Würfel erstellen (20 x 20 x 20 mm).</li>
+          <li><input type="checkbox"> Mit dem Werkzeug "Arbeitsebene" eine Würfelseite auswählen.</li>
+          <li><input type="checkbox"> Text oder Symbol platzieren, auf "Bohrung" stellen und ca. 0.5 mm in den Würfel absenken.</li>
+          <li><input type="checkbox"> Für alle 6 Seiten wiederholen und am Ende alles gruppieren.</li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="storycube.png" alt="Beispiel Storycube" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+storycube.png';">
+        <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
       </div>
     </div>
+  </div>
 
-    <!-- PROJEKT 3 -->
-    <div id="p3" class="tab-content">
-      <h3>Projekt 3: Büroklammer</h3>
-      <div class="project-layout">
-        <div>
-          <ul class="checklist">
-            <li><input type="checkbox"> Grundform erstellen (Höhe 1.5 bis 2 mm).</li>
-            <li><input type="checkbox"> Wandstärken überall bei mindestens 2 mm halten (Bruchgefahr).</li>
-            <li><input type="checkbox"> Klemm-Schlitz als "Bohrung" ausschneiden.</li>
-            <li><input type="checkbox"> Prüfen, dass alle Teile fest miteinander verbunden sind.</li>
-          </ul>
-        </div>
-        <div class="project-image-box">
-          <img src="klammer.png" alt="Beispiel Büroklammer" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Büroklammer.png';">
-          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
-        </div>
+  <!-- TAB 3: BÜROKLAMMER -->
+  <div id="p3" class="tab-content section-card">
+    <h2>Projekt 3: Büroklammer</h2>
+    <div class="project-layout">
+      <div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Grundform wählen und Höhe auf 1.5 bis 2 mm setzen.</li>
+          <li><input type="checkbox"> Wandstärken überall bei mindestens 2 mm halten (PLA bricht sonst schnell!).</li>
+          <li><input type="checkbox"> Klemm-Schlitz als "Bohrung" ausschneiden.</li>
+          <li><input type="checkbox"> Prüfen, dass alle Teile fest miteinander verbunden sind.</li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="klammer.png" alt="Beispiel Büroklammer" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+klammer.png';">
+        <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
       </div>
     </div>
+  </div>
 
-    <!-- PROJEKT 4 -->
-    <div id="p4" class="tab-content">
-      <h3>Projekt 4: Geometrischer Stifthalter</h3>
-      <div class="project-layout">
-        <div>
-          <ul class="checklist">
-            <li><input type="checkbox"> Grundkörper auf ca. 75 x 75 mm, Höhe 90 mm skalieren.</li>
-            <li><input type="checkbox"> Zweiten Körper (5 mm kleiner) als "Bohrung" einsetzen.</li>
-            <li><input type="checkbox"> Anheben, damit der Boden 3-5 mm dick bleibt.</li>
-            <li><input type="checkbox"> Beide Körper ausrichten und gruppieren.</li>
-          </ul>
-        </div>
-        <div class="project-image-box">
-          <img src="stifthalter.png" alt="Beispiel Stifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Stifthalter.png';">
-          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
-        </div>
+  <!-- TAB 4: STIFTHALTER (KORRIGIERTE PRÄZISE ANLEITUNG) -->
+  <div id="p4" class="tab-content section-card">
+    <h2>Projekt 4: Geometrischer Stifthalter</h2>
+    <div class="project-layout">
+      <div>
+        <ul class="checklist">
+          <li><input type="checkbox"> Grundkörper (z. B. Zylinder oder Sechseck) erstellen: 60 x 60 mm, Höhe 80 mm.</li>
+          <li><input type="checkbox"> Identischen 2. Körper erstellen, etwas kleiner skalieren (50 x 50 mm, Höhe 80 mm) und auf "Bohrung" stellen.</li>
+          <li><input type="checkbox"> Die Bohrung um **4 mm nach oben anheben** (über das schwarze Dreieck), damit ein fester Boden entsteht!</li>
+          <li><input type="checkbox"> Beide Formen markieren, mit dem Werkzeug "Ausrichten" mittig zentrieren und danach "Gruppieren".</li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="stifthalter.png" alt="Beispiel Stifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+stifthalter.png';">
+        <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
       </div>
     </div>
-
   </div>
 
   <!-- PHASE 3: SLICING -->
@@ -381,7 +392,7 @@
 <script>
   // ERKLÄRUNGEN FÜR DIE HOTSPOTS AM P1S
   const infoTexts = {
-    ams: "<strong>1. AMS System (Far Wechsler):</strong> Hält bis zu 4 Filament-Rollen bereit und wechselt beim Drucken automatisch die Farben.",
+    ams: "<strong>1. AMS System (Farbwechsler):</strong> Hält bis zu 4 Filament-Rollen bereit und wechselt beim Drucken automatisch die Farben.",
     display: "<strong>2. Steuer-Display:</strong> Hier wird der Druck gestartet, die Temperatur überwacht und der Status angezeigt.",
     head: "<strong>3. Druckkopf (Extruder & Nozzle):</strong> Zieht den PLA-Kunststoff ein, schmilzt ihn bei 200 °C und trägt ihn präzise auf.",
     bed: "<strong>4. Druckbett (Bauplatte):</strong> Die beheizte Platte, auf der das Modell Schicht für Schicht von unten nach oben entsteht."
@@ -391,7 +402,7 @@
     document.getElementById('info-box').innerHTML = infoTexts[key];
   }
 
-  // TABS / PROJEKT-AUSTAUSCH
+  // TABS UND KACHEL-WECHSEL
   function openTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.project-card').forEach(el => el.classList.remove('active'));
@@ -400,24 +411,32 @@
     document.getElementById('card-' + tabId).classList.add('active');
   }
 
-  // QUIZ LOGIK
+  // QUIZ LOGIK (AN MATERIALKUNDE ANGEPASST)
   const quizData = [
     {
-      q: "Wie heisst das Kunststoff-Material, mit dem wir meistens drucken?",
-      options: ["PLA (aus Pflanzenstärke)", "Gummi", "Aluminium"],
-      correct: 0
+      q: "Was passiert mit einem PLA-Modell, wenn es im Sommer bei über 60 °C im Auto liegt?",
+      options: [
+        "Nichts, es bleibt vollkommen stabil.",
+        "Es verformt sich und wird weich.",
+        "Es löst sich sofort in Luft auf."
+      ],
+      correct: 1
     },
     {
-      q: "Wie baut der Bambu Lab P1S ein Objekt auf?",
-      options: ["Er schnitzt es aus einem Block.", "Schicht für Schicht von unten nach oben.", "Er giest flüssiges Plastik in eine Form."],
-      correct: 1
+      q: "Warum sollte man PLA-Fehldrucke nicht einfach in den Biomüll werfen?",
+      options: [
+        "Weil es sich in der Natur nicht einfach so abbaut, sondern Spezial-Industrieanlagen braucht.",
+        "Weil Tiere das Plastik sonst auffressen.",
+        "Man darf es in den Biomüll werfen, das ist kein Problem."
+      ],
+      correct: 0
     }
   ];
 
   let currentQ = 0;
   function loadQuiz() {
     if(currentQ >= quizData.length) {
-      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>🎉 Toll gemacht! Du kennst dich mit dem 3D-Drucker aus!</p>";
+      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>🎉 Toll gemacht! Du weisst nun genau, worauf du beim Material und Drucker achten musst!</p>";
       return;
     }
     const q = quizData[currentQ];
@@ -440,7 +459,7 @@
       document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--success)'>Richtig! 👍</span>";
       setTimeout(() => { currentQ++; loadQuiz(); }, 1200);
     } else {
-      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--danger)'>Probiere es nochmals! 💡</span>";
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--danger)'>Probiere es nochmals! 💡 Lese oben in der gelben Warnbox nach.</span>";
     }
   }
 
