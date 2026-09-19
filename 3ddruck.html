@@ -27,6 +27,10 @@
       --c-p4-bg: #ffe4e6;
       --c-p5: #7c3aed;
       --c-p5-bg: #ede9fe;
+      --c-slicing: #0284c7;
+      --c-slicing-bg: #e0f2fe;
+      --c-log: #475569;
+      --c-log-bg: #f1f5f9;
     }
 
     body {
@@ -66,11 +70,11 @@
 
     h2 { border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-top: 0; }
 
-    /* PROJEKT-KACHELN NAVIGATION MIT INDIVIDUELLEN FARBEN */
+    /* PROJEKT-KACHELN NAVIGATION */
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
       margin-bottom: 25px;
     }
 
@@ -78,47 +82,51 @@
       background: var(--card-bg);
       border: 2px solid var(--border);
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px 6px;
       cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
     }
 
-    .project-card h4 { margin: 6px 0 4px 0; font-size: 0.95em; }
-    .badge { padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: bold; }
+    .project-card h4 { margin: 4px 0 2px 0; font-size: 0.9em; }
+    .badge { padding: 2px 6px; border-radius: 12px; font-size: 0.7em; font-weight: bold; }
 
     /* Kachel Farbstile */
     #card-intro.active { border-color: var(--c-intro); background: var(--c-intro-bg); }
     #card-intro h4, #card-intro .badge { color: var(--c-intro); }
-    #card-intro .badge { background: #ffffff; }
 
     #card-p1.active { border-color: var(--c-p1); background: var(--c-p1-bg); }
     #card-p1 h4, #card-p1 .badge { color: var(--c-p1); }
-    #card-p1 .badge { background: #ffffff; }
 
     #card-p2.active { border-color: var(--c-p2); background: var(--c-p2-bg); }
     #card-p2 h4, #card-p2 .badge { color: var(--c-p2); }
-    #card-p2 .badge { background: #ffffff; }
 
     #card-p3.active { border-color: var(--c-p3); background: var(--c-p3-bg); }
     #card-p3 h4, #card-p3 .badge { color: var(--c-p3); }
-    #card-p3 .badge { background: #ffffff; }
 
     #card-p4.active { border-color: var(--c-p4); background: var(--c-p4-bg); }
     #card-p4 h4, #card-p4 .badge { color: var(--c-p4); }
-    #card-p4 .badge { background: #ffffff; }
 
     #card-p5.active { border-color: var(--c-p5); background: var(--c-p5-bg); }
     #card-p5 h4, #card-p5 .badge { color: var(--c-p5); }
-    #card-p5 .badge { background: #ffffff; }
 
-    /* Dynamische Überschriften im jeweiligen Modul */
+    #card-slicing.active { border-color: var(--c-slicing); background: var(--c-slicing-bg); }
+    #card-slicing h4, #card-slicing .badge { color: var(--c-slicing); }
+
+    #card-log.active { border-color: var(--c-log); background: var(--c-log-bg); }
+    #card-log h4, #card-log .badge { color: var(--c-log); }
+
+    .badge { background: #ffffff; }
+
+    /* Dynamische Überschriften */
     #intro h2 { color: var(--c-intro); border-color: var(--c-intro-bg); }
     #p1 h2 { color: var(--c-p1); border-color: var(--c-p1-bg); }
     #p2 h2 { color: var(--c-p2); border-color: var(--c-p2-bg); }
     #p3 h2 { color: var(--c-p3); border-color: var(--c-p3-bg); }
     #p4 h2 { color: var(--c-p4); border-color: var(--c-p4-bg); }
     #p5 h2 { color: var(--c-p5); border-color: var(--c-p5-bg); }
+    #slicing h2 { color: var(--c-slicing); border-color: var(--c-slicing-bg); }
+    #log h2 { color: var(--c-log); border-color: var(--c-log-bg); }
 
     /* LAYOUT BILD RECHTS */
     .project-layout {
@@ -196,7 +204,7 @@
       min-height: 50px;
     }
 
-    /* KORRIGIERTE CHECKLISTEN MIT SAUBEREN ZEILENUMBRÜCHEN */
+    /* CHECKLISTEN */
     .checklist { list-style: none; padding: 0; margin: 0; }
     .checklist li {
       padding: 12px;
@@ -261,7 +269,7 @@
     <p>Konstruiere eigene 3D-Modelle und drucke sie auf dem Bambu Lab P1S aus!</p>
   </header>
 
-  <!-- KACHEL-NAVIGATION -->
+  <!-- KACHEL-NAVIGATION NACH SCHRITTEN UND PROJEKTEN -->
   <div class="project-grid">
     <div class="project-card active" onclick="openTab('intro')" id="card-intro">
       <h4>Einführung</h4>
@@ -287,9 +295,17 @@
       <h4>Digitaler Ton</h4>
       <span class="badge">SculptGL</span>
     </div>
+    <div class="project-card" onclick="openTab('slicing')" id="card-slicing">
+      <h4>3D-Druck</h4>
+      <span class="badge">Slicing</span>
+    </div>
+    <div class="project-card" onclick="openTab('log')" id="card-log">
+      <h4>Tagebuch</h4>
+      <span class="badge">Reflexion</span>
+    </div>
   </div>
 
-  <!-- TAB 0: EINFÜHRUNG (NUR GRUNDLAGEN) -->
+  <!-- TAB 0: EINFÜHRUNG -->
   <div id="intro" class="tab-content section-card active">
     <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
     
@@ -300,7 +316,7 @@
 
     <div class="material-box">
       <h3 style="margin-top:0; color: #b45309;">Wichtig: Wie umweltfreundlich ist unser Plastik (PLA)?</h3>
-      <p>Wir drucken meistens mit <strong>PLA</strong>. Es wird zwar aus Pflanzenstärke (z. B. Mais) hergestellt, aber im Chemielabor stark verändert. Deshalb gilt:</p>
+      <p>Wir drucken meistens mit <strong>PLA</strong> (steht für <em>Polylactide</em>, auf Deutsch <em>Polymilchsäure</em>). Es wird zwar aus Pflanzenstärke (z. B. Mais) hergestellt, aber im Chemielabor stark verändert. Deshalb gilt:</p>
       <ul style="margin-bottom:0; padding-left:20px;">
         <li><strong>Kein Bio-Müll:</strong> PLA baut sich in der Natur oder im Heimkompost <u>nicht</u> ab. Es braucht spezielle Industrie-Anlagen!</li>
         <li><strong>Schlechte Rezyklierbarkeit:</strong> Fehldrucke landen meist im Restmüll. Drucke deshalb nicht unnötig viel Plastik aus!</li>
@@ -390,15 +406,15 @@
     </div>
   </div>
 
-  <!-- TAB 4: STIFTHALTER (SAUBER FORMATION UND FORMATIERUNG) -->
+  <!-- TAB 4: STIFTHALTER (MIT SECHSECK/SECHS KANTEN FÜR BLEISTIFTE) -->
   <div id="p4" class="tab-content section-card">
     <h2>Projekt 4: Geometrischer Stifthalter</h2>
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> <span>Grundkörper (z. B. Zylinder oder Sechseck) erstellen: 60 x 60 mm, Höhe 80 mm.</span></li>
-          <li><input type="checkbox"> <span>Identischen 2. Körper erstellen, etwas kleiner skalieren (50 x 50 mm, Höhe 80 mm) und auf "Bohrung" stellen.</span></li>
-          <li><input type="checkbox"> <span>Die Bohrung um <strong>4 mm nach oben anheben</strong> (über das schwarze Dreieck), damit ein fester Boden entsteht!</span></li>
+          <li><input type="checkbox"> <span>Grundkörper (z. B. Sechseck/Polygon oder Zylinder) erstellen: 60 x 60 mm, Höhe 80 mm.</span></li>
+          <li><input type="checkbox"> <span>Ein <strong>Sechseck (Polygon) für klassische Stifte mit 6 Kanten</strong> erstellen, etwas kleiner skalieren (50 x 50 mm, Höhe 80 mm) und auf "Bohrung" stellen.</span></li>
+          <li><input type="checkbox"> <span>Die Sechseck-Bohrung um <strong>4 mm nach oben anheben</strong> (über das schwarze Dreieck), damit ein fester Boden entsteht!</span></li>
           <li><input type="checkbox"> <span>Beide Formen markieren, mit dem Werkzeug "Ausrichten" mittig zentrieren und danach "Gruppieren".</span></li>
         </ul>
       </div>
@@ -409,19 +425,19 @@
     </div>
   </div>
 
-  <!-- TAB 5: SCULPTGL (SAUBERE FORMATION UND FORMATIERUNG) -->
+  <!-- TAB 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
     <h2>Projekt 5: Figuren aus digitalem Ton formen (SculptGL)</h2>
-    <p>Öffne die Web-App <a href="https://stephaneginier.com/sculptgl/" target="_blank" style="color: var(--c-p5); font-weight: bold;">stephaneginier.com/sculptgl</a> und verforme deine virtuelle Tonkugel[cite: 7].</p>
+    <p>Öffne die Web-App <a href="https://stephaneginier.com/sculptgl/" target="_blank" style="color: var(--c-p5); font-weight: bold;">stephaneginier.com/sculptgl</a> und verforme deine virtuelle Tonkugel.</p>
     
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> <span>Wechsel im Menü rechts unter <em>Werkzeuge</em> von "Pinsel" auf andere Tools (z. B. Ziehen, Glätten oder Lehm)[cite: 7].</span></li>
-          <li><input type="checkbox"> <span>Experimentiere mit dem <strong>Radius</strong> und der <strong>Intensität</strong> deiner Werkzeuge[cite: 7].</span></li>
-          <li><input type="checkbox"> <span>Formen, Dellen und Strukturen in die Kugel drücken oder herausziehen[cite: 7].</span></li>
-          <li><input type="checkbox"> <span>Tauscht euch in der Klasse aus: Welche Werkzeuge funktionieren am besten für Gesichter oder Figuren[cite: 7]?</span></li>
-          <li><input type="checkbox"> <span>Wenn du zufrieden bist: Zeige das Werk deiner Lehrperson[cite: 7] für den Export als .STL für den 3D-Druck!</span></li>
+          <li><input type="checkbox"> <span>Wechsel im Menü rechts unter <em>Werkzeuge</em> von "Pinsel" auf andere Tools (z. B. Ziehen, Glätten oder Lehm).</span></li>
+          <li><input type="checkbox"> <span>Experimentiere mit dem <strong>Radius</strong> und der <strong>Intensität</strong> deiner Werkzeuge.</span></li>
+          <li><input type="checkbox"> <span>Formen, Dellen und Strukturen in die Kugel drücken oder herausziehen.</span></li>
+          <li><input type="checkbox"> <span>Tauscht euch in der Klasse aus: Welche Werkzeuge funktionieren am besten für Gesichter oder Figuren?</span></li>
+          <li><input type="checkbox"> <span>Wenn du zufrieden bist: Zeige das Werk deiner Lehrperson für den Export als .STL für den 3D-Druck!</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -431,9 +447,9 @@
     </div>
   </div>
 
-  <!-- PHASE 2: SLICING MIT SELBSTÜBERPRÜFUNG -->
-  <div class="section-card">
-    <h2 style="color: var(--primary);">2. Vom Modell zum Druck (Slicing)</h2>
+  <!-- TAB 6: SLICING (EIGENER TAB) -->
+  <div id="slicing" class="tab-content section-card">
+    <h2>2. Vom Modell zum Druck (Slicing)</h2>
     <p><strong>Schritt A: Überprüfe dein Modell zuerst selbst!</strong></p>
     <ul class="checklist">
       <li><input type="checkbox"> <span>Steht das Modell flach auf der Bauplatte (Höhe Z = 0)?</span></li>
@@ -450,9 +466,9 @@
     </ol>
   </div>
 
-  <!-- PHASE 3: TAGEBUCH -->
-  <div class="section-card">
-    <h2 style="color: var(--primary);">3. Digitales Lerntagebuch</h2>
+  <!-- TAB 7: TAGEBUCH (EIGENER TAB) -->
+  <div id="log" class="tab-content section-card">
+    <h2>3. Digitales Lerntagebuch</h2>
     <p>Halte deine täglichen Fortschritte fest:</p>
 
     <div class="log-form">
@@ -490,7 +506,6 @@
     document.getElementById('card-' + tabId).classList.add('active');
   }
 
-  // QUIZ MIT NUN 4 FRAGEN
   const quizData = [
     {
       q: "Was passiert mit einem PLA-Modell, wenn es im Sommer bei über 60 °C im Auto liegt?",
