@@ -54,25 +54,75 @@
     h2 { color: var(--primary); border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; margin-top: 0; }
     h3 { color: var(--primary); }
 
-    /* INTERAKTIVER DRUCKER (HOTSPOTS) */
+    /* PROJEKT-KARTEN OBEN (GLEICH WIE LASERCUTTER / MICROBIT) */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .project-card:hover, .project-card.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .project-card h4 { margin: 10px 0 5px 0; color: var(--primary); }
+    .badge { background: #e2e8f0; color: #4a5568; padding: 2px 8px; border-radius: 12px; font-size: 0.8em; }
+
+    /* LAYOUT MIT BILD RECHTS IN DEN PROJEKTEN */
+    .project-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .project-layout { grid-template-columns: 1fr; }
+    }
+
+    .project-image-box {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      background: #f8fafc;
+    }
+
+    .project-image-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    /* INTERAKTIVER DRUCKER (HOTSPOTS EXAKT POSITIONIERT) */
     .printer-wrapper {
       position: relative;
-      max-width: 600px;
+      max-width: 500px;
       margin: 20px auto;
       border-radius: 10px;
       overflow: hidden;
-      border: 2px solid var(--border);
+      border: 1px solid var(--border);
     }
 
-    .printer-wrapper img {
-      width: 100%;
-      display: block;
-    }
+    .printer-wrapper img { width: 100%; display: block; }
 
     .hotspot {
       position: absolute;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       background-color: var(--primary);
       color: white;
       border: 2px solid white;
@@ -82,17 +132,17 @@
       justify-content: center;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
       transition: transform 0.2s;
     }
 
     .hotspot:hover { transform: scale(1.2); background-color: #0f766e; }
 
-    /* Positionen der Klickpunkte auf dem P1S Bild (in Prozent) */
-    #spot-display { top: 18%; left: 82%; }
-    #spot-head    { top: 42%; left: 48%; }
-    #spot-bed     { top: 70%; left: 50%; }
-    #spot-ams     { top: 5%;  left: 50%; }
+    /* Exakte Prozentkoordinaten für den P1S */
+    #spot-ams     { top: 15%; left: 50%; }
+    #spot-display { top: 35%; left: 28%; }
+    #spot-head    { top: 48%; left: 50%; }
+    #spot-bed     { top: 81%; left: 42%; }
 
     .info-box-display {
       background: var(--primary-light);
@@ -102,16 +152,6 @@
       margin-top: 15px;
       min-height: 50px;
     }
-
-    /* TABS LOGIK */
-    .tab-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-    .tab-btn {
-      background: #e2e8f0; border: none; padding: 10px 18px;
-      border-radius: 20px; cursor: pointer; font-weight: bold; color: var(--text);
-    }
-    .tab-btn.active, .tab-btn:hover { background: var(--primary); color: white; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
 
     /* CHECKLISTEN */
     .checklist { list-style: none; padding: 0; }
@@ -146,12 +186,9 @@
       padding: 12px; margin-top: 10px; border-radius: 4px;
       display: flex; justify-content: space-between; align-items: flex-start;
     }
-    .delete-btn {
-      background: none; border: none; color: var(--danger);
-      cursor: pointer; font-size: 1.1em; padding: 0 5px;
-    }
-
-    .badge { background: #e2e8f0; color: #4a5568; padding: 2px 8px; border-radius: 12px; font-size: 0.85em; }
+    .delete-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-size: 1.1em; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 <body>
@@ -164,18 +201,47 @@
 
   <header>
     <h1>🖨️ 3D-Druck-Werkstatt</h1>
-    <p>Erkunde den Bambu Lab P1S und erstelle eigene 3D-Modelle!</p>
+    <p>Konstruiere eigene 3D-Modelle und drucke sie auf dem Bambu Lab P1S aus!</p>
   </header>
 
-  <!-- PHASE 1: INTERAKTIVER DRUCKER & QUIZ -->
-  <div class="section-card">
-    <h2>1. Erkunde den Bambu Lab P1S</h2>
-    <p>Klicke auf die <strong>Zahlen im Bild</strong>, um die einzelnen Teile des 3D-Druckers kennenzulernen:</p>
+  <!-- PROJEKTAUFWAND (KARTEN GLEICH UNTER DEM BALKEN) -->
+  <div class="project-grid">
+    <div class="project-card active" onclick="openTab('p1')" id="card-p1">
+      <h4>🪙 Einkaufsmünze</h4>
+      <span class="badge">Einsteiger</span>
+    </div>
+    <div class="project-card" onclick="openTab('p2')" id="card-p2">
+      <h4>🎲 Storycube</h4>
+      <span class="badge">Kreativ</span>
+    </div>
+    <div class="project-card" onclick="openTab('p3')" id="card-p3">
+      <h4>📎 Büroklammer</h4>
+      <span class="badge">Tüftler</span>
+    </div>
+    <div class="project-card" onclick="openTab('p4')" id="card-p4">
+      <h4>✏️ Stifthalter</h4>
+      <span class="badge">Profis</span>
+    </div>
+  </div>
 
-    <!-- INTERAKTIVES BILD -->
+  <!-- PHASE 1: GRUNDLAGEN & EINFÜHRUNGSTEXT -->
+  <div class="section-card">
+    <h2>1. Einführung: Was ist 3D-Druck?</h2>
+    
+    <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid var(--primary); margin-bottom: 20px;">
+      <p style="margin-top:0;"><strong>Wie funktioniert ein 3D-Drucker?</strong><br>
+      Beim sogenannten <strong>FDM-Druckverfahren</strong> (Schmelzschichtung) wird eine Kunststoff-Schnur – das sogenannte <strong>Filament</strong> – auf etwa 200 °C erhitzt und verflüssigt. Der Druckkopf fährt dann eine genaue Form ab und trägt den geschmolzenen Kunststoff Schicht für Schicht auf eine Bauplatte auf. Sobald die Schicht abkühlt, wird sie fest – und Schicht für Schicht entsteht dein dreidimensionales Objekt!</p>
+      
+      <p style="margin-bottom:0;"><strong>Unser Material: PLA</strong><br>
+      Wir drucken mit <strong>PLA</strong>. Das ist ein umweltfreundlicher Kunststoff, der aus pflanzlicher Stärke (z. B. Maisstärke) hergestellt wird. Er richt nicht streng und ist ideal für den Schulunterricht geeignet.</p>
+    </div>
+
+    <h3>Der Bambu Lab P1S im Überblick</h3>
+    <p>Klicke auf die <strong>Nummern im Bild</strong>, um die Bauteile kennenzulernen:</p>
+
+    <!-- INTERAKTIVES BILD-->
     <div class="printer-wrapper">
-      <!-- Ersetze 'p1s.jpg' durch das Bild in deinem GitHub-Ordner -->
-      <img src="p1s.jpg" alt="Bambu Lab P1S 3D-Drucker" onerror="this.src='https://via.placeholder.com/600x450?text=Bild+p1s.jpg+auf+GitHub+hochladen';">
+      <img src="p1s.jpg" alt="Bambu Lab P1S 3D-Drucker">
       
       <div class="hotspot" id="spot-ams" onclick="showInfo('ams')">1</div>
       <div class="hotspot" id="spot-display" onclick="showInfo('display')">2</div>
@@ -185,12 +251,12 @@
 
     <!-- ERKLAERUNGS-TEXTBOX -->
     <div class="info-box-display" id="info-box">
-      <em>Klicke oben auf eine Nummer, um die Erklärung anzuzeigen.</em>
+      <em>Klicke oben auf eine Nummer im Bild, um die Erklärung anzuzeigen.</em>
     </div>
 
     <!-- QUIZ -->
     <div class="quiz-card">
-      <h3>🧠 Wissens-Check zum 3D-Druck</h3>
+      <h3>🧠 Wissens-Check</h3>
       <div id="quiz-container">
         <div class="quiz-question" id="quiz-title">Frage wird geladen...</div>
         <div class="quiz-options" id="quiz-options"></div>
@@ -199,70 +265,100 @@
     </div>
   </div>
 
-  <!-- PHASE 2: PROJEKTAUSWAHL -->
+  <!-- PHASE 2: PROJEKT-ANLEITUNGEN (MIT BILD RECHTS) -->
   <div class="section-card">
-    <h2>2. Wähle dein Konstruktions-Projekt</h2>
-    <p>Wähle <strong>ein Projekt</strong> aus, das du in Tinkercad umsetzen möchtest:</p>
+    <h2>2. Konstruktion im Detail</h2>
 
-    <div class="tab-buttons">
-      <button class="tab-btn active" onclick="openTab('p1')">🪙 Einkaufsmünze <span class="badge">Einsteiger</span></button>
-      <button class="tab-btn" onclick="openTab('p2')">🎲 Storycube <span class="badge">Kreativ</span></button>
-      <button class="tab-btn" onclick="openTab('p3')">📎 Büroklammer <span class="badge">Tüftler</span></button>
-      <button class="tab-btn" onclick="openTab('p4')">✏️ Stifthalter <span class="badge">Profis</span></button>
-    </div>
-
+    <!-- PROJEKT 1 -->
     <div id="p1" class="tab-content active">
       <h3>Projekt 1: Einkaufsmünze mit Schlüsselanhänger</h3>
-      <ul class="checklist">
-        <li><input type="checkbox"> Zylinder einfügen und Masse eingeben: 27 x 27 mm (Höhe: 2 mm).</li>
-        <li><input type="checkbox"> Verzierung oder Buchstaben hinzufügen (Höhe: max. 0.5 mm höher).</li>
-        <li><input type="checkbox"> Loch (Bohrung) für den Schlüsselring platzieren (Durchmesser: 3 mm).</li>
-        <li><input type="checkbox"> Alle Teile markieren und "Gruppieren".</li>
-      </ul>
+      <div class="project-layout">
+        <div>
+          <ul class="checklist">
+            <li><input type="checkbox"> Zylinder einfügen und Masse eingeben: 27 x 27 mm (Höhe: 2 mm).</li>
+            <li><input type="checkbox"> Verzierung oder Buchstaben hinzufügen (Höhe: max. 0.5 mm höher).</li>
+            <li><input type="checkbox"> Loch (Bohrung) für den Schlüsselring platzieren (Durchmesser: 3 mm).</li>
+            <li><input type="checkbox"> Alle Teile markieren und mit "Gruppieren" verschmelzen.</li>
+          </ul>
+        </div>
+        <div class="project-image-box">
+          <!-- Ersetze 'muenze.png' später durch dein Bild -->
+          <img src="muenze.png" alt="Beispiel Einkaufsmünze" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Einkaufsmünze.png';">
+          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
+        </div>
+      </div>
     </div>
 
+    <!-- PROJEKT 2 -->
     <div id="p2" class="tab-content">
       <h3>Projekt 2: Storycube (Erzählwürfel)</h3>
-      <ul class="checklist">
-        <li><input type="checkbox"> Würfel erstellen (20 x 20 x 20 mm).</li>
-        <li><input type="checkbox"> Mit der "Arbeitsebene" eine Seite auswählen.</li>
-        <li><input type="checkbox"> Text/Symbol platzieren und als "Bohrung" 0.5 mm absenken.</li>
-        <li><input type="checkbox"> Für alle 6 Seiten wiederholen und am Ende gruppieren.</li>
-      </ul>
+      <div class="project-layout">
+        <div>
+          <ul class="checklist">
+            <li><input type="checkbox"> Würfel erstellen (20 x 20 x 20 mm).</li>
+            <li><input type="checkbox"> Mit der "Arbeitsebene" eine Würfelseite auswählen.</li>
+            <li><input type="checkbox"> Text oder Symbol platzieren und als "Bohrung" 0.5 mm absenken.</li>
+            <li><input type="checkbox"> Für alle 6 Seiten wiederholen und am Ende alles gruppieren.</li>
+          </ul>
+        </div>
+        <div class="project-image-box">
+          <img src="storycube.png" alt="Beispiel Storycube" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Storycube.png';">
+          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
+        </div>
+      </div>
     </div>
 
+    <!-- PROJEKT 3 -->
     <div id="p3" class="tab-content">
       <h3>Projekt 3: Büroklammer</h3>
-      <ul class="checklist">
-        <li><input type="checkbox"> Grundform erstellen (Höhe 1.5 bis 2 mm).</li>
-        <li><input type="checkbox"> Wandstärken überall bei mindestens 2 mm halten.</li>
-        <li><input type="checkbox"> Klemm-Schlitz als "Bohrung" ausschneiden.</li>
-        <li><input type="checkbox"> Prüfen, dass alle Teile fest zusammenhängen.</li>
-      </ul>
+      <div class="project-layout">
+        <div>
+          <ul class="checklist">
+            <li><input type="checkbox"> Grundform erstellen (Höhe 1.5 bis 2 mm).</li>
+            <li><input type="checkbox"> Wandstärken überall bei mindestens 2 mm halten (Bruchgefahr).</li>
+            <li><input type="checkbox"> Klemm-Schlitz als "Bohrung" ausschneiden.</li>
+            <li><input type="checkbox"> Prüfen, dass alle Teile fest miteinander verbunden sind.</li>
+          </ul>
+        </div>
+        <div class="project-image-box">
+          <img src="klammer.png" alt="Beispiel Büroklammer" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Büroklammer.png';">
+          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
+        </div>
+      </div>
     </div>
 
+    <!-- PROJEKT 4 -->
     <div id="p4" class="tab-content">
       <h3>Projekt 4: Geometrischer Stifthalter</h3>
-      <ul class="checklist">
-        <li><input type="checkbox"> Grundkörper auf ca. 75 x 75 mm, Höhe 90 mm skalieren.</li>
-        <li><input type="checkbox"> Zweiten Körper (5 mm kleiner) als "Bohrung" einsetzen.</li>
-        <li><input type="checkbox"> Anheben, damit der Boden 3-5 mm dick bleibt.</li>
-        <li><input type="checkbox"> Alles ausrichten und gruppieren.</li>
-      </ul>
+      <div class="project-layout">
+        <div>
+          <ul class="checklist">
+            <li><input type="checkbox"> Grundkörper auf ca. 75 x 75 mm, Höhe 90 mm skalieren.</li>
+            <li><input type="checkbox"> Zweiten Körper (5 mm kleiner) als "Bohrung" einsetzen.</li>
+            <li><input type="checkbox"> Anheben, damit der Boden 3-5 mm dick bleibt.</li>
+            <li><input type="checkbox"> Beide Körper ausrichten und gruppieren.</li>
+          </ul>
+        </div>
+        <div class="project-image-box">
+          <img src="stifthalter.png" alt="Beispiel Stifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Stifthalter.png';">
+          <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
+        </div>
+      </div>
     </div>
+
   </div>
 
   <!-- PHASE 3: SLICING -->
   <div class="section-card">
     <h2>3. Vom Modell zum Druck (Slicing)</h2>
     <ol>
-      <li>Lass dein Modell in Tinkercad kontrollieren.</li>
+      <li>Lass dein Modell in Tinkercad von der Lehrkraft kontrollieren.</li>
       <li>Exportiere deine Arbeit als <strong>.STL-Datei</strong>.</li>
       <li>Im Slicer (Bambu Studio) wird daraus der <strong>G-Code</strong> für den P1S erzeugt.</li>
     </ol>
   </div>
 
-  <!-- PHASE 4: TAGEBUCH MIT DOWNLOAD UND LÖSCHEN -->
+  <!-- PHASE 4: TAGEBUCH -->
   <div class="section-card">
     <h2>4. Digitales Lerntagebuch</h2>
     <p>Halte deine täglichen Fortschritte fest:</p>
@@ -285,9 +381,9 @@
 <script>
   // ERKLÄRUNGEN FÜR DIE HOTSPOTS AM P1S
   const infoTexts = {
-    ams: "<strong>1. AMS System (Aufsatz):</strong> Hält bis zu 4 verschiedene Filament-Rollen bereit und wechselt beim Drucken automatisch die Farben.",
+    ams: "<strong>1. AMS System (Far Wechsler):</strong> Hält bis zu 4 Filament-Rollen bereit und wechselt beim Drucken automatisch die Farben.",
     display: "<strong>2. Steuer-Display:</strong> Hier wird der Druck gestartet, die Temperatur überwacht und der Status angezeigt.",
-    head: "<strong>3. Druckkopf (Extruder & Nozzle):</strong> Zieht den PLA-Kunststoff ein, schmilzt ihn bei ca. 200 °C und trägt ihn präzise auf.",
+    head: "<strong>3. Druckkopf (Extruder & Nozzle):</strong> Zieht den PLA-Kunststoff ein, schmilzt ihn bei 200 °C und trägt ihn präzise auf.",
     bed: "<strong>4. Druckbett (Bauplatte):</strong> Die beheizte Platte, auf der das Modell Schicht für Schicht von unten nach oben entsteht."
   };
 
@@ -295,12 +391,13 @@
     document.getElementById('info-box').innerHTML = infoTexts[key];
   }
 
-  // TABS LOGIK
+  // TABS / PROJEKT-AUSTAUSCH
   function openTab(tabId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.project-card').forEach(el => el.classList.remove('active'));
+    
     document.getElementById(tabId).classList.add('active');
-    event.currentTarget.classList.add('active');
+    document.getElementById('card-' + tabId).classList.add('active');
   }
 
   // QUIZ LOGIK
@@ -312,7 +409,7 @@
     },
     {
       q: "Wie baut der Bambu Lab P1S ein Objekt auf?",
-      options: ["Er schnitzt es aus einem Block.", "Schicht für Schicht von unten nach oben.", "Er giesst flüssiges Plastik in eine Form."],
+      options: ["Er schnitzt es aus einem Block.", "Schicht für Schicht von unten nach oben.", "Er giest flüssiges Plastik in eine Form."],
       correct: 1
     }
   ];
@@ -347,7 +444,7 @@
     }
   }
 
-  // LERNTAGEBUCH (SPEICHERN, LÖSCHEN, DOWNLOAD)
+  // LERNTAGEBUCH
   function addLogEntry() {
     const task = document.getElementById('log-task').value;
     const ref = document.getElementById('log-reflection').value;
