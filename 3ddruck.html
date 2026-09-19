@@ -14,7 +14,6 @@
       --border: #e2e8f0;
       --danger: #ef4444;
       
-      /* MODUL-FARBEN */
       --c-intro: #0d9488;
       --c-intro-bg: #ccfbf1;
       --c-p1: #2563eb;
@@ -79,7 +78,6 @@
       margin-bottom: 8px;
     }
 
-    /* HAUPT-SCHRITTE OBEN */
     .main-steps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -87,7 +85,6 @@
       margin-bottom: 15px;
     }
 
-    /* PROJEKT-KACHELN DARUNTER */
     .project-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -108,7 +105,6 @@
     .project-card h4 { margin: 4px 0 2px 0; font-size: 0.95em; }
     .badge { padding: 2px 6px; border-radius: 12px; font-size: 0.7em; font-weight: bold; background: #ffffff; }
 
-    /* Farbstile */
     #card-intro.active { border-color: var(--c-intro); background: var(--c-intro-bg); }
     #card-intro h4, #card-intro .badge { color: var(--c-intro); }
 
@@ -133,7 +129,6 @@
     #card-p5.active { border-color: var(--c-p5); background: var(--c-p5-bg); }
     #card-p5 h4, #card-p5 .badge { color: var(--c-p5); }
 
-    /* Dynamische Überschriften */
     #intro h2 { color: var(--c-intro); border-color: var(--c-intro-bg); }
     #slicing h2 { color: var(--c-slicing); border-color: var(--c-slicing-bg); }
     #log h2 { color: var(--c-log); border-color: var(--c-log-bg); }
@@ -143,7 +138,6 @@
     #p4 h2 { color: var(--c-p4); border-color: var(--c-p4-bg); }
     #p5 h2 { color: var(--c-p5); border-color: var(--c-p5-bg); }
 
-    /* LAYOUT BILD RECHTS */
     .project-layout {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -279,7 +273,6 @@
     <p>Konstruiere eigene 3D-Modelle und drucke sie auf dem Bambu Lab P1S aus!</p>
   </header>
 
-  <!-- 1. HAUPT-SCHRITTE (OBEN) -->
   <div class="nav-label">Werkstatt-Ablauf</div>
   <div class="main-steps-grid">
     <div class="project-card active" onclick="openTab('intro')" id="card-intro">
@@ -296,7 +289,6 @@
     </div>
   </div>
 
-  <!-- 2. PROJEKTE (DARUNTER) -->
   <div class="nav-label">Wähle dein Bauprojekt</div>
   <div class="project-grid">
     <div class="project-card" onclick="openTab('p1')" id="card-p1">
@@ -304,15 +296,15 @@
       <span class="badge">Einsteiger</span>
     </div>
     <div class="project-card" onclick="openTab('p2')" id="card-p2">
-      <h4>Storycube</h4>
-      <span class="badge">Kreativ</span>
+      <h4>Alliterations-Würfel</h4>
+      <span class="badge">Sprachspiel</span>
     </div>
     <div class="project-card" onclick="openTab('p3')" id="card-p3">
       <h4>Klammer</h4>
       <span class="badge">Tüftler</span>
     </div>
     <div class="project-card" onclick="openTab('p4')" id="card-p4">
-      <h4>Stifthalter</h4>
+      <h4>Bleistifthalter</h4>
       <span class="badge">Profis</span>
     </div>
     <div class="project-card" onclick="openTab('p5')" id="card-p5">
@@ -421,21 +413,26 @@
     </div>
   </div>
 
-  <!-- PROJEKT 2: STORYCUBE (MIT WORT-TIPPS) -->
+  <!-- PROJEKT 2: ALLITERATIONS- / SPRACHSPIEL-WÜRFEL -->
   <div id="p2" class="tab-content section-card">
-    <h2>Projekt 2: Storycube (Erzählwürfel)</h2>
+    <h2>Projekt 2: Alliterations- & Grammatik-Würfel</h2>
     <div class="project-layout">
       <div>
+        <p>Erstelle einen Spezialwürfel für Sprachspiele! Jeder Würfel hat eine feste Grammatik-Rolle und alle 6 Wörter beginnen mit demselben Buchstaben:</p>
         <ul class="checklist">
-          <li><input type="checkbox"> <span>Würfel erstellen (20 x 20 x 20 mm).</span></li>
-          <li><input type="checkbox"> <span><strong>Tipp für spannende Geschichten:</strong> Wähle für die 6 Seiten verschiedene Wortgruppen aus! Z. B. 1 Hauptfigur (Held/Monster), 1 Ort (Wald/Weltall), 1 Gegenstand (Schlüssel/Zauberstab), 1 Aktion (fliegen/suchen) und 1 Gefühl (mutig/überrascht).</span></li>
+          <li><input type="checkbox"> <span>Grundkörper: Würfel erstellen (20 x 20 x 20 mm).</span></li>
+          <li><input type="checkbox"> <span><strong>Spezialisierung wählen:</strong> Entscheide, welcher Würfel es sein soll:<br>
+            • <strong>Nomen-Würfel</strong> (z. B. Buchstabe A: <em>Affe, Apfel, Auto, Ameise, Ananas, Astronaut</em>)<br>
+            • <strong>Verben-Würfel</strong> (z. B. Buchstabe F: <em>fliegen, fangen, finden, füttern, formen, freuen</em>)<br>
+            • <strong>Adjektive-Würfel</strong> (z. B. Buchstabe M: <em>mutig, müde, munter, magisch, mürrisch, munter</em>)
+          </span></li>
           <li><input type="checkbox"> <span>Mit dem Werkzeug "Arbeitsebene" eine Würfelseite auswählen.</span></li>
-          <li><input type="checkbox"> <span>Text oder Symbol platzieren, auf "Bohrung" stellen und ca. 0.5 mm in den Würfel absenken.</span></li>
+          <li><input type="checkbox"> <span>Wort platzieren, als "Bohrung" definieren und ca. 0.5 mm vertiefen.</span></li>
           <li><input type="checkbox"> <span>Für alle 6 Seiten wiederholen und am Ende alles gruppieren.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
-        <img src="storycube.png" alt="Beispiel Storycube" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+storycube.png';">
+        <img src="storycube.png" alt="Beispiel Alliterations-Würfel" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+storycube.png';">
         <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
       </div>
     </div>
@@ -460,27 +457,35 @@
     </div>
   </div>
 
-  <!-- PROJEKT 4: STIFTHALTER (RUND AUSSEN + VERZIERUNGEN) -->
+  <!-- PROJEKT 4: BLEISTIFTHALTER (ORIGINAL-ANLEITUNG INCORPORATED) -->
   <div id="p4" class="tab-content section-card">
-    <h2>Projekt 4: Stifthalter (Becher)</h2>
+    <h2>Projekt 4: Bleistifthalter modellieren</h2>
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> <span><strong>Runder Grundkörper:</strong> Erstelle einen Zylinder mit den Massen 60 x 60 mm und einer Höhe von 80 mm.</span></li>
-          <li><input type="checkbox"> <span><strong>Hohlraum für Stifte:</strong> Erstelle einen 2. Zylinder mit 52 x 52 mm (Höhe 80 mm) als "Bohrung". So entsteht eine stabile Wandstärke von 4 mm.</span></li>
-          <li><input type="checkbox"> <span><strong>Boden behalten:</strong> Hebe die Zylinder-Bohrung über das schwarze Dreieck um <strong>4 mm nach oben</strong> an, damit der Becher unten geschlossen bleibt!</span></li>
-          <li><input type="checkbox"> <span><strong>Kreative Verzierungen:</strong> Bringe an der Aussenseite eigene Muster, Formen oder deinen Namen an. Achte darauf, dass die Verzierungen gut mit der Becherwand verschmolzen sind!</span></li>
-          <li><input type="checkbox"> <span>Alle Formen markieren, mit "Ausrichten" mittig zentrieren und danach "Gruppieren".</span></li>
+          <li><input type="checkbox"> <span><strong>1. Klonen:</strong> Klicke auf das sechseckige Prisma auf deiner Arbeitsfläche und drücke <code>Ctrl + C</code>, danach <code>Ctrl + V</code>, um es zu kopieren und einzufügen.</span></li>
+          <li><input type="checkbox"> <span><strong>2. Verschieben:</strong> Mit den Pfeiltasten deiner Tastatur kannst du das angewählte Objekt gut verschieben. Probier es aus!</span></li>
+          <li><input type="checkbox"> <span><strong>3. Grösse anpassen:</strong> Verändere nun die Grösse des einen sechseckigen Prismas in der Länge und Breite auf 5 mm und die Höhe auf 75 mm.</span></li>
+          <li><input type="checkbox"> <span><strong>4. Anheben:</strong> Ziehe mit dem Kegelsymbol das kurze Prisma auf die Höhe von 85 mm und das lange auf 10 mm (beide Objekte schweben nun über der Arbeitsfläche).</span></li>
+          <li><input type="checkbox"> <span><strong>5. Zentrieren:</strong> Wähle beide Prismen an, klicke oben im Menü auf «Ausrichten» und zentriere beide Prismen genau mittig.</span></li>
+          <li><input type="checkbox"> <span><strong>6. Gruppieren:</strong> Wenn sie schön mittig ausgerichtet sind, wähle beides an und klicke auf «Gruppieren», damit sie zu einem Objekt werden.</span></li>
+          <li><input type="checkbox"> <span><strong>7. Zylinder erstellen:</strong> Wähle aus den einfachen Formen den Zylinder. Gib für Breite und Länge 11 mm ein und für die Höhe 100 mm.</span></li>
+          <li><input type="checkbox"> <span><strong>8. Alles ausrichten:</strong> Wähle den Zylinder wie auch das Prisma an und zentriere sie mit der Funktion «Ausrichten».</span></li>
+          <li><input type="checkbox"> <span><strong>9. Kontrolle:</strong> Wenn du korrekt zentriert hast, ist das Prisma genau mittig im Zylinder platziert.</span></li>
+          <li><input type="checkbox"> <span><strong>10. Bohrung festlegen:</strong> Klick nun auf das Prisma und wähl die Funktion «Bohrung».</span></li>
+          <li><input type="checkbox"> <span><strong>11. Form eingebohrt:</strong> Damit hast du in deinen Zylinder die Prismaform eingebohrt.</span></li>
+          <li><input type="checkbox"> <span><strong>12. Finalisieren:</strong> Markiere mit dem Cursor das ganze Objekt und klicke wieder oben auf das Symbol «Gruppieren».</span></li>
+          <li><input type="checkbox"> <span><strong>13. Geschafft:</strong> Dein Bleistifthalter ist erfolgreich modelliert! Optional kannst du die Aussenseite noch verzieren.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
-        <img src="stifthalter.png" alt="Beispiel Stifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+stifthalter.png';">
+        <img src="stifthalter.png" alt="Beispiel Bleistifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+stifthalter.png';">
         <small style="display:block; margin-top:5px; color:#64748b;">Musterlösung Tinkercad</small>
       </div>
     </div>
   </div>
 
-  <!-- PROJEKT 5: SCULPTGL (DIGITALES FORMEN IM VORDERGRUND) -->
+  <!-- PROJEKT 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
     <h2>Projekt 5: Figuren aus digitalem Ton formen (SculptGL)</h2>
     <p>Hier geht es vor allem ums <strong>digitale Experimentieren</strong>! Öffne die Web-App <a href="https://stephaneginier.com/sculptgl/" target="_blank" style="color: var(--c-p5); font-weight: bold;">stephaneginier.com/sculptgl</a> und verforme deine virtuelle Tonkugel.</p>
