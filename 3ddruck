@@ -1,13 +1,416 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Modul 3: 3D-Druck</title>
-    <style>body { font-family: system-ui, sans-serif; background: #0f172a; color: white; padding: 20px; }</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MINTscape – 3D-Druck Werkstatt</title>
+  <style>
+    :root {
+      --primary: #2b5c8f;
+      --accent: #00a896;
+      --bg: #f4f7f6;
+      --card-bg: #ffffff;
+      --text: #2d3748;
+      --border: #e2e8f0;
+      --success: #48bb78;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      background: var(--primary);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+
+    header h1 { margin: 0; font-size: 2.2em; }
+    header p { margin-top: 8px; opacity: 0.9; }
+
+    nav.back-nav {
+      margin-bottom: 15px;
+    }
+    nav.back-nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      border: 1px solid var(--border);
+    }
+
+    h2 {
+      color: var(--primary);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+
+    /* Tabs für die Projekte */
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      background: #e2e8f0;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Checklisten */
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      padding: 10px;
+      background: #f8fafc;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .checklist input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    /* Quiz */
+    .quiz-question {
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .quiz-options button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px;
+      margin-bottom: 6px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+    }
+
+    .quiz-options button:hover {
+      background: #edf2f7;
+    }
+
+    .quiz-feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* Logbuch / Tagebuch */
+    .log-form input, .log-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    .log-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .log-entry {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e2e8f0;
+      color: #4a5568;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      margin-left: 8px;
+    }
+  </style>
 </head>
 <body>
-    <a href="index.html" style="color: #38bdf8;">← Zurück zur Übersicht</a>
-    <h1>🧊 Modul 3: 3D-Druck</h1>
-    <p>Inhalt folgt...</p>
+
+<div class="container">
+
+  <nav class="back-nav">
+    <a href="index.html">← Zurück zur Mintscape-Übersicht</a>
+  </nav>
+
+  <header>
+    <h1>🖨️ 3D-Druck-Werkstatt</h1>
+    <p>Konstruiere digitale Modelle mit Tinkercad und erwecke sie im 3D-Drucker zum Leben!</p>
+  </header>
+
+  <!-- PHASE 1: THEORIE & QUIZ -->
+  <div class="section-card">
+    <h2>1. Grundlagen-Check: FDM-Druck & PLA</h2>
+    <p>Beantworte die Fragen zum 3D-Druck, bevor du mit der Konstruktion startest:</p>
+    
+    <div id="quiz-container">
+      <div class="quiz-question" id="quiz-title">Frage wird geladen...</div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: DAS PROJEKT-LABOR (WAHLAUFGABEN) -->
+  <div class="section-card">
+    <h2>2. Wähle dein Konstruktions-Projekt</h2>
+    <p>Wähle <strong>ein Projekt</strong> aus, das du in Tinkercad umsetzen möchtest:</p>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" onclick="openTab('p1')">🪙 Einkaufsmünze <span class="badge">Einsteiger</span></button>
+      <button class="tab-btn" onclick="openTab('p2')">🎲 Storycube <span class="badge">Kreativ</span></button>
+      <button class="tab-btn" onclick="openTab('p3')">📎 Büroklammer <span class="badge">Tüftler</span></button>
+      <button class="tab-btn" onclick="openTab('p4')">✏️ Stifthalter <span class="badge">Profis</span></button>
+    </div>
+
+    <!-- PROJEKT 1: EINKAUFSMÜNZE -->
+    <div id="p1" class="tab-content active">
+      <h3>Projekt 1: Einkaufsmünze mit Schlüsselanhänger</h3>
+      <p>Erstelle einen funktionalen Einkaufschip für deinen Schlüsselbund.</p>
+      <ul class="checklist">
+        <li><input type="checkbox"> Zylinder einfügen & exakte Maße eingeben: 27 x 27 mm (Höhe: 2 mm).</li>
+        <li><input type="checkbox"> Verzierung oder Buchstaben hinzufügen (Höhe: max. 0,5 mm höher als die Münze).</li>
+        <li><input type="checkbox"> Kleines Loch (Bohrung) am Rand für den Schlüsselring platzieren (Durchmesser: 3 mm).</li>
+        <li><input type="checkbox"> Alle Teile markieren und mit "Gruppieren" verschmelzen.</li>
+      </ul>
+    </div>
+
+    <!-- PROJEKT 2: STORYCUBE -->
+    <div id="p2" class="tab-content">
+      <h3>Projekt 2: Storycube (Erzählwürfel)</h3>
+      <p>Konstruiere einen Würfel mit Gravuren auf allen 6 Seiten für Geschichten.</p>
+      <ul class="checklist">
+        <li><input type="checkbox"> Würfel erstellen und auf 20 x 20 x 20 mm skalieren.</li>
+        <li><input type="checkbox"> Mit dem Werkzeug "Arbeitsebene" eine Würfelseite auswählen.</li>
+        <li><input type="checkbox"> Text oder Form platzieren und zentrieren.</li>
+        <li><input type="checkbox"> Form auf "Bohrung" stellen und ca. 0,5 mm tief in den Würfel senken.</li>
+        <li><input type="checkbox"> Schritt für alle 6 Seiten wiederholen und zum Schluss alles gruppieren.</li>
+      </ul>
+    </div>
+
+    <!-- PROJEKT 3: BÜROKLAMMER -->
+    <div id="p3" class="tab-content">
+      <h3>Projekt 3: Büroklammer</h3>
+      <p>Erstelle eine stabile und elastische Klammer aus Kunststoff.</p>
+      <ul class="checklist">
+        <li><input type="checkbox"> Grundform für die Außenansicht wählen und Höhe auf 1,5 bis 2 mm setzen.</li>
+        <li><input type="checkbox"> Wandstärken überall bei mindestens 2 mm halten (damit es beim Biegen nicht bricht).</li>
+        <li><input type="checkbox"> Innere Aussparung als "Bohrung" erstellen und den Klemm-Schlitz ausschneiden.</li>
+        <li><input type="checkbox"> Prüfen, dass keine Einzelteile "schweben" – alle Teile müssen fest verbunden sein!</li>
+      </ul>
+    </div>
+
+    <!-- PROJEKT 4: STIFTHALTER -->
+    <div id="p4" class="tab-content">
+      <h3>Projekt 4: Geometrischer Stifthalter</h3>
+      <p>Konstruiere einen praktischen Becher für deinen Schreibtisch.</p>
+      <ul class="checklist">
+        <li><input type="checkbox"> Grundkörper (z. B. Sechseck oder Zylinder) auf ca. 75 x 75 mm und Höhe 90 mm skalieren.</li>
+        <li><input type="checkbox"> Einen zweiten Körper erstellen (ca. 5 mm kleiner) und auf "Bohrung" stellen.</li>
+        <li><input type="checkbox"> Bohrung mittig ausrichten und so anheben, dass der Boden 3-5 mm dick bleibt.</li>
+        <li><input type="checkbox"> Beide Körper ausrichten, gruppieren und das Ergebnis kontrollieren.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PHASE 3: SLICING & VERSTÄNDNIS -->
+  <div class="section-card">
+    <h2>3. Vom Modell zum Druck (Slicing)</h2>
+    <p>Damit der 3D-Drucker deine Tinkercad-Idee versteht, braucht er G-Code:</p>
+    <ol>
+      <li>Lass dein Modell in Tinkercad von der Lehrkraft kontrollieren.</li>
+      <li>Das Modell wird als <strong>.STL-Datei</strong> exportiert.</li>
+      <li>Im <strong>Slicer (z. B. Bambu Studio)</strong> wird das Modell in Hunderte feine Schichten zerlegt und der G-Code für den Drucker erzeugt.</li>
+    </ol>
+  </div>
+
+  <!-- PHASE 4: FREIES PROJEKT & TAGEBUCH -->
+  <div class="section-card">
+    <h2>4. Freies Projekt: Digitales Lerntagebuch</h2>
+    <p>Arbeitest du an einem eigenen freien Projekt? Halte hier deine Fortschritte fest:</p>
+
+    <div class="log-form">
+      <input type="text" id="log-task" placeholder="Woran hast du heute gearbeitet? (z.B. Skizze gezeichnet, Stifthalter vertieft)">
+      <textarea id="log-reflection" rows="3" placeholder="Was hat gut geklappt? Wo gab es Herausforderungen?"></textarea>
+      <button class="log-btn" onclick="addLogEntry()">Eintrag speichern</button>
+    </div>
+
+    <div id="log-entries">
+      <!-- Einträge werden dynamisch hier geladen -->
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // TABS LOGIK
+  function openTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  // QUIZ LOGIK
+  const quizData = [
+    {
+      q: "Wofür steht die Abkürzung FDM beim 3D-Druck?",
+      options: [
+        "Fused Deposition Modeling (Schmelzschichtung)",
+        "Fast Digital Manufacturing (Schnelle Digitale Fertigung)",
+        "Flexible Distance Method (Flexibles Distanzverfahren)"
+      ],
+      correct: 0
+    },
+    {
+      q: "Aus welchem biologisch abbaubaren Rohstoff besteht PLA-Filament hauptsächlich?",
+      options: [
+        "Erdöl und Plastikmüll",
+        "Pflanzenstärke (z. B. Maisstärke)",
+        "Baumharz und Gummi"
+      ],
+      correct: 1
+    }
+  ];
+
+  let currentQ = 0;
+
+  function loadQuiz() {
+    if(currentQ >= quizData.length) {
+      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>🎉 Super! Du hast alle Fragen richtig beantwortet und kennst die 3D-Druck-Grundlagen!</p>";
+      return;
+    }
+    const q = quizData[currentQ];
+    document.getElementById('quiz-title').innerText = `Frage ${currentQ + 1}: ${q.q}`;
+    const optsDiv = document.getElementById('quiz-options');
+    optsDiv.innerHTML = '';
+    
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.onclick = () => checkQuiz(idx);
+      optsDiv.appendChild(btn);
+    });
+    document.getElementById('quiz-feedback').innerText = '';
+  }
+
+  function checkQuiz(selectedIdx) {
+    const q = quizData[currentQ];
+    if(selectedIdx === q.correct) {
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--success)'>Richtig! 👍</span>";
+      setTimeout(() => {
+        currentQ++;
+        loadQuiz();
+      }, 1200);
+    } else {
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: #e53e3e'>Probiere es nochmal! 💡</span>";
+    }
+  }
+
+  // LERNTAGEBUCH LOGIK (localStorage)
+  function addLogEntry() {
+    const task = document.getElementById('log-task').value;
+    const ref = document.getElementById('log-reflection').value;
+
+    if(!task || !ref) {
+      alert("Bitte fülle beide Felder aus!");
+      return;
+    }
+
+    const entry = {
+      date: new Date().toLocaleDateString('de-DE'),
+      task: task,
+      reflection: ref
+    };
+
+    let entries = JSON.parse(localStorage.getItem('mintscape_3d_logs') || '[]');
+    entries.unshift(entry);
+    localStorage.setItem('mintscape_3d_logs', JSON.stringify(entries));
+
+    document.getElementById('log-task').value = '';
+    document.getElementById('log-reflection').value = '';
+
+    renderLogs();
+  }
+
+  function renderLogs() {
+    let entries = JSON.parse(localStorage.getItem('mintscape_3d_logs') || '[]');
+    const container = document.getElementById('log-entries');
+    container.innerHTML = '';
+
+    entries.forEach(e => {
+      const div = document.createElement('div');
+      div.className = 'log-entry';
+      div.innerHTML = `<strong>${e.date}</strong> - ${e.task}<br><em>${e.reflection}</em>`;
+      container.appendChild(div);
+    });
+  }
+
+  // INITIALISIERUNG
+  loadQuiz();
+  renderLogs();
+</script>
+
 </body>
 </html>
