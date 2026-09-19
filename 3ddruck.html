@@ -12,9 +12,21 @@
       --card-bg: #ffffff;
       --text: #1e293b;
       --border: #e2e8f0;
-      --success: #10b981;
       --danger: #ef4444;
-      --warning: #f59e0b;
+      
+      /* MODUL-FARBEN */
+      --c-intro: #0d9488;
+      --c-intro-bg: #ccfbf1;
+      --c-p1: #2563eb;
+      --c-p1-bg: #dbeafe;
+      --c-p2: #059669;
+      --c-p2-bg: #d1fae5;
+      --c-p3: #d97706;
+      --c-p3-bg: #fef3c7;
+      --c-p4: #e11d48;
+      --c-p4-bg: #ffe4e6;
+      --c-p5: #7c3aed;
+      --c-p5-bg: #ede9fe;
     }
 
     body {
@@ -52,13 +64,12 @@
       border: 1px solid var(--border);
     }
 
-    h2 { color: var(--primary); border-bottom: 2px solid var(--primary-light); padding-bottom: 8px; margin-top: 0; }
-    h3 { color: var(--primary); }
+    h2 { border-bottom: 2px solid var(--border); padding-bottom: 8px; margin-top: 0; }
 
-    /* PROJEKT-KACHELN NAVIGATION */
+    /* PROJEKT-KACHELN NAVIGATION MIT INDIVIDUELLEN FARBEN */
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 12px;
       margin-bottom: 25px;
     }
@@ -73,19 +84,46 @@
       text-align: center;
     }
 
-    .project-card:hover, .project-card.active {
-      border-color: var(--primary);
-      background: var(--primary-light);
-      transform: translateY(-2px);
-    }
+    .project-card h4 { margin: 6px 0 4px 0; font-size: 0.95em; }
+    .badge { padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: bold; }
 
-    .project-card h4 { margin: 6px 0 4px 0; color: var(--primary); font-size: 0.95em; }
-    .badge { background: #e2e8f0; color: #4a5568; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; }
+    /* Kachel Farbstile */
+    #card-intro.active { border-color: var(--c-intro); background: var(--c-intro-bg); }
+    #card-intro h4, #card-intro .badge { color: var(--c-intro); }
+    #card-intro .badge { background: #ffffff; }
+
+    #card-p1.active { border-color: var(--c-p1); background: var(--c-p1-bg); }
+    #card-p1 h4, #card-p1 .badge { color: var(--c-p1); }
+    #card-p1 .badge { background: #ffffff; }
+
+    #card-p2.active { border-color: var(--c-p2); background: var(--c-p2-bg); }
+    #card-p2 h4, #card-p2 .badge { color: var(--c-p2); }
+    #card-p2 .badge { background: #ffffff; }
+
+    #card-p3.active { border-color: var(--c-p3); background: var(--c-p3-bg); }
+    #card-p3 h4, #card-p3 .badge { color: var(--c-p3); }
+    #card-p3 .badge { background: #ffffff; }
+
+    #card-p4.active { border-color: var(--c-p4); background: var(--c-p4-bg); }
+    #card-p4 h4, #card-p4 .badge { color: var(--c-p4); }
+    #card-p4 .badge { background: #ffffff; }
+
+    #card-p5.active { border-color: var(--c-p5); background: var(--c-p5-bg); }
+    #card-p5 h4, #card-p5 .badge { color: var(--c-p5); }
+    #card-p5 .badge { background: #ffffff; }
+
+    /* Dynamische Überschriften im jeweiligen Modul */
+    #intro h2 { color: var(--c-intro); border-color: var(--c-intro-bg); }
+    #p1 h2 { color: var(--c-p1); border-color: var(--c-p1-bg); }
+    #p2 h2 { color: var(--c-p2); border-color: var(--c-p2-bg); }
+    #p3 h2 { color: var(--c-p3); border-color: var(--c-p3-bg); }
+    #p4 h2 { color: var(--c-p4); border-color: var(--c-p4-bg); }
+    #p5 h2 { color: var(--c-p5); border-color: var(--c-p5-bg); }
 
     /* LAYOUT BILD RECHTS */
     .project-layout {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.2fr 0.8fr;
       gap: 20px;
       align-items: start;
     }
@@ -107,13 +145,13 @@
     /* WARN- UND INFOBOXEN */
     .material-box {
       background: #fffbebf5;
-      border-left: 4px solid var(--warning);
+      border-left: 4px solid var(--c-p3);
       padding: 15px;
       border-radius: 6px;
       margin-bottom: 20px;
     }
 
-    /* INTERAKTIVER DRUCKER (HOTSPOTS) */
+    /* INTERAKTIVER DRUCKER */
     .printer-wrapper {
       position: relative;
       max-width: 480px;
@@ -142,7 +180,7 @@
       transition: transform 0.2s;
     }
 
-    .hotspot:hover { transform: scale(1.2); background-color: #0f766e; }
+    .hotspot:hover { transform: scale(1.2); }
 
     #spot-ams     { top: 15%; left: 50%; }
     #spot-display { top: 35%; left: 28%; }
@@ -150,19 +188,31 @@
     #spot-bed     { top: 81%; left: 42%; }
 
     .info-box-display {
-      background: var(--primary-light);
-      border-left: 4px solid var(--primary);
+      background: var(--c-intro-bg);
+      border-left: 4px solid var(--c-intro);
       padding: 15px;
       border-radius: 6px;
       margin-top: 15px;
       min-height: 50px;
     }
 
-    /* CHECKLISTEN */
-    .checklist { list-style: none; padding: 0; }
+    /* KORRIGIERTE CHECKLISTEN MIT SAUBEREN ZEILENUMBRÜCHEN */
+    .checklist { list-style: none; padding: 0; margin: 0; }
     .checklist li {
-      padding: 10px; background: #f8fafc; margin-bottom: 8px;
-      border-radius: 6px; display: flex; align-items: center; gap: 12px;
+      padding: 12px;
+      background: #f8fafc;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .checklist li input[type="checkbox"] {
+      margin-top: 4px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
     }
 
     /* QUIZ */
@@ -239,11 +289,11 @@
     </div>
   </div>
 
-  <!-- TAB 0: EINFÜHRUNG -->
+  <!-- TAB 0: EINFÜHRUNG (NUR GRUNDLAGEN) -->
   <div id="intro" class="tab-content section-card active">
     <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
     
-    <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid var(--primary); margin-bottom: 20px;">
+    <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid var(--c-intro); margin-bottom: 20px;">
       <p style="margin-top:0;"><strong>Wie funktioniert ein 3D-Drucker?</strong><br>
       Beim <strong>FDM-Druckverfahren</strong> (Schmelzschichtung) wird eine Kunststoff-Schnur – das sogenannte <strong>Filament</strong> – auf etwa 200 °C erhitzt. Der Druckkopf trägt den geschmolzenen Kunststoff Schicht für Schicht von unten nach oben auf eine Bauplatte auf, bis dein Objekt fertig ist.</p>
     </div>
@@ -258,7 +308,7 @@
       </ul>
     </div>
 
-    <h3>Der Bambu Lab P1S im Überblick</h3>
+    <h3 style="color: var(--c-intro);">Der Bambu Lab P1S im Überblick</h3>
     <p>Klicke auf die <strong>Nummern im Bild</strong>, um die Bauteile kennenzulernen:</p>
 
     <div class="printer-wrapper">
@@ -274,7 +324,7 @@
     </div>
 
     <div class="quiz-card">
-      <h3>Wissens-Check</h3>
+      <h3 style="color: var(--c-intro); margin-top:0;">Wissens-Check</h3>
       <div id="quiz-container">
         <div class="quiz-question" id="quiz-title">Frage wird geladen...</div>
         <div class="quiz-options" id="quiz-options"></div>
@@ -289,10 +339,10 @@
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> Zylinder einfügen und Masse eingeben: 27 x 27 mm (Höhe: 2 mm).</li>
-          <li><input type="checkbox"> Verzierung oder Buchstaben hinzufügen (Höhe: max. 0.5 mm höher als die Münze).</li>
-          <li><input type="checkbox"> Zylinder mit Status "Bohrung" für den Schlüsselring einbauen (3 x 3 mm).</li>
-          <li><input type="checkbox"> Alle Teile markieren und mit "Gruppieren" verschmelzen.</li>
+          <li><input type="checkbox"> <span>Zylinder einfügen und Masse eingeben: 27 x 27 mm (Höhe: 2 mm).</span></li>
+          <li><input type="checkbox"> <span>Verzierung oder Buchstaben hinzufügen (Höhe: max. 0.5 mm höher als die Münze).</span></li>
+          <li><input type="checkbox"> <span>Zylinder mit Status "Bohrung" für den Schlüsselring einbauen (3 x 3 mm).</span></li>
+          <li><input type="checkbox"> <span>Alle Teile markieren und mit "Gruppieren" verschmelzen.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -308,10 +358,10 @@
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> Würfel erstellen (20 x 20 x 20 mm).</li>
-          <li><input type="checkbox"> Mit dem Werkzeug "Arbeitsebene" eine Würfelseite auswählen.</li>
-          <li><input type="checkbox"> Text oder Symbol platzieren, auf "Bohrung" stellen und ca. 0.5 mm in den Würfel absenken.</li>
-          <li><input type="checkbox"> Für alle 6 Seiten wiederholen und am Ende alles gruppieren.</li>
+          <li><input type="checkbox"> <span>Würfel erstellen (20 x 20 x 20 mm).</span></li>
+          <li><input type="checkbox"> <span>Mit dem Werkzeug "Arbeitsebene" eine Würfelseite auswählen.</span></li>
+          <li><input type="checkbox"> <span>Text oder Symbol platzieren, auf "Bohrung" stellen und ca. 0.5 mm in den Würfel absenken.</span></li>
+          <li><input type="checkbox"> <span>Für alle 6 Seiten wiederholen und am Ende alles gruppieren.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -327,10 +377,10 @@
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> Grundform wählen und Höhe auf 1.5 bis 2 mm setzen.</li>
-          <li><input type="checkbox"> Wandstärken überall bei mindestens 2 mm halten (PLA bricht sonst schnell!).</li>
-          <li><input type="checkbox"> Klemm-Schlitz als "Bohrung" ausschneiden.</li>
-          <li><input type="checkbox"> Prüfen, dass alle Teile fest miteinander verbunden sind.</li>
+          <li><input type="checkbox"> <span>Grundform wählen und Höhe auf 1.5 bis 2 mm setzen.</span></li>
+          <li><input type="checkbox"> <span>Wandstärken überall bei mindestens 2 mm halten (PLA bricht sonst schnell!).</span></li>
+          <li><input type="checkbox"> <span>Klemm-Schlitz als "Bohrung" ausschneiden.</span></li>
+          <li><input type="checkbox"> <span>Prüfen, dass alle Teile fest miteinander verbunden sind.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -340,16 +390,16 @@
     </div>
   </div>
 
-  <!-- TAB 4: STIFTHALTER -->
+  <!-- TAB 4: STIFTHALTER (SAUBER FORMATION UND FORMATIERUNG) -->
   <div id="p4" class="tab-content section-card">
     <h2>Projekt 4: Geometrischer Stifthalter</h2>
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> Grundkörper (z. B. Zylinder oder Sechseck) erstellen: 60 x 60 mm, Höhe 80 mm.</li>
-          <li><input type="checkbox"> Identischen 2. Körper erstellen, etwas kleiner skalieren (50 x 50 mm, Höhe 80 mm) und auf "Bohrung" stellen.</li>
-          <li><input type="checkbox"> Die Bohrung um <strong>4 mm nach oben anheben</strong> (über das schwarze Dreieck), damit ein fester Boden entsteht!</li>
-          <li><input type="checkbox"> Beide Formen markieren, mit dem Werkzeug "Ausrichten" mittig zentrieren und danach "Gruppieren".</li>
+          <li><input type="checkbox"> <span>Grundkörper (z. B. Zylinder oder Sechseck) erstellen: 60 x 60 mm, Höhe 80 mm.</span></li>
+          <li><input type="checkbox"> <span>Identischen 2. Körper erstellen, etwas kleiner skalieren (50 x 50 mm, Höhe 80 mm) und auf "Bohrung" stellen.</span></li>
+          <li><input type="checkbox"> <span>Die Bohrung um <strong>4 mm nach oben anheben</strong> (über das schwarze Dreieck), damit ein fester Boden entsteht!</span></li>
+          <li><input type="checkbox"> <span>Beide Formen markieren, mit dem Werkzeug "Ausrichten" mittig zentrieren und danach "Gruppieren".</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -359,19 +409,19 @@
     </div>
   </div>
 
-  <!-- TAB 5: SCULPTGL -->
+  <!-- TAB 5: SCULPTGL (SAUBERE FORMATION UND FORMATIERUNG) -->
   <div id="p5" class="tab-content section-card">
     <h2>Projekt 5: Figuren aus digitalem Ton formen (SculptGL)</h2>
-    <p>Öffne die Web-App <a href="https://stephaneginier.com/sculptgl/" target="_blank" style="color: var(--primary); font-weight: bold;">stephaneginier.com/sculptgl</a> und verforme deine virtuelle Tonkugel[cite: 7].</p>
+    <p>Öffne die Web-App <a href="https://stephaneginier.com/sculptgl/" target="_blank" style="color: var(--c-p5); font-weight: bold;">stephaneginier.com/sculptgl</a> und verforme deine virtuelle Tonkugel[cite: 7].</p>
     
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> Wechsel im Menü rechts unter <em>Werkzeuge</em> von "Pinsel" auf andere Tools (z. B. Ziehen, Glätten oder Lehm)[cite: 7].</li>
-          <li><input type="checkbox"> Experimentiere mit dem <strong>Radius</strong> und der <strong>Intensität</strong> deiner Werkzeuge[cite: 7].</li>
-          <li><input type="checkbox"> Formen, Dellen und Strukturen in die Kugel drücken oder herausziehen[cite: 7].</li>
-          <li><input type="checkbox"> Tauscht euch in der Klasse aus: Welche Werkzeuge funktionieren am besten für Gesichter oder Figuren[cite: 7]?</li>
-          <li><input type="checkbox"> Wenn du zufrieden bist: Zeige das Werk deiner Lehrperson[cite: 7] für den Export als .STL für den 3D-Druck!</li>
+          <li><input type="checkbox"> <span>Wechsel im Menü rechts unter <em>Werkzeuge</em> von "Pinsel" auf andere Tools (z. B. Ziehen, Glätten oder Lehm)[cite: 7].</span></li>
+          <li><input type="checkbox"> <span>Experimentiere mit dem <strong>Radius</strong> und der <strong>Intensität</strong> deiner Werkzeuge[cite: 7].</span></li>
+          <li><input type="checkbox"> <span>Formen, Dellen und Strukturen in die Kugel drücken oder herausziehen[cite: 7].</span></li>
+          <li><input type="checkbox"> <span>Tauscht euch in der Klasse aus: Welche Werkzeuge funktionieren am besten für Gesichter oder Figuren[cite: 7]?</span></li>
+          <li><input type="checkbox"> <span>Wenn du zufrieden bist: Zeige das Werk deiner Lehrperson[cite: 7] für den Export als .STL für den 3D-Druck!</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -381,15 +431,15 @@
     </div>
   </div>
 
-  <!-- PHASE 3: SLICING MIT SELBSTÜBERPRÜFUNG -->
+  <!-- PHASE 2: SLICING MIT SELBSTÜBERPRÜFUNG -->
   <div class="section-card">
-    <h2>3. Vom Modell zum Druck (Slicing)</h2>
+    <h2 style="color: var(--primary);">2. Vom Modell zum Druck (Slicing)</h2>
     <p><strong>Schritt A: Überprüfe dein Modell zuerst selbst!</strong></p>
     <ul class="checklist">
-      <li><input type="checkbox"> Steht das Modell flach auf der Bauplatte (Höhe Z = 0)?</li>
-      <li><input type="checkbox"> Sind alle Einzelteile gruppiert (z. B. in Tinkercad)?</li>
-      <li><input type="checkbox"> Sind die Wände dick genug (mindestens 2 mm), damit nichts bricht?</li>
-      <li><input type="checkbox"> Gibt es freischwebende Teile, die in der Luft hängen würden?</li>
+      <li><input type="checkbox"> <span>Steht das Modell flach auf der Bauplatte (Höhe Z = 0)?</span></li>
+      <li><input type="checkbox"> <span>Sind alle Einzelteile gruppiert (z. B. in Tinkercad)?</span></li>
+      <li><input type="checkbox"> <span>Sind die Wände dick genug (mindestens 2 mm), damit nichts bricht?</span></li>
+      <li><input type="checkbox"> <span>Gibt es freischwebende Teile, die in der Luft hängen würden?</span></li>
     </ul>
 
     <p style="margin-top:20px;"><strong>Schritt B: Modell freigeben und exportieren</strong></p>
@@ -400,9 +450,9 @@
     </ol>
   </div>
 
-  <!-- PHASE 4: TAGEBUCH -->
+  <!-- PHASE 3: TAGEBUCH -->
   <div class="section-card">
-    <h2>4. Digitales Lerntagebuch</h2>
+    <h2 style="color: var(--primary);">3. Digitales Lerntagebuch</h2>
     <p>Halte deine täglichen Fortschritte fest:</p>
 
     <div class="log-form">
@@ -440,6 +490,7 @@
     document.getElementById('card-' + tabId).classList.add('active');
   }
 
+  // QUIZ MIT NUN 4 FRAGEN
   const quizData = [
     {
       q: "Was passiert mit einem PLA-Modell, wenn es im Sommer bei über 60 °C im Auto liegt?",
@@ -458,17 +509,35 @@
         "Man darf es in den Biomüll werfen, das ist kein Problem."
       ],
       correct: 0
+    },
+    {
+      q: "Auf wie viel Grad Celsius wird das Filament im Druckkopf ungefähr erhitzt?",
+      options: [
+        "Ca. 50 °C",
+        "Ca. 100 °C",
+        "Ca. 200 °C"
+      ],
+      correct: 2
+    },
+    {
+      q: "Welches Bauteil schmilzt den Kunststoff und trägt ihn Schicht für Schicht auf?",
+      options: [
+        "Das Steuer-Display",
+        "Der Druckkopf (Extruder & Nozzle)",
+        "Das AMS System"
+      ],
+      correct: 1
     }
   ];
 
   let currentQ = 0;
   function loadQuiz() {
     if(currentQ >= quizData.length) {
-      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>Toll gemacht! Du weisst nun genau, worauf du beim Material und Drucker achten musst!</p>";
+      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>Toll gemacht! Du hast alle 4 Fragen richtig beantwortet und weisst nun bestens Bescheid!</p>";
       return;
     }
     const q = quizData[currentQ];
-    document.getElementById('quiz-title').innerText = `Frage ${currentQ + 1}: ${q.q}`;
+    document.getElementById('quiz-title').innerText = `Frage ${currentQ + 1} von ${quizData.length}: ${q.q}`;
     const optsDiv = document.getElementById('quiz-options');
     optsDiv.innerHTML = '';
     
@@ -484,10 +553,10 @@
   function checkQuiz(selectedIdx) {
     const q = quizData[currentQ];
     if(selectedIdx === q.correct) {
-      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--success)'>Richtig!</span>";
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--success); font-weight:bold;'>Richtig!</span>";
       setTimeout(() => { currentQ++; loadQuiz(); }, 1200);
     } else {
-      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--danger)'>Probiere es nochmals! Lese oben in der gelben Warnbox nach.</span>";
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--danger); font-weight:bold;'>Probiere es nochmals! Lese oben in den Infos nach.</span>";
     }
   }
 
