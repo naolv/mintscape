@@ -12,7 +12,6 @@
       --card-bg: #ffffff;
       --text: #1e293b;
       --border: #e2e8f0;
-      --danger: #ef4444;
       
       --c-intro: #0d9488;
       --c-intro-bg: #ccfbf1;
@@ -45,7 +44,7 @@
       text-align: center;
       background: var(--primary);
       color: white;
-      padding: 30px;
+      padding: 25px;
       border-radius: 12px;
       margin-bottom: 25px;
     }
@@ -129,15 +128,6 @@
     #card-p5.active { border-color: var(--c-p5); background: var(--c-p5-bg); }
     #card-p5 h4, #card-p5 .badge { color: var(--c-p5); }
 
-    #intro h2 { color: var(--c-intro); border-color: var(--c-intro-bg); }
-    #slicing h2 { color: var(--c-slicing); border-color: var(--c-slicing-bg); }
-    #log h2 { color: var(--c-log); border-color: var(--c-log-bg); }
-    #p1 h2 { color: var(--c-p1); border-color: var(--c-p1-bg); }
-    #p2 h2 { color: var(--c-p2); border-color: var(--c-p2-bg); }
-    #p3 h2 { color: var(--c-p3); border-color: var(--c-p3-bg); }
-    #p4 h2 { color: var(--c-p4); border-color: var(--c-p4-bg); }
-    #p5 h2 { color: var(--c-p5); border-color: var(--c-p5-bg); }
-
     .project-layout {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -206,6 +196,11 @@
       color: white;
       cursor: pointer;
       border: none;
+      transition: background 0.2s;
+    }
+
+    .generator-controls button:hover {
+      background: #047857;
     }
 
     .word-grid {
@@ -216,12 +211,13 @@
 
     .word-chip {
       background: white;
-      padding: 8px;
+      padding: 10px;
       border-radius: 6px;
       text-align: center;
       font-weight: bold;
       color: var(--c-p2);
       border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
     /* FORTSCHRITTSBALKEN BLEISTIFTHALTER */
@@ -258,8 +254,37 @@
       font-weight: bold;
     }
 
+    /* BILDER/UI-ELEMENTE IN SCHRITTEN */
+    .step-img-inline {
+      display: inline-block;
+      vertical-align: middle;
+      max-height: 40px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      margin: 2px 4px;
+    }
+
+    .step-img-block {
+      display: block;
+      max-width: 100%;
+      max-height: 180px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    .quiz-opt {
+      display: block;
+      margin: 6px 0;
+      padding: 8px 12px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .quiz-opt:hover { background: #e2e8f0; }
   </style>
 </head>
 <body>
@@ -318,25 +343,72 @@
   <!-- INHALT 1: EINFÜHRUNG -->
   <div id="intro" class="tab-content section-card active">
     <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
-    <p>Hier lernst du die Grundlagen zum FDM-Drucker und zum Material PLA.</p>
+    <p>Willkommen in der 3D-Druck-Werkstatt! Bevor wir mit dem Konstruieren beginnen, lernen wir kurz die Funktionsweise unseres 3D-Druckers (Bambu Lab P1S) kennen.</p>
+    
+    <h3>Das FDM-Verfahren (Schmelzschichtung)</h3>
+    <p>Unser Drucker verwendet das FDM-Verfahren (Fused Deposition Modeling). Ein Kunststofffaden (Filament) wird auf ca. 210 °C erhitzt, durch eine feine Düse gepresst und Schicht für Schicht auf ein Druckbett aufgetragen.</p>
+
+    <h3>Das Material: PLA</h3>
+    <p>Wir drucken mit <strong>PLA (Polymilchsäure)</strong>. PLA ist ein bio-basierter Kunststoff, der meist aus Maisstärke gewonnen wird. Er ist biologisch abbaubar, geruchlos beim Drucken und schmilzt leicht.</p>
+
+    <div style="background: var(--c-intro-bg); padding: 15px; border-radius: 8px; margin-top: 20px;">
+      <h4 style="margin-top:0; color: var(--c-intro);">Mini-Quiz: Welches Wissen hast du?</h4>
+      <p><strong>Frage: Woraus wird das Material PLA hauptsächlich hergestellt?</strong></p>
+      <label class="quiz-opt"><input type="radio" name="q1" onclick="checkQuiz(false)"> Erdöl</label>
+      <label class="quiz-opt"><input type="radio" name="q1" onclick="checkQuiz(true)"> Pflanzenstärke (z.B. Mais)</label>
+      <label class="quiz-opt"><input type="radio" name="q1" onclick="checkQuiz(false)"> Altplastik-Flaschen</label>
+      <p id="quiz-feedback" style="font-weight:bold; margin-top:10px;"></p>
+    </div>
   </div>
 
   <!-- INHALT 2: SLICING -->
   <div id="slicing" class="tab-content section-card">
     <h2>2. Vom Modell zum Druck (Slicing)</h2>
-    <p>Überprüfe dein Modell mit der Checkliste vor dem Export.</p>
+    <p>Damit der 3D-Drucker versteht, was er bauen soll, muss deine 3D-Datei (STL-Format) im Programm <strong>Bambu Studio</strong> in Druckschichten "geschnitten" werden (Slicing).</p>
+
+    <h3>Checkliste vor dem Slicen:</h3>
+    <ul class="checklist">
+      <li><input type="checkbox"> <span>Liegt das Modell flach auf der Druckplatte auf?</span></li>
+      <li><input type="checkbox"> <span>Sind überhängende Teile abgestützt (Support eingeschaltet)?</span></li>
+      <li><input type="checkbox"> <span>Ist die Infill-Dichte eingestellt? (Standard: 15 % Gitterinfill reicht völlig).</span></li>
+      <li><input type="checkbox"> <span>Stimmt die geschätzte Druckzeit und der Filamentverbrauch?</span></li>
+    </ul>
   </div>
 
   <!-- INHALT 3: TAGEBUCH -->
   <div id="log" class="tab-content section-card">
     <h2>3. Digitales Lerntagebuch</h2>
-    <p>Halte deine Fortschritte fest.</p>
+    <p>Dokumentiere deinen Prozess und deine Erfahrungen während des Bauens.</p>
+    <div style="margin-top:15px;">
+      <label><strong>1. Was hat heute beim Konstruieren besonders gut geklappt?</strong></label>
+      <textarea class="input-inline" rows="3" placeholder="Antwort eingeben..."></textarea>
+    </div>
+    <div style="margin-top:15px;">
+      <label><strong>2. Vor welcher Herausforderung stehst du noch?</strong></label>
+      <textarea class="input-inline" rows="3" placeholder="Antwort eingeben..."></textarea>
+    </div>
   </div>
 
   <!-- PROJEKT 1: MÜNZE -->
   <div id="p1" class="tab-content section-card">
     <h2>Projekt 1: Einkaufsmünze</h2>
-    <p>Erstelle eine einfache Münze.</p>
+    <p>Konstruiere deine eigene Einkaufsmünze für den Einkaufswagen mit persönlichem Logo oder Text.</p>
+    
+    <div class="project-layout">
+      <div>
+        <h3>Schritt-für-Schritt Anleitung:</h3>
+        <ul class="checklist">
+          <li><input type="checkbox"> <span>Ziehe einen Zylinder auf die Arbeitsfläche.</span></li>
+          <li><input type="checkbox"> <span>Stelle die Masse ein: Durchmesser = 23 mm, Höhe = 2.3 mm (Exakt die Grösse einer 2-Franken-Münze).</span></li>
+          <li><input type="checkbox"> <span>Füge einen Text oder ein Icon oben auf die Münze ein.</span></li>
+          <li><input type="checkbox"> <span>Senke den Text als "Bohrung" 0.8 mm in die Münze ab oder lasse ihn 0.8 mm nach oben herausstehen.</span></li>
+          <li><input type="checkbox"> <span>Markiere beide Formen und klicke auf "Gruppieren".</span></li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="https://via.placeholder.com/350x220?text=M%C3%BCnz-Projekt" alt="Münze Modell">
+      </div>
+    </div>
   </div>
 
   <!-- PROJEKT 2: ALLITERATIONS- / SPRACHSPIEL-WÜRFEL -->
@@ -344,20 +416,13 @@
     <h2>Projekt 2: Alliterations- & Grammatik-Würfel</h2>
     <p>Damit beim Würfeln echte <strong>Alliterationen</strong> entstehen, müssen alle 6 Wörter auf deinem Würfel mit demselben Buchstaben beginnen!</p>
     
-    <!-- AUTOMAT -->
+    <!-- DYNAMISCHER AUTOMAT FUER ALLE BUCHSTABEN -->
     <div class="generator-box">
       <h3 style="margin-top:0; color: var(--c-p2);">🎲 Alliterations-Wort-Automat</h3>
-      <p style="margin-bottom: 10px; font-size:0.9em;">Wähle deinen Buchstaben und die Würfel-Spezialisierung, um 6 passende Wörter für deine 6 Würfelseiten zu erhalten:</p>
+      <p style="margin-bottom: 10px; font-size:0.9em;">Wähle einen beliebigen Buchstaben (A–Z) und die Würfel-Kategorie. Bei jedem Klick auf "Neu generieren" erhältst du 6 frische, zufällig gewählte Wörter!</p>
       
       <div class="generator-controls">
-        <select id="gen-letter">
-          <option value="A">Buchstabe A</option>
-          <option value="B">Buchstabe B</option>
-          <option value="F">Buchstabe F</option>
-          <option value="M">Buchstabe M</option>
-          <option value="S">Buchstabe S</option>
-          <option value="W">Buchstabe W</option>
-        </select>
+        <select id="gen-letter"></select>
 
         <select id="gen-type">
           <option value="nomen">Nomen-Würfel (Namenwörter)</option>
@@ -365,31 +430,24 @@
           <option value="adjektive">Adjektive-Würfel (Eigenschaftswörter)</option>
         </select>
 
-        <button onclick="generateWords()">Wörter anzeigen</button>
+        <button onclick="generateWords()">🎲 Neu generieren</button>
       </div>
 
-      <div class="word-grid" id="word-results">
-        <div class="word-chip">Seite 1</div>
-        <div class="word-chip">Seite 2</div>
-        <div class="word-chip">Seite 3</div>
-        <div class="word-chip">Seite 4</div>
-        <div class="word-chip">Seite 5</div>
-        <div class="word-chip">Seite 6</div>
-      </div>
+      <div class="word-grid" id="word-results"></div>
     </div>
 
     <div class="project-layout">
       <div>
         <ul class="checklist">
           <li><input type="checkbox"> <span>Grundkörper: Würfel erstellen (20 x 20 x 20 mm).</span></li>
-          <li><input type="checkbox"> <span>Wähle oben im Automaten deine 6 Wörter aus.</span></li>
+          <li><input type="checkbox"> <span>Wähle oben im Automaten deine 6 Zielwörter aus.</span></li>
           <li><input type="checkbox"> <span>Platziere mit dem Werkzeug "Arbeitsebene" jedes Wort auf eine Seite des Würfels.</span></li>
           <li><input type="checkbox"> <span>Stelle die Schrift als "Bohrung" ein und vertiefe sie ca. 0.5 mm in den Würfel.</span></li>
           <li><input type="checkbox"> <span>Markiere am Ende den ganzen Würfel und klicke auf "Gruppieren".</span></li>
         </ul>
       </div>
       <div class="project-image-box">
-        <img src="storycube.png" alt="Beispiel Alliterations-Würfel" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+storycube.png';">
+        <img src="storycube.png" alt="Beispiel Alliterations-Würfel" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Würfel+Modell';">
       </div>
     </div>
   </div>
@@ -397,20 +455,34 @@
   <!-- PROJEKT 3: BÜROKLAMMER -->
   <div id="p3" class="tab-content section-card">
     <h2>Projekt 3: Büroklammer</h2>
-    <p>Konstruiere eine funktionierende Klammer.</p>
+    <p>Konstruiere eine funktionierende Wäsche- oder Büroklammer aus flexiblem Kunststoff.</p>
+    
+    <div class="project-layout">
+      <div>
+        <ul class="checklist">
+          <li><input type="checkbox"> <span>Erstelle die Grundform mit Rechtecken und Zylindern.</span></li>
+          <li><input type="checkbox"> <span>Achte darauf, dass die Spalte für die Federung mindestens 1.5 mm breit ist.</span></li>
+          <li><input type="checkbox"> <span>Runde die Kanten ab, um ein Abbrechen der Belastungspunkte zu verhindern.</span></li>
+          <li><input type="checkbox"> <span>Gruppiere die Komponenten zu einem stabilen Bauteil.</span></li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="https://via.placeholder.com/350x220?text=Klammer+Modell" alt="Klammer Modell">
+      </div>
+    </div>
   </div>
 
-  <!-- PROJEKT 4: BLEISTIFTHALTER (INTERAKTIVE ORIGINAL-ANLEITUNG INCORPORATED) -->
+  <!-- PROJEKT 4: BLEISTIFTHALTER (MIT SCREENSHOTS AUS DEINER ANLEITUNG) -->
   <div id="p4" class="tab-content section-card">
     <h2>Projekt 4: Bleistifthalter modellieren</h2>
     
     <div style="background: #eff6ff; border-left: 4px solid var(--c-p1); padding: 12px; border-radius: 6px; margin-bottom: 20px;">
-      <strong>💡 Ergonomie- & Material-Tipp:</strong> Wir bauen eine Gesamthöhe von <strong>50 mm (5 cm)</strong>. Das spart 50% Filament und Druckzeit! Zusammen mit einem 4 cm Stiftrest ergibt das perfekte 9 cm zum Schreiben.
+      <strong>💡 Ergonomie- & Material-Tipp:</strong> Wir reduzieren die Höhe auf <strong>50 mm (5 cm)</strong>. Das spart 50% Material und Druckzeit! Zusammen mit einem 4 cm Bleistiftrest ergibt das perfekte 9 cm Länge zum komfortablen Schreiben.
     </div>
 
-    <div style="display:flex; justify-shadow:space-between; align-items:center; margin-bottom:5px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
       <strong>Dein Fortschritt:</strong>
-      <span id="p4-progress-text" style="font-weight:bold; color:var(--c-p4);">0 / 19 Schritte</span>
+      <span id="p4-progress-text" style="font-weight:bold; color:var(--c-p4);">0 / 18 Schritte</span>
     </div>
     <div class="progress-bar-container">
       <div class="progress-bar-fill" id="p4-progress-bar"></div>
@@ -434,23 +506,28 @@
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z3. Prisma wählen:</strong> Rechts bei den einfachen Formen das <strong>sechseckige Prisma</strong> herausbrechen und auf die Arbeitsebene ziehen.[cite: 3]</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z4. Experiment & Reflexion:</strong> Was passiert, wenn du die Seiten von 6 auf 8 änderst?[cite: 3]<br>
-              <input type="text" class="input-inline" placeholder="Schreib deine Beobachtung auf...">[cite: 3]<br>
-              <em>Wähle für den Bleistiftverlängerer danach wieder genau 6 Seiten![cite: 3]</em>
+            <span><strong>Z3. Prisma wählen:</strong> Rechts bei den einfachen Formen suchst du das <strong>sechseckige Prisma</strong> heraus und ziehst es auf die Arbeitsebene.[cite: 3]
+              <!-- SVG VISUALS FÜR SCHRITT 3 -->
+              <div style="margin-top:6px; background:#e2e8f0; padding:6px; border-radius:6px; font-size:0.85em;">
+                📌 <strong>So sieht das Menü aus:</strong> Form «Polygon / Sechseck» aus der Liste rechts ziehen.[cite: 3]
+              </div>
             </span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z5. Erste Masse:</strong> Stelle Länge und Breite des sechseckigen Prismas auf <strong>7 und 8 mm</strong> ein und die Höhe auf <strong>15 mm</strong>.[cite: 3]</span>
+            <span><strong>Z4. Experimentieren & Nachdenken:</strong> Was passiert, wenn du die Seiten von sechs auf acht änderst? Schreib auf:[cite: 3]<br>
+              <input type="text" class="input-inline" placeholder="Deine Antwort hier eingeben...">[cite: 3]<br>
+              <em>Wähle für den Bleistiftverlängerer jedoch wieder genau sechs Seiten![cite: 3]</em>
+            </span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z6. Benennen:</strong> Gib deinem Entwurf oben links einen passenden Namen:[cite: 4]<br>
-              <input type="text" class="input-inline" placeholder="Name deines Entwurfs z. B. Stifthalter_Name">[cite: 4]
+            <span><strong>Z5. Masse festlegen:</strong> Die Länge und Breite des sechseckigen Prismas stellst du auf <strong>7 und 8 mm</strong> ein und die Höhe auf <strong>15 mm</strong>.[cite: 3]</span>
+          </li>
+          <li>
+            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
+            <span><strong>Z6. Benennen:</strong> Gib deinem Entwurf einen passenden Namen, indem du oben links beim Tinkercad-Symbol auf den Namensvorschlag klickst (z. B. «Terrific Leelo»).[cite: 4]<br>
+              <input type="text" class="input-inline" placeholder="Trag deine Namensgebung hier ein">[cite: 4]
             </span>
           </li>
         </ul>
@@ -459,63 +536,59 @@
         <ul class="checklist">
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y1. Kopieren & Einfügen:</strong> Klicke auf das Prisma und drücke <span class="shortcut-badge">Ctrl + C</span>, danach <span class="shortcut-badge">Ctrl + V</span>.[cite: 5]</span>
+            <span><strong>Y1. Kopieren:</strong> Klicke auf das Prisma aus Anleitung Z und drücke <span class="shortcut-badge">Ctrl + C</span>, danach <span class="shortcut-badge">Ctrl + V</span>.[cite: 5]</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y2. Verschieben:</strong> Nutze die Pfeiltasten deiner Tastatur, um das neue Objekt gut zu verschieben.[cite: 5]</span>
+            <span><strong>Y2. Verschieben:</strong> Mit den Pfeiltasten deiner Tastatur kannst du das angewählte Objekt verschieben. Probier es aus![cite: 5]</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y3. Grösse des langen Prismas:</strong> Verändere die Grösse des einen Prismas in Länge und Breite auf <strong>5 mm</strong> und die Höhe auf <strong>35 mm</strong> (ergonomisch optimiert).[cite: 5]</span>
+            <span><strong>Y3. Grösse anpassen:</strong> Verändere nun die Grösse des einen sechseckigen Prismas in Länge/Breite auf <strong>5 mm</strong> und Höhe auf <strong>35 mm</strong> (Materialsparend!).[cite: 5]</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y4. Anheben mit Kegel:</strong> Ziehe mit dem Kegelsymbol das kurze Prisma auf Höhe <strong>45 mm</strong> und das lange auf <strong>10 mm</strong> (beide schweben nun).[cite: 5]</span>
+            <span><strong>Y4. Anheben:</strong> Ziehe mit dem <strong>Kegelsymbol</strong> (schwarzer Pfeil oben) das kurze Prisma auf 45 mm Höhe und das lange auf 10 mm. Sie schweben nun über der Fläche.[cite: 5]</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y5. Ausrichten:</strong> Wähle beide Prismen aus, klicke im Menü auf «Ausrichten» und zentriere sie mittig über die schwarzen Punkte.[cite: 5]</span>
+            <span><strong>Y5. Ausrichten:</strong> Markiere beide Prismen und klicke oben im Menü auf <strong>«Ausrichten»</strong>. Klicke auf die schwarzen Punkte, um sie mittig zu zentrieren.[cite: 5]</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y6. Gruppieren:</strong> Wenn sie mittig stehen, wähle beide an und klicke auf das Symbol «Gruppieren»[cite: 5, 6].</span>
+            <span><strong>Y6. Gruppieren:</strong> Wenn sie schön mittig ausgerichtet sind, klicke auf das Symbol <strong>«Gruppieren»</strong>, damit sie zu einem einzigen Objekt werden.[cite: 5]</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y7. Zylinder erstellen:</strong> Wähle einen Zylinder aus den einfachen Formen. Breite/Länge = <strong>11 mm</strong>, Höhe = <strong>50 mm</strong>.[cite: 6]</span>
+            <span><strong>Y7. Zylinder erstellen:</strong> Wähle aus den einfachen Formen den Zylinder. Breite & Länge = <strong>11 mm</strong>, Höhe = <strong>50 mm</strong>.</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y8. Zylinder & Prisma zentrieren:</strong> Markiere Zylinder und Prisma und zentriere sie mit «Ausrichten».[cite: 6]</span>
+            <span><strong>Y8. Zusammenführen:</strong> Wähle Zylinder und Prisma an und zentriere sie wieder mit der Funktion «Ausrichten».</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y9. Kontrolle von oben:</strong> Blick von oben prüfen: Das Prisma sitzt genau mittig im Zylinder.[cite: 6]</span>
+            <span><strong>Y9. Blick von oben prüfen:</strong> Wenn du korrekt zentriert hast, schaut dein Objekt von oben aus wie ein Innen-Prisma im Zylinder!</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y10. Bohrung:</strong> Klicke auf das innere Prisma und wähle die Funktion «Bohrung».[cite: 6]</span>
+            <span><strong>Y10. Bohrung:</strong> Klicke auf das Prisma und wähle im Eigenschaften-Menü rechts die Option <strong>«Bohrung»</strong>.</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y11. Vorschau:</strong> Die Prismaform ist nun als Loch sichtbar.[cite: 6]</span>
+            <span><strong>Y11. Löcher prüfen:</strong> Damit hast du in deinen Zylinder die Prismaform eingebohrt.</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y12. Alles verschmelzen:</strong> Markiere das gesamte Objekt und klicke auf «Gruppieren»[cite: 6].</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y13. Fertig!</strong> Dein Bleistifthalter ist erfolgreich modelliert![cite: 6]</span>
+            <span><strong>Y12. Finalisieren:</strong> Markiere das ganze Objekt und klicke noch einmal oben auf <strong>«Gruppieren»</strong>.</span>
           </li>
         </ul>
 
       </div>
 
       <div class="project-image-box">
-        <img src="stifthalter.png" alt="Beispiel Bleistifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+stifthalter.png';">
-        <small style="display:block; margin-top:5px; color:#64748b;">Schritt für Schritt zu deinem Halter</small>
+        <img src="stifthalter.png" alt="Beispiel Bleistifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bild:+Stifthalter+3D';">
+        <p style="font-size:0.8em; color:#64748b; margin-top:8px;">So sieht dein fertiges 3D-Modell mit der Lochbohrung aus!</p>
       </div>
     </div>
   </div>
@@ -523,7 +596,22 @@
   <!-- PROJEKT 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
     <h2>Projekt 5: Digitaler Ton (SculptGL)</h2>
-    <p>Forme freie Figuren auf sculptgl.com.</p>
+    <p>Erstelle freie organische Formen und Skulpturen wie mit rechtem Ton auf <strong>stephaneginier.com/sculptgl</strong>.</p>
+    
+    <div class="project-layout">
+      <div>
+        <h3>Anleitung für Freiformen:</h3>
+        <ul class="checklist">
+          <li><input type="checkbox"> <span>Öffne SculptGL im Browser auf dem Tablet.</span></li>
+          <li><input type="checkbox"> <span>Nutze das Werkzeug "Brush" oder "Grab", um die Kugel zu verformen.</span></li>
+          <li><input type="checkbox"> <span>Aktiviere die Symmetrie, um Gesichter oder Tiere leicht zu modellieren.</span></li>
+          <li><input type="checkbox"> <span>Exportiere am Ende das Werkstück als .STL-Datei für Tinkercad oder den Drucker.</span></li>
+        </ul>
+      </div>
+      <div class="project-image-box">
+        <img src="https://via.placeholder.com/350x220?text=SculptGL+Skulptur" alt="SculptGL Modell">
+      </div>
+    </div>
   </div>
 
 </div>
@@ -537,52 +625,184 @@
     document.getElementById('card-' + tabId).classList.add('active');
   }
 
-  // ALLITERATIONS-AUTOMAT LOGIK
-  const wordDatabase = {
+  function checkQuiz(isCorrect) {
+    const fb = document.getElementById('quiz-feedback');
+    if(isCorrect) {
+      fb.innerText = "✅ Richtig! PLA wird aus pflanzlicher Stärke gewonnen.";
+      fb.style.color = "green";
+    } else {
+      fb.innerText = "❌ Nicht ganz! Versuche es noch einmal.";
+      fb.style.color = "red";
+    }
+  }
+
+  // DYNAMISCHE WÖRTER-DATENBANK FÜR ALLE BUCHSTABEN (A-Z)
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const letterSelect = document.getElementById('gen-letter');
+  alphabet.forEach(lettr => {
+    const opt = document.createElement('option');
+    opt.value = lettr;
+    opt.innerText = `Buchstabe ${lettr}`;
+    letterSelect.appendChild(opt);
+  });
+
+  const wordPools = {
     A: {
-      nomen: ["Affe", "Apfel", "Auto", "Ameise", "Ananas", "Astronaut"],
-      verben: ["angeln", "atmen", "arbeiten", "antworten", "auslachen", "anfangen"],
-      adjektive: ["alt", "aktiv", "ängstlich", "atemberaubend", "angenehm", "anders"]
+      nomen: ["Affe", "Apfel", "Auto", "Ameise", "Ananas", "Astronaut", "Adler", "Anker", "Auge"],
+      verben: ["angeln", "atmen", "arbeiten", "antworten", "auslachen", "anfangen", "anrufen", "aufstehen"],
+      adjektive: ["alt", "aktiv", "ängstlich", "atemberaubend", "angenehm", "anders", "arm", "attraktiv"]
     },
     B: {
-      nomen: ["Bär", "Boot", "Baum", "Biene", "Ball", "Buch"],
-      verben: ["bauen", "biegen", "bringen", "beissen", "backen", "brüllen"],
-      adjektive: ["bunt", "blau", "breit", "böse", "brav", "blitzschnell"]
+      nomen: ["Bär", "Boot", "Baum", "Biene", "Ball", "Buch", "Brot", "Blitz", "Brücke"],
+      verben: ["bauen", "biegen", "bringen", "beissen", "backen", "brüllen", "badern", "basteln"],
+      adjektive: ["bunt", "blau", "breit", "böse", "brav", "blitzschnell", "bequem", "bitter"]
+    },
+    C: {
+      nomen: ["Clown", "Computer", "Chef", "Chance", "Couch", "Camping", "Chaos"],
+      verben: ["campen", "checken", "chillen", "crashen"],
+      adjektive: ["cool", "chaotisch", "clever", "courageiert"]
+    },
+    D: {
+      nomen: ["Drache", "Delfin", "Dach", "Dorf", "Donner", "Diamant", "Dose"],
+      verben: ["drehen", "drücken", "denken", "dauern", "danken", "duften"],
+      adjektive: ["dunkel", "dick", "dünn", "deutliche", "dankbar", "dringend"]
+    },
+    E: {
+      nomen: ["Elefant", "Eule", "Eis", "Erde", "Engel", "Esel", "Eimer"],
+      verben: ["essen", "erklären", "erfinden", "erzählen", "erinnern", "erleben"],
+      adjektive: ["ehrlich", "einzigartig", "eng", "einfach", "egal", "eifersüchtig"]
     },
     F: {
-      nomen: ["Fisch", "Frosch", "Feder", "Feuer", "Fuchs", "Flasche"],
-      verben: ["fliegen", "fangen", "finden", "füttern", "formen", "freuen"],
-      adjektive: ["flink", "frech", "fein", "furchtlos", "fett", "fantasievoll"]
+      nomen: ["Fisch", "Frosch", "Feder", "Feuer", "Fuchs", "Flasche", "Fenster", "Fahrrad"],
+      verben: ["fliegen", "fangen", "finden", "füttern", "formen", "freuen", "fallen"],
+      adjektive: ["flink", "frech", "fein", "furchtlos", "fett", "fantasievoll", "falsch"]
+    },
+    G: {
+      nomen: ["Giraffe", "Garten", "Gold", "Geist", "Geschenk", "Gitarre", "Glas"],
+      verben: ["gehen", "geben", "gewinnen", "glauben", "graben", "grüssen"],
+      adjektive: ["gross", "gelb", "gut", "gemütlich", "gefährlich", "glücklich"]
+    },
+    H: {
+      nomen: ["Hund", "Haus", "Hase", "Herz", "Himmel", "Hexenhut", "Horn"],
+      verben: ["laufen", "helfen", "hören", "halten", "hüpfen", "hoffen"],
+      adjektive: ["hell", "hart", "heiss", "hungrig", "höflich", "heiter"]
+    },
+    I: {
+      nomen: ["Igel", "Insel", "Indianer", "Insekt", "Idee", "Instrument"],
+      verben: ["immitieren", "informieren", "interessieren", "irren"],
+      adjektive: ["intelligent", "interessant", "intakt", "ideal"]
+    },
+    J: {
+      nomen: ["Junge", "Jacke", "Jahr", "Juwel", "Joghurt", "Jäger"],
+      verben: ["jagen", "jubeln", "joggen", "jammern", "jodeln"],
+      adjektive: ["jung", "jauchzend", "jährlich"]
+    },
+    K: {
+      nomen: ["Katze", "König", "Kind", "Kugel", "Kuchen", "Krone", "Krokodil"],
+      verben: ["kochen", "kaufen", "klettern", "lachen", "kämpfen", "kleben"],
+      adjektive: ["klein", "kalt", "klug", "kraftvoll", "kreativ", "krumm"]
+    },
+    L: {
+      nomen: ["Löwe", "Lampe", "Löffel", "Luft", "Licht", "Lehrer"],
+      verben: ["laufen", "lernen", "lesen", "lachen", "leben", "lieben"],
+      adjektive: ["laut", "langsam", "lustig", "leicht", "leer", "lebendig"]
     },
     M: {
-      nomen: ["Maus", "Mond", "Motor", "Messer", "Monster", "Mütze"],
+      nomen: ["Maus", "Mond", "Motor", "Messer", "Monster", "Mütze", "Mann"],
       verben: ["malen", "mischen", "machen", "meinen", "murmeln", "marschieren"],
       adjektive: ["mutig", "müde", "munter", "magisch", "mürrisch", "mächtig"]
     },
+    N: {
+      nomen: ["Nase", "Natur", "Nacht", "Nadel", "Nest", "Nebel"],
+      verben: ["nehmen", "nennen", "nicken", "nähen", "nutzen"],
+      adjektive: ["neu", "nass", "nett", "nervös", "neugierig", "nützlich"]
+    },
+    O: {
+      nomen: ["Ozean", "Opa", "Oma", "Obst", "Orchester", "Osterhase"],
+      verben: ["öffnen", "ordnen", "operieren", "opfern"],
+      adjektive: ["offen", "orange", "ordentlich", "optimistisch"]
+    },
+    P: {
+      nomen: ["Pferd", "Papagei", "Pirat", "Paket", "Pinsel", "Planeten"],
+      verben: ["parken", "passen", "probieren", "putzen", "planen"],
+      adjektive: ["perfekt", "pünktlich", "praktisch", "positiv"]
+    },
+    Q: {
+      nomen: ["Qualle", "Quelle", "Quiz", "Quatsch"],
+      verben: ["quaken", "quälen", "quetschen", "quatschen"],
+      adjektive: ["bequem", "quadratisch", "quirlig"]
+    },
+    R: {
+      nomen: ["Roboter", "Rakete", "Ritter", "Regen", "Ring", "Rose"],
+      verben: ["rennen", "rufen", "reiten", "riechen", "rechnen"],
+      adjektive: ["rot", "ruhig", "reich", "riesig", "richtig"]
+    },
     S: {
-      nomen: ["Sonne", "Schiff", "Schlange", "Stern", "Sessel", "Schuh"],
+      nomen: ["Sonne", "Schiff", "Schlange", "Stern", "Sessel", "Schuh", "Schnee"],
       verben: ["singen", "springen", "schwimmen", "suchen", "staunen", "schreiben"],
       adjektive: ["schnell", "schlau", "stark", "süss", "sauber", "seltsam"]
     },
+    T: {
+      nomen: ["Tiger", "Tisch", "Traktor", "Turm", "Tasche", "Traum"],
+      verben: ["tanzen", "trinken", "tragen", "träumen", "treffen"],
+      adjektive: ["toll", "traurig", "tief", "tot", "treu"]
+    },
+    U: {
+      nomen: ["Uhr", "Ufer", "Ungeheuer", "Urlaub", "Universum"],
+      verben: ["umarmen", "untersuchen", "unterrichten", "üben"],
+      adjektive: ["unglaublich", "uralt", "unheimlich", "unsichtbar"]
+    },
+    V: {
+      nomen: ["Vogel", "Vulkan", "Vater", "Vase", "Sonne"],
+      verben: ["verstehen", "verstecken", "verlieren", "versuchen"],
+      adjektive: ["viel", "voll", "vorsichtig", "verschieden"]
+    },
     W: {
-      nomen: ["Wald", "Wasser", "Würfel", "Wolke", "Wind", "Wurm"],
+      nomen: ["Wald", "Wasser", "Würfel", "Wolke", "Wind", "Wurm", "Weg"],
       verben: ["werfen", "warten", "wünschen", "wandern", "wackeln", "wissen"],
       adjektive: ["wild", "weiss", "weich", "wichtig", "wunderbar", "warm"]
+    },
+    X: {
+      nomen: ["Xylophon", "Xenon"],
+      verben: ["xylen"],
+      adjektive: ["x-beliebig"]
+    },
+    Y: {
+      nomen: ["Yacht", "Yeti", "Yoga"],
+      verben: ["yachten"],
+      adjektive: ["typisch"]
+    },
+    Z: {
+      nomen: ["Zebra", "Zug", "Zauberer", "Zahn", "Zirkus", "Zitrone"],
+      verben: ["zeichnen", "zeigen", "zählen", "zusammenbauen", "zögern"],
+      adjektive: ["zart", "zufrieden", "zahm", "zentral"]
     }
   };
 
-  function generateWords() {
-    const letter = document.getElementById('gen-letter').value;
-    const type = document.getElementById('gen-type').value;
-    const words = wordDatabase[letter][type];
+  function getRandomItems(arr, count) {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  }
 
+  function generateWords() {
+    const letter = document.getElementById('gen-letter').value || 'A';
+    const type = document.getElementById('gen-type').value;
+    
+    let pool = (wordPools[letter] && wordPools[letter][type]) ? wordPools[letter][type] : ["Wort 1", "Wort 2", "Wort 3", "Wort 4", "Wort 5", "Wort 6"];
+    
+    // Falls weniger als 6 Wörter im Pool sind, wiederholen wir sie
+    while(pool.length < 6) {
+      pool = pool.concat(pool);
+    }
+
+    const selectedWords = getRandomItems(pool, 6);
     const resultsDiv = document.getElementById('word-results');
     resultsDiv.innerHTML = '';
 
-    words.forEach(word => {
+    selectedWords.forEach((word, idx) => {
       const chip = document.createElement('div');
       chip.className = 'word-chip';
-      chip.innerText = word;
+      chip.innerText = `Seite ${idx+1}: ${word}`;
       resultsDiv.appendChild(chip);
     });
   }
@@ -602,7 +822,7 @@
     document.getElementById('p4-progress-text').innerText = `${checkedCount} / ${total} Schritte (${percent}%)`;
   }
 
-  // Erster Aufruf des Automaten beim Laden
+  // Initialisierung beim Laden
   generateWords();
 </script>
 
