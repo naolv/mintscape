@@ -534,119 +534,32 @@
     </div>
   </div>
 
-  <!-- PROJEKT 4: BLEISTIFTHALTER -->
+<!-- PROJEKT 4: BLEISTIFTHALTER (BILDER-SLIDER MIT INTERAKTIVEN OVERLAYS) -->
   <div id="p4" class="tab-content section-card">
     <h2>Projekt 4: Bleistifthalter modellieren</h2>
     
-    <div style="background: #eff6ff; border-left: 4px solid var(--c-p1); padding: 12px; border-radius: 6px; margin-bottom: 20px;">
-      <strong>💡 Ergonomie- & Material-Tipp:</strong> Wir reduzieren die Höhe auf <strong>50 mm (5 cm)</strong>. Das spart 50% Material und Druckzeit! Zusammen mit einem 4 cm Bleistiftrest ergibt das perfekte 9 cm Länge zum komfortablen Schreiben.
+    <div style="background: #eff6ff; border-left: 4px solid var(--c-p1); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+      <strong>💡 Ergonomie- & Material-Tipp:</strong> Du kannst die Schritte direkt auf dem Blatt durchblättern, die Kästchen abhaken und deine Antworten eintragen!
     </div>
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-      <strong>Dein Fortschritt:</strong>
-      <span id="p4-progress-text" style="font-weight:bold; color:var(--c-p4);">0 / 18 Schritte</span>
+    <!-- STEUERUNG FÜR DEN SLIDER -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #f1f5f9; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border);">
+      <button class="quiz-btn" style="margin-top:0;" onclick="changeP4Slide(-1)">&larr; Zurück</button>
+      <strong id="p4-slide-number" style="color: var(--c-p4); font-size: 1.1em;">Blatt 1 von 6</strong>
+      <button class="quiz-btn" style="margin-top:0;" onclick="changeP4Slide(1)">Weiter &rarr;</button>
     </div>
-    <div class="progress-bar-container">
-      <div class="progress-bar-fill" id="p4-progress-bar"></div>
-    </div>
 
-    <div class="project-layout">
-      <div>
-        
-        <h3 style="color:var(--c-p4); margin-bottom:8px;">Anleitung Z: Einloggen und Entwurf erstellen</h3>
-        <ul class="checklist" style="margin-bottom:25px;">
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z1. Login:</strong> Starte das Tablet und logge dich mit deinen Daten auf Tinkercad ein.<br>
-              <input type="text" class="input-inline" placeholder="Dein Spitzname"><br>
-              <input type="text" class="input-inline" placeholder="Dein Klassencode">
-            </span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z2. Erstellen:</strong> Klicke rechts oben auf <span class="shortcut-badge">+ Erstellen</span> und wähle <span class="shortcut-badge">3D-Entwurf</span>.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z3. Prisma wählen:</strong> Rechts bei den einfachen Formen suchst du das <strong>sechseckige Prisma</strong> heraus und ziehst es auf die Arbeitsebene.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z4. Experimentieren & Nachdenken:</strong> Was passiert, wenn du die Seiten von sechs auf acht änderst? Schreib auf:<br>
-              <input type="text" class="input-inline" placeholder="Deine Antwort hier eingeben..."><br>
-              <em>Wähle für den Bleistiftverlängerer jedoch wieder genau sechs Seiten!</em>
-            </span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z5. Masse festlegen:</strong> Die Länge und Breite des sechseckigen Prismas stellst du auf <strong>7 und 8 mm</strong> ein und die Höhe auf <strong>15 mm</strong>.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z6. Benennen:</strong> Gib deinem Entwurf einen passenden Namen, indem du oben links beim Tinkercad-Symbol auf den Namensvorschlag klickst (z. B. «Terrific Leelo»).<br>
-              <input type="text" class="input-inline" placeholder="Trag deine Namensgebung hier ein">
-            </span>
-          </li>
-        </ul>
+    <!-- BILD-CONTAINER MIT RELATIVER POSITIONIERUNG DER OVERLAYS -->
+    <div style="position: relative; width: 100%; max-width: 800px; margin: 0 auto; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+      
+      <!-- ANLEITUNGSBILD -->
+      <img id="p4-slide-img" src="stift1.jpg" alt="Anleitung Bleistifthalter" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x600?text=Bilddatei:+stift1.jpg';">
 
-        <h3 style="color:var(--c-p4); margin-bottom:8px;">Anleitung Y: Bleistifthalter modellieren</h3>
-        <ul class="checklist">
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y1. Kopieren:</strong> Klicke auf das Prisma aus Anleitung Z und drücke <span class="shortcut-badge">Ctrl + C</span>, danach <span class="shortcut-badge">Ctrl + V</span>.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y2. Verschieben:</strong> Mit den Pfeiltasten deiner Tastatur kannst du das angewählte Objekt verschieben. Probier es aus!</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y3. Grösse anpassen:</strong> Verändere nun die Grösse des einen sechseckigen Prismas in Länge/Breite auf <strong>5 mm</strong> und Höhe auf <strong>35 mm</strong> (Materialsparend!).</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y4. Anheben:</strong> Ziehe mit dem <strong>Kegelsymbol</strong> (schwarzer Pfeil oben) das kurze Prisma auf 45 mm Höhe und das lange auf 10 mm. Sie schweben nun über der Fläche.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y5. Ausrichten:</strong> Markiere beide Prismen und klicke oben im Menü auf <strong>«Ausrichten»</strong>. Klicke auf die schwarzen Punkte, um sie mittig zu zentrieren.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y6. Gruppieren:</strong> Wenn sie schön mittig ausgerichtet sind, klicke auf das Symbol <strong>«Gruppieren»</strong>, damit sie zu einem einzigen Objekt werden.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y7. Zylinder erstellen:</strong> Wähle aus den einfachen Formen den Zylinder. Breite & Länge = <strong>11 mm</strong>, Höhe = <strong>50 mm</strong>.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y8. Zusammenführen:</strong> Wähle Zylinder und Prisma an und zentriere sie wieder mit der Funktion «Ausrichten».</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y9. Blick von oben prüfen:</strong> Wenn du korrekt zentriert hast, schaut dein Objekt von oben aus wie ein Innen-Prisma im Zylinder!</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y10. Bohrung:</strong> Klicke auf das Prisma und wähle im Eigenschaften-Menü rechts die Option <strong>«Bohrung»</strong>.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y11. Löcher prüfen:</strong> Damit hast du in deinen Zylinder die Prismaform eingebohrt.</span>
-          </li>
-          <li>
-            <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Y12. Finalisieren:</strong> Markiere das ganze Objekt und klicke noch einmal oben auf <strong>«Gruppieren»</strong>.</span>
-          </li>
-        </ul>
-
+      <!-- CONTAINERELEMENT FÜR DIE INTERAKTIVEN FELDER -->
+      <div id="p4-overlay-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+        <!-- Overlays werden automatisch per JS geladen -->
       </div>
 
-      <div class="project-image-box">
-        <img src="stifthalter.png" alt="Beispiel Bleistifthalter" onerror="this.src='https://via.placeholder.com/350x220?text=Bilddatei:+stifthalter.png';">
-        <p style="font-size:0.8em; color:#64748b; margin-top:8px;">So sieht dein fertiges 3D-Modell mit der Lochbohrung aus!</p>
-      </div>
     </div>
   </div>
 
@@ -949,6 +862,145 @@
   // INITIALISIERUNG BEIM LADEN
   loadQuiz();
   generateWords();
+
+  // BLEISTIFTHALTER (PROJEKT 4) SLIDER & OVERLAY KONFIGURATION
+  const p4Slides = [
+    {
+      img: "stift1.jpg",
+      overlays: [
+        // Schritt 1 Checkbox
+        { type: "checkbox", top: "14.5%", left: "10.2%", width: "2.8%", height: "3.8%" },
+        // Spitzname Textfeld
+        { type: "text", top: "22.5%", left: "32%", width: "35%", height: "4.5%", placeholder: "Spitzname..." },
+        // Klassencode Textfeld
+        { type: "text", top: "30%", left: "32%", width: "35%", height: "4.5%", placeholder: "Klassencode..." },
+        // Schritt 2 Checkbox
+        { type: "checkbox", top: "47.2%", left: "10.2%", width: "2.8%", height: "3.8%" },
+        // Schritt 3 Checkbox
+        { type: "checkbox", top: "63.2%", left: "10.2%", width: "2.8%", height: "3.8%" }
+      ]
+    },
+    {
+      img: "stift2.jpg",
+      overlays: [
+        // Schritt 4 Checkbox
+        { type: "checkbox", top: "2.5%", left: "5.5%", width: "3%", height: "4.5%" },
+        // Schritt 4 Textfeld für Antwort
+        { type: "text", top: "28%", left: "4.8%", width: "63%", height: "6%", placeholder: "Deine Beobachtung eintragen..." },
+        // Schritt 5 Checkbox
+        { type: "checkbox", top: "62.5%", left: "5.5%", width: "3%", height: "4.5%" }
+      ]
+    },
+    {
+      img: "stift3.jpg",
+      overlays: [
+        // Schritt 6 Textfeld Namensgebung
+        { type: "text", top: "47%", left: "6%", width: "63%", height: "10%", placeholder: "Namensgebung eintragen..." },
+        // Schritt 7 Emoji / Textausdruck
+        { type: "text", top: "68%", left: "77%", width: "12%", height: "18%", placeholder: ":-)", style: "text-align:center; font-size:1.4em; border-radius:50%;" }
+      ]
+    },
+    {
+      img: "stift4.jpg",
+      overlays: [
+        // Schritt 1 Checkbox
+        { type: "checkbox", top: "29%", left: "8.2%", width: "3%", height: "7.5%" },
+        // Schritt 2 Checkbox
+        { type: "checkbox", top: "79%", left: "8.2%", width: "3%", height: "7.5%" }
+      ]
+    },
+    {
+      img: "stift5.jpg",
+      overlays: [
+        // Schritt 2 Forts. Checkbox
+        { type: "checkbox", top: "2.5%", left: "4.8%", width: "3%", height: "4%" },
+        // Schritt 3 Checkbox
+        { type: "checkbox", top: "16.5%", left: "4.8%", width: "3%", height: "4%" },
+        // Schritt 4 Checkbox
+        { type: "checkbox", top: "30.5%", left: "4.8%", width: "3%", height: "4%" },
+        // Schritt 5 Checkbox
+        { type: "checkbox", top: "52.5%", left: "4.8%", width: "3%", height: "4%" }
+      ]
+    },
+    {
+      img: "stift6.jpg",
+      overlays: [
+        // Schritt 6 Checkbox
+        { type: "checkbox", top: "3.5%", left: "6.8%", width: "2.8%", height: "3.5%" },
+        // Schritt 7 Checkbox
+        { type: "checkbox", top: "24%", left: "6.8%", width: "2.8%", height: "3.5%" },
+        // Schritt 8 Checkbox
+        { type: "checkbox", top: "45.5%", left: "6.8%", width: "2.8%", height: "3.5%" },
+        // Schritt 9 Checkbox
+        { type: "checkbox", top: "61%", left: "6.8%", width: "2.8%", height: "3.5%" },
+        // Schritt 10 Checkbox
+        { type: "checkbox", top: "70.5%", left: "6.8%", width: "2.8%", height: "3.5%" },
+        // Schritt 11 Checkbox
+        { type: "checkbox", top: "79.8%", left: "6.8%", width: "2.8%", height: "3.5%" },
+        // Schritt 12 Checkbox
+        { type: "checkbox", top: "91%", left: "6.8%", width: "2.8%", height: "3.5%" }
+      ]
+    }
+  ];
+
+  let currentP4SlideIdx = 0;
+
+  function renderP4Slide() {
+    const slide = p4Slides[currentP4SlideIdx];
+    document.getElementById('p4-slide-img').src = slide.img;
+    document.getElementById('p4-slide-number').innerText = `Blatt ${currentP4SlideIdx + 1} von ${p4Slides.length}`;
+
+    const container = document.getElementById('p4-overlay-container');
+    container.innerHTML = '';
+
+    slide.overlays.forEach((item) => {
+      let el;
+      if (item.type === "checkbox") {
+        el = document.createElement('input');
+        el.type = "checkbox";
+        el.style.cursor = "pointer";
+        el.style.accentColor = "var(--c-p4)";
+      } else if (item.type === "text") {
+        el = document.createElement('input');
+        el.type = "text";
+        el.placeholder = item.placeholder || "";
+        el.style.border = "1px solid var(--primary)";
+        el.style.borderRadius = "4px";
+        el.style.padding = "2px 6px";
+        el.style.background = "rgba(255, 255, 255, 0.9)";
+        el.style.fontSize = "0.9em";
+      }
+
+      // Proportionale Positionierung direkt auf dem Bild
+      el.style.position = "absolute";
+      el.style.top = item.top;
+      el.style.left = item.left;
+      el.style.width = item.width;
+      el.style.height = item.height;
+      el.style.pointerEvents = "auto";
+      el.style.boxShadow = "0 1px 4px rgba(0,0,0,0.15)";
+
+      if (item.style) {
+        const customStyles = item.style.split(';');
+        customStyles.forEach(s => {
+          const [prop, val] = s.split(':');
+          if (prop && val) el.style[prop.trim()] = val.trim();
+        });
+      }
+
+      container.appendChild(el);
+    });
+  }
+
+  function changeP4Slide(direction) {
+    currentP4SlideIdx += direction;
+    if (currentP4SlideIdx < 0) currentP4SlideIdx = 0;
+    if (currentP4SlideIdx >= p4Slides.length) currentP4SlideIdx = p4Slides.length - 1;
+    renderP4Slide();
+  }
+
+  // Initiales Aufrufen des ersten Blattes
+  renderP4Slide();
 </script>
 
 </body>
