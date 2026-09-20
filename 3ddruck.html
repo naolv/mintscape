@@ -534,34 +534,168 @@
     </div>
   </div>
 
-<!-- PROJEKT 4: BLEISTIFTHALTER (BILDER-SLIDER MIT INTERAKTIVEN OVERLAYS) -->
-  <div id="p4" class="tab-content section-card">
-    <h2>Projekt 4: Bleistifthalter modellieren</h2>
-    
-    <div style="background: #eff6ff; border-left: 4px solid var(--c-p1); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
-      <strong> Du kannst die Schritte direkt auf dem Blatt durchblättern, die Kästchen abhaken und deine Antworten eintragen!
-    </div>
+// ZUSTANDSSPEICHER FÜR EINGABEN (DAMIT BEIM BLÄTTERN NICHTS VERLOREN GEHT)
+  const p4UserInputs = {};
 
-    <!-- STEUERUNG FÜR DEN SLIDER -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #f1f5f9; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border);">
-      <button class="quiz-btn" style="margin-top:0;" onclick="changeP4Slide(-1)">&larr; Zurück</button>
-      <strong id="p4-slide-number" style="color: var(--c-p4); font-size: 1.1em;">Blatt 1 von 6</strong>
-      <button class="quiz-btn" style="margin-top:0;" onclick="changeP4Slide(1)">Weiter &rarr;</button>
-    </div>
+  // BLEISTIFTHALTER (PROJEKT 4) SLIDER & OVERLAY KONFIGURATION MIT PRÄZISEN KOORDINATEN
+  const p4Slides = [
+    {
+      img: "stift1.png",
+      overlays: [
+        // Schritt 1 Checkbox
+        { id: "s1_cb1", type: "checkbox", top: "14.2%", left: "10.8%", width: "3.5%", height: "5.0%" },
+        // Spitzname Textfeld (rechts neben "lautet:")
+        { id: "s1_txt1", type: "text", top: "22.2%", left: "32.0%", width: "35.5%", height: "5.5%", placeholder: "Spitzname..." },
+        // Klassencode Textfeld (rechts neben "ist:")
+        { id: "s1_txt2", type: "text", top: "30.0%", left: "32.0%", width: "35.5%", height: "5.5%", placeholder: "Klassencode..." },
+        // Schritt 2 Checkbox
+        { id: "s2_cb1", type: "checkbox", top: "46.2%", left: "10.8%", width: "3.5%", height: "5.0%" },
+        // Schritt 3 Checkbox
+        { id: "s3_cb1", type: "checkbox", top: "62.5%", left: "10.8%", width: "3.5%", height: "5.0%" }
+      ]
+    },
+    {
+      img: "stift2.png",
+      overlays: [
+        // Schritt 4 Checkbox
+        { id: "s4_cb1", type: "checkbox", top: "2.2%", left: "7.0%", width: "3.5%", height: "6.0%" },
+        // Schritt 4 Textfeld (in der umrandeten Box)
+        { id: "s4_txt1", type: "text", top: "27.5%", left: "5.2%", width: "63.5%", height: "11.0%", placeholder: "Deine Beobachtung eintragen..." },
+        // Schritt 5 Checkbox
+        { id: "s5_cb1", type: "checkbox", top: "61.0%", left: "7.0%", width: "3.5%", height: "6.0%" }
+      ]
+    },
+    {
+      img: "stift3.png",
+      overlays: [
+        // Schritt 6 Textfeld Namensgebung
+        { id: "s6_txt1", type: "text", top: "46.0%", left: "6.5%", width: "63.5%", height: "11.5%", placeholder: "Namensgebung eintragen..." },
+        // Schritt 7 Smiley / Gesichtsausdruck
+        { id: "s7_txt1", type: "text", top: "67.0%", left: "77.5%", width: "12.5%", height: "23.0%", placeholder: ":-)", style: "text-align:center; font-size:1.4em; border-radius:50%;" }
+      ]
+    },
+    {
+      img: "stift4.png",
+      overlays: [
+        // Schritt 1 Checkbox
+        { id: "sY1_cb1", type: "checkbox", top: "28.5%", left: "10.8%", width: "3.5%", height: "10.0%" },
+        // Schritt 2 Checkbox
+        { id: "sY2_cb1", type: "checkbox", top: "77.5%", left: "10.8%", width: "3.5%", height: "10.0%" }
+      ]
+    },
+    {
+      img: "stift5.png",
+      overlays: [
+        // Schritt 2 Forts. Checkbox
+        { id: "sY2f_cb1", type: "checkbox", top: "2.2%", left: "7.2%", width: "3.2%", height: "4.5%" },
+        // Schritt 3 Checkbox
+        { id: "sY3_cb1", type: "checkbox", top: "16.8%", left: "7.2%", width: "3.2%", height: "4.5%" },
+        // Schritt 4 Checkbox
+        { id: "sY4_cb1", type: "checkbox", top: "30.8%", left: "7.2%", width: "3.2%", height: "4.5%" },
+        // Schritt 5 Checkbox
+        { id: "sY5_cb1", type: "checkbox", top: "52.0%", left: "7.2%", width: "3.2%", height: "4.5%" }
+      ]
+    },
+    {
+      img: "stift6.png",
+      overlays: [
+        // Schritt 6 Checkbox
+        { id: "sY6_cb1", type: "checkbox", top: "3.2%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        // Schritt 7 Checkbox
+        { id: "sY7_cb1", type: "checkbox", top: "24.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        // Schritt 8 Checkbox
+        { id: "sY8_cb1", type: "checkbox", top: "45.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        // Schritt 9 Checkbox
+        { id: "sY9_cb1", type: "checkbox", top: "60.5%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        // Schritt 10 Checkbox
+        { id: "sY10_cb1", type: "checkbox", top: "70.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        // Schritt 11 Checkbox
+        { id: "sY11_cb1", type: "checkbox", top: "79.2%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        // Schritt 12 Checkbox
+        { id: "sY12_cb1", type: "checkbox", top: "90.2%", left: "8.5%", width: "3.0%", height: "4.0%" }
+      ]
+    }
+  ];
 
-    <!-- BILD-CONTAINER MIT RELATIVER POSITIONIERUNG DER OVERLAYS -->
-    <div style="position: relative; width: 100%; max-width: 800px; margin: 0 auto; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-      
-      <!-- ANLEITUNGSBILD -->
-      <img id="p4-slide-img" src="stift1.png" alt="Anleitung Bleistifthalter" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x600?text=Bilddatei:+stift1.png';">
+  let currentP4SlideIdx = 0;
 
-      <!-- CONTAINERELEMENT FÜR DIE INTERAKTIVEN FELDER -->
-      <div id="p4-overlay-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
-        <!-- Overlays werden automatisch per JS geladen -->
-      </div>
+  function renderP4Slide() {
+    const slide = p4Slides[currentP4SlideIdx];
+    document.getElementById('p4-slide-img').src = slide.img;
+    document.getElementById('p4-slide-number').innerText = `Blatt ${currentP4SlideIdx + 1} von ${p4Slides.length}`;
 
-    </div>
-  </div>
+    const container = document.getElementById('p4-overlay-container');
+    container.innerHTML = '';
+
+    slide.overlays.forEach((item) => {
+      let el;
+      if (item.type === "checkbox") {
+        el = document.createElement('input');
+        el.type = "checkbox";
+        el.style.cursor = "pointer";
+        el.style.accentColor = "var(--c-p4)";
+
+        // Zustand wiederherstellen
+        if (p4UserInputs[item.id] !== undefined) {
+          el.checked = p4UserInputs[item.id];
+        }
+
+        // Zustand bei Änderung speichern
+        el.addEventListener('change', (e) => {
+          p4UserInputs[item.id] = e.target.checked;
+        });
+
+      } else if (item.type === "text") {
+        el = document.createElement('input');
+        el.type = "text";
+        el.placeholder = item.placeholder || "";
+        el.style.border = "1px solid #0d9488";
+        el.style.borderRadius = "4px";
+        el.style.padding = "2px 8px";
+        el.style.background = "rgba(255, 255, 255, 0.85)";
+        el.style.fontSize = "0.95em";
+
+        // Zustand wiederherstellen
+        if (p4UserInputs[item.id] !== undefined) {
+          el.value = p4UserInputs[item.id];
+        }
+
+        // Zustand bei Eingabe speichern
+        el.addEventListener('input', (e) => {
+          p4UserInputs[item.id] = e.target.value;
+        });
+      }
+
+      // Proportionale Positionierung direkt auf dem Bild
+      el.style.position = "absolute";
+      el.style.top = item.top;
+      el.style.left = item.left;
+      el.style.width = item.width;
+      el.style.height = item.height;
+      el.style.pointerEvents = "auto";
+      el.style.boxShadow = "0 1px 3px rgba(0,0,0,0.12)";
+
+      if (item.style) {
+        const customStyles = item.style.split(';');
+        customStyles.forEach(s => {
+          const [prop, val] = s.split(':');
+          if (prop && val) el.style[prop.trim()] = val.trim();
+        });
+      }
+
+      container.appendChild(el);
+    });
+  }
+
+  function changeP4Slide(direction) {
+    currentP4SlideIdx += direction;
+    if (currentP4SlideIdx < 0) currentP4SlideIdx = 0;
+    if (currentP4SlideIdx >= p4Slides.length) currentP4SlideIdx = p4Slides.length - 1;
+    renderP4Slide();
+  }
+
+  // Initiales Aufrufen des ersten Blattes
+  renderP4Slide();
 
   <!-- PROJEKT 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
