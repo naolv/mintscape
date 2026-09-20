@@ -233,6 +233,16 @@
     }
     .quiz-options button:hover { background: #edf2f7; }
 
+    .quiz-btn {
+      padding: 8px 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
     /* ALLITERATIONS-AUTOMAT STYLES */
     .generator-box {
       background: var(--c-p2-bg);
@@ -285,23 +295,6 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
-    /* FORTSCHRITTSBALKEN BLEISTIFTHALTER */
-    .progress-bar-container {
-      background: var(--border);
-      border-radius: 10px;
-      height: 12px;
-      width: 100%;
-      margin-bottom: 15px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      background: var(--c-p4);
-      height: 100%;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
     .input-inline {
       width: 100%;
       padding: 6px;
@@ -309,14 +302,6 @@
       border: 1px solid var(--border);
       border-radius: 4px;
       box-sizing: border-box;
-    }
-
-    .shortcut-badge {
-      background: #e2e8f0;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-family: monospace;
-      font-weight: bold;
     }
 
     .tab-content { display: none; }
@@ -448,7 +433,7 @@
     </div>
   </div>
 
-  <!-- PROJEKT 1: MÜNZE (MASSANGABEN EXAKT AUS DEINER ERSTEN VERSION) -->
+  <!-- PROJEKT 1: MÜNZE -->
   <div id="p1" class="tab-content section-card">
     <h2>Projekt 1: Einkaufsmünze</h2>
     <p>Konstruiere deine eigene Einkaufsmünze für den Einkaufswagen mit persönlichem Logo oder Text.</p>
@@ -476,7 +461,6 @@
     <h2>Projekt 2: Alliterations-Würfel</h2>
     <p>Damit beim Würfeln echte <strong>Alliterationen</strong> entstehen, müssen alle 6 Wörter auf deinem Würfel mit demselben Buchstaben beginnen!</p>
     
-    <!-- DYNAMISCHER AUTOMAT FUER ALLE BUCHSTABEN -->
     <div class="generator-box">
       <h3 style="margin-top:0; color: var(--c-p2);">Alliterations-Wort-Automat</h3>
       <p style="margin-bottom: 10px; font-size:0.9em;">Wähle einen beliebigen Buchstaben (A–Z) und die Würfel-Kategorie. Bei jedem Klick auf "Neu generieren" zieht der Automat 6 frische Zufallswörter! Wähle eigene, wenn die Vorschläge dir nicht gefallen.</p>
@@ -534,168 +518,34 @@
     </div>
   </div>
 
-// ZUSTANDSSPEICHER FÜR EINGABEN (DAMIT BEIM BLÄTTERN NICHTS VERLOREN GEHT)
-  const p4UserInputs = {};
+  <!-- PROJEKT 4: BLEISTIFTHALTER (BILDER-SLIDER MIT OVERLAYS) -->
+  <div id="p4" class="tab-content section-card">
+    <h2>Projekt 4: Bleistifthalter modellieren</h2>
+    
+    <div style="background: #eff6ff; border-left: 4px solid var(--c-p1); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+      <strong>💡 Ergonomie- & Material-Tipp:</strong> Du kannst die Schritte direkt auf dem Blatt durchblättern, die Kästchen abhaken und deine Antworten eintragen!
+    </div>
 
-  // BLEISTIFTHALTER (PROJEKT 4) SLIDER & OVERLAY KONFIGURATION MIT PRÄZISEN KOORDINATEN
-  const p4Slides = [
-    {
-      img: "stift1.png",
-      overlays: [
-        // Schritt 1 Checkbox
-        { id: "s1_cb1", type: "checkbox", top: "14.2%", left: "10.8%", width: "3.5%", height: "5.0%" },
-        // Spitzname Textfeld (rechts neben "lautet:")
-        { id: "s1_txt1", type: "text", top: "22.2%", left: "32.0%", width: "35.5%", height: "5.5%", placeholder: "Spitzname..." },
-        // Klassencode Textfeld (rechts neben "ist:")
-        { id: "s1_txt2", type: "text", top: "30.0%", left: "32.0%", width: "35.5%", height: "5.5%", placeholder: "Klassencode..." },
-        // Schritt 2 Checkbox
-        { id: "s2_cb1", type: "checkbox", top: "46.2%", left: "10.8%", width: "3.5%", height: "5.0%" },
-        // Schritt 3 Checkbox
-        { id: "s3_cb1", type: "checkbox", top: "62.5%", left: "10.8%", width: "3.5%", height: "5.0%" }
-      ]
-    },
-    {
-      img: "stift2.png",
-      overlays: [
-        // Schritt 4 Checkbox
-        { id: "s4_cb1", type: "checkbox", top: "2.2%", left: "7.0%", width: "3.5%", height: "6.0%" },
-        // Schritt 4 Textfeld (in der umrandeten Box)
-        { id: "s4_txt1", type: "text", top: "27.5%", left: "5.2%", width: "63.5%", height: "11.0%", placeholder: "Deine Beobachtung eintragen..." },
-        // Schritt 5 Checkbox
-        { id: "s5_cb1", type: "checkbox", top: "61.0%", left: "7.0%", width: "3.5%", height: "6.0%" }
-      ]
-    },
-    {
-      img: "stift3.png",
-      overlays: [
-        // Schritt 6 Textfeld Namensgebung
-        { id: "s6_txt1", type: "text", top: "46.0%", left: "6.5%", width: "63.5%", height: "11.5%", placeholder: "Namensgebung eintragen..." },
-        // Schritt 7 Smiley / Gesichtsausdruck
-        { id: "s7_txt1", type: "text", top: "67.0%", left: "77.5%", width: "12.5%", height: "23.0%", placeholder: ":-)", style: "text-align:center; font-size:1.4em; border-radius:50%;" }
-      ]
-    },
-    {
-      img: "stift4.png",
-      overlays: [
-        // Schritt 1 Checkbox
-        { id: "sY1_cb1", type: "checkbox", top: "28.5%", left: "10.8%", width: "3.5%", height: "10.0%" },
-        // Schritt 2 Checkbox
-        { id: "sY2_cb1", type: "checkbox", top: "77.5%", left: "10.8%", width: "3.5%", height: "10.0%" }
-      ]
-    },
-    {
-      img: "stift5.png",
-      overlays: [
-        // Schritt 2 Forts. Checkbox
-        { id: "sY2f_cb1", type: "checkbox", top: "2.2%", left: "7.2%", width: "3.2%", height: "4.5%" },
-        // Schritt 3 Checkbox
-        { id: "sY3_cb1", type: "checkbox", top: "16.8%", left: "7.2%", width: "3.2%", height: "4.5%" },
-        // Schritt 4 Checkbox
-        { id: "sY4_cb1", type: "checkbox", top: "30.8%", left: "7.2%", width: "3.2%", height: "4.5%" },
-        // Schritt 5 Checkbox
-        { id: "sY5_cb1", type: "checkbox", top: "52.0%", left: "7.2%", width: "3.2%", height: "4.5%" }
-      ]
-    },
-    {
-      img: "stift6.png",
-      overlays: [
-        // Schritt 6 Checkbox
-        { id: "sY6_cb1", type: "checkbox", top: "3.2%", left: "8.5%", width: "3.0%", height: "4.0%" },
-        // Schritt 7 Checkbox
-        { id: "sY7_cb1", type: "checkbox", top: "24.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
-        // Schritt 8 Checkbox
-        { id: "sY8_cb1", type: "checkbox", top: "45.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
-        // Schritt 9 Checkbox
-        { id: "sY9_cb1", type: "checkbox", top: "60.5%", left: "8.5%", width: "3.0%", height: "4.0%" },
-        // Schritt 10 Checkbox
-        { id: "sY10_cb1", type: "checkbox", top: "70.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
-        // Schritt 11 Checkbox
-        { id: "sY11_cb1", type: "checkbox", top: "79.2%", left: "8.5%", width: "3.0%", height: "4.0%" },
-        // Schritt 12 Checkbox
-        { id: "sY12_cb1", type: "checkbox", top: "90.2%", left: "8.5%", width: "3.0%", height: "4.0%" }
-      ]
-    }
-  ];
+    <!-- STEUERUNG FÜR DEN SLIDER -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #f1f5f9; padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border);">
+      <button class="quiz-btn" style="margin-top:0;" onclick="changeP4Slide(-1)">&larr; Zurück</button>
+      <strong id="p4-slide-number" style="color: var(--c-p4); font-size: 1.1em;">Blatt 1 von 6</strong>
+      <button class="quiz-btn" style="margin-top:0;" onclick="changeP4Slide(1)">Weiter &rarr;</button>
+    </div>
 
-  let currentP4SlideIdx = 0;
+    <!-- BILD-CONTAINER MIT RELATIVER POSITIONIERUNG DER OVERLAYS -->
+    <div style="position: relative; width: 100%; max-width: 800px; margin: 0 auto; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+      
+      <!-- ANLEITUNGSBILD -->
+      <img id="p4-slide-img" src="stift1.png" alt="Anleitung Bleistifthalter" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/800x600?text=Bilddatei:+stift1.png';">
 
-  function renderP4Slide() {
-    const slide = p4Slides[currentP4SlideIdx];
-    document.getElementById('p4-slide-img').src = slide.img;
-    document.getElementById('p4-slide-number').innerText = `Blatt ${currentP4SlideIdx + 1} von ${p4Slides.length}`;
+      <!-- CONTAINERELEMENT FÜR DIE INTERAKTIVEN FELDER -->
+      <div id="p4-overlay-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+        <!-- Overlays werden automatisch per JS geladen -->
+      </div>
 
-    const container = document.getElementById('p4-overlay-container');
-    container.innerHTML = '';
-
-    slide.overlays.forEach((item) => {
-      let el;
-      if (item.type === "checkbox") {
-        el = document.createElement('input');
-        el.type = "checkbox";
-        el.style.cursor = "pointer";
-        el.style.accentColor = "var(--c-p4)";
-
-        // Zustand wiederherstellen
-        if (p4UserInputs[item.id] !== undefined) {
-          el.checked = p4UserInputs[item.id];
-        }
-
-        // Zustand bei Änderung speichern
-        el.addEventListener('change', (e) => {
-          p4UserInputs[item.id] = e.target.checked;
-        });
-
-      } else if (item.type === "text") {
-        el = document.createElement('input');
-        el.type = "text";
-        el.placeholder = item.placeholder || "";
-        el.style.border = "1px solid #0d9488";
-        el.style.borderRadius = "4px";
-        el.style.padding = "2px 8px";
-        el.style.background = "rgba(255, 255, 255, 0.85)";
-        el.style.fontSize = "0.95em";
-
-        // Zustand wiederherstellen
-        if (p4UserInputs[item.id] !== undefined) {
-          el.value = p4UserInputs[item.id];
-        }
-
-        // Zustand bei Eingabe speichern
-        el.addEventListener('input', (e) => {
-          p4UserInputs[item.id] = e.target.value;
-        });
-      }
-
-      // Proportionale Positionierung direkt auf dem Bild
-      el.style.position = "absolute";
-      el.style.top = item.top;
-      el.style.left = item.left;
-      el.style.width = item.width;
-      el.style.height = item.height;
-      el.style.pointerEvents = "auto";
-      el.style.boxShadow = "0 1px 3px rgba(0,0,0,0.12)";
-
-      if (item.style) {
-        const customStyles = item.style.split(';');
-        customStyles.forEach(s => {
-          const [prop, val] = s.split(':');
-          if (prop && val) el.style[prop.trim()] = val.trim();
-        });
-      }
-
-      container.appendChild(el);
-    });
-  }
-
-  function changeP4Slide(direction) {
-    currentP4SlideIdx += direction;
-    if (currentP4SlideIdx < 0) currentP4SlideIdx = 0;
-    if (currentP4SlideIdx >= p4Slides.length) currentP4SlideIdx = p4Slides.length - 1;
-    renderP4Slide();
-  }
-
-  // Initiales Aufrufen des ersten Blattes
-  renderP4Slide();
+    </div>
+  </div>
 
   <!-- PROJEKT 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
@@ -709,7 +559,7 @@
           <li><input type="checkbox"> <span>Öffne SculptGL im Browser auf dem Tablet.</span></li>
           <li><input type="checkbox"> <span>Nutze das Werkzeug "Brush" oder "Grab", um die Kugel zu verformen.</span></li>
           <li><input type="checkbox"> <span>Aktiviere die Symmetrie, um Gesichter oder Tiere leicht zu modellieren.</span></li>
-          <li><input type="checkbox"> <span>Exportiere am Ende das Werkstück als .STL-Datei nur aus, wenn es dir aussenordentlich gut gefällt und du es unbedingt ausdrucken willst.</span></li>
+          <li><input type="checkbox"> <span>Exportiere am Ende das Werkstück als .STL-Datei nur aus, wenn es dir ausserordentlich gut gefällt und du es unbedingt ausdrucken willst.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -839,34 +689,34 @@
       adjektive: ["cool", "chaotisch", "clever", "courageiert", "cremig"]
     },
     D: {
-      nomen: ["Dachs", "Delfin", "Dach", "Dorf", "Donner", "Diamant", "Dose", "Dorn", "Dame"],
+      nomen: ["Drache", "Delfin", "Dach", "Dorf", "Donner", "Diamant", "Dose", "Dinosaurier", "Detektiv"],
       verben: ["drehen", "drücken", "denken", "dauern", "danken", "duften", "demonstrieren", "diskutieren"],
       adjektive: ["dunkel", "dick", "dünn", "deutlich", "dankbar", "dringend", "direkt", "doppelt"]
     },
     E: {
-      nomen: ["Elefant", "Eichel", "Eis", "Erde", "Engel", "Esel", "Eimer", "Ei", "Eule"],
-      verben: ["essen", "erklären", "erfinden", "erzählen", "erinnern", "erleben", "erreichen", "erben"],
-      adjektive: ["ehrlich", "eckig", "eng", "einfach", "egal", "eifersüchtig", "edel", "elastisch"]
+      nomen: ["Elefant", "Eule", "Eis", "Erde", "Engel", "Esel", "Eimer", "Eichhörnchen"],
+      verben: ["essen", "erklären", "erfinden", "erzählen", "erinnern", "erleben", "erreichen", "erkennen"],
+      adjektive: ["ehrlich", "einzigartig", "eng", "einfach", "egal", "eifersüchtig", "edel", "elastisch"]
     },
     F: {
-      nomen: ["Frost", "Frosch", "Feder", "Feuer", "Fuchs", "Flasche", "Fenster", "Fahrrad", "Fels", "Fahne"],
+      nomen: ["Fisch", "Frosch", "Feder", "Feuer", "Fuchs", "Flasche", "Fenster", "Fahrrad", "Fels", "Flugzeug"],
       verben: ["fliegen", "fangen", "finden", "füttern", "formen", "freuen", "fallen", "fischen", "frieren"],
       adjektive: ["flink", "frech", "fein", "furchtlos", "fett", "fantasievoll", "falsch", "freundlich", "fleissig"]
     },
     G: {
-      nomen: ["Giraffe", "Garten", "Gold", "Geist", "Geschenk", "Geisel", "Glas", "Geige", "Gürtel"],
+      nomen: ["Giraffe", "Garten", "Gold", "Geist", "Geschenk", "Gitarre", "Glas", "Geige", "Gürtel"],
       verben: ["gehen", "geben", "gewinnen", "glauben", "graben", "grüssen", "gleiten", "geniessen"],
       adjektive: ["gross", "gelb", "gut", "gemütlich", "gefährlich", "glücklich", "giftig", "glatt"]
     },
     H: {
-      nomen: ["Hund", "Haus", "Hase", "Herz", "Himmel", "Hand", "Horn", "Heu", "Hammer"],
+      nomen: ["Hund", "Haus", "Hase", "Herz", "Himmel", "Hexenhut", "Horn", "Hubschrauber", "Hammer"],
       verben: ["laufen", "helfen", "hören", "halten", "hüpfen", "hoffen", "holen", "heilen"],
       adjektive: ["hell", "hart", "heiss", "hungrig", "höflich", "heiter", "heimlich", "hoch"]
     },
     I: {
-      nomen: ["Igel", "Insel", "Indianer", "Insekt", "Idee", "Instrument", "Impfung"],
+      nomen: ["Igel", "Insel", "Indianer", "Insekt", "Idee", "Instrument", "Ingenieur"],
       verben: ["imitieren", "informieren", "interessieren", "irren", "isolieren"],
-      adjektive: ["intelligent", "interessant", "intakt", "ideal", "international", "irr"]
+      adjektive: ["intelligent", "interessant", "intakt", "ideal", "international"]
     },
     J: {
       nomen: ["Junge", "Jacke", "Jahr", "Juwel", "Joghurt", "Jäger", "Jongleur"],
@@ -896,12 +746,12 @@
     O: {
       nomen: ["Ozean", "Opa", "Oma", "Obst", "Orchester", "Osterhase", "Oktopus", "Orgel"],
       verben: ["öffnen", "ordnen", "operieren", "opfern", "organisieren"],
-      adjektive: ["offen", "orange", "ordentlich", "optimistisch", "originell", "ölig"]
+      adjektive: ["offen", "orange", "ordentlich", "optimistisch", "originell"]
     },
     P: {
       nomen: ["Pferd", "Papagei", "Pirat", "Paket", "Pinsel", "Planeten", "Palme", "Panther"],
       verben: ["parken", "passen", "probieren", "putzen", "planen", "pflanzen"],
-      adjektive: ["perfekt", "pünktlich", "praktisch", "positiv", "prächtig", "prall", "peinlich"]
+      adjektive: ["perfekt", "pünktlich", "praktisch", "positiv", "prächtig"]
     },
     Q: {
       nomen: ["Qualle", "Quelle", "Quiz", "Quatsch", "Quittung"],
@@ -911,7 +761,7 @@
     R: {
       nomen: ["Roboter", "Rakete", "Ritter", "Regen", "Ring", "Rose", "Rucksack", "Riesenkrake"],
       verben: ["rennen", "rufen", "reiten", "riechen", "rechnen", "reparieren", "rasten"],
-      adjektive: ["rot", "ruhig", "reich", "riesig", "richtig", "rund", "rasch", "roh"]
+      adjektive: ["rot", "ruhig", "reich", "riesig", "richtig", "rund", "rasch"]
     },
     S: {
       nomen: ["Sonne", "Schiff", "Schlange", "Stern", "Sessel", "Schuh", "Schnee", "Spatz", "Schwert"],
@@ -921,17 +771,17 @@
     T: {
       nomen: ["Tiger", "Tisch", "Traktor", "Turm", "Tasche", "Traum", "Trommel", "Tasse"],
       verben: ["tanzen", "trinken", "tragen", "träumen", "treffen", "tauchen", "testen"],
-      adjektive: ["toll", "traurig", "tief", "treu", "trocken", "tapfer", "träg", "teuer"]
+      adjektive: ["toll", "traurig", "tief", "treu", "trocken", "tapfer"]
     },
     U: {
-      nomen: ["Uhr", "Ufer", "Ungeheuer", "Urlaub", "Universum", "U-Boot", "Uhu"],
+      nomen: ["Uhr", "Ufer", "Ungeheuer", "Urlaub", "Universum", "U-Boot"],
       verben: ["umarmen", "untersuchen", "unterrichten", "üben", "überraschen"],
-      adjektive: ["unglaublich", "uralt", "unheimlich", "unsichtbar", "unendlich", "ulkig"]
+      adjektive: ["unglaublich", "uralt", "unheimlich", "unsichtbar", "unendlich"]
     },
     V: {
-      nomen: ["Vogel", "Vulkan", "Vater", "Vase", "Vorort", "Versuch", "Vampir", "Vergleich"],
-      verben: ["verstehen", "verstecken", "verlieren", "versuchen", "verwandeln", "versprechen", "verbinden"],
-      adjektive: ["viel", "voll", "vorsichtig", "verschieden", "violett", "vage", "verantwortlich"]
+      nomen: ["Vogel", "Vulkan", "Vater", "Vase", "Sonne", "Smaragd"],
+      verben: ["verstehen", "verstecken", "verlieren", "versuchen", "verwandeln"],
+      adjektive: ["viel", "voll", "vorsichtig", "verschieden", "violett"]
     },
     W: {
       nomen: ["Wald", "Wasser", "Würfel", "Wolke", "Wind", "Wurm", "Weg", "Wal", "Wüste"],
@@ -939,7 +789,7 @@
       adjektive: ["wild", "weiss", "weich", "wichtig", "wunderbar", "warm", "winzig"]
     },
     X: {
-      nomen: ["Xylophon", "Xenon", "Xerox", "X-Beine"],
+      nomen: ["Xylophon", "Xenon", "Xerox"],
       verben: ["xylen"],
       adjektive: ["x-beliebig"]
     },
@@ -978,101 +828,62 @@
     });
   }
 
-  // FORTSCHRITTSBALKEN BLEISTIFTHALTER LOGIK
-  function updateP4Progress() {
-    const checkboxes = document.querySelectorAll('.p4-check');
-    let checkedCount = 0;
-    checkboxes.forEach(cb => {
-      if(cb.checked) checkedCount++;
-    });
-
-    const total = checkboxes.length;
-    const percent = Math.round((checkedCount / total) * 100);
-
-    document.getElementById('p4-progress-bar').style.width = percent + '%';
-    document.getElementById('p4-progress-text').innerText = `${checkedCount} / ${total} Schritte (${percent}%)`;
-  }
-
-  // INITIALISIERUNG BEIM LADEN
-  loadQuiz();
-  generateWords();
+  // ZUSTANDSSPEICHER FÜR EINGABEN (BLEISTIFTHALTER)
+  const p4UserInputs = {};
 
   // BLEISTIFTHALTER (PROJEKT 4) SLIDER & OVERLAY KONFIGURATION
   const p4Slides = [
     {
       img: "stift1.png",
       overlays: [
-        // Schritt 1 Checkbox
-        { type: "checkbox", top: "14.5%", left: "10.2%", width: "2.8%", height: "3.8%" },
-        // Spitzname Textfeld
-        { type: "text", top: "22.5%", left: "32%", width: "35%", height: "4.5%", placeholder: "Spitzname..." },
-        // Klassencode Textfeld
-        { type: "text", top: "30%", left: "32%", width: "35%", height: "4.5%", placeholder: "Klassencode..." },
-        // Schritt 2 Checkbox
-        { type: "checkbox", top: "47.2%", left: "10.2%", width: "2.8%", height: "3.8%" },
-        // Schritt 3 Checkbox
-        { type: "checkbox", top: "63.2%", left: "10.2%", width: "2.8%", height: "3.8%" }
+        { id: "s1_cb1", type: "checkbox", top: "14.2%", left: "10.8%", width: "3.5%", height: "5.0%" },
+        { id: "s1_txt1", type: "text", top: "22.2%", left: "32.0%", width: "35.5%", height: "5.5%", placeholder: "Spitzname..." },
+        { id: "s1_txt2", type: "text", top: "30.0%", left: "32.0%", width: "35.5%", height: "5.5%", placeholder: "Klassencode..." },
+        { id: "s2_cb1", type: "checkbox", top: "46.2%", left: "10.8%", width: "3.5%", height: "5.0%" },
+        { id: "s3_cb1", type: "checkbox", top: "62.5%", left: "10.8%", width: "3.5%", height: "5.0%" }
       ]
     },
     {
       img: "stift2.png",
       overlays: [
-        // Schritt 4 Checkbox
-        { type: "checkbox", top: "2.5%", left: "5.5%", width: "3%", height: "4.5%" },
-        // Schritt 4 Textfeld für Antwort
-        { type: "text", top: "28%", left: "4.8%", width: "63%", height: "6%", placeholder: "Deine Beobachtung eintragen..." },
-        // Schritt 5 Checkbox
-        { type: "checkbox", top: "62.5%", left: "5.5%", width: "3%", height: "4.5%" }
+        { id: "s4_cb1", type: "checkbox", top: "2.2%", left: "7.0%", width: "3.5%", height: "6.0%" },
+        { id: "s4_txt1", type: "text", top: "27.5%", left: "5.2%", width: "63.5%", height: "11.0%", placeholder: "Deine Beobachtung eintragen..." },
+        { id: "s5_cb1", type: "checkbox", top: "61.0%", left: "7.0%", width: "3.5%", height: "6.0%" }
       ]
     },
     {
       img: "stift3.png",
       overlays: [
-        // Schritt 6 Textfeld Namensgebung
-        { type: "text", top: "47%", left: "6%", width: "63%", height: "10%", placeholder: "Namensgebung eintragen..." },
-        // Schritt 7 Emoji / Textausdruck
-        { type: "text", top: "68%", left: "77%", width: "12%", height: "18%", placeholder: ":-)", style: "text-align:center; font-size:1.4em; border-radius:50%;" }
+        { id: "s6_txt1", type: "text", top: "46.0%", left: "6.5%", width: "63.5%", height: "11.5%", placeholder: "Namensgebung eintragen..." },
+        { id: "s7_txt1", type: "text", top: "67.0%", left: "77.5%", width: "12.5%", height: "23.0%", placeholder: ":-)", style: "text-align:center; font-size:1.4em; border-radius:50%;" }
       ]
     },
     {
       img: "stift4.png",
       overlays: [
-        // Schritt 1 Checkbox
-        { type: "checkbox", top: "29%", left: "8.2%", width: "3%", height: "7.5%" },
-        // Schritt 2 Checkbox
-        { type: "checkbox", top: "79%", left: "8.2%", width: "3%", height: "7.5%" }
+        { id: "sY1_cb1", type: "checkbox", top: "28.5%", left: "10.8%", width: "3.5%", height: "10.0%" },
+        { id: "sY2_cb1", type: "checkbox", top: "77.5%", left: "10.8%", width: "3.5%", height: "10.0%" }
       ]
     },
     {
       img: "stift5.png",
       overlays: [
-        // Schritt 2 Forts. Checkbox
-        { type: "checkbox", top: "2.5%", left: "4.8%", width: "3%", height: "4%" },
-        // Schritt 3 Checkbox
-        { type: "checkbox", top: "16.5%", left: "4.8%", width: "3%", height: "4%" },
-        // Schritt 4 Checkbox
-        { type: "checkbox", top: "30.5%", left: "4.8%", width: "3%", height: "4%" },
-        // Schritt 5 Checkbox
-        { type: "checkbox", top: "52.5%", left: "4.8%", width: "3%", height: "4%" }
+        { id: "sY2f_cb1", type: "checkbox", top: "2.2%", left: "7.2%", width: "3.2%", height: "4.5%" },
+        { id: "sY3_cb1", type: "checkbox", top: "16.8%", left: "7.2%", width: "3.2%", height: "4.5%" },
+        { id: "sY4_cb1", type: "checkbox", top: "30.8%", left: "7.2%", width: "3.2%", height: "4.5%" },
+        { id: "sY5_cb1", type: "checkbox", top: "52.0%", left: "7.2%", width: "3.2%", height: "4.5%" }
       ]
     },
     {
       img: "stift6.png",
       overlays: [
-        // Schritt 6 Checkbox
-        { type: "checkbox", top: "3.5%", left: "6.8%", width: "2.8%", height: "3.5%" },
-        // Schritt 7 Checkbox
-        { type: "checkbox", top: "24%", left: "6.8%", width: "2.8%", height: "3.5%" },
-        // Schritt 8 Checkbox
-        { type: "checkbox", top: "45.5%", left: "6.8%", width: "2.8%", height: "3.5%" },
-        // Schritt 9 Checkbox
-        { type: "checkbox", top: "61%", left: "6.8%", width: "2.8%", height: "3.5%" },
-        // Schritt 10 Checkbox
-        { type: "checkbox", top: "70.5%", left: "6.8%", width: "2.8%", height: "3.5%" },
-        // Schritt 11 Checkbox
-        { type: "checkbox", top: "79.8%", left: "6.8%", width: "2.8%", height: "3.5%" },
-        // Schritt 12 Checkbox
-        { type: "checkbox", top: "91%", left: "6.8%", width: "2.8%", height: "3.5%" }
+        { id: "sY6_cb1", type: "checkbox", top: "3.2%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        { id: "sY7_cb1", type: "checkbox", top: "24.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        { id: "sY8_cb1", type: "checkbox", top: "45.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        { id: "sY9_cb1", type: "checkbox", top: "60.5%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        { id: "sY10_cb1", type: "checkbox", top: "70.0%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        { id: "sY11_cb1", type: "checkbox", top: "79.2%", left: "8.5%", width: "3.0%", height: "4.0%" },
+        { id: "sY12_cb1", type: "checkbox", top: "90.2%", left: "8.5%", width: "3.0%", height: "4.0%" }
       ]
     }
   ];
@@ -1094,25 +905,41 @@
         el.type = "checkbox";
         el.style.cursor = "pointer";
         el.style.accentColor = "var(--c-p4)";
+
+        if (p4UserInputs[item.id] !== undefined) {
+          el.checked = p4UserInputs[item.id];
+        }
+
+        el.addEventListener('change', (e) => {
+          p4UserInputs[item.id] = e.target.checked;
+        });
+
       } else if (item.type === "text") {
         el = document.createElement('input');
         el.type = "text";
         el.placeholder = item.placeholder || "";
-        el.style.border = "1px solid var(--primary)";
+        el.style.border = "1px solid #0d9488";
         el.style.borderRadius = "4px";
-        el.style.padding = "2px 6px";
-        el.style.background = "rgba(255, 255, 255, 0.9)";
-        el.style.fontSize = "0.9em";
+        el.style.padding = "2px 8px";
+        el.style.background = "rgba(255, 255, 255, 0.85)";
+        el.style.fontSize = "0.95em";
+
+        if (p4UserInputs[item.id] !== undefined) {
+          el.value = p4UserInputs[item.id];
+        }
+
+        el.addEventListener('input', (e) => {
+          p4UserInputs[item.id] = e.target.value;
+        });
       }
 
-      // Proportionale Positionierung direkt auf dem Bild
       el.style.position = "absolute";
       el.style.top = item.top;
       el.style.left = item.left;
       el.style.width = item.width;
       el.style.height = item.height;
       el.style.pointerEvents = "auto";
-      el.style.boxShadow = "0 1px 4px rgba(0,0,0,0.15)";
+      el.style.boxShadow = "0 1px 3px rgba(0,0,0,0.12)";
 
       if (item.style) {
         const customStyles = item.style.split(';');
@@ -1133,7 +960,9 @@
     renderP4Slide();
   }
 
-  // Initiales Aufrufen des ersten Blattes
+  // INITIALISIERUNG
+  loadQuiz();
+  generateWords();
   renderP4Slide();
 </script>
 
