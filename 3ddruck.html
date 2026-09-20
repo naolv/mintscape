@@ -12,6 +12,8 @@
       --card-bg: #ffffff;
       --text: #1e293b;
       --border: #e2e8f0;
+      --danger: #ef4444;
+      --success: #10b981;
       
       --c-intro: #0d9488;
       --c-intro-bg: #ccfbf1;
@@ -150,6 +152,60 @@
 
     .project-image-box img { max-width: 100%; height: auto; border-radius: 6px; }
 
+    /* WARN- UND INFOBOXEN */
+    .material-box {
+      background: #fffbebf5;
+      border-left: 4px solid var(--c-p3);
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    /* INTERAKTIVER DRUCKER */
+    .printer-wrapper {
+      position: relative;
+      max-width: 480px;
+      margin: 20px auto;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .printer-wrapper img { width: 100%; display: block; }
+
+    .hotspot {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: var(--primary);
+      color: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .hotspot:hover { transform: scale(1.2); }
+
+    #spot-ams     { top: 15%; left: 50%; }
+    #spot-display { top: 35%; left: 28%; }
+    #spot-head    { top: 48%; left: 50%; }
+    #spot-bed     { top: 81%; left: 42%; }
+
+    .info-box-display {
+      background: var(--c-intro-bg);
+      border-left: 4px solid var(--c-intro);
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+      min-height: 50px;
+    }
+
     .checklist { list-style: none; padding: 0; margin: 0; }
     .checklist li {
       padding: 12px;
@@ -169,33 +225,13 @@
     }
 
     /* QUIZ STYLES */
-    .quiz-box {
-      background: #f1f5f9;
-      border: 1px solid var(--border);
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 15px;
+    .quiz-card { background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border); margin-top: 20px; }
+    .quiz-options button {
+      display: block; width: 100%; text-align: left; padding: 10px;
+      margin-bottom: 6px; border: 1px solid var(--border); border-radius: 6px;
+      background: white; cursor: pointer;
     }
-    .quiz-option {
-      display: block;
-      padding: 8px 12px;
-      margin: 6px 0;
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .quiz-option:hover { background: #e2e8f0; }
-    .quiz-btn {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+    .quiz-options button:hover { background: #edf2f7; }
 
     /* ALLITERATIONS-AUTOMAT STYLES */
     .generator-box {
@@ -340,63 +376,47 @@
     </div>
   </div>
 
-  <!-- INHALT 1: EINFÜHRUNG MIT P1S BILD & QUIZ -->
+  <!-- INHALT 1: NEUE EINFÜHRUNG AUS DEINEM VORHERIGEN CODE -->
   <div id="intro" class="tab-content section-card active">
     <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
     
-    <div class="project-layout">
-      <div>
-        <h3>Einführungstext</h3>
-        <p>Willkommen in der 3D-Druck-Werkstatt! Bevor wir mit dem Konstruieren beginnen, lernen wir kurz die Funktionsweise unseres 3D-Druckers kennen.</p>
-        
-        <h4>Wie funktioniert FDM-3D-Druck?</h4>
-        <p>FDM steht für <em>Fused Deposition Modeling</em> (Schmelzschichtung). Das Kunststoffseil (Filament) wird im Druckkopf geschmolzen und Schicht für Schicht von unten nach oben aufgebaut.</p>
-
-        <h4>Materialkunde: PLA</h4>
-        <p>Unser Drucker nutzt **PLA** (Polylactide). Es wird aus pflanzlicher Stärke (z. B. Mais) hergestellt, entwickelt beim Drucken keine schädlichen Dämpfe und ist biologisch abbaubar.</p>
-      </div>
-
-      <div class="project-image-box">
-        <img src="p1s.png" alt="Bambu Lab P1S 3D-Drucker" onerror="this.src='https://via.placeholder.com/350x250?text=Bambu+Lab+P1S+Drucker';">
-        <p style="font-size:0.8em; color:#64748b; margin-top:6px;">Unser 3D-Drucker: Bambu Lab P1S</p>
-      </div>
+    <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid var(--c-intro); margin-bottom: 20px;">
+      <p style="margin-top:0;"><strong>Wie funktioniert ein 3D-Drucker?</strong><br>
+      Beim <strong>FDM-Druckverfahren</strong> (Schmelzschichtung) wird eine Kunststoff-Schnur – das sogenannte <strong>Filament</strong> – auf etwa 200 °C erhitzt. Der Druckkopf trägt den geschmolzenen Kunststoff Schicht für Schicht von unten nach oben auf eine Bauplatte auf, bis dein Objekt fertig ist.</p>
     </div>
 
-    <hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+    <div class="material-box">
+      <h3 style="margin-top:0; color: #b45309;">Wichtig: Wie umweltfreundlich ist unser Plastik (PLA)?</h3>
+      <p>Wir drucken meistens mit <strong>PLA</strong>. Es wird zwar aus Pflanzenstärke (z. B. Mais) hergestellt, aber im Chemielabor stark verändert. Deshalb gilt:</p>
+      <ul style="margin-bottom:0; padding-left:20px;">
+        <li><strong>Kein Bio-Müll:</strong> PLA baut sich in der Natur oder im Heimkompost <u>nicht</u> ab. Es braucht spezielle Industrie-Anlagen!</li>
+        <li><strong>Schlechte Rezyklierbarkeit:</strong> Fehldrucke landen meist im Restmüll. Drucke deshalb nicht unnötig viel Plastik aus!</li>
+        <li><strong>Hitzeempfindlich:</strong> PLA wird bereits ab ca. <strong>60 °C weich</strong>. Wenn du dein Modell im Sommer im Auto oder in der Sonne liegen lässt, verformt es sich!</li>
+      </ul>
+    </div>
 
-    <h3>Interaktive Vorbereitungs-Übung</h3>
-    <p>Bestätige die folgenden Kontrollen vor dem Start:</p>
-    <ul class="checklist">
-      <li>
-        <input type="checkbox">
-        <span><strong>Sicherheits-Check:</strong> Ich weiss, dass das Hotend bis zu 250 °C heiss wird und passe auf meine Finger auf.</span>
-      </li>
-      <li>
-        <input type="checkbox">
-        <span><strong>Druckraum-Check:</strong> Der Druckraum des Bambu Lab P1S ist sauber und leer.</span>
-      </li>
-      <li>
-        <input type="checkbox">
-        <span><strong>Material-Check:</strong> Die richtige Filamentspule (PLA) ist geladen.</span>
-      </li>
-    </ul>
+    <h3 style="color: var(--c-intro);">Der Bambu Lab P1S im Überblick</h3>
+    <p>Klicke auf die <strong>Nummern im Bild</strong>, um die Bauteile kennenzulernen:</p>
 
-    <hr style="border:0; border-top:1px solid var(--border); margin:20px 0;">
+    <div class="printer-wrapper">
+      <img src="p1s.jpg" alt="Bambu Lab P1S 3D-Drucker" onerror="this.src='https://via.placeholder.com/480x360?text=Bild:+p1s.jpg';">
+      <div class="hotspot" id="spot-ams" onclick="showInfo('ams')">1</div>
+      <div class="hotspot" id="spot-display" onclick="showInfo('display')">2</div>
+      <div class="hotspot" id="spot-head" onclick="showInfo('head')">3</div>
+      <div class="hotspot" id="spot-bed" onclick="showInfo('bed')">4</div>
+    </div>
 
-    <h3>Interaktives Wissens-Quiz</h3>
-    <div class="quiz-box">
-      <p><strong>Frage 1: Was bedeutet die Abkürzung FDM?</strong></p>
-      <label class="quiz-option"><input type="radio" name="q1" value="a"> Fast Direct Moulding</label>
-      <label class="quiz-option"><input type="radio" name="q1" value="b"> Fused Deposition Modeling (Schmelzschichtung)</label>
-      <label class="quiz-option"><input type="radio" name="q1" value="c"> Filament Druck Methode</label>
+    <div class="info-box-display" id="info-box">
+      <em>Klicke oben auf eine Nummer im Bild, um die Erklärung anzuzeigen.</em>
+    </div>
 
-      <p style="margin-top:15px;"><strong>Frage 2: Woraus wird das Druckmaterial PLA gewonnen?</strong></p>
-      <label class="quiz-option"><input type="radio" name="q2" value="a"> Erdöl und Chemie</label>
-      <label class="quiz-option"><input type="radio" name="q2" value="b"> Pflanzliche Stärke (z. B. Mais)</label>
-      <label class="quiz-option"><input type="radio" name="q2" value="c"> Altplastik</label>
-
-      <button class="quiz-btn" onclick="checkQuiz()">Quiz auswerten</button>
-      <div id="quiz-feedback" style="margin-top:10px; font-weight:bold;"></div>
+    <div class="quiz-card">
+      <h3 style="color: var(--c-intro); margin-top:0;">Wissens-Check</h3>
+      <div id="quiz-container">
+        <div class="quiz-question" id="quiz-title">Frage wird geladen...</div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-feedback" id="quiz-feedback" style="margin-top: 10px;"></div>
+      </div>
     </div>
   </div>
 
@@ -530,38 +550,38 @@
     <div class="project-layout">
       <div>
         
-        <h3 style="color:var(--c-p4); margin-bottom:8px;">Anleitung Z: Einloggen und Entwurf erstellen[cite: 3]</h3>
+        <h3 style="color:var(--c-p4); margin-bottom:8px;">Anleitung Z: Einloggen und Entwurf erstellen</h3>
         <ul class="checklist" style="margin-bottom:25px;">
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z1. Login:</strong> Starte das Tablet und logge dich mit deinen Daten auf Tinkercad ein.[cite: 3]<br>
-              <input type="text" class="input-inline" placeholder="Dein Spitzname">[cite: 3]<br>
-              <input type="text" class="input-inline" placeholder="Dein Klassencode">[cite: 3]
+            <span><strong>Z1. Login:</strong> Starte das Tablet und logge dich mit deinen Daten auf Tinkercad ein.<br>
+              <input type="text" class="input-inline" placeholder="Dein Spitzname"><br>
+              <input type="text" class="input-inline" placeholder="Dein Klassencode">
             </span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z2. Erstellen:</strong> Klicke rechts oben auf <span class="shortcut-badge">+ Erstellen</span> und wähle <span class="shortcut-badge">3D-Entwurf</span>.[cite: 3]</span>
+            <span><strong>Z2. Erstellen:</strong> Klicke rechts oben auf <span class="shortcut-badge">+ Erstellen</span> und wähle <span class="shortcut-badge">3D-Entwurf</span>.</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z3. Prisma wählen:</strong> Rechts bei den einfachen Formen suchst du das <strong>sechseckige Prisma</strong> heraus und ziehst es auf die Arbeitsebene.[cite: 3]</span>
+            <span><strong>Z3. Prisma wählen:</strong> Rechts bei den einfachen Formen suchst du das <strong>sechseckige Prisma</strong> heraus und ziehst es auf die Arbeitsebene.</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z4. Experimentieren & Nachdenken:</strong> Was passiert, wenn du die Seiten von sechs auf acht änderst? Schreib auf:[cite: 3]<br>
+            <span><strong>Z4. Experimentieren & Nachdenken:</strong> Was passiert, wenn du die Seiten von sechs auf acht änderst? Schreib auf:<br>
               <input type="text" class="input-inline" placeholder="Deine Antwort hier eingeben..."><br>
-              <em>Wähle für den Bleistiftverlängerer jedoch wieder genau sechs Seiten![cite: 3]</em>
+              <em>Wähle für den Bleistiftverlängerer jedoch wieder genau sechs Seiten!</em>
             </span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z5. Masse festlegen:</strong> Die Länge und Breite des sechseckigen Prismas stellst du auf <strong>7 und 8 mm</strong> ein und die Höhe auf <strong>15 mm</strong>.[cite: 3]</span>
+            <span><strong>Z5. Masse festlegen:</strong> Die Länge und Breite des sechseckigen Prismas stellst du auf <strong>7 und 8 mm</strong> ein und die Höhe auf <strong>15 mm</strong>.</span>
           </li>
           <li>
             <input type="checkbox" class="p4-check" onchange="updateP4Progress()">
-            <span><strong>Z6. Benennen:</strong> Gib deinem Entwurf einen passenden Namen, indem du oben links beim Tinkercad-Symbol auf den Namensvorschlag klickst (z. B. «Terrific Leelo»).[cite: 4]<br>
-              <input type="text" class="input-inline" placeholder="Trag deine Namensgebung hier ein">[cite: 4]
+            <span><strong>Z6. Benennen:</strong> Gib deinem Entwurf einen passenden Namen, indem du oben links beim Tinkercad-Symbol auf den Namensvorschlag klickst (z. B. «Terrific Leelo»).<br>
+              <input type="text" class="input-inline" placeholder="Trag deine Namensgebung hier ein">
             </span>
           </li>
         </ul>
@@ -659,23 +679,85 @@
     document.getElementById('card-' + tabId).classList.add('active');
   }
 
-  function checkQuiz() {
-    const q1 = document.querySelector('input[name="q1"]:checked');
-    const q2 = document.querySelector('input[name="q2"]:checked');
-    const feedback = document.getElementById('quiz-feedback');
+  // INFORMATIONEN ZU DEN HOTSPOTS DES DRUCKERS (AUS DEINER WUNSCH-EINFÜHRUNG)
+  const infoTexts = {
+    ams: "<strong>1. AMS System (Farbwechsler):</strong> Hält bis zu 4 Filament-Rollen bereit und wechselt beim Drucken automatisch die Farben.",
+    display: "<strong>2. Steuer-Display:</strong> Hier wird der Druck gestartet, die Temperatur überwacht und der Status angezeigt.",
+    head: "<strong>3. Druckkopf (Extruder & Nozzle):</strong> Zieht den PLA-Kunststoff ein, schmilzt ihn bei 200 °C und trägt ihn präzise auf.",
+    bed: "<strong>4. Druckbett (Bauplatte):</strong> Die beheizte Platte, auf der das Modell Schicht für Schicht von unten nach oben entsteht."
+  };
 
-    if (!q1 || !q2) {
-      feedback.style.color = "orange";
-      feedback.innerText = "Bitte wähle für beide Fragen eine Antwort aus!";
+  function showInfo(key) {
+    document.getElementById('info-box').innerHTML = infoTexts[key];
+  }
+
+  // QUIZ LOGIK (4 FRAGEN AUS DEINER WUNSCH-EINFÜHRUNG)
+  const quizData = [
+    {
+      q: "Was passiert mit einem PLA-Modell, wenn es im Sommer bei über 60 °C im Auto liegt?",
+      options: [
+        "Nichts, es bleibt vollkommen stabil.",
+        "Es verformt sich und wird weich.",
+        "Es löst sich sofort in Luft auf."
+      ],
+      correct: 1
+    },
+    {
+      q: "Warum sollte man PLA-Fehldrucke nicht einfach in den Biomüll werfen?",
+      options: [
+        "Weil es sich in der Natur nicht einfach so abbaut, sondern Spezial-Industrieanlagen braucht.",
+        "Weil Tiere das Plastik sonst auffressen.",
+        "Man darf es in den Biomüll werfen, das ist kein Problem."
+      ],
+      correct: 0
+    },
+    {
+      q: "Auf wie viel Grad Celsius wird das Filament im Druckkopf ungefähr erhitzt?",
+      options: [
+        "Ca. 50 °C",
+        "Ca. 100 °C",
+        "Ca. 200 °C"
+      ],
+      correct: 2
+    },
+    {
+      q: "Welches Bauteil schmilzt den Kunststoff und trägt ihn Schicht für Schicht auf?",
+      options: [
+        "Das Steuer-Display",
+        "Der Druckkopf (Extruder & Nozzle)",
+        "Das AMS System"
+      ],
+      correct: 1
+    }
+  ];
+
+  let currentQ = 0;
+  function loadQuiz() {
+    if(currentQ >= quizData.length) {
+      document.getElementById('quiz-container').innerHTML = "<p style='color: var(--success); font-weight: bold;'>Toll gemacht! Du hast alle 4 Fragen richtig beantwortet und weisst nun bestens Bescheid!</p>";
       return;
     }
+    const q = quizData[currentQ];
+    document.getElementById('quiz-title').innerText = `Frage ${currentQ + 1} von ${quizData.length}: ${q.q}`;
+    const optsDiv = document.getElementById('quiz-options');
+    optsDiv.innerHTML = '';
+    
+    q.options.forEach((opt, idx) => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.onclick = () => checkQuiz(idx);
+      optsDiv.appendChild(btn);
+    });
+    document.getElementById('quiz-feedback').innerText = '';
+  }
 
-    if (q1.value === "b" && q2.value === "b") {
-      feedback.style.color = "green";
-      feedback.innerText = "Ausgezeichnet! Beide Antworten sind korrekt! 🎉";
+  function checkQuiz(selectedIdx) {
+    const q = quizData[currentQ];
+    if(selectedIdx === q.correct) {
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--success); font-weight:bold;'>Richtig!</span>";
+      setTimeout(() => { currentQ++; loadQuiz(); }, 1200);
     } else {
-      feedback.style.color = "red";
-      feedback.innerText = "Schade, da ist noch ein Fehler dabei. Lies dir die Erklärungen oben noch einmal durch!";
+      document.getElementById('quiz-feedback').innerHTML = "<span style='color: var(--danger); font-weight:bold;'>Probiere es nochmals! Lies oben in den Infos nach.</span>";
     }
   }
 
@@ -860,6 +942,8 @@
     document.getElementById('p4-progress-text').innerText = `${checkedCount} / ${total} Schritte (${percent}%)`;
   }
 
+  // INITIALISIERUNG
+  loadQuiz();
   generateWords();
 </script>
 
