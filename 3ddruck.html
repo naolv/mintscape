@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MINTscape – 3D-Druck Werkstatt</title>
+  <title>MINTscape – 3D-Druck-Lab</title>
   <style>
     :root {
       --primary: #0d9488;
@@ -332,19 +332,19 @@
   </nav>
 
   <header>
-    <h1>3D-Druck-Werkstatt</h1>
-    <p>Konstruiere eigene 3D-Modelle und drucke sie auf dem Bambu Lab P1S aus!</p>
+    <h1>3D-Druck-Lab</h1>
+    <p>Konstruiere eigene 3D-Modelle!</p>
   </header>
 
-  <div class="nav-label">Werkstatt-Ablauf</div>
+  <div class="nav-label">Lab-Ablauf</div>
   <div class="main-steps-grid">
     <div class="project-card active" onclick="openTab('intro')" id="card-intro">
       <h4>1. Einführung</h4>
-      <span class="badge">Grundlagen & Quiz</span>
+      <span class="badge">Grundlagen und Quiz</span>
     </div>
     <div class="project-card" onclick="openTab('slicing')" id="card-slicing">
       <h4>2. 3D-Druck</h4>
-      <span class="badge">Slicing & Check</span>
+      <span class="badge">Slicing und Check</span>
     </div>
     <div class="project-card" onclick="openTab('log')" id="card-log">
       <h4>3. Tagebuch</h4>
@@ -363,8 +363,8 @@
       <span class="badge">Sprachspiel</span>
     </div>
     <div class="project-card" onclick="openTab('p3')" id="card-p3">
-      <h4>Klammer</h4>
-      <span class="badge">Tüftler</span>
+      <h4>Büroklammer</h4>
+      <span class="badge">Tüftlerin</span>
     </div>
     <div class="project-card" onclick="openTab('p4')" id="card-p4">
       <h4>Bleistifthalter</h4>
@@ -378,7 +378,7 @@
 
   <!-- INHALT 1: EINFÜHRUNG -->
   <div id="intro" class="tab-content section-card active">
-    <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
+    <h2>1. Einführung: 3D-Druck und Materialkunde</h2>
     
     <div style="background: #f8fafc; padding: 18px; border-radius: 8px; border-left: 4px solid var(--c-intro); margin-bottom: 20px;">
       <p style="margin-top:0;"><strong>Wie funktioniert ein 3D-Drucker?</strong><br>
@@ -386,8 +386,8 @@
     </div>
 
     <div class="material-box">
-      <h3 style="margin-top:0; color: #b45309;">Wichtig: Wie umweltfreundlich ist unser Plastik (PLA)?</h3>
-      <p>Wir drucken meistens mit <strong>PLA</strong>. Es wird zwar aus Pflanzenstärke (z. B. Mais) hergestellt, aber im Chemielabor stark verändert. Deshalb gilt:</p>
+      <h3 style="margin-top:0; color: #b45309;">Wichtig: Wie umweltfreundlich ist unser Plastik?</h3>
+      <p>Wir drucken meistens mit <strong>PLA</strong>. An unserer Schule verwenden wir für den Druck PLA. Es steht für Polymilchsäure und wird zwar aus Pflanzenstärke (z. B. Mais) hergestellt, aber im Chemielabor stark verändert. Deshalb gilt:</p>
       <ul style="margin-bottom:0; padding-left:20px;">
         <li><strong>Kein Bio-Müll:</strong> PLA baut sich in der Natur oder im Heimkompost <u>nicht</u> ab. Es braucht spezielle Industrie-Anlagen!</li>
         <li><strong>Schlechte Rezyklierbarkeit:</strong> Fehldrucke landen meist im Restmüll. Drucke deshalb nicht unnötig viel Plastik aus!</li>
@@ -399,7 +399,7 @@
     <p>Klicke auf die <strong>Nummern im Bild</strong>, um die Bauteile kennenzulernen:</p>
 
     <div class="printer-wrapper">
-      <img src="p1s.png" alt="Bambu Lab P1S 3D-Drucker" onerror="this.src='https://via.placeholder.com/480x360?text=Bilddatei:+p1s.png';">
+      <img src="p1s.jpg" alt="Bambu Lab P1S 3D-Drucker" onerror="this.src='https://via.placeholder.com/480x360?text=Bilddatei:+p1s.jpg';">
       <div class="hotspot" id="spot-ams" onclick="showInfo('ams')">1</div>
       <div class="hotspot" id="spot-display" onclick="showInfo('display')">2</div>
       <div class="hotspot" id="spot-head" onclick="showInfo('head')">3</div>
@@ -458,9 +458,9 @@
         <h3>Schritt-für-Schritt Anleitung:</h3>
         <ul class="checklist">
           <li><input type="checkbox"> <span>Ziehe einen Zylinder auf die Arbeitsfläche.</span></li>
-          <li><input type="checkbox"> <span>Stelle die Masse ein: Durchmesser = 23 mm, Höhe = 2.3 mm (Exakt die Grösse einer 2-Franken-Münze).</span></li>
+          <li><input type="checkbox"> <span>Stelle die Masse ein: Durchmesser = 27 mm, Höhe = 2 mm.</span></li>
           <li><input type="checkbox"> <span>Füge einen Text oder ein Icon oben auf die Münze ein.</span></li>
-          <li><input type="checkbox"> <span>Senke den Text als "Bohrung" 0.8 mm in die Münze ab oder lasse ihn 0.8 mm nach oben herausstehen.</span></li>
+          <li><input type="checkbox"> <span>Senke den Text als "Bohrung" 0.5 mm in die Münze ab.</span></li>
           <li><input type="checkbox"> <span>Markiere beide Formen und klicke auf "Gruppieren".</span></li>
         </ul>
       </div>
@@ -471,26 +471,26 @@
     </div>
   </div>
 
-  <!-- PROJEKT 2: ALLITERATIONS- / SPRACHSPIEL-WÜRFEL -->
+  <!-- PROJEKT 2: ALLITERATIONS-WÜRFEL -->
   <div id="p2" class="tab-content section-card">
-    <h2>Projekt 2: Alliterations- & Grammatik-Würfel</h2>
+    <h2>Projekt 2: Alliterations-Würfel</h2>
     <p>Damit beim Würfeln echte <strong>Alliterationen</strong> entstehen, müssen alle 6 Wörter auf deinem Würfel mit demselben Buchstaben beginnen!</p>
     
     <!-- DYNAMISCHER AUTOMAT FUER ALLE BUCHSTABEN -->
     <div class="generator-box">
-      <h3 style="margin-top:0; color: var(--c-p2);">🎲 Alliterations-Wort-Automat</h3>
-      <p style="margin-bottom: 10px; font-size:0.9em;">Wähle einen beliebigen Buchstaben (A–Z) und die Würfel-Kategorie. Bei jedem Klick auf "Neu generieren" zieht der Automat 6 frische Zufallswörter!</p>
+      <h3 style="margin-top:0; color: var(--c-p2);">Alliterations-Wort-Automat</h3>
+      <p style="margin-bottom: 10px; font-size:0.9em;">Wähle einen beliebigen Buchstaben (A–Z) und die Würfel-Kategorie. Bei jedem Klick auf "Neu generieren" zieht der Automat 6 frische Zufallswörter! Wähle eigene, wenn die Vorschläge dir nicht gefallen.</p>
       
       <div class="generator-controls">
         <select id="gen-letter"></select>
 
         <select id="gen-type">
-          <option value="nomen">Nomen-Würfel (Namenwörter)</option>
-          <option value="verben">Verben-Würfel (Tunwörter)</option>
-          <option value="adjektive">Adjektive-Würfel (Eigenschaftswörter)</option>
+          <option value="nomen">Nomenwürfel</option>
+          <option value="verben">Verbenwürfel</option>
+          <option value="adjektive">Adjektivewürfel</option>
         </select>
 
-        <button onclick="generateWords()">🎲 Neu generieren</button>
+        <button onclick="generateWords()">Neu generieren</button>
       </div>
 
       <div class="word-grid" id="word-results"></div>
@@ -500,7 +500,7 @@
       <div>
         <ul class="checklist">
           <li><input type="checkbox"> <span>Grundkörper: Würfel erstellen (20 x 20 x 20 mm).</span></li>
-          <li><input type="checkbox"> <span>Wähle oben im Automaten deine 6 Zielwörter aus.</span></li>
+          <li><input type="checkbox"> <span>Wähle oben mithilfe des Automaten deine 6 Zielwörter aus. Achte darauf, dass die Wörter nicht zu lange sind, damit alle Buchstaben des Wortes Platz haben.</span></li>
           <li><input type="checkbox"> <span>Platziere mit dem Werkzeug "Arbeitsebene" jedes Wort auf eine Seite des Würfels.</span></li>
           <li><input type="checkbox"> <span>Stelle die Schrift als "Bohrung" ein und vertiefe sie ca. 0.5 mm in den Würfel.</span></li>
           <li><input type="checkbox"> <span>Markiere am Ende den ganzen Würfel und klicke auf "Gruppieren".</span></li>
@@ -513,23 +513,23 @@
     </div>
   </div>
 
-  <!-- PROJEKT 3: BÜROKLAMMER (MASSANGABEN EXAKT AUS DEINER ERSTEN VERSION) -->
+  <!-- PROJEKT 3: BÜROKLAMMER -->
   <div id="p3" class="tab-content section-card">
     <h2>Projekt 3: Büroklammer</h2>
-    <p>Konstruiere eine funktionierende Wäsche- oder Büroklammer aus flexiblem Kunststoff.</p>
+    <p>Konstruiere eine funktionierende Büroklammer aus flexiblem Kunststoff.</p>
     
     <div class="project-layout">
       <div>
         <ul class="checklist">
-          <li><input type="checkbox"> <span>Erstelle die Grundform mit Rechtecken und Zylindern.</span></li>
-          <li><input type="checkbox"> <span>Achte darauf, dass die Spalte für die Federung mindestens 1.5 mm breit ist.</span></li>
-          <li><input type="checkbox"> <span>Runde die Kanten ab, um ein Abbrechen der Belastungspunkte zu verhindern.</span></li>
+          <li><input type="checkbox"> <span>Erstelle den Rahmen des Büroklammers mit einem Quader der Grösse 3x4cm und einer Höhe von 1mm.</span></li>
+          <li><input type="checkbox"> <span>Achte darauf, dass der Rahmen mindestens 1.5 mm breit ist.</span></li>
+          <li><input type="checkbox"> <span>Runde die Kanten mit der Funktion "Radius" ab und erstelle auf einer Innenseite eine flache Figur oder ein Wort. Achte daruf, dass alle Teile davon gut zusammenhängen und mindestens 1.5mm dick sind.</span></li>
           <li><input type="checkbox"> <span>Gruppiere die Komponenten zu einem stabilen Bauteil.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
         <img src="klammer.png" alt="Klammer Modell" onerror="this.src='https://via.placeholder.com/350x220?text=Bilddatei:+klammer.png';">
-        <p style="font-size:0.8em; color:#64748b; margin-top:8px;">Büroklammer Modell</p>
+        <p style="font-size:0.8em; color:#64748b; margin-top:8px;">Beispiel eines erstellten Büroklammers auf Tinkercad</p>
       </div>
     </div>
   </div>
@@ -652,7 +652,7 @@
 
   <!-- PROJEKT 5: SCULPTGL -->
   <div id="p5" class="tab-content section-card">
-    <h2>Projekt 5: Digitaler Ton (SculptGL)</h2>
+    <h2>Projekt 5: Digitaler Ton</h2>
     <p>Erstelle freie organische Formen und Skulpturen wie mit echtem Ton auf <strong>stephaneginier.com/sculptgl</strong>.</p>
     
     <div class="project-layout">
@@ -662,7 +662,7 @@
           <li><input type="checkbox"> <span>Öffne SculptGL im Browser auf dem Tablet.</span></li>
           <li><input type="checkbox"> <span>Nutze das Werkzeug "Brush" oder "Grab", um die Kugel zu verformen.</span></li>
           <li><input type="checkbox"> <span>Aktiviere die Symmetrie, um Gesichter oder Tiere leicht zu modellieren.</span></li>
-          <li><input type="checkbox"> <span>Exportiere am Ende das Werkstück als .STL-Datei für Tinkercad oder den Drucker.</span></li>
+          <li><input type="checkbox"> <span>Exportiere am Ende das Werkstück als .STL-Datei nur aus, wenn es dir aussenordentlich gut gefällt und du es unbedingt ausdrucken willst.</span></li>
         </ul>
       </div>
       <div class="project-image-box">
@@ -777,14 +777,14 @@
 
   const wordPools = {
     A: {
-      nomen: ["Affe", "Apfel", "Auto", "Ameise", "Ananas", "Astronaut", "Adler", "Anker", "Auge", "Aquarium", "Alpaka", "Atlas"],
+      nomen: ["Affe", "Apfel", "Auto", "Ameise", "Ananas", "Astronaut", "Adler", "Anker", "Auge", "Aquarium", "Alpaka", "Ampel"],
       verben: ["angeln", "atmen", "arbeiten", "antworten", "auslachen", "anfangen", "anrufen", "aufstehen", "angreifen", "atmen"],
-      adjektive: ["alt", "aktiv", "ängstlich", "atemberaubend", "angenehm", "anders", "arm", "attraktiv", "atlantisch", "aussergewöhnlich"]
+      adjektive: ["alt", "aktiv", "ängstlich", "atemberaubend", "angenehm", "anders", "arm", "attraktiv", "artig", "aussergewöhnlich"]
     },
     B: {
       nomen: ["Bär", "Boot", "Baum", "Biene", "Ball", "Buch", "Brot", "Blitz", "Brücke", "Burg", "Bauer", "Besen"],
       verben: ["bauen", "biegen", "bringen", "beissen", "backen", "brüllen", "baden", "basteln", "braten", "bewegen"],
-      adjektive: ["bunt", "blau", "breit", "böse", "brav", "blitzschnell", "bequem", "bitter", "bekannt", "berühmt"]
+      adjektive: ["bunt", "blau", "breit", "böse", "brav", "brüchig", "bequem", "bitter", "bekannt", "berühmt"]
     },
     C: {
       nomen: ["Clown", "Computer", "Chef", "Chance", "Couch", "Camping", "Chaos", "Cello", "Cousin"],
@@ -792,34 +792,34 @@
       adjektive: ["cool", "chaotisch", "clever", "courageiert", "cremig"]
     },
     D: {
-      nomen: ["Drache", "Delfin", "Dach", "Dorf", "Donner", "Diamant", "Dose", "Dinosaurier", "Detektiv"],
+      nomen: ["Dachs", "Delfin", "Dach", "Dorf", "Donner", "Diamant", "Dose", "Dorn", "Dame"],
       verben: ["drehen", "drücken", "denken", "dauern", "danken", "duften", "demonstrieren", "diskutieren"],
       adjektive: ["dunkel", "dick", "dünn", "deutlich", "dankbar", "dringend", "direkt", "doppelt"]
     },
     E: {
-      nomen: ["Elefant", "Eule", "Eis", "Erde", "Engel", "Esel", "Eimer", "Eichhörnchen", "Eule"],
-      verben: ["essen", "erklären", "erfinden", "erzählen", "erinnern", "erleben", "erreichen", "erkennen"],
-      adjektive: ["ehrlich", "einzigartig", "eng", "einfach", "egal", "eifersüchtig", "edel", "elastisch"]
+      nomen: ["Elefant", "Eichel", "Eis", "Erde", "Engel", "Esel", "Eimer", "Ei", "Eule"],
+      verben: ["essen", "erklären", "erfinden", "erzählen", "erinnern", "erleben", "erreichen", "erben"],
+      adjektive: ["ehrlich", "eckig", "eng", "einfach", "egal", "eifersüchtig", "edel", "elastisch"]
     },
     F: {
-      nomen: ["Fisch", "Frosch", "Feder", "Feuer", "Fuchs", "Flasche", "Fenster", "Fahrrad", "Fels", "Flugzeug"],
+      nomen: ["Frost", "Frosch", "Feder", "Feuer", "Fuchs", "Flasche", "Fenster", "Fahrrad", "Fels", "Fahne"],
       verben: ["fliegen", "fangen", "finden", "füttern", "formen", "freuen", "fallen", "fischen", "frieren"],
       adjektive: ["flink", "frech", "fein", "furchtlos", "fett", "fantasievoll", "falsch", "freundlich", "fleissig"]
     },
     G: {
-      nomen: ["Giraffe", "Garten", "Gold", "Geist", "Geschenk", "Gitarre", "Glas", "Geige", "Gürtel"],
+      nomen: ["Giraffe", "Garten", "Gold", "Geist", "Geschenk", "Geisel", "Glas", "Geige", "Gürtel"],
       verben: ["gehen", "geben", "gewinnen", "glauben", "graben", "grüssen", "gleiten", "geniessen"],
       adjektive: ["gross", "gelb", "gut", "gemütlich", "gefährlich", "glücklich", "giftig", "glatt"]
     },
     H: {
-      nomen: ["Hund", "Haus", "Hase", "Herz", "Himmel", "Hexenhut", "Horn", "Hubschrauber", "Hammer"],
+      nomen: ["Hund", "Haus", "Hase", "Herz", "Himmel", "Hand", "Horn", "Heu", "Hammer"],
       verben: ["laufen", "helfen", "hören", "halten", "hüpfen", "hoffen", "holen", "heilen"],
       adjektive: ["hell", "hart", "heiss", "hungrig", "höflich", "heiter", "heimlich", "hoch"]
     },
     I: {
-      nomen: ["Igel", "Insel", "Indianer", "Insekt", "Idee", "Instrument", "Ingenieur"],
+      nomen: ["Igel", "Insel", "Indianer", "Insekt", "Idee", "Instrument", "Impfung"],
       verben: ["imitieren", "informieren", "interessieren", "irren", "isolieren"],
-      adjektive: ["intelligent", "interessant", "intakt", "ideal", "international"]
+      adjektive: ["intelligent", "interessant", "intakt", "ideal", "international", "irr"]
     },
     J: {
       nomen: ["Junge", "Jacke", "Jahr", "Juwel", "Joghurt", "Jäger", "Jongleur"],
@@ -849,12 +849,12 @@
     O: {
       nomen: ["Ozean", "Opa", "Oma", "Obst", "Orchester", "Osterhase", "Oktopus", "Orgel"],
       verben: ["öffnen", "ordnen", "operieren", "opfern", "organisieren"],
-      adjektive: ["offen", "orange", "ordentlich", "optimistisch", "originell"]
+      adjektive: ["offen", "orange", "ordentlich", "optimistisch", "originell", "ölig"]
     },
     P: {
       nomen: ["Pferd", "Papagei", "Pirat", "Paket", "Pinsel", "Planeten", "Palme", "Panther"],
       verben: ["parken", "passen", "probieren", "putzen", "planen", "pflanzen"],
-      adjektive: ["perfekt", "pünktlich", "praktisch", "positiv", "prächtig"]
+      adjektive: ["perfekt", "pünktlich", "praktisch", "positiv", "prächtig", "prall", "peinlich"]
     },
     Q: {
       nomen: ["Qualle", "Quelle", "Quiz", "Quatsch", "Quittung"],
@@ -864,7 +864,7 @@
     R: {
       nomen: ["Roboter", "Rakete", "Ritter", "Regen", "Ring", "Rose", "Rucksack", "Riesenkrake"],
       verben: ["rennen", "rufen", "reiten", "riechen", "rechnen", "reparieren", "rasten"],
-      adjektive: ["rot", "ruhig", "reich", "riesig", "richtig", "rund", "rasch"]
+      adjektive: ["rot", "ruhig", "reich", "riesig", "richtig", "rund", "rasch", "roh"]
     },
     S: {
       nomen: ["Sonne", "Schiff", "Schlange", "Stern", "Sessel", "Schuh", "Schnee", "Spatz", "Schwert"],
@@ -874,17 +874,17 @@
     T: {
       nomen: ["Tiger", "Tisch", "Traktor", "Turm", "Tasche", "Traum", "Trommel", "Tasse"],
       verben: ["tanzen", "trinken", "tragen", "träumen", "treffen", "tauchen", "testen"],
-      adjektive: ["toll", "traurig", "tief", "treu", "trocken", "tapfer"]
+      adjektive: ["toll", "traurig", "tief", "treu", "trocken", "tapfer", "träg", "teuer"]
     },
     U: {
-      nomen: ["Uhr", "Ufer", "Ungeheuer", "Urlaub", "Universum", "U-Boot"],
+      nomen: ["Uhr", "Ufer", "Ungeheuer", "Urlaub", "Universum", "U-Boot", "Uhu"],
       verben: ["umarmen", "untersuchen", "unterrichten", "üben", "überraschen"],
-      adjektive: ["unglaublich", "uralt", "unheimlich", "unsichtbar", "unendlich"]
+      adjektive: ["unglaublich", "uralt", "unheimlich", "unsichtbar", "unendlich", "ulkig"]
     },
     V: {
-      nomen: ["Vogel", "Vulkan", "Vater", "Vase", "Sonne", "Smaragd"],
-      verben: ["verstehen", "verstecken", "verlieren", "versuchen", "verwandeln"],
-      adjektive: ["viel", "voll", "vorsichtig", "verschieden", "violett"]
+      nomen: ["Vogel", "Vulkan", "Vater", "Vase", "Vorort", "Versuch", "Vampir", "Vergleich"],
+      verben: ["verstehen", "verstecken", "verlieren", "versuchen", "verwandeln", "versprechen", "verbinden"],
+      adjektive: ["viel", "voll", "vorsichtig", "verschieden", "violett", "vage", "verantwortlich"]
     },
     W: {
       nomen: ["Wald", "Wasser", "Würfel", "Wolke", "Wind", "Wurm", "Weg", "Wal", "Wüste"],
@@ -892,7 +892,7 @@
       adjektive: ["wild", "weiss", "weich", "wichtig", "wunderbar", "warm", "winzig"]
     },
     X: {
-      nomen: ["Xylophon", "Xenon", "Xerox"],
+      nomen: ["Xylophon", "Xenon", "Xerox", "X-Beine"],
       verben: ["xylen"],
       adjektive: ["x-beliebig"]
     },
