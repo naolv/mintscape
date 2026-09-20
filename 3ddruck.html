@@ -376,7 +376,7 @@
     </div>
   </div>
 
-  <!-- INHALT 1: NEUE EINFÜHRUNG AUS DEINEM VORHERIGEN CODE -->
+  <!-- INHALT 1: EINFÜHRUNG -->
   <div id="intro" class="tab-content section-card active">
     <h2>1. Einführung: 3D-Druck & Materialkunde</h2>
     
@@ -511,7 +511,7 @@
     </div>
   </div>
 
-  <!-- PROJEKT 3: BÜROKLAMMER -->
+  <!-- PROJEKT 3: BÜROKLAMMER (ZURÜCKGESETZT AUF INITIALE VERSION) -->
   <div id="p3" class="tab-content section-card">
     <h2>Projekt 3: Büroklammer</h2>
     <p>Konstruiere eine funktionierende Wäsche- oder Büroklammer aus flexiblem Kunststoff.</p>
@@ -647,7 +647,7 @@
     </div>
   </div>
 
-  <!-- PROJEKT 5: SCULPTGL -->
+  <!-- PROJEKT 5: SCULPTGL (MIT KORREKTEM BILD-PFAD sculptgl.png) -->
   <div id="p5" class="tab-content section-card">
     <h2>Projekt 5: Digitaler Ton (SculptGL)</h2>
     <p>Erstelle freie organische Formen und Skulpturen wie mit echtem Ton auf <strong>stephaneginier.com/sculptgl</strong>.</p>
@@ -663,7 +663,8 @@
         </ul>
       </div>
       <div class="project-image-box">
-        <img src="https://via.placeholder.com/350x220?text=SculptGL+Skulptur" alt="SculptGL Modell">
+        <img src="sculptgl.png" alt="SculptGL Modell" onerror="this.src='https://via.placeholder.com/350x220?text=SculptGL+Skulptur';">
+        <p style="font-size:0.8em; color:#64748b; margin-top:8px;">SculptGL Skulptur</p>
       </div>
     </div>
   </div>
@@ -679,7 +680,7 @@
     document.getElementById('card-' + tabId).classList.add('active');
   }
 
-  // INFORMATIONEN ZU DEN HOTSPOTS DES DRUCKERS (AUS DEINER WUNSCH-EINFÜHRUNG)
+  // INFORMATIONEN ZU DEN HOTSPOTS DES DRUCKERS
   const infoTexts = {
     ams: "<strong>1. AMS System (Farbwechsler):</strong> Hält bis zu 4 Filament-Rollen bereit und wechselt beim Drucken automatisch die Farben.",
     display: "<strong>2. Steuer-Display:</strong> Hier wird der Druck gestartet, die Temperatur überwacht und der Status angezeigt.",
@@ -691,7 +692,7 @@
     document.getElementById('info-box').innerHTML = infoTexts[key];
   }
 
-  // QUIZ LOGIK (4 FRAGEN AUS DEINER WUNSCH-EINFÜHRUNG)
+  // QUIZ LOGIK (4 FRAGEN)
   const quizData = [
     {
       q: "Was passiert mit einem PLA-Modell, wenn es im Sommer bei über 60 °C im Auto liegt?",
@@ -942,7 +943,7 @@
     document.getElementById('p4-progress-text').innerText = `${checkedCount} / ${total} Schritte (${percent}%)`;
   }
 
-  // INITIALISIERUNG
+  // INITIALISIERUNG BEIM LADEN
   loadQuiz();
   generateWords();
 </script>
